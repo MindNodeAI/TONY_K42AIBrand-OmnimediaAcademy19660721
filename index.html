@@ -1393,59 +1393,81 @@
     </div>
     <div class="p-6 overflow-y-auto max-h-[calc(88vh-70px)] space-y-4">
       <p class="text-xs sm:text-sm text-muted leading-relaxed">
-        請前往 <strong class="text-ink">Firebase Console → Firestore Database → Rules（規則）</strong>，將下方完整規則貼上並點擊「發布（Publish）」。此規則已針對 <code class="font-mono text-teal">mindnodeai@gmail.com</code> 最高權限、管理員後台以及雲端 <code class="font-mono text-teal">skills</code> 集合設定嚴密保護：
+        請前往 <strong>Firebase Console → Firestore Database → Rules（規則）</strong>，將以下完整規則貼上並點擊「發布（Publish）」。此規則已嚴格設定：<strong>唯獨系統創作者（mindnodeai@gmail.com）可新增、修改、上傳與刪除雲端 Skill</strong>：
       </p>
       <pre id="firestoreRulesCode" class="p-4 rounded-2xl bg-ink text-lime font-mono text-xs leading-relaxed overflow-x-auto select-all"></pre>
     </div>
   </dialog>
 
-  <!-- ==================== 5. 會員歷史紀錄與學習軌跡檢視 Modal ==================== -->
-  <dialog id="memberHistoryDialog" class="rounded-2xl border border-line w-[min(760px,94vw)] max-h-[86vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/80">
-    <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-line">
+  <!-- ==================== 5.D 會員歷史紀錄與實作筆記檢視 Modal ==================== -->
+  <dialog id="memberHistoryDialog" class="rounded-3xl border border-line w-[min(820px,95vw)] max-h-[88vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/80">
+    <div class="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-white border-b border-line">
       <div>
-        <span class="text-[11px] font-bold tracking-widest text-teal uppercase block">MEMBER ACTIVITY LOG & WORKSPACE</span>
-        <h3 id="historyModalTitle" class="text-lg font-extrabold text-ink">會員歷史紀錄與實作詳情</h3>
+        <span class="text-[10px] font-bold tracking-widest text-teal uppercase block">MEMBER ACTIVITY & WORKSPACE LOG</span>
+        <h3 id="historyModalTitle" class="text-base sm:text-lg font-extrabold text-ink">會員歷史紀錄與實作詳情</h3>
       </div>
       <button id="closeHistoryDialogBtn" type="button" class="px-3 py-1.5 rounded-lg border border-line hover:bg-paper text-xs font-bold">
         關閉 ×
       </button>
     </div>
-    <div id="memberHistoryContent" class="p-6 overflow-y-auto max-h-[calc(86vh-70px)] space-y-4 text-xs sm:text-sm">
-      <!-- 由 JS 動態渲染會員歷史登入時間與五大單元實作摘要 -->
+    <div id="memberHistoryContent" class="p-6 overflow-y-auto max-h-[calc(88vh-68px)] space-y-5 text-xs sm:text-sm">
+      <!-- 由 JS 動態渲染該會員之登入歷史與五大單元筆記 -->
     </div>
   </dialog>
 
-  <!-- 手冊檢視 Modal (Dialog) -->
-  <dialog id="manualDialog" class="rounded-2xl border border-line w-[min(860px,94vw)] max-h-[88vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/75">
-    <div class="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-white border-b border-line">
-      <div>
-        <span id="manualTag" class="text-[11px] font-bold tracking-widest text-teal uppercase block">SKILL MANUAL</span>
-        <h3 id="manualTitle" class="text-lg sm:text-xl font-extrabold text-ink"></h3>
+  <!-- 手冊檢視 Modal (Dialog) — 升級為「快速使用與檢核」與「完整使用說明 (專屬實戰手冊)」雙分頁架構 -->
+  <dialog id="manualDialog" class="rounded-3xl border border-line w-[min(960px,95vw)] max-h-[90vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/75">
+    <!-- 頂部標題與操作列 -->
+    <div class="sticky top-0 z-20 bg-white border-b border-line">
+      <div class="flex flex-wrap items-center justify-between gap-3 px-6 pt-4 pb-3">
+        <div>
+          <span id="manualTag" class="text-[11px] font-bold tracking-widest text-teal uppercase block">SKILL MANUAL</span>
+          <h3 id="manualTitle" class="text-lg sm:text-xl font-extrabold text-ink"></h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="copyManualBtn" type="button" class="px-3.5 py-1.5 rounded-lg bg-teal text-white text-xs font-semibold hover:bg-teal-dark transition-colors">
+            複製 SKILL.md 全文
+          </button>
+          <button id="closeDialog" type="button" aria-label="關閉手冊" class="px-3 py-1.5 rounded-lg border border-line hover:bg-paper text-xs font-bold">
+            關閉 ×
+          </button>
+        </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button id="copyManualBtn" type="button" class="px-3.5 py-1.5 rounded-lg bg-teal text-white text-xs font-semibold hover:bg-teal-dark transition-colors">
-          複製 SKILL.md 全文
+
+      <!-- 雙分頁切換列 (快速使用與檢核 / 完整使用說明 (專屬實戰手冊)) -->
+      <div class="flex items-center gap-2 px-6 border-t border-line/60 bg-[#faf9f5]">
+        <button id="tabManualQuickBtn" type="button" class="py-3 px-4 text-xs sm:text-sm font-bold border-b-2 border-transparent text-muted hover:text-ink transition-all">
+          快速使用與檢核
         </button>
-        <button id="closeDialog" type="button" aria-label="關閉手冊" class="px-3 py-1.5 rounded-lg border border-line hover:bg-paper text-xs font-bold">
-          關閉 ×
+        <button id="tabManualFullBtn" type="button" class="py-3 px-4 text-xs sm:text-sm font-extrabold border-b-[3px] border-teal text-ink transition-all">
+          完整使用說明 (專屬實戰手冊)
         </button>
       </div>
     </div>
-    <div class="p-6 overflow-y-auto max-h-[calc(88vh-76px)] space-y-6">
-      <div>
-        <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2.5">單元核心執行步驟（SOP）</h4>
-        <ol id="manualStepsList" class="space-y-2 text-sm text-ink bg-white p-5 rounded-xl border border-line"></ol>
+
+    <div class="p-5 sm:p-7 overflow-y-auto max-h-[calc(90vh-124px)]">
+      <!-- 分頁 1：完整使用說明 (專屬實戰手冊) — 預設顯示 -->
+      <div id="manualFullTabPanel" class="bg-white rounded-2xl border border-line p-5 sm:p-8 shadow-sm space-y-7">
+        <!-- 由 JS 動態渲染一～六完整實戰手冊結構 -->
       </div>
-      <div>
-        <div class="flex items-center justify-between mb-2.5">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-muted">SKILL.md 規範與共同工作契約</h4>
-          <span class="text-[11px] text-muted">可直接複製貼入 AI 對話視窗</span>
+
+      <!-- 分頁 2：快速使用與檢核 (SOP + SKILL.md 原始規範) -->
+      <div id="manualQuickTabPanel" class="hidden space-y-6">
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2.5">單元核心執行步驟（SOP）</h4>
+          <ol id="manualStepsList" class="space-y-2 text-sm text-ink bg-white p-5 rounded-xl border border-line"></ol>
         </div>
-        <div id="manualFormattedView" class="space-y-4 bg-white p-5 sm:p-6 rounded-xl border border-line text-sm leading-relaxed text-ink"></div>
-        <details class="mt-3">
-          <summary class="text-xs font-semibold text-muted hover:text-teal cursor-pointer">檢視純文字 Markdown 原始碼</summary>
-          <pre id="manualText" class="mt-2 whitespace-pre-wrap font-mono text-xs leading-relaxed bg-white p-4 rounded-xl border border-line overflow-x-auto text-muted"></pre>
-        </details>
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-muted">SKILL.md 規範與共同工作契約</h4>
+            <span class="text-[11px] text-muted">可直接複製貼入 AI 對話視窗</span>
+          </div>
+          <div id="manualFormattedView" class="space-y-4 bg-white p-5 sm:p-6 rounded-xl border border-line text-sm leading-relaxed text-ink"></div>
+          <details class="mt-3">
+            <summary class="text-xs font-semibold text-muted hover:text-teal cursor-pointer">檢視純文字 Markdown 原始碼</summary>
+            <pre id="manualText" class="mt-2 whitespace-pre-wrap font-mono text-xs leading-relaxed bg-white p-4 rounded-xl border border-line overflow-x-auto text-muted"></pre>
+          </details>
+        </div>
       </div>
     </div>
   </dialog>
@@ -1866,6 +1888,322 @@ let currentManualSubIdx = null;
 let timer;
 let confirmCallback = null;
 let lastLocalEditTime = 0; // 記錄最後一次本地編輯時間戳，防止雲端回音覆蓋正在打字的內容
+
+// 各 Skill 專屬之「完整使用說明 (專屬實戰手冊)」六大結構資料庫
+const SKILL_PRACTICAL_HANDBOOK_MAP = {
+  "tony-omnichannel-issue-planner": {
+    badges: ["對應領航員：W1 議題策略工作坊", "對應指導員：U1 全通路議題策劃", "教學版 v1.0.0"],
+    positioning: "將品牌商業目標與受眾日常情境連結，從「單向自嗨推銷」轉化為「受眾有感、媒體與社群願意討論的品牌議題」，並規劃雙通路接力與單一變因測試計畫。",
+    structureTitle: "二、全通路議題策劃四段式結構",
+    tableHeaders: ["階段", "策劃重點", "交付與檢核規範"],
+    tableRows: [
+      ["痛點與情境界定 (Insight)", "區分已觀察到的客觀事實與待驗證的原因假設", "嚴禁把「現代人都很焦慮」等空泛臆測當成既定事實"],
+      ["三案議題評比 (Evaluation)", "從受眾關聯、品牌可信度、討論空間、風險逐一比較", "評分為策劃判斷依據，絕不宣稱或保證爆款聲量"],
+      ["雙通路接力分工 (Relay)", "設定破圈曝光通路與私域收單通路的交接任務", "資源有限時強制聚焦 2 個主力通路，避免多頭馬車"],
+      ["黃金開頭測試 (A/B Hook)", "針對同一議題設計 3 組不同切角的開頭 Hook", "固定正片與 CTA，僅測試單一變因並設定觀察窗口"]
+    ],
+    sopSteps: [
+      "貼上您觀察到的受眾現象與品牌商業目標，請 AI 協助拆解「觀察事實」與「原因假設」。",
+      "檢視 AI 提出的 3 個議題方向比較表，挑選品牌具備「真實證據（如產品規格、服務紀錄）」支撐的議題。",
+      "確認最終產出的「通路接力表」與「三組測試 Hook」，核對沒有任何過度承諾或無根據的療效／數據宣稱。"
+    ],
+    starterTask: "請使用本 Skill（tony-omnichannel-issue-planner），針對虛構咖啡品牌「森日咖啡」想提升平日午後到店率的目標，幫我拆解受眾情境（區分觀察事實與假設），並提出 3 個不誇大療效的議題方向比較表與 2 個主力通路接力規劃：[貼上您的品牌現況與觀察]。",
+    refineTask: "請保留目前已選定的「午後三點不心悸的專注儀式」議題結構，只重新改寫 3 組針對「30 歲自由工作者」的開頭 Hook（分別採痛點提問、反常識對比、職人細節切角），每組控制在 35 字以內。",
+    pitfallWrong: "「**全網最神午後提神神器！** 喝一杯森日咖啡保證讓你下午工作效率暴增 300%、晚上絕對不失眠，快私訊搶購！」（含誇大不實成效保證與恐嚇式行銷）",
+    pitfallRight: "「下午三點想找個安靜插座推進工作，卻又擔心喝完咖啡晚上睡不著？在森日咖啡，我們每週三微調低咖啡因配方並提供半山焙茶拿鐵，陪你切換午後專注節奏（實際風味感受因個人體質而異）。」",
+    checklist: [
+      "觀察事實與原因假設已明確分開標示，不捏造市調數據或客戶見證。",
+      "通路接力表已明確定義各通路的「單一任務」與「CTA 交接點」。",
+      "三組 Hook 測試計畫已設定具體觀察指標（曝光、有效互動、名單轉換）與修訂條件。"
+    ]
+  },
+  "tony-multi-brand-rag-coach": {
+    badges: ["對應領航員：W2 品牌知識工程坊", "對應指導員：U2 多品牌 RAG 架構教練", "教學版 v1.0.0"],
+    positioning: "為代理商與多產品線企業建立嚴格的「資料邊界」與「可信來源清冊」，防止 AI 發生跨客戶資料混用、引用過期報價單或無中生有（幻覺）。",
+    structureTitle: "二、多品牌知識庫與 RAG 四層防禦結構",
+    tableHeaders: ["防禦層級", "建置重點", "資安與品質規範"],
+    tableRows: [
+      ["來源清冊與標籤 (Metadata)", "建立 tenant_id、brand_id、版本號、有效日與擁有人", "多客戶資料預設嚴格隔離，過期文件必須標記封存"],
+      ["模式分流選擇 (Mode A/B)", "區分「A 來源型知識庫操作卡」與「B 工程級 RAG」", "不把單純上傳 PDF 檔案誇大稱為已完成工程級 RAG 部署"],
+      ["權限與檢索隔離 (Isolation)", "A 模式分立獨立筆記本；B 模式於伺服器端驗證 Tenant", "工程環境絕不可僅依賴提示詞（Prompt）或前端下拉選單隔離"],
+      ["黃金十題評測 (10-Test Suite)", "涵蓋正常題、缺資料、跨品牌混淆、版本衝突与注入攻擊", "無明確文件依據時必須觸發「誠實拒答或反問釐清」"]
+    ],
+    sopSteps: [
+      "盤點手邊各品牌／產品線的原始文件（報價單、FAQ、產品規格表），決定本次採用「A 來源型教學」或「B 工程設計」。",
+      "將品牌來源清單貼給 AI，生成包含版本號、有效日期與授權範圍的「標準品牌來源清冊」。",
+      "執行底部產出的「10 題壓力測試集」，特別測試同名商品跨品牌提問與無資料提問，確認 AI 不會張冠李戴。"
+    ],
+    starterTask: "請使用本 Skill（tony-multi-brand-rag-coach），我們同時服務「森日咖啡」與「海岸茶室」兩個虛構品牌，兩者剛好都有名為「晨光禮盒」的商品。請幫我設計「A 來源型知識庫操作卡」、來源清冊欄位表，以及 10 道防混淆與防幻覺測試題：[貼上現有文件清單]。",
+    refineTask: "請針對第 6～8 題「跨品牌同名商品混淆測試」與「過期春季報價單衝突測試」，補充更嚴格的「標準預期回答範本」與「不合格判定標準」，不需重寫前面章節。",
+    pitfallWrong: "「我已經把 A 客戶跟 B 客戶的機密報價單都丟進同一個 AI 對話裡，並在 Prompt 寫『請只回答 A 客戶』，這樣就完成企業級資安隔離了！」（極高洩密與混用風險）",
+    pitfallRight: "「在教學與日常作業（A 模式）中，我們為每個品牌建立完全獨立的 NotebookLM 筆記本；在系統工程（B 模式）中，先由後端驗證使用者 Tenant 權限，再僅針對該 brand_id 索引分區進行檢索，並在無依據時執行標準拒答。」",
+    checklist: [
+      "每份來源文件皆已標註 brand_id、版本號、生效日與可用範圍，無未授權機密外流。",
+      "已完成至少 10 題測試集（含正常 3、缺資料 2、跨品牌 2、版本衝突 1、注入 1、無權限 1）。",
+      "明確區分「知識庫操作設計」與「實際工程部署狀態」，不冒稱系統已自動上線。"
+    ]
+  },
+  "tony-brand-content-factory": {
+    badges: ["對應領航員：W3 內容矩陣工作坊", "對應指導員：U3 品牌故事與社群工廠", "教學版 v1.0.0"],
+    positioning: "以一份經過事實查核的「品牌故事母稿」與「語氣邊界卡」為核心，批量衍生出適合 Facebook、IG、Threads 與 LINE 閱讀節奏的高共鳴內容，自動濾除誇大詞與機械感。",
+    structureTitle: "二、品牌母稿與跨平台內容四段式結構",
+    tableHeaders: ["段落 / 模組", "寫作重點", "字數與排版規範"],
+    tableRows: [
+      ["事實與語氣卡 (Voice Card)", "明確界定「可以說、有條件說、絕對禁說」與常用／禁用詞", "無真實語氣樣本時不宣稱已學會專屬文風，嚴禁杜撰創辦人經歷"],
+      ["故事母稿核心 (Core Story)", "拆解人物、願望、阻礙、選擇、真實行動與可驗證結果", "聚焦受眾能投射的生活意義，不寫歌功頌德的八股公關稿"],
+      ["四大內容矩陣 (Matrix)", "展開為「教育知識、情緒共鳴、真實證據、行動轉換」四切角", "跨平台必須重寫閱讀節奏與分段空行，絕不只做字數刪減"],
+      ["整批審稿與去重 (Audit)", "逐篇檢查 Hook 是否重複、事實是否一致、CTA 是否清晰", "清除多餘 Markdown 符號，將查證說明與可貼成稿分區呈現"]
+    ],
+    sopSteps: [
+      "貼上品牌的真實事件、產品規格與希望保留的說話語氣（以及絕對不想出現的禁用詞），建立「品牌事實與語氣卡」。",
+      "檢視 AI 拆解的「故事母稿」與「6 篇跨平台內容矩陣」，可先驗收前 2 篇風格，確認滿意後再展開全批完稿。",
+      "核對底部的「整批審稿表」，確認每篇切角不重複，且沒有擅自加上未經測量的數據（如未驗證的減碳百分比或療效）。"
+    ],
+    starterTask: "請使用本 Skill（tony-brand-content-factory），將以下虛構品牌「森日咖啡」推行熟客自帶杯折抵與每週三調整低咖啡因配方的真實紀錄，先建立「品牌事實與語氣卡」及「故事母稿」，再規劃 6 篇跨平台貼文矩陣（IG、Threads、LINE），不誇大環保減碳數據：[貼上品牌素材]。",
+    refineTask: "請針對矩陣中的第 2 篇（Threads 共鳴短文）與第 5 篇（LINE 熟客推播），改為「像鄰居烘豆師日常聊天」的溫和克制語氣，去除所有「**」星號與驚嘆號轟炸，不重寫其他篇。",
+    pitfallWrong: "「**震撼全網！** 創辦人走遍全球三百座莊園流淚研發！喝一杯森日咖啡等於為地球種下十棵樹、100% 根治失眠焦慮，今天不買對不起自己！」（捏造經歷、誇大數據且充滿罐頭推銷感）",
+    pitfallRight: "「過去一年，店裡累積了 1,200 次熟客自帶杯的日常紀錄。我們沒有做偉大的口號，只是每週三固定在烘豆機前微調低咖啡因豆的曲線，讓午後三點走進來的你，能有一杯不給夜晚添負擔的溫熱拿鐵。」",
+    checklist: [
+      "不捏造創辦人傳奇、客戶見證、未測量的數據或保證成效。",
+      "跨平台稿件已依各平台閱讀習慣重新調整開頭 Hook、空行節奏與 CTA。",
+      "每篇完稿皆附來源 ID 與整批審稿表，確保中心問題與開頭不重複。"
+    ]
+  },
+  "tony-proposal-visual-director": {
+    badges: ["對應領航員：W4 視覺提案工作坊", "對應指導員：U4 廣告視覺與 Mockup 導演", "教學版 v1.0.0"],
+    positioning: "從品牌識別資產盤點出發，將抽象創意轉化為「三案視覺比稿」與「三種跨版位應用規格（社群、網站橫幅、實體燈箱／包裝 Mockup）」，讓提案一眼展現專業完成度。",
+    structureTitle: "二、提案級視覺與多版位 Mockup 四階段結構",
+    tableHeaders: ["階段", "視覺導演重點", "規格與合規規範"],
+    tableRows: [
+      ["資產與邊界盤點 (Assets)", "盤點真實 Logo、標準色票、商品外觀材質與使用權", "無官方素材時明示「概念品牌提案」，不以近似商標冒充官方 Logo"],
+      ["三案視覺比稿 (3 Concepts)", "提出 3 組不同構圖、色彩、光影與受眾理由的視覺方向", "使用者僅要求企劃方案時不自動生圖，先鎖定方向再展開"],
+      ["固定錨點與版位展開 (Adapt)", "建立主視覺固定錨點，獨立設計 4:5 社群、16:9 橫幅與實體場景", "嚴禁將同一張正方形圖片硬拉變形套用至所有橫豎版位"],
+      ["留白座標與完稿區分 (Spec)", "逐張標註安全留白區（供壓字與後製置入真實 Logo）、透視與光線", "明確區分「提案概念示意圖」與「正式印刷 CMYK 完稿檔」"]
+    ],
+    sopSteps: [
+      "提供品牌現有的標準色、商品材質照片描述與預計展示的 3 個廣告版位（如 IG 4:5、官網 16:9、門市海報）。",
+      "從 AI 提出的「三案視覺方向比較表」中選定 1 案作為主視覺錨點，檢視三種版位的構圖與安全留白設計。",
+      "複製「逐張中英對照生圖提示詞」至繪圖工具產圖，並依標註座標後製置入真實 Logo 與標準字。"
+    ],
+    starterTask: "請使用本 Skill（tony-proposal-visual-director），為虛構品牌「森日咖啡」（標準色：森林深綠 #185B51、亞麻米白 #F5F4EE；商品：霧面陶瓷杯與牛皮紙耳掛盒）提出 3 個午後專注主題的視覺方向比較，並針對選定方向設計 IG 4:5、官網 16:9 Banner 與街角木質 A 字立牌三種版位規格與生圖提示詞：[貼上視覺需求]。",
+    refineTask: "請針對「版位 2：官網 16:9 橫幅 Banner」微調構圖提示詞，將商品群像集中在畫面右側三分之一處，左側保留 55% 純淨亞麻米白散景安全留白區供放主標題，並保持暖陽斜射光影一致。",
+    pitfallWrong: "「直接請 AI 在杯身上拼出品牌中文字跟官方 Logo，再把同一張 1:1 圖片直接拉寬當成 16:9 官網橫幅，並跟客戶說這張圖可以直接送印刷廠印製！」（Logo 錯字變形、比例失真且無出血規格）",
+    pitfallRight: "「針對 4:5 社群圖與 16:9 網站橫幅分別設計獨立構圖與景深；杯身預留乾淨材質面並標註後製貼圖座標以置入 100% 精準的官方向量 Logo；提案簡報中明確標示此為概念呈現，正式印刷將另依刀模與 CMYK 完稿。」",
+    checklist: [
+      "三種應用版位皆具備獨立構圖、尺寸比例與文字安全留白區（Safe Zone）。",
+      "已妥善處理真實 Logo 與標準字（保留後製座標，不以 AI 亂碼近似商標冒充）。",
+      "手機／網站 Mockup 畫面僅作版位示意，不偽造已投放數據或虛假媒體報導。"
+    ]
+  },
+  "tony-brand-audio-director": {
+    badges: ["對應領航員：W5 聽覺識別工作坊", "對應指導員：U5-A 品牌聲音與旁白導演", "教學版 v1.0.0"],
+    positioning: "為品牌建立一致的「聽覺識別卡（Audio Identity）」，精準控制 15／30／60 秒短影音口播旁白的重音、呼吸停頓與專名讀音，並配置不搶人聲的背景配樂提示詞。",
+    structureTitle: "二、品牌聽覺資產與口播旁白四段式結構",
+    tableHeaders: ["模組", "聲音導演重點", "時長與音軌規範"],
+    tableRows: [
+      ["品牌聲音卡 (Audio Card)", "定義人聲語速、音色特質、情緒曲線、樂器編制與禁用特徵", "以聲音特質描述，嚴禁要求未獲授權仿冒特定真人名人聲音"],
+      ["多時長旁白稿 (VO Script)", "依每秒約 3.8–4.2 字精算 15／30／60 秒版本口語稿", "明確標記【重音】、【停頓秒數】與破音字／專有名詞注音"],
+      ["配樂提示與避讓 (Ducking)", "輸出純音樂／有歌詞選項、BPM 範圍、段落循環點與禁用項", "必須設計「人聲進場時配樂自動壓低音量（Ducking）」之音軌安排"],
+      ["音檔與授權驗收 (QA Check)", "實測片長、發音、換氣聲、削波失真與片尾收束留白", "核對生成工具與商用授權範圍，不宣稱未實際量測的 LUFS 數值"]
+    ],
+    sopSteps: [
+      "指定聲音使用場景（如 Reels 30 秒旁白或 Podcast 片頭）、目標受眾狀態與品牌希望呈現的聲音個性。",
+      "檢視並試讀 AI 產出的「帶標記多時長旁白稿」，確認專有名詞讀音無誤，且 CTA 前有保留 0.5 秒呼吸停頓。",
+      "複製「配樂生成提示詞（Suno / Udio 等適用）」與「音軌配置表」，生成音訊後依驗收表核對發音與商用授權。"
+    ],
+    starterTask: "請使用本 Skill（tony-brand-audio-director），為虛構品牌「森日咖啡」設計一支 30 秒 IG Reels 介紹短片的「品牌聲音卡」、「30 秒帶重音與停頓標記的口播旁白稿」，以及不搶人聲的原聲木吉他背景配樂提示詞（需確認「半山焙茶拿鐵」讀音）：[貼上腳本或產品資訊]。",
+    refineTask: "請將目前的 30 秒旁白稿濃縮改寫為「15 秒極簡版本（總字數控制在 55 字以內）」，保留第 11 秒進入 CTA 前的 0.5 秒停頓標記，並將配樂 BPM 微調為更俐落的 92 BPM。",
+    pitfallWrong: "「把 200 個字的書面新聞稿塞進 30 秒影片裡用 AI 兩倍速念完，背景音樂開到最大聲蓋過人聲，還直接抓取未授權流行歌當商業廣告配樂！」（聽感壓迫、聽不清重點且嚴重侵害音樂版權）",
+    pitfallRight: "「30 秒旁白嚴格控制在 110 字左右的自然口語，重要轉折與 CTA 前標註『（停頓 0.5 秒）』讓聽眾消化；背景採用 84 BPM 溫暖木吉他純音樂，並在人聲說話時自動衰減 -8dB，確保品牌名稱清晰入耳。」",
+    checklist: [
+      "旁白字數與目標秒數相符（先估時再試讀，未產出音檔前僅稱估算時長）。",
+      "專有名詞、破音字讀音與重音、呼吸停頓皆已清楚標記。",
+      "人聲與背景音樂已配置防互搶機制（Ducking），且確認音訊工具之商用授權條款。"
+    ]
+  },
+  "plan-short-video-topics-and-stories": {
+    badges: ["對應領航員：W5 短影音敘事工作坊", "對應指導員：U5-B 短影音選題與腳本導演", "教學版 v1.0.0"],
+    positioning: "透過引導式 6 步工作流，解決短影音「不知道拍什麼、前 3 秒被滑走、拍出來無法轉換」三大痛點，產出含選題評比、雙軌 Hook 與精算到秒的分鏡腳本表（Storyboard & Timing）。",
+    structureTitle: "二、高完播率短影音四段式敘事結構（以 30 秒為例）",
+    tableHeaders: ["時間軸段落", "敘事與畫面重點", "秒數與台詞字數規範"],
+    tableRows: [
+      ["黃金雙軌鉤子 (0–3s Hook)", "結合「動態視覺特寫動作」＋「直擊痛點或反常識的首句提問」", "首句台詞限 18 字內；嚴禁定格講話頭（Talking Head）乾講超過 2 秒"],
+      ["痛點具象化 (3–10s Conflict)", "還原受眾日常踩坑場景，讓觀眾產生「這就是在說我」的共鳴", "約 28–32 字；搭配生活化動作或前後反差畫面"],
+      ["轉折與真實證據 (10–23s Proof)", "提出品牌核心解法，並用 B-roll 特寫展示真實可拍證據", "約 45–52 字；每 4–6 秒切換一次景別或特寫鏡頭，不編造虛假數據"],
+      ["價值收斂與行動 (23–30s CTA)", "停頓 0.5 秒後給出唯一、具體且低門檻的行動指令", "約 20–25 字；片尾字卡清楚，不要求同時按讚、留言、分享又私訊"]
+    ],
+    sopSteps: [
+      "指定短影音發佈平台（IG Reels / YT Shorts / TikTok）、目標受眾痛點與預計片長（15／30／60 秒）。",
+      "從 AI 提供的「3 個選題切角」與「3 組前 3 秒雙軌 Hook（畫面＋台詞）」中挑選最能拍出真實感的一組。",
+      "檢視完整的「分鏡與秒數配比表（Storyboard & Timing）」，大聲試讀台詞確認符合每秒約 4 字，並核對所有 B-roll 證據皆可真實拍攝。"
+    ],
+    starterTask: "請使用本 Skill（plan-short-video-topics-and-stories），針對虛構品牌「森日咖啡」想吸引平日午後自由工作者到店的目標，提出 3 個短影音選題切角（痛點診斷、反常識破除、真實過程揭秘）、3 組前 3 秒雙軌 Hook，並展開一份 30 秒完整分鏡與秒數配比腳本表：[貼上產品與場景素材]。",
+    refineTask: "請保留這支 30 秒分鏡腳本的第 3～30 秒內容，僅針對「0–3 秒黃金 Hook」另外設計 2 組可在店內吧台低成本單人拍攝的「視覺特寫動作＋反問首句」，供我們進行發布後的 3 秒留存率 A/B 測試。",
+    pitfallWrong: "「一開頭先花 5 秒鐘放品牌 Logo 動畫跟『大家好我是某某某』，接著對著鏡頭背誦 300 字產品規格，完全沒有畫面切換，最後叫觀眾記得按讚訂閱加分享！」（前 3 秒流失率極高、畫面枯燥且 CTA 失焦）",
+    pitfallRight: "「第 0–3 秒直接特寫熱水注入深焙豆粉層膨脹的瞬間，同步開口問：『下午三點想靠咖啡續命，卻怕晚上盯著天花板睡不著？』中段切入烘豆師每週三微調低咖啡因配方的紀錄卡特寫，片尾停頓半秒後引導點擊主頁領取午後體驗券。」",
+    checklist: [
+      "前 3 秒具備明確「動態視覺畫面」與「18 字內痛點首句」，不拖泥帶水。",
+      "分鏡表已逐鏡標註秒數、景別、畫面動作、口播台詞與螢幕字卡，且總字數符合每秒 3.8–4.2 字自然語速。",
+      "鏡頭中展示的產品規格、產地卡或服務過程皆為真實可拍素材，且片尾僅有單一明確 CTA。"
+    ]
+  }
+};
+
+// 動態建構「完整使用說明 (專屬實戰手冊)」HTML（支援預設 6 大 Skill 與管理後台新增之自訂 Skill）
+function buildPracticalHandbookHtml(unitObj, subObj = null) {
+  const targetSlug = (subObj && subObj.slug) || (unitObj && unitObj.slug) || '';
+  const targetName = (subObj && subObj.name) || (unitObj && unitObj.name) || '品牌實戰 Skill';
+  const targetDeliver = (subObj && subObj.deliver) || (unitObj && unitObj.deliver) || '';
+  const targetSteps = (subObj && Array.isArray(subObj.steps) && subObj.steps.length) ? subObj.steps : ((unitObj && unitObj.steps) || []);
+  const unitId = (unitObj && unitObj.id) || '01';
+
+  const preset = SKILL_PRACTICAL_HANDBOOK_MAP[targetSlug];
+
+  const badges = preset ? preset.badges : [
+    `對應領航員：W${Number(unitId) || 1} 品牌實戰工作坊`,
+    `對應指導員：U${unitId} ${targetName}`,
+    `教學版 v1.0.0`
+  ];
+  const positioning = preset ? preset.positioning : ((unitObj && unitObj.desc) || `運用 ${targetName} 結構化工作流，將品牌觀察與真實證據轉化為可驗證的專業提案。`);
+  const structureTitle = preset ? preset.structureTitle : `二、${targetName} 核心執行結構`;
+  const tableHeaders = preset ? preset.tableHeaders : ["階段", "執行重點", "交付與檢核規範"];
+  const tableRows = preset ? preset.tableRows : targetSteps.slice(0, 4).map((s, idx) => {
+    const parts = String(s).split(/[；。]/);
+    return [
+      `階段 0${idx + 1}`,
+      parts[0] || s,
+      parts[1] || "區分已查證事實與工作假設，保留可追溯來源"
+    ];
+  });
+  const sopSteps = preset ? preset.sopSteps : [
+    `在實作工作台整理您的品牌現況、受眾情境與既有證據，指定協作模式（推薦模式 B 逐步實作或模式 C 直接製作）。`,
+    `檢查 AI 輸出的「${targetDeliver}」，確認所有關鍵主張皆有對應事實依據。`,
+    `核對底部的「來源與合規檢核表」，確認 AI 沒有擅自捏造數據、客戶見證或誇大成效保證。`
+  ];
+  const starterTask = preset ? preset.starterTask : `請使用本 Skill（${targetSlug}），針對以下品牌現況與受眾情境，依標準步驟產出「${targetDeliver}」，未知資訊請標示為工作假設，不編造數據或客戶見證：[貼上您的品牌資料與原稿]。`;
+  const refineTask = preset ? preset.refineTask : `請保留目前已產出的整體架構，僅針對目標受眾語氣進行局部精修，讓文字更自然精煉、去除多餘的 Markdown 符號與誇大形容詞，不需重寫全文。`;
+  const pitfallWrong = preset ? preset.pitfallWrong : `「直接叫 AI 幫我寫一篇保證爆單、全網第一的品牌文案，不用給任何產品證據，數據自己隨便編！」（缺乏事實根基、極易產生虛假宣稱與違規風險）`;
+  const pitfallRight = preset ? preset.pitfallRight : `「先盤點品牌已驗證的產品規格與真實觀察紀錄，交由 Skill 區分【使用者提供】與【工作假設】，在合規邊界內產出有憑有據的『${targetDeliver}』。」`;
+  const checklist = preset ? preset.checklist : [
+    `不捏造案例、數據、保證成效、虛假優惠或未授權見證。`,
+    `已清楚區分【使用者提供】【已查證】【工作假設】【待確認】。`,
+    `交付項目完整涵蓋：${targetDeliver}。`
+  ];
+
+  return `
+    <!-- 頂部對應徽章列 -->
+    <div class="flex flex-wrap items-center gap-2 pb-2">
+      <span class="px-3 py-1 rounded-lg bg-[#eef7d2] border border-[#cde28e] text-[#2c5219] text-xs font-extrabold">${esc(badges[0])}</span>
+      <span class="px-3 py-1 rounded-lg bg-[#eef4f8] border border-[#c7d9e8] text-[#1e496b] text-xs font-extrabold">${esc(badges[1])}</span>
+      <span class="px-3 py-1 rounded-lg bg-paper border border-line text-muted text-xs font-bold">${esc(badges[2] || '教學版 v1.0.0')}</span>
+    </div>
+
+    <!-- 一、專屬定位與核心價值 -->
+    <section class="space-y-2.5">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">一、專屬定位與核心價值</h4>
+      <p class="text-sm sm:text-base text-ink/90 leading-relaxed">${esc(positioning)}</p>
+    </section>
+
+    <!-- 二、結構化規格表 -->
+    <section class="space-y-3">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">${esc(structureTitle)}</h4>
+      <div class="overflow-x-auto rounded-xl border border-line">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-[#f4f6f8] border-b border-line text-ink font-extrabold">
+              <th class="py-3 px-4 w-1/4 border-r border-line">${esc(tableHeaders[0])}</th>
+              <th class="py-3 px-4 w-3/8 border-r border-line">${esc(tableHeaders[1])}</th>
+              <th class="py-3 px-4 w-3/8">${esc(tableHeaders[2])}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line bg-white">
+            ${tableRows.map(row => `
+              <tr class="hover:bg-paper/40">
+                <td class="py-3.5 px-4 font-extrabold text-ink border-r border-line">${esc(row[0])}</td>
+                <td class="py-3.5 px-4 text-ink/90 border-r border-line leading-relaxed">${esc(row[1])}</td>
+                <td class="py-3.5 px-4 text-ink/90 leading-relaxed">${esc(row[2])}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 三、實戰操作步驟 (SOP) -->
+    <section class="space-y-2.5">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">三、實戰操作步驟 (SOP)</h4>
+      <ol class="space-y-2 text-sm sm:text-base text-ink/90 leading-relaxed pl-1">
+        ${sopSteps.map((stepText, i) => `
+          <li class="flex items-start gap-2">
+            <span class="font-extrabold text-ink shrink-0">${i + 1}.</span>
+            <span>${esc(stepText)}</span>
+          </li>
+        `).join('')}
+      </ol>
+    </section>
+
+    <!-- 四、起始任務與進階局部精修指令 (可直接複製) -->
+    <section class="space-y-4">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">四、起始任務與進階局部精修指令（可直接複製）</h4>
+
+      <!-- 1. 起始示範任務 (淺綠底卡片) -->
+      <div class="p-5 rounded-2xl bg-[#f1f6ec] border border-[#cfe0c0] space-y-3">
+        <strong class="text-sm sm:text-base font-extrabold text-ink block">1. 起始示範任務：</strong>
+        <p id="handbookStarterPromptText" class="text-xs sm:text-sm text-ink/90 leading-relaxed">${esc(starterTask)}</p>
+        <div>
+          <button type="button" data-copy-handbook-prompt="starter" class="px-4 py-2 rounded-xl bg-white border border-ink/40 hover:bg-teal hover:text-white hover:border-teal text-xs sm:text-sm font-extrabold text-ink transition-all shadow-sm">
+            複製起始任務 ↗
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. 進階追問 / 局部修訂指令 (淺藍底卡片) -->
+      <div class="p-5 rounded-2xl bg-[#eef4fb] border border-[#c5d9f0] space-y-3">
+        <strong class="text-sm sm:text-base font-extrabold text-ink block">2. 進階追問／局部修訂指令（不重寫全文）：</strong>
+        <p id="handbookRefinePromptText" class="text-xs sm:text-sm text-ink/90 leading-relaxed">${esc(refineTask)}</p>
+        <div>
+          <button type="button" data-copy-handbook-prompt="refine" class="px-4 py-2 rounded-xl bg-white border border-ink/40 hover:bg-teal hover:text-white hover:border-teal text-xs sm:text-sm font-extrabold text-ink transition-all shadow-sm">
+            複製進階修訂指令 ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、常見踩坑對照 (錯誤寫法 vs. 正確合規寫法) -->
+    <section class="space-y-3">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">五、常見踩坑對照（錯誤寫法 vs. 正確合規寫法）</h4>
+      <div class="overflow-x-auto rounded-xl border border-line">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-[#f8f9fa] border-b border-line">
+              <th class="py-3 px-4 w-1/2 border-r border-line font-extrabold text-red-700">❌ 常見踩坑／高風險寫法</th>
+              <th class="py-3 px-4 w-1/2 font-extrabold text-teal">✅ TONY 老師建議合規寫法</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr>
+              <td class="py-4 px-4 border-r border-line text-ink/90 leading-relaxed align-top">${esc(pitfallWrong)}</td>
+              <td class="py-4 px-4 text-ink/90 leading-relaxed align-top">${esc(pitfallRight)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 六、成果交付檢核表 -->
+    <section class="space-y-2.5">
+      <h4 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">六、成果交付檢核表</h4>
+      <ul class="space-y-2 text-sm sm:text-base text-ink/90 leading-relaxed pl-2">
+        ${checklist.map(item => `
+          <li class="flex items-start gap-2.5">
+            <span class="font-bold text-teal shrink-0">• ✓</span>
+            <span>${esc(item)}</span>
+          </li>
+        `).join('')}
+      </ul>
+    </section>
+  `;
+}
 
 // 各單元與子 Skill 專屬之「Why / What / How 黃金思維」與「Mermaid 視覺化流程圖」定義庫
 const UNIT_WWH_MERMAID_MAP = {
@@ -3093,7 +3431,28 @@ function download(name, text, type) {
   }, 60000);
 }
 
-// 開啟手冊 Modal 輔助函式（支援主單元與子 Skill）
+// 切換手冊 Modal 內部分頁（快速使用與檢核 vs 完整使用說明 (專屬實戰手冊)）
+function switchManualModalTab(tabName) {
+  const quickBtn = $('#tabManualQuickBtn');
+  const fullBtn = $('#tabManualFullBtn');
+  const quickPanel = $('#manualQuickTabPanel');
+  const fullPanel = $('#manualFullTabPanel');
+  if (!quickBtn || !fullBtn || !quickPanel || !fullPanel) return;
+
+  if (tabName === 'quick') {
+    quickPanel.classList.remove('hidden');
+    fullPanel.classList.add('hidden');
+    quickBtn.className = 'py-3 px-4 text-xs sm:text-sm font-extrabold border-b-[3px] border-teal text-ink transition-all';
+    fullBtn.className = 'py-3 px-4 text-xs sm:text-sm font-bold border-b-2 border-transparent text-muted hover:text-ink transition-all';
+  } else {
+    fullPanel.classList.remove('hidden');
+    quickPanel.classList.add('hidden');
+    fullBtn.className = 'py-3 px-4 text-xs sm:text-sm font-extrabold border-b-[3px] border-teal text-ink transition-all';
+    quickBtn.className = 'py-3 px-4 text-xs sm:text-sm font-bold border-b-2 border-transparent text-muted hover:text-ink transition-all';
+  }
+}
+
+// 開啟手冊 Modal 輔助函式（支援主單元與子 Skill，預設呈現「完整使用說明 (專屬實戰手冊)」）
 function openSkillManualModal(unitId, subIdx = null) {
   const u = UNITS.find(x => x.id === unitId);
   if (!u) return;
@@ -3111,6 +3470,14 @@ function openSkillManualModal(unitId, subIdx = null) {
 
   $('#manualTag').textContent = tagText;
   $('#manualTitle').textContent = titleText;
+
+  // 渲染「完整使用說明 (專屬實戰手冊)」六大結構
+  const fullPanel = $('#manualFullTabPanel');
+  if (fullPanel) {
+    fullPanel.innerHTML = buildPracticalHandbookHtml(u, subObj);
+  }
+
+  // 渲染「快速使用與檢核」
   $('#manualStepsList').innerHTML = stepsArr.map((s, idx) => `
     <li class="flex items-start gap-2.5 leading-relaxed">
       <span class="px-2 py-0.5 rounded bg-teal text-white font-mono text-xs font-bold shrink-0 mt-0.5">${idx + 1}</span>
@@ -3119,8 +3486,27 @@ function openSkillManualModal(unitId, subIdx = null) {
   `).join('');
   $('#manualFormattedView').innerHTML = formatManualHtml(manualContent);
   $('#manualText').textContent = manualContent;
+
+  // 預設開啟「完整使用說明 (專屬實戰手冊)」分頁
+  switchManualModalTab('full');
   $('#manualDialog').showModal();
 }
+
+// 綁定手冊雙分頁按鈕與內部「複製起始任務 / 複製進階修訂指令」按鈕
+$('#tabManualQuickBtn').onclick = () => switchManualModalTab('quick');
+$('#tabManualFullBtn').onclick = () => switchManualModalTab('full');
+$('#manualFullTabPanel').addEventListener('click', async (e) => {
+  const copyBtn = e.target.closest('[data-copy-handbook-prompt]');
+  if (!copyBtn) return;
+  const type = copyBtn.getAttribute('data-copy-handbook-prompt');
+  const textEl = type === 'starter' ? $('#handbookStarterPromptText') : $('#handbookRefinePromptText');
+  if (textEl) {
+    await copyTextToClipboard(
+      textEl.textContent,
+      type === 'starter' ? '✨ 已複製「1. 起始示範任務」指令！' : '✨ 已複製「2. 進階局部修訂指令」！'
+    );
+  }
+});
 
 // 統一處理 Skill ZIP 檔案下載（由 Base64 轉為安全 Blob 下載，並內建雙保險動態 ZIP 生成）
 function handleSkillZipDownload(slug, unitId) {

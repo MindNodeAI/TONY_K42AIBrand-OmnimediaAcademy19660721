@@ -1180,22 +1180,23 @@
       <div id="creatorSkillCmsSection" class="bg-white rounded-2xl border border-line p-6 shadow-sm space-y-5">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-line">
           <div>
-            <div class="flex items-center gap-2 mb-1">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
               <span class="text-[11px] font-extrabold tracking-widest text-teal uppercase">03 / CLOUD SKILL & CURRICULUM CMS</span>
               <span class="px-2 py-0.5 rounded bg-ink text-lime text-[10px] font-extrabold">👑 僅限最高管理員 mindnodeai@gmail.com</span>
+              <span id="cmsSkillCountBadge" class="px-2.5 py-0.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-[11px] font-extrabold">5 大單元 · 13 組 Skill</span>
             </div>
-            <h4 class="text-lg font-extrabold text-ink">課程單元與 Skill 檔案雲端管理（新增、修改、上傳 ZIP、刪除）</h4>
-            <p class="text-xs text-muted mt-0.5">此區塊由系統創作者專屬控管。所有課程與上傳的 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> Skill 壓縮包皆直接儲存於 Firestore 雲端資料庫。</p>
+            <h4 class="text-lg font-extrabold text-ink">全站課程單元與全部 Skill 模組雲端管理（支援單獨新增、編輯、上傳更新 ZIP、刪除）</h4>
+            <p class="text-xs text-muted mt-0.5">涵蓋 01–05 各單元旗下所有子 Skill（如 01-A/B/C、02-A/B、03-A/B/C、04-A/B、05-A/B/C）。每個 Skill 皆可獨立上傳更新 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> 並即時同步至 Firestore 雲端。</p>
           </div>
           <div id="creatorSkillCmsActions" class="flex flex-wrap items-center gap-2.5">
             <button id="openRulesModalBtn" type="button" class="px-3.5 py-2 rounded-xl border border-ink bg-paper hover:bg-lime/50 text-ink text-xs font-extrabold transition-all flex items-center gap-1.5">
               <span>🔐 檢視 / 複製最新 Firestore Rules</span>
             </button>
             <button id="seedDefaultSkillsBtn" type="button" class="px-3.5 py-2 rounded-xl border border-teal text-teal hover:bg-teal/5 text-xs font-extrabold transition-all">
-              ☁️ 將預設 5 大單元同步上雲端
+              ☁️ 將全套單元與全部 Skill 同步上雲端
             </button>
             <button id="openNewSkillModalBtn" type="button" class="px-4 py-2 rounded-xl bg-teal text-white text-xs font-extrabold hover:bg-teal-dark transition-all shadow-sm flex items-center gap-1.5">
-              <span>＋ 新增課程單元與 Skill</span>
+              <span>＋ 新增獨立課程單元</span>
             </button>
           </div>
         </div>
@@ -1204,20 +1205,31 @@
           🔒 權限提示：目前登入帳號為一般管理員（Admin）。「課程與 Skill 雲端新增／上傳／修改／刪除」權限僅限系統創作者最高管理員（mindnodeai@gmail.com）執行。
         </div>
 
+        <!-- 後台 Skill 快速搜尋與單元篩選列 -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-paper p-3.5 rounded-xl border border-line">
+          <div class="flex flex-wrap items-center gap-2.5 flex-1">
+            <input id="adminSkillSearchInput" type="search" placeholder="搜尋 Skill 名稱、Slug、角色徽章或交付成果…" class="px-3.5 py-2 bg-white border border-line rounded-xl text-xs font-medium w-full sm:w-72 focus:outline-none focus:ring-2 focus:ring-teal">
+            <select id="adminSkillUnitFilter" class="px-3 py-2 bg-white border border-line rounded-xl text-xs font-bold text-ink focus:outline-none focus:ring-2 focus:ring-teal">
+              <option value="all">顯示全部單元（所有 Skill）</option>
+            </select>
+          </div>
+          <span class="text-[11px] text-muted">提示：可針對任一子 Skill 單獨替換 <code class="font-mono">.zip</code> 或點擊單元列「＋ 新增子 Skill」擴充模組</span>
+        </div>
+
         <div class="overflow-x-auto rounded-xl border border-line">
           <table class="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
               <tr class="bg-paper border-b border-line text-muted font-extrabold text-xs uppercase">
-                <th class="py-3 px-4">單元編號 / 標籤</th>
-                <th class="py-3 px-4">Skill 名稱 / Slug</th>
-                <th class="py-3 px-4">課程主標題與交付</th>
-                <th class="py-3 px-4">ZIP 檔案狀態</th>
-                <th class="py-3 px-4">資料來源</th>
+                <th class="py-3 px-4">模組定位 / 編號</th>
+                <th class="py-3 px-4">Skill 名稱與識別碼 (Slug)</th>
+                <th class="py-3 px-4">核心交付成果與步驟數</th>
+                <th class="py-3 px-4">ZIP 檔案狀態與測試</th>
+                <th class="py-3 px-4">雲端同步狀態</th>
                 <th class="py-3 px-4 text-right">管理操作（編輯 / 上傳 / 刪除）</th>
               </tr>
             </thead>
             <tbody id="adminSkillsTableBody" class="divide-y divide-line">
-              <!-- 由 JS 動態渲染課程與 Skill 清單 -->
+              <!-- 由 JS 動態渲染全部單元與旗下所有子 Skill 清單 -->
             </tbody>
           </table>
         </div>
@@ -1227,7 +1239,7 @@
   </dialog>
 
   <!-- ==================== 5.B 新增 / 編輯 課程與 Skill 雲端上傳 Modal ==================== -->
-  <dialog id="skillEditorDialog" class="rounded-3xl border border-line w-[min(860px,95vw)] max-h-[90vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/80">
+  <dialog id="skillEditorDialog" class="rounded-3xl border border-line w-[min(880px,95vw)] max-h-[90vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/80">
     <div class="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-ink text-white border-b border-white/10">
       <div>
         <span class="text-[10px] font-bold tracking-widest text-lime uppercase block">FIRESTORE CLOUD SKILL EDITOR</span>
@@ -1239,134 +1251,160 @@
     </div>
 
     <form id="skillEditorForm" class="p-6 overflow-y-auto max-h-[calc(90vh-70px)] space-y-5 text-xs sm:text-sm">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div>
-          <label for="seId" class="block text-xs font-extrabold text-muted mb-1">單元編號 (例如 01, 06) *</label>
-          <input id="seId" type="text" required maxlength="10" placeholder="06" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-ink">
+      <!-- 編輯目標模式提示橫幅 -->
+      <div id="seEditContextBanner" class="p-3.5 rounded-xl bg-teal/10 border border-teal/25 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <strong id="seEditContextText" class="text-teal font-extrabold">編輯模式：獨立課程單元</strong>
+        <span class="text-muted">儲存後將即時同步前台卡片、工作台、實戰手冊與雲端 ZIP</span>
+      </div>
+
+      <!-- 單元層級專屬欄位群組（當編輯「單元總覽」或「新增獨立單元」時顯示） -->
+      <div id="seUnitMetaFieldsGroup" class="space-y-4 p-4 rounded-2xl bg-white border border-line">
+        <div class="text-[11px] font-extrabold text-teal uppercase tracking-wider">📌 單元層級外顯設定（卡片與五力藍圖）</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="seId" class="block text-xs font-extrabold text-muted mb-1">單元編號 (例如 01, 06) *</label>
+            <input id="seId" type="text" required maxlength="10" placeholder="06" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
+          </div>
+          <div>
+            <label for="seTag" class="block text-xs font-extrabold text-muted mb-1">英文分類標籤 (TAG) *</label>
+            <input id="seTag" type="text" required maxlength="30" placeholder="STRATEGY / VIDEO / CRM" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-teal uppercase">
+          </div>
+          <div>
+            <label for="seShortLabel" class="block text-xs font-extrabold text-muted mb-1">五力短標題 (4~10 字) *</label>
+            <input id="seShortLabel" type="text" required maxlength="24" placeholder="例如：影音腳本" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
+          </div>
         </div>
-        <div>
-          <label for="seTag" class="block text-xs font-extrabold text-muted mb-1">英文分類標籤 (TAG) *</label>
-          <input id="seTag" type="text" required maxlength="24" placeholder="STRATEGY / VIDEO / CRM" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-teal uppercase">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label for="seTitle" class="block text-xs font-extrabold text-muted mb-1">課程單元主標題 *</label>
+            <input id="seTitle" type="text" required maxlength="100" placeholder="高完播率短影音腳本與分鏡實戰" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
+          </div>
+          <div>
+            <label for="sePromise" class="block text-xs font-extrabold text-muted mb-1">核心價值承諾 (藍圖副標)</label>
+            <input id="sePromise" type="text" maxlength="30" placeholder="讓每一秒都留住目光" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-ink">
+          </div>
         </div>
+
         <div>
-          <label for="seShortLabel" class="block text-xs font-extrabold text-muted mb-1">五力短標題 (4~6 字) *</label>
-          <input id="seShortLabel" type="text" required maxlength="20" placeholder="例如：影音腳本" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-ink">
+          <label for="seDesc" class="block text-xs font-extrabold text-muted mb-1">單元一句話簡介 *</label>
+          <input id="seDesc" type="text" required maxlength="240" placeholder="將品牌核心訊息轉化為前 3 秒抓人、中段有證據、尾段有行動的影音結構。" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-ink">
+        </div>
+
+        <div>
+          <label for="seExample" class="block text-xs font-extrabold text-muted mb-1">示範品牌情境提醒（工作台左側小字）</label>
+          <input id="seExample" type="text" placeholder="森日咖啡拍攝手沖過程，不誇大療效。" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-xs">
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- 子 Skill 專屬角色徽章欄位（當編輯或新增「單元內子 Skill」時顯示） -->
+      <div id="seSubSkillRoleGroup" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-white border border-line">
         <div>
-          <label for="seSlug" class="block text-xs font-extrabold text-muted mb-1">Skill 英文識別碼 (Slug，作為檔名) *</label>
-          <input id="seSlug" type="text" required maxlength="80" placeholder="tony-short-video-director" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-mono text-ink">
+          <label class="block text-xs font-extrabold text-muted mb-1">所屬單元編號</label>
+          <input id="seParentUnitReadonly" type="text" readonly class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-mono font-bold text-muted cursor-not-allowed">
         </div>
-        <div>
-          <label for="seName" class="block text-xs font-extrabold text-muted mb-1">專屬 Skill 角色名稱 *</label>
-          <input id="seName" type="text" required maxlength="60" placeholder="短影音腳本與分鏡導演" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-ink">
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="sm:col-span-2">
-          <label for="seTitle" class="block text-xs font-extrabold text-muted mb-1">課程單元主標題 *</label>
-          <input id="seTitle" type="text" required maxlength="100" placeholder="高完播率短影音腳本與分鏡實戰" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-ink">
-        </div>
-        <div>
-          <label for="sePromise" class="block text-xs font-extrabold text-muted mb-1">核心價值承諾 (藍圖副標)</label>
-          <input id="sePromise" type="text" maxlength="30" placeholder="讓每一秒都留住目光" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl text-ink">
+          <label for="seRoleBadge" class="block text-xs font-extrabold text-muted mb-1">子模組徽章標籤 (Role Badge，顯示於卡片與工作台切換鈕) *</label>
+          <input id="seRoleBadge" type="text" maxlength="50" placeholder="例如：SKILL 01-B｜議題深度敘事與社群編採" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-extrabold text-teal">
         </div>
       </div>
 
-      <div>
-        <label for="seDesc" class="block text-xs font-extrabold text-muted mb-1">單元一句話簡介 *</label>
-        <input id="seDesc" type="text" required maxlength="200" placeholder="將品牌核心訊息轉化為前 3 秒抓人、中段有證據、尾段有行動的影音結構。" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl text-ink">
-      </div>
-
-      <div>
-        <label for="seDeliver" class="block text-xs font-extrabold text-muted mb-1">預計帶走的交付成果 *</label>
-        <input id="seDeliver" type="text" required maxlength="200" placeholder="三組黃金前 3 秒 Hook、分鏡腳本表、拍攝檢核表" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl text-ink">
-      </div>
-
-      <!-- 上傳 Skill .zip 檔案至 Firestore -->
-      <div class="p-4 rounded-2xl bg-teal/5 border-2 border-dashed border-teal/40 space-y-2.5">
-        <div class="flex flex-wrap items-center justify-between gap-2">
+      <!-- Skill 核心識別與交付欄位（所有 Skill 模式共用） -->
+      <div id="seSkillDetailSection" class="space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <strong class="text-teal font-extrabold block">📦 雙向智慧同步：上傳新 Skill (.zip) 自動更新網頁內容 ⇄ 或修改表單自動重包 ZIP</strong>
-            <span class="text-xs text-muted block mt-0.5">
-              ・<strong>正向同步（傳 ZIP 改網頁）</strong>：選擇電腦中修改後的 <code class="font-mono">.zip</code> 檔，系統會自動解壓讀取內部的 <code class="font-mono">SKILL.md</code> 與 <code class="font-mono">practice.md</code>，<strong>自動將新步驟、交付成果與手冊填入下方網頁欄位</strong>！<br>
-              ・<strong>反向同步（改網頁包 ZIP）</strong>：直接修改下方任何網頁文字並點擊儲存（或點擊「⚡ 依表單內容自動生成標準 ZIP」），系統會自動把最新網頁內容重新打包進雲端 ZIP！
-            </span>
-          </div>
-          <span id="seZipStatusBadge" class="px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted">尚未選擇新檔案</span>
-        </div>
-        <div class="flex flex-wrap items-center gap-2 pt-1">
-          <input id="seZipFile" type="file" accept=".zip,application/zip" class="block flex-1 text-xs text-muted file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-extrabold file:bg-teal file:text-white hover:file:bg-teal-dark cursor-pointer">
-          <button type="button" id="parseZipToFormBtn" class="hidden px-3.5 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-extrabold transition-all shadow-sm">
-            🔄 從已選 ZIP 提取內容填入網頁表單
-          </button>
-          <button type="button" id="autoBuildZipFromFormBtn" class="px-3.5 py-2 rounded-xl bg-lime text-ink hover:bg-lime-dark text-xs font-extrabold transition-all shadow-sm">
-            ⚡ 依表單內容自動生成標準 ZIP
-          </button>
-          <button type="button" id="testPreviewZipBtn" class="px-3 py-2 rounded-xl border border-teal text-teal hover:bg-teal/10 text-xs font-bold transition-all">
-            🔍 測試下載此 ZIP
-          </button>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label for="seSteps" class="block text-xs font-extrabold text-muted mb-1">單元標準步驟 SOP（每行一個步驟）*</label>
-          <textarea id="seSteps" rows="5" required placeholder="界定目標受眾與觀看情境&#10;設計前 3 秒視覺與聽覺鉤子&#10;展開核心證據與 CTA" class="w-full p-3 bg-white border border-line rounded-xl text-xs leading-relaxed font-medium"></textarea>
-        </div>
-        <div>
-          <label for="seFields" class="block text-xs font-extrabold text-muted mb-1">工作台三大思考提問（每行一題，建議 3 題）*</label>
-          <textarea id="seFields" rows="5" required placeholder="這支短影音要解決受眾什麼痛點？&#10;畫面中能展示哪些真實證據？&#10;看完影片後希望觀眾做什麼動作？" class="w-full p-3 bg-white border border-line rounded-xl text-xs leading-relaxed font-medium"></textarea>
-        </div>
-      </div>
-
-      <!-- 新增：黃金思維導航 (Why / What / How) 與 Mermaid 視覺化流程圖自訂區 -->
-      <div class="p-4 rounded-2xl bg-paper border border-line space-y-3">
-        <div class="flex items-center justify-between">
-          <strong class="text-xs font-extrabold text-teal uppercase tracking-wider">🎯 黃金思維導航（Why / What / How）與 Mermaid 流程圖同步設定</strong>
-          <span class="text-[11px] text-muted">修改後前台工作台圖表將即時連動更新</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div>
-            <label for="seWhy" class="block text-[11px] font-extrabold text-muted mb-1">🎯 WHY｜為什麼要做？</label>
-            <textarea id="seWhy" rows="3" placeholder="留空則依單元內容自動推導白話解析" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            <label for="seSlug" class="block text-xs font-extrabold text-muted mb-1">Skill 英文識別碼 (Slug，作為 ZIP 檔名) *</label>
+            <input id="seSlug" type="text" required maxlength="80" placeholder="tony-short-video-director" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-mono text-ink">
           </div>
           <div>
-            <label for="seWhat" class="block text-[11px] font-extrabold text-muted mb-1">📦 WHAT｜要做出什麼？</label>
-            <textarea id="seWhat" rows="3" placeholder="留空則自動顯示本單元預計交付成果" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            <label for="seName" class="block text-xs font-extrabold text-muted mb-1">專屬 Skill 角色名稱 *</label>
+            <input id="seName" type="text" required maxlength="80" placeholder="短影音腳本與分鏡導演" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl font-bold text-ink">
+          </div>
+        </div>
+
+        <div>
+          <label for="seDeliver" class="block text-xs font-extrabold text-muted mb-1">預計帶走的交付成果 *</label>
+          <input id="seDeliver" type="text" required maxlength="300" placeholder="三組黃金前 3 秒 Hook、分鏡腳本表、拍攝檢核表" class="w-full px-3.5 py-2.5 bg-white border border-line rounded-xl text-ink">
+        </div>
+
+        <!-- 上傳 Skill .zip 檔案至 Firestore -->
+        <div class="p-4 rounded-2xl bg-teal/5 border-2 border-dashed border-teal/40 space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <strong class="text-teal font-extrabold block">📦 雙向智慧同步：上傳新 Skill (.zip) 自動更新網頁內容 ⇄ 或修改表單無損更新 ZIP 內 SKILL.md</strong>
+              <span class="text-xs text-muted block mt-0.5">
+                ・<strong>正向同步（傳 ZIP 改網頁）</strong>：選擇電腦中修改後的 <code class="font-mono">.zip</code> 檔，系統會自動解壓讀取內部的 <code class="font-mono">SKILL.md</code> 與 <code class="font-mono">practice.md</code>，<strong>自動填入下方網頁欄位</strong>！<br>
+                ・<strong>反向無損同步（改網頁更新 ZIP）</strong>：直接修改下方 <code class="font-mono">SKILL.md</code> 儲存時，系統會<strong>保留壓縮包內原有的所有附屬參考檔（如 .docx / .yaml / references）並無損替換最新 SKILL.md</strong>！
+              </span>
+            </div>
+            <span id="seZipStatusBadge" class="px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted">尚未選擇新檔案</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <input id="seZipFile" type="file" accept=".zip,application/zip" class="block flex-1 text-xs text-muted file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-extrabold file:bg-teal file:text-white hover:file:bg-teal-dark cursor-pointer">
+            <button type="button" id="parseZipToFormBtn" class="hidden px-3.5 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-extrabold transition-all shadow-sm">
+              🔄 從已選 ZIP 提取內容填入網頁表單
+            </button>
+            <button type="button" id="autoBuildZipFromFormBtn" class="px-3.5 py-2 rounded-xl bg-lime text-ink hover:bg-lime-dark text-xs font-extrabold transition-all shadow-sm">
+              ⚡ 依表單內容全新打包標準 ZIP
+            </button>
+            <button type="button" id="testPreviewZipBtn" class="px-3 py-2 rounded-xl border border-teal text-teal hover:bg-teal/10 text-xs font-bold transition-all">
+              🔍 測試下載此 ZIP
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="seSteps" class="block text-xs font-extrabold text-muted mb-1">標準步驟 SOP（每行一個步驟）*</label>
+            <textarea id="seSteps" rows="5" required placeholder="界定目標受眾與觀看情境&#10;設計前 3 秒視覺與聽覺鉤子&#10;展開核心證據與 CTA" class="w-full p-3 bg-white border border-line rounded-xl text-xs leading-relaxed font-medium"></textarea>
           </div>
           <div>
-            <label for="seHow" class="block text-[11px] font-extrabold text-muted mb-1">🛠️ HOW｜怎麼一步步做？</label>
-            <textarea id="seHow" rows="3" placeholder="留空則自動串聯上方 SOP 步驟摘要" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            <label for="seFields" class="block text-xs font-extrabold text-muted mb-1">工作台三大思考提問（每行一題，建議 3 題）*</label>
+            <textarea id="seFields" rows="5" required placeholder="這支短影音要解決受眾什麼痛點？&#10;畫面中能展示哪些真實證據？&#10;看完影片後希望觀眾做什麼動作？" class="w-full p-3 bg-white border border-line rounded-xl text-xs leading-relaxed font-medium"></textarea>
           </div>
         </div>
-        <div>
-          <label for="seMermaid" class="block text-[11px] font-extrabold text-muted mb-1">📊 Mermaid 流程圖語法（留空則依上方 SOP 步驟自動繪製流程圖）</label>
-          <textarea id="seMermaid" rows="3" placeholder="flowchart LR&#10;  A[&quot;1. 盤點情境&quot;] --> B[&quot;2. 確立證據&quot;] --> C[&quot;3. 產出與驗收&quot;]" class="w-full p-2.5 bg-white border border-line rounded-xl font-mono text-xs leading-relaxed"></textarea>
-        </div>
-      </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div>
-          <label for="seQuiz" class="block text-xs font-extrabold text-muted mb-1">課堂思辨問題 (Quiz)</label>
-          <input id="seQuiz" type="text" placeholder="高觀看數就等於高轉換嗎？" class="w-full px-3 py-2 bg-white border border-line rounded-xl text-xs">
+        <!-- 黃金思維導航 (Why / What / How) 與 Mermaid 視覺化流程圖自訂區 -->
+        <div class="p-4 rounded-2xl bg-paper border border-line space-y-3">
+          <div class="flex items-center justify-between">
+            <strong class="text-xs font-extrabold text-teal uppercase tracking-wider">🎯 顧問級黃金思維導航（Why / What / How）與 Mermaid 流程圖同步設定</strong>
+            <span class="text-[11px] text-muted">修改後前台切換至此 Skill 時將即時連動更新</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label for="seWhy" class="block text-[11px] font-extrabold text-muted mb-1">🎯 WHY｜認知破局與第一性原理</label>
+              <textarea id="seWhy" rows="4" placeholder="留空則依預設顧問模型自動渲染" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            </div>
+            <div>
+              <label for="seWhat" class="block text-[11px] font-extrabold text-muted mb-1">📦 WHAT｜可複利決策資產與契約</label>
+              <textarea id="seWhat" rows="4" placeholder="留空則自動顯示本模組預計交付成果" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            </div>
+            <div>
+              <label for="seHow" class="block text-[11px] font-extrabold text-muted mb-1">🛠️ HOW｜人機分工與反證閉環</label>
+              <textarea id="seHow" rows="4" placeholder="留空則自動串聯上方 SOP 步驟摘要" class="w-full p-2.5 bg-white border border-line rounded-xl text-xs leading-relaxed"></textarea>
+            </div>
+          </div>
+          <div>
+            <label for="seMermaid" class="block text-[11px] font-extrabold text-muted mb-1">📊 Mermaid 閉環架構圖語法（留空則依上方步驟自動繪製）</label>
+            <textarea id="seMermaid" rows="4" placeholder="flowchart LR&#10;  A[&quot;1. 盤點情境&quot;] --> B[&quot;2. 確立證據&quot;] --> C[&quot;3. 產出與驗收&quot;]" class="w-full p-2.5 bg-white border border-line rounded-xl font-mono text-xs leading-relaxed"></textarea>
+          </div>
         </div>
-        <div>
-          <label for="seAnswer" class="block text-xs font-extrabold text-muted mb-1">TONY 老師解析 (Answer)</label>
-          <input id="seAnswer" type="text" placeholder="不一定，需檢視完播率與後續導流設計。" class="w-full px-3 py-2 bg-white border border-line rounded-xl text-xs">
-        </div>
-        <div>
-          <label for="seExample" class="block text-xs font-extrabold text-muted mb-1">示範品牌情境提醒</label>
-          <input id="seExample" type="text" placeholder="森日咖啡拍攝手沖過程，不誇大療效。" class="w-full px-3 py-2 bg-white border border-line rounded-xl text-xs">
-        </div>
-      </div>
 
-      <div>
-        <label for="seManual" class="block text-xs font-extrabold text-muted mb-1">SKILL.md 完整手冊內容 (Markdown 格式) *</label>
-        <textarea id="seManual" rows="7" required placeholder="---&#10;name: tony-skill&#10;---&#10;# TONY Skill 手冊內容..." class="w-full p-3 bg-white border border-line rounded-xl font-mono text-xs leading-relaxed"></textarea>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="seQuiz" class="block text-xs font-extrabold text-muted mb-1">課堂思辨問題 (Quiz)</label>
+            <input id="seQuiz" type="text" placeholder="高觀看數就等於高轉換嗎？" class="w-full px-3 py-2.5 bg-white border border-line rounded-xl text-xs">
+          </div>
+          <div>
+            <label for="seAnswer" class="block text-xs font-extrabold text-muted mb-1">TONY 老師解析 (Answer)</label>
+            <input id="seAnswer" type="text" placeholder="不一定，需檢視完播率與後續導流設計。" class="w-full px-3 py-2.5 bg-white border border-line rounded-xl text-xs">
+          </div>
+        </div>
+
+        <div>
+          <label for="seManual" class="block text-xs font-extrabold text-muted mb-1">SKILL.md 完整手冊內容 (Markdown 格式) *</label>
+          <textarea id="seManual" rows="7" required placeholder="---&#10;name: tony-skill&#10;---&#10;# TONY Skill 手冊內容..." class="w-full p-3 bg-white border border-line rounded-xl font-mono text-xs leading-relaxed"></textarea>
+        </div>
       </div>
 
       <div class="flex items-center justify-end gap-3 pt-3 border-t border-line">
@@ -1374,7 +1412,7 @@
           取消
         </button>
         <button type="submit" id="saveSkillCloudBtn" class="px-6 py-2.5 rounded-xl bg-teal text-white text-xs sm:text-sm font-extrabold hover:bg-teal-dark shadow-md transition-all">
-          💾 儲存並上傳至 Firestore 雲端
+          💾 儲存並同步至 Firestore 雲端
         </button>
       </div>
     </form>
@@ -3177,33 +3215,45 @@ function formatWwhRichHtml(rawText) {
       `;
     }
 
-    if (line.startsWith('・') || line.startsWith('- ')) {
-      const cleanLine = line.replace(/^(・|-\s*)/, '');
-      const colonIdx = cleanLine.search(/[：:]/);
-      if (colonIdx > 0 && colonIdx <= 12) {
-        const label = cleanLine.slice(0, colonIdx);
-        const body = cleanLine.slice(colonIdx + 1).trim();
-        const isWarning = /盲點|誤區|風險|痛點/.test(label);
-        const isHuman = /人腦|人的/.test(label);
-        const badgeClass = isWarning
-          ? 'bg-rose-50 text-rose-800 border border-rose-200'
-          : isHuman
-          ? 'bg-ink text-lime'
-          : 'bg-teal/10 text-teal border border-teal/20';
-
-        return `
-          <div class="text-xs text-ink/90 leading-relaxed py-1">
-            <span class="inline-block px-1.5 py-0.5 rounded text-[11px] font-extrabold mr-1 align-baseline ${badgeClass}">${esc(label)}</span>
-            <span>${esc(body)}</span>
-          </div>
-        `;
-      }
-      return `<p class="text-xs text-ink/90 leading-relaxed pl-2 border-l-2 border-line py-0.5">${esc(cleanLine)}</p>`;
+    const bulletMatch = line.match(/^[・•\-]\s*([^：:]+)[：:]\s*(.*)$/);
+    if (bulletMatch) {
+      const label = bulletMatch[1].trim();
+      const body = bulletMatch[2].trim();
+      const isPitfall = /盲點|風險|錯誤|痛點/.test(label);
+      const isHuman = /人腦|拍板/.test(label);
+      const badgeCls = isPitfall
+        ? 'bg-rose-100 text-rose-900 border border-rose-200'
+        : isHuman
+        ? 'bg-ink text-lime'
+        : 'bg-teal/10 text-teal border border-teal/20';
+      return `
+        <div class="text-xs leading-relaxed text-muted mb-2 last:mb-0">
+          <span class="inline-block px-1.5 py-0.5 rounded text-[11px] font-extrabold mr-1 align-baseline ${badgeCls}">${esc(label)}</span>
+          <span class="text-ink/90">${esc(body)}</span>
+        </div>
+      `;
     }
 
-    return `<p class="text-xs sm:text-sm text-ink/90 leading-relaxed font-medium">${esc(line)}</p>`;
+    return `<p class="text-xs text-muted leading-relaxed mb-1.5 last:mb-0">${esc(line)}</p>`;
   }).join('');
 }
+
+// 依 Skill Slug 精準映射預設顧問思維模型（即使在後台新增、排序或刪除子 Skill 也絕不錯位）
+const SLUG_TO_WWH_KEY = {
+  "tony-omnichannel-issue-planner": "01-0",
+  "tony-issue-story-social-editor": "01-1",
+  "tony-news-issue-visual-director": "01-2",
+  "tony-multi-brand-rag-coach": "02-0",
+  "tony-ai-brand-knowledge-architect": "02-1",
+  "tony-brand-content-factory": "03-0",
+  "design-virtual-brand-spokespeople": "03-1",
+  "design-brand-mascots": "03-2",
+  "tony-proposal-visual-director": "04-0",
+  "h28-mockup": "04-1",
+  "tony-brand-audio-director": "05-0",
+  "plan-short-video-topics-and-stories": "05-1",
+  "tony-enterprise-music-generator": "05-2"
+};
 
 // 渲染顧問級 Why? What? How? 思維模型卡片與 Mermaid 閉環架構圖
 async function renderWwhAndMermaid(unitObj, subSkillIdx = null) {
@@ -3212,29 +3262,40 @@ async function renderWwhAndMermaid(unitObj, subSkillIdx = null) {
   const mermaidBox = $('#mermaidDiagramBox');
   if (!wwhContainer || !mermaidBox || !unitObj) return;
 
+  const hasExtra = Array.isArray(unitObj.extraSkills) && unitObj.extraSkills.length > 0;
+  const subObj = (hasExtra && subSkillIdx !== null) ? (unitObj.extraSkills[subSkillIdx] || null) : null;
+
   let lookupKey = unitObj.id;
-  if (Array.isArray(unitObj.extraSkills) && unitObj.extraSkills.length > 0 && subSkillIdx !== null) {
+  if (subObj && SLUG_TO_WWH_KEY[subObj.slug]) {
+    lookupKey = SLUG_TO_WWH_KEY[subObj.slug];
+  } else if (hasExtra && subSkillIdx !== null) {
     lookupKey = `${unitObj.id}-${subSkillIdx}`;
+  } else if (SLUG_TO_WWH_KEY[unitObj.slug]) {
+    lookupKey = SLUG_TO_WWH_KEY[unitObj.slug];
   }
 
-  // 優先使用雲端或後台自訂的 Why / What / How 與 Mermaid 語法；若無則使用預設顧問模型或根據單元步驟推導
+  // 優先使用後台針對該子 Skill 或單元自訂的 Why / What / How 與 Mermaid 語法；若無則使用預設顧問模型或根據步驟自動推導
+  const customWwh = (subObj && subObj.wwh) || (!subObj && unitObj.wwh) || null;
+  const customMermaid = (subObj && subObj.mermaidCode) || (!subObj && unitObj.mermaidCode) || '';
   const presetData = UNIT_WWH_MERMAID_MAP[lookupKey] || UNIT_WWH_MERMAID_MAP[unitObj.id] || null;
-  const activeSteps = (unitObj.steps && unitObj.steps.length) ? unitObj.steps : ['盤點真實情境', '確立品牌證據', 'AI 協作產出', '來源與品質檢核'];
+  const activeSteps = (subObj && Array.isArray(subObj.steps) && subObj.steps.length)
+    ? subObj.steps
+    : ((unitObj.steps && unitObj.steps.length) ? unitObj.steps : ['盤點真實情境', '確立品牌證據', 'AI 協作產出', '來源與品質檢核']);
+  const activeDeliver = (subObj && subObj.deliver) || unitObj.deliver || '';
   const autoMermaidNodes = activeSteps.slice(0, 4).map((s, idx) => {
     const shortStep = String(s).replace(/[；;。].*$/, '').slice(0, 18);
     const nodeId = String.fromCharCode(65 + idx);
     return `${nodeId}["${idx + 1}. ${shortStep.replace(/"/g, "'")}"]`;
   });
-  const lastNodeId = String.fromCharCode(65 + Math.min(activeSteps.length, 4) - 1);
   const autoMermaidCode = `flowchart LR\n  ${autoMermaidNodes.join(' --> ')} --> Z{"來源與合規驗收"}\n  Z -.->|"未通過回流校準"| A\n  classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;\n  classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;\n  class ${activeSteps.slice(0, 4).map((_, idx) => String.fromCharCode(65 + idx)).join(',')} step;\n  class Z gate;`;
 
   const guideData = {
     framework: (presetData && presetData.framework) || "第一性原理洞察 × 證據綁定資產 × 人機驗證閉環",
     leverage: (presetData && presetData.leverage) || "人腦拍板「事實邊界與商業取捨」 ⇄ AI 放大「結構推演與規格產出」",
-    why: (unitObj.wwh && unitObj.wwh.why) || (presetData && presetData.why) || `【破局命題】${unitObj.desc || '避免沒有策略根基的盲目生成，守住品牌信任與商業轉換槓桿。'}\n・慣性盲點：未釐清客觀事實與目標邊界就直接要求 AI 產出，導致成果無法落地驗證。\n・第一性原理：唯有將真實受眾情境與可查證的品牌資產對齊，AI 放大的才會是有效價值而非數位雜訊。`,
-    what: (unitObj.wwh && unitObj.wwh.what) || (presetData && presetData.what) || `【決策資產】交付具備可追溯依據與驗收標準的專業資產包。\n・核心標的：${unitObj.deliver}\n・跨環節契約：明確區分已查證事實與待確認假設，供團隊與下游模組直接銜接使用。`,
-    how: (unitObj.wwh && unitObj.wwh.how) || (presetData && presetData.how) || `【人機閉環】${activeSteps.slice(0, 3).map((s, i) => `(${i + 1}) ${String(s).split(/[；。]/)[0]}`).join(' → ')}。\n・人腦拍板：提供真實觀察紀錄並審核合規邊界。\n・AI 規模推演：依標準框架展開結構化草稿與檢查表。\n・驗證閉環：逐項核對來源真實性與商業目標適配度。`,
-    mermaid: (unitObj.mermaidCode && unitObj.mermaidCode.trim()) || (presetData && presetData.mermaid) || autoMermaidCode
+    why: (customWwh && customWwh.why) || (presetData && presetData.why) || `【破局命題】${unitObj.desc || '避免沒有策略根基的盲目生成，守住品牌信任與商業轉換槓桿。'}\n・慣性盲點：未釐清客觀事實與目標邊界就直接要求 AI 產出，導致成果無法落地驗證。\n・第一性原理：唯有將真實受眾情境與可查證的品牌資產對齊，AI 放大的才會是有效價值而非數位雜訊。`,
+    what: (customWwh && customWwh.what) || (presetData && presetData.what) || `【決策資產】交付具備可追溯依據與驗收標準的專業資產包。\n・核心標的：${activeDeliver}\n・跨環節契約：明確區分已查證事實與待確認假設，供團隊與下游模組直接銜接使用。`,
+    how: (customWwh && customWwh.how) || (presetData && presetData.how) || `【人機閉環】${activeSteps.slice(0, 3).map((s, i) => `(${i + 1}) ${String(s).split(/[；。]/)[0]}`).join(' → ')}。\n・人腦拍板：提供真實觀察紀錄並審核合規邊界。\n・AI 規模推演：依標準框架展開結構化草稿與檢查表。\n・驗證閉環：逐項核對來源真實性與商業目標適配度。`,
+    mermaid: (customMermaid && customMermaid.trim()) || (presetData && presetData.mermaid) || autoMermaidCode
   };
 
   if (frameworkBanner) {
@@ -3525,6 +3586,168 @@ function createStoreZipBytes(fileEntries) {
   centralParts.forEach(p => { zipBytes.set(p, pos); pos += p.length; });
   zipBytes.set(eocd, pos);
   return zipBytes;
+}
+
+// 無損更新既有 ZIP 壓縮包內的 SKILL.md（100% 保留原有 .docx / .yaml / .svg / references 等所有附屬檔案）
+function patchSkillMdInExistingZipDataUrl(existingDataUrl, slug, newSkillMdContent) {
+  const { bytes } = verifyAndDecodeZipBase64(existingDataUrl);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const enc = new TextEncoder();
+  const dec = new TextDecoder('utf-8');
+
+  const crcTable = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+    crcTable[n] = c >>> 0;
+  }
+  function calcCrc32(arr) {
+    let c = 0xffffffff;
+    for (let i = 0; i < arr.length; i++) c = crcTable[(c ^ arr[i]) & 0xff] ^ (c >>> 8);
+    return (c ^ 0xffffffff) >>> 0;
+  }
+
+  let eocdPos = -1;
+  for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65557); i--) {
+    if (view.getUint32(i, true) === 0x06054b50) {
+      eocdPos = i;
+      break;
+    }
+  }
+  if (eocdPos === -1) throw new Error('EOCD not found');
+
+  const totalEntries = view.getUint16(eocdPos + 10, true);
+  const cdOffset = view.getUint32(eocdPos + 16, true);
+  let ptr = cdOffset;
+  const rawEntries = [];
+  let replacedSkillMd = false;
+  const newMdBytes = enc.encode(newSkillMdContent || '');
+  const newMdCrc = calcCrc32(newMdBytes);
+
+  for (let idx = 0; idx < totalEntries; idx++) {
+    if (ptr + 46 > bytes.length || view.getUint32(ptr, true) !== 0x02014b50) break;
+    const flags = view.getUint16(ptr + 8, true);
+    const method = view.getUint16(ptr + 10, true);
+    const crc = view.getUint32(ptr + 16, true);
+    const compSize = view.getUint32(ptr + 20, true);
+    const uncompSize = view.getUint32(ptr + 24, true);
+    const nameLen = view.getUint16(ptr + 28, true);
+    const extraLen = view.getUint16(ptr + 30, true);
+    const commentLen = view.getUint16(ptr + 32, true);
+    const localOffset = view.getUint32(ptr + 42, true);
+
+    const nameBytes = bytes.slice(ptr + 46, ptr + 46 + nameLen);
+    const fileName = dec.decode(nameBytes);
+    ptr += 46 + nameLen + extraLen + commentLen;
+
+    if (localOffset + 30 > bytes.length || view.getUint32(localOffset, true) !== 0x04034b50) continue;
+    const lNameLen = view.getUint16(localOffset + 26, true);
+    const lExtraLen = view.getUint16(localOffset + 28, true);
+    const dataStart = localOffset + 30 + lNameLen + lExtraLen;
+    const compData = bytes.slice(dataStart, dataStart + compSize);
+
+    if (/(^|\/)SKILL\.md$/i.test(fileName)) {
+      rawEntries.push({
+        nameBytes,
+        flags: 0x0800,
+        method: 0,
+        crc: newMdCrc,
+        compSize: newMdBytes.length,
+        uncompSize: newMdBytes.length,
+        dataBytes: newMdBytes
+      });
+      replacedSkillMd = true;
+    } else {
+      rawEntries.push({
+        nameBytes,
+        flags: (flags & ~0x0008),
+        method,
+        crc,
+        compSize,
+        uncompSize,
+        dataBytes: compData
+      });
+    }
+  }
+
+  if (!replacedSkillMd) {
+    const fbNameBytes = enc.encode(`${slug || 'tony-skill'}/SKILL.md`);
+    rawEntries.unshift({
+      nameBytes: fbNameBytes,
+      flags: 0x0800,
+      method: 0,
+      crc: newMdCrc,
+      compSize: newMdBytes.length,
+      uncompSize: newMdBytes.length,
+      dataBytes: newMdBytes
+    });
+  }
+
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+
+  rawEntries.forEach(ent => {
+    const lh = new Uint8Array(30 + ent.nameBytes.length);
+    const lv = new DataView(lh.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, ent.flags, true);
+    lv.setUint16(8, ent.method, true);
+    lv.setUint16(10, 0, true);
+    lv.setUint16(12, 0x5421, true);
+    lv.setUint32(14, ent.crc, true);
+    lv.setUint32(18, ent.compSize, true);
+    lv.setUint32(22, ent.uncompSize, true);
+    lv.setUint16(26, ent.nameBytes.length, true);
+    lv.setUint16(28, 0, true);
+    lh.set(ent.nameBytes, 30);
+
+    const ch = new Uint8Array(46 + ent.nameBytes.length);
+    const cv = new DataView(ch.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, ent.flags, true);
+    cv.setUint16(10, ent.method, true);
+    cv.setUint16(12, 0, true);
+    cv.setUint16(14, 0x5421, true);
+    cv.setUint32(16, ent.crc, true);
+    cv.setUint32(20, ent.compSize, true);
+    cv.setUint32(24, ent.uncompSize, true);
+    cv.setUint16(28, ent.nameBytes.length, true);
+    cv.setUint16(30, 0, true);
+    cv.setUint16(32, 0, true);
+    cv.setUint16(34, 0, true);
+    cv.setUint16(36, 0, true);
+    cv.setUint32(38, 0, true);
+    cv.setUint32(42, offset, true);
+    ch.set(ent.nameBytes, 46);
+
+    localParts.push(lh, ent.dataBytes);
+    centralParts.push(ch);
+    offset += lh.length + ent.dataBytes.length;
+  });
+
+  let centralSize = 0;
+  centralParts.forEach(p => { centralSize += p.length; });
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, rawEntries.length, true);
+  ev.setUint16(10, rawEntries.length, true);
+  ev.setUint32(12, centralSize, true);
+  ev.setUint32(16, offset, true);
+
+  const outBytes = new Uint8Array(offset + centralSize + 22);
+  let pos = 0;
+  localParts.forEach(p => { outBytes.set(p, pos); pos += p.length; });
+  centralParts.forEach(p => { outBytes.set(p, pos); pos += p.length; });
+  outBytes.set(eocd, pos);
+
+  let bin = '';
+  for (let i = 0; i < outBytes.length; i++) bin += String.fromCharCode(outBytes[i]);
+  return 'data:application/zip;base64,' + btoa(bin);
 }
 
 // 為任一單元或子 Skill 即時建構備援標準 ZIP 二進位資料（保證 100% 永不失敗）
@@ -6539,14 +6762,40 @@ service cloud.firestore {
 
     // ==================== 7. 課程與 Skill 雲端儲存管理中心 (Firestore Cloud CMS) ====================
     const adminSkillsTableBody = document.getElementById('adminSkillsTableBody');
+    const adminSkillSearchInput = document.getElementById('adminSkillSearchInput');
+    const adminSkillUnitFilter = document.getElementById('adminSkillUnitFilter');
+    const cmsSkillCountBadge = document.getElementById('cmsSkillCountBadge');
     const skillEditorDialog = document.getElementById('skillEditorDialog');
     const skillEditorForm = document.getElementById('skillEditorForm');
     const seZipFile = document.getElementById('seZipFile');
     const seZipStatusBadge = document.getElementById('seZipStatusBadge');
     const firestoreRulesDialog = document.getElementById('firestoreRulesDialog');
 
+    const cloudSyncedSlugs = new Set();
+    // 編輯器狀態：'new-unit' | 'edit-unit' | 'add-subskill' | 'edit-subskill'
+    let currentEditorState = {
+      mode: 'new-unit',
+      unitId: '',
+      subIdx: null,
+      originalSlug: '',
+      forceRebuildZip: false
+    };
+
     function getSkillDocRef(skillId) {
       return doc(db, 'artifacts', appId, 'public', 'data', 'skills', skillId);
+    }
+    function getSkillZipAssetDocRef(slug) {
+      const safeSlug = String(slug || '').replace(/[^A-Za-z0-9_.-]/g, '_');
+      return doc(db, 'artifacts', appId, 'public', 'data', 'skills', `asset__${safeSlug}`);
+    }
+
+    function getZipSizeKbLabel(slug, fallbackB64 = '') {
+      const raw = SKILL_ASSETS[slug + '.zip'] || fallbackB64 || '';
+      if (!raw) return null;
+      const commaIdx = raw.indexOf(',');
+      const b64 = commaIdx !== -1 ? raw.slice(commaIdx + 1) : raw;
+      const approxBytes = Math.round((b64.length * 3) / 4);
+      return `${(approxBytes / 1024).toFixed(1)} KB`;
     }
 
     function startCloudSkillsRealtimeSync() {
@@ -6555,35 +6804,64 @@ service cloud.firestore {
       unsubSkillsList = onSnapshot(skillsCol, (snapshot) => {
         const cloudDocsMap = {};
         const deletedIds = new Set();
+        const cloudAssetZips = {};
+        cloudSyncedSlugs.clear();
 
+        // 第一輪：先處理獨立儲存於 /skills/asset__{slug} 的各個子 Skill ZIP 壓縮包
         snapshot.forEach(docSnap => {
           const d = docSnap.data();
-          if (d.isDeleted) {
-            deletedIds.add(docSnap.id);
-          } else if (d && d.id && d.slug) {
-            d.isCloudSynced = true;
-            // 若為預設單元 05 且尚未由管理員手動上傳自訂 ZIP，優先保留升級版 8 檔案結構之 tony-brand-audio-director.zip
-            if (d.slug === 'tony-brand-audio-director' && !d.customZipUploaded && DEFAULT_SKILL_ASSETS_BACKUP['tony-brand-audio-director.zip']) {
-              d.zipBase64 = DEFAULT_SKILL_ASSETS_BACKUP['tony-brand-audio-director.zip'];
-              SKILL_ASSETS['tony-brand-audio-director.zip'] = d.zipBase64;
-            } else {
-              // 從 Firestore 讀回雲端 Skill 時，即時檢驗其 zipBase64 是否完好；若有損毀或缺漏，自動以雲端最新表單內容自癒重建標準 ZIP
+          if (!d) return;
+          if (docSnap.id.startsWith('asset__') || d.docType === 'skill_zip_asset') {
+            if (d.isDeleted) {
+              if (d.slug && DEFAULT_SKILL_ASSETS_BACKUP[d.slug + '.zip']) {
+                SKILL_ASSETS[d.slug + '.zip'] = DEFAULT_SKILL_ASSETS_BACKUP[d.slug + '.zip'];
+              } else if (d.slug) {
+                delete SKILL_ASSETS[d.slug + '.zip'];
+              }
+              return;
+            }
+            if (d.slug && d.zipBase64) {
               try {
                 const checked = verifyAndDecodeZipBase64(d.zipBase64);
-                d.zipBase64 = checked.cleanDataUrl;
                 SKILL_ASSETS[d.slug + '.zip'] = checked.cleanDataUrl;
-              } catch (zipErr) {
-                const healedBytes = createStoreZipBytes([
-                  { name: `${d.slug}/SKILL.md`, content: d.manual || `# ${d.name}` },
-                  { name: `${d.slug}/agents/openai.yaml`, content: `name: ${d.slug}\ndescription: ${d.name}\nversion: 1.0.0\nauthor: TONY 楊文澤老師 (TONY Studio)\ninstructions_file: ../SKILL.md\n` },
-                  { name: `${d.slug}/references/practice.md`, content: `# ${d.name}｜課堂實作與驗收標準\n\n## 核心步驟（SOP）\n${(d.steps || []).map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n## 預計交付成果\n${d.deliver || ''}\n\n## 關鍵檢核問題（Quiz）\n- **問題**：${d.quiz || ''}\n- **解析**：${d.answer || ''}\n` },
-                  { name: `${d.slug}/references/brand-contract.md`, content: `# 品牌跨單元交接與事實邊界契約\n\n- **原創設計**：TONY 楊文澤老師（TONY Studio）\n- **核心原則**：區分【使用者提供】【已查證】【工作假設】【建議】【待確認】，無來源不杜撰事實。\n` }
-                ]);
-                let bin = '';
-                for (let i = 0; i < healedBytes.length; i++) bin += String.fromCharCode(healedBytes[i]);
-                const healedDataUrl = 'data:application/zip;base64,' + btoa(bin);
-                d.zipBase64 = healedDataUrl;
-                SKILL_ASSETS[d.slug + '.zip'] = healedDataUrl;
+                cloudAssetZips[d.slug] = checked.cleanDataUrl;
+                cloudSyncedSlugs.add(d.slug);
+              } catch (err) {
+                console.warn('Invalid cloud zip asset skipped:', d.slug);
+              }
+            }
+          }
+        });
+
+        // 第二輪：處理課程單元與旗下 extraSkills 結構
+        snapshot.forEach(docSnap => {
+          if (docSnap.id.startsWith('asset__')) return;
+          const d = docSnap.data();
+          if (!d || d.docType === 'skill_zip_asset') return;
+
+          if (d.isDeleted) {
+            deletedIds.add(docSnap.id);
+          } else if (d.id && d.slug) {
+            d.isCloudSynced = true;
+            // 若該單元本身帶有獨立 zipBase64 且無更新的 asset__{slug}，則驗證載入
+            if (cloudAssetZips[d.slug]) {
+              d.zipBase64 = cloudAssetZips[d.slug];
+            } else if (d.zipBase64) {
+              if (d.slug === 'tony-brand-audio-director' && !d.customZipUploaded && DEFAULT_SKILL_ASSETS_BACKUP['tony-brand-audio-director.zip']) {
+                d.zipBase64 = DEFAULT_SKILL_ASSETS_BACKUP['tony-brand-audio-director.zip'];
+                SKILL_ASSETS['tony-brand-audio-director.zip'] = d.zipBase64;
+              } else {
+                try {
+                  const checked = verifyAndDecodeZipBase64(d.zipBase64);
+                  d.zipBase64 = checked.cleanDataUrl;
+                  SKILL_ASSETS[d.slug + '.zip'] = checked.cleanDataUrl;
+                  cloudSyncedSlugs.add(d.slug);
+                } catch (zipErr) {
+                  if (DEFAULT_SKILL_ASSETS_BACKUP[d.slug + '.zip']) {
+                    d.zipBase64 = DEFAULT_SKILL_ASSETS_BACKUP[d.slug + '.zip'];
+                    SKILL_ASSETS[d.slug + '.zip'] = d.zipBase64;
+                  }
+                }
               }
             }
             cloudDocsMap[d.id] = d;
@@ -6595,30 +6873,44 @@ service cloud.firestore {
           if (deletedIds.has(defUnit.id)) return;
           if (cloudDocsMap[defUnit.id]) {
             const cloudU = cloudDocsMap[defUnit.id];
-            if (!cloudU.zipBase64 && DEFAULT_SKILL_ASSETS_BACKUP[cloudU.slug + '.zip']) {
+            if (!SKILL_ASSETS[cloudU.slug + '.zip'] && DEFAULT_SKILL_ASSETS_BACKUP[cloudU.slug + '.zip']) {
               SKILL_ASSETS[cloudU.slug + '.zip'] = DEFAULT_SKILL_ASSETS_BACKUP[cloudU.slug + '.zip'];
             }
-            if (Array.isArray(defUnit.extraSkills)) {
+            // 若管理員尚未在後台手動增刪過該單元的子 Skill，則自動補齊所有最新內建 extraSkills；若已手動管理過則完全尊重後台設定
+            if (Array.isArray(defUnit.extraSkills) && !cloudU.subSkillsModifiedByAdmin) {
               if (!Array.isArray(cloudU.extraSkills)) {
                 cloudU.extraSkills = JSON.parse(JSON.stringify(defUnit.extraSkills));
               } else {
-                // 自動補齊新增的子 Skill，並將已升級版本（如 v1.1.0 的 05-A）自動同步至雲端合併清單
                 defUnit.extraSkills.forEach(defSub => {
                   const existIdx = cloudU.extraSkills.findIndex(cs => cs.slug === defSub.slug);
                   if (existIdx === -1) {
                     cloudU.extraSkills.push(JSON.parse(JSON.stringify(defSub)));
-                  } else if (defSub.versionTag && cloudU.extraSkills[existIdx].versionTag !== defSub.versionTag) {
+                  } else if (defSub.versionTag && cloudU.extraSkills[existIdx].versionTag !== defSub.versionTag && !cloudU.extraSkills[existIdx].adminEdited) {
                     cloudU.extraSkills[existIdx] = JSON.parse(JSON.stringify(defSub));
                   }
                 });
               }
             }
+            if (Array.isArray(cloudU.extraSkills)) {
+              cloudU.extraSkills.forEach(es => {
+                if (!SKILL_ASSETS[es.slug + '.zip'] && DEFAULT_SKILL_ASSETS_BACKUP[es.slug + '.zip']) {
+                  SKILL_ASSETS[es.slug + '.zip'] = DEFAULT_SKILL_ASSETS_BACKUP[es.slug + '.zip'];
+                }
+              });
+            }
             mergedList.push(cloudU);
             delete cloudDocsMap[defUnit.id];
           } else {
             const copyU = JSON.parse(JSON.stringify(defUnit));
-            if (DEFAULT_SKILL_ASSETS_BACKUP[copyU.slug + '.zip']) {
+            if (!cloudAssetZips[copyU.slug] && DEFAULT_SKILL_ASSETS_BACKUP[copyU.slug + '.zip']) {
               SKILL_ASSETS[copyU.slug + '.zip'] = DEFAULT_SKILL_ASSETS_BACKUP[copyU.slug + '.zip'];
+            }
+            if (Array.isArray(copyU.extraSkills)) {
+              copyU.extraSkills.forEach(es => {
+                if (!cloudAssetZips[es.slug] && DEFAULT_SKILL_ASSETS_BACKUP[es.slug + '.zip']) {
+                  SKILL_ASSETS[es.slug + '.zip'] = DEFAULT_SKILL_ASSETS_BACKUP[es.slug + '.zip'];
+                }
+              });
             }
             mergedList.push(copyU);
           }
@@ -6642,64 +6934,198 @@ service cloud.firestore {
       });
     }
 
+    function updateAdminSkillUnitFilterOptions() {
+      if (!adminSkillUnitFilter) return;
+      const prev = adminSkillUnitFilter.value || 'all';
+      adminSkillUnitFilter.innerHTML = `<option value="all">顯示全部單元（所有 Skill）</option>` +
+        UNITS.map(u => {
+          const count = (Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1;
+          return `<option value="${esc(u.id)}">單元 ${esc(u.id)}｜${esc(u.shortLabel || u.name)} (${count} 組 Skill)</option>`;
+        }).join('');
+      if ([...adminSkillUnitFilter.options].some(o => o.value === prev)) {
+        adminSkillUnitFilter.value = prev;
+      }
+    }
+
+    if (adminSkillSearchInput) adminSkillSearchInput.addEventListener('input', renderAdminSkillsTable);
+    if (adminSkillUnitFilter) adminSkillUnitFilter.addEventListener('change', renderAdminSkillsTable);
+
     function renderAdminSkillsTable() {
       if (!adminSkillsTableBody) return;
+      updateAdminSkillUnitFilterOptions();
+
+      const totalSkillsCount = UNITS.reduce((sum, u) => sum + ((Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1), 0);
+      if (cmsSkillCountBadge) {
+        cmsSkillCountBadge.textContent = `${UNITS.length} 大單元 · 共 ${totalSkillsCount} 組獨立 Skill`;
+      }
+
       if (!UNITS.length) {
-        adminSkillsTableBody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-muted">目前沒有課程單元，請點擊右上角「＋ 新增課程單元與 Skill」或「將預設 5 大單元同步上雲端」</td></tr>`;
+        adminSkillsTableBody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-muted">目前沒有課程單元，請點擊右上角「＋ 新增獨立課程單元」或「將全套單元與全部 Skill 同步上雲端」</td></tr>`;
         return;
       }
 
       const isCreatorUser = currentUser && (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL;
+      const q = (adminSkillSearchInput ? adminSkillSearchInput.value : '').trim().toLowerCase();
+      const unitFilterVal = adminSkillUnitFilter ? adminSkillUnitFilter.value : 'all';
 
-      adminSkillsTableBody.innerHTML = UNITS.map(u => {
-        const hasZip = !!(u.zipBase64 || SKILL_ASSETS[u.slug + '.zip']);
+      const rowsHtml = [];
+
+      UNITS.forEach(u => {
+        if (unitFilterVal !== 'all' && u.id !== unitFilterVal) return;
+
         const hasExtra = Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
-        const extraBadges = hasExtra
-          ? `<div class="mt-1 flex flex-wrap gap-1">${u.extraSkills.map(es => `<span class="px-2 py-0.5 rounded bg-teal/10 text-teal font-mono text-[10px] font-bold">+ ${esc(es.slug)}.zip</span>`).join('')}</div>`
-          : '';
-        return `
-          <tr class="hover:bg-paper/60 transition-colors">
-            <td class="py-3.5 px-4 whitespace-nowrap">
-              <b class="text-lg font-black text-teal font-mono mr-2">${esc(u.id)}</b>
-              <span class="px-2 py-0.5 rounded-full bg-paper border border-line text-[11px] font-bold text-ink">${esc(u.tag)}</span>
+        const skillItems = hasExtra
+          ? u.extraSkills.map((es, idx) => ({ isSub: true, subIdx: idx, data: es }))
+          : [{ isSub: false, subIdx: null, data: u }];
+
+        const matchedSkills = skillItems.filter(item => {
+          if (!q) return true;
+          const s = item.data;
+          const haystack = `${u.id} ${u.title} ${u.tag} ${s.roleBadge || ''} ${s.name || ''} ${s.slug || ''} ${s.deliver || ''}`.toLowerCase();
+          return haystack.includes(q);
+        });
+
+        if (!matchedSkills.length) return;
+
+        // 渲染單元分組標題列（可編輯單元總覽、新增該單元的子 Skill、或刪除整單元）
+        rowsHtml.push(`
+          <tr class="bg-teal/5 border-y border-teal/20">
+            <td colspan="4" class="py-2.5 px-4">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-lg bg-teal text-white font-mono text-xs font-extrabold">單元 ${esc(u.id)}</span>
+                <strong class="text-xs sm:text-sm font-black text-ink">${esc(u.title)}</strong>
+                <span class="px-2 py-0.5 rounded-full bg-white border border-line text-[10px] font-bold text-muted">${esc(u.tag)}</span>
+                <span class="text-[11px] font-bold text-teal">（內含 ${skillItems.length} 組 Skill）</span>
+              </div>
             </td>
-            <td class="py-3.5 px-4">
-              <strong class="font-extrabold text-ink block">${esc(u.name)}</strong>
-              <code class="text-[11px] font-mono text-muted">${esc(u.slug)}</code>
-              ${extraBadges}
-            </td>
-            <td class="py-3.5 px-4">
-              <span class="font-bold text-ink block">${esc(u.title)}</span>
-              <span class="text-xs text-muted block truncate max-w-xs">交付：${esc(u.deliver)}</span>
-            </td>
-            <td class="py-3.5 px-4 whitespace-nowrap">
-              ${hasZip
-                ? `<span class="px-2.5 py-1 rounded-full bg-lime/70 text-ink text-xs font-extrabold">📦 含 ZIP 壓縮包 ${hasExtra ? `(${u.extraSkills.length} 組)` : ''}</span>`
-                : `<span class="px-2.5 py-1 rounded-full bg-paper border border-line text-muted text-xs font-semibold">📄 僅 SKILL.md</span>`
-              }
-            </td>
-            <td class="py-3.5 px-4 whitespace-nowrap">
+            <td class="py-2.5 px-4 whitespace-nowrap">
               ${u.isCloudSynced
-                ? `<span class="px-2.5 py-1 rounded-lg bg-teal/15 text-teal text-xs font-bold">☁️ Firestore 雲端</span>`
-                : `<span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-muted text-xs font-semibold">內建預設</span>`
+                ? `<span class="px-2 py-0.5 rounded bg-teal/15 text-teal text-[11px] font-bold">☁️ 單元結構已上雲</span>`
+                : `<span class="px-2 py-0.5 rounded bg-white border border-line text-muted text-[11px] font-semibold">預設單元結構</span>`
               }
             </td>
-            <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">
+            <td class="py-2.5 px-4 text-right whitespace-nowrap space-x-1.5">
               ${isCreatorUser
                 ? `
-                  <button type="button" data-edit-skill="${esc(u.id)}" class="px-3 py-1.5 rounded-lg border border-teal text-teal hover:bg-teal hover:text-white text-xs font-bold transition-colors">
-                    ✏️ 編輯 / 上傳 ZIP
+                  <button type="button" data-add-subskill="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-[11px] font-extrabold transition-colors shadow-sm">
+                    ＋ 新增子 Skill
                   </button>
-                  <button type="button" data-delete-skill="${esc(u.id)}" data-skill-title="${esc(u.name)}" class="px-3 py-1.5 rounded-lg border border-red-300 text-red-700 hover:bg-red-600 hover:text-white text-xs font-bold transition-colors">
-                    🗑️ 刪除
+                  <button type="button" data-edit-unit-meta="${esc(u.id)}" class="px-2.5 py-1 rounded-lg border border-ink/30 bg-white hover:bg-lime/40 text-ink text-[11px] font-bold transition-colors">
+                    ⚙️ 單元總覽標題
+                  </button>
+                  <button type="button" data-delete-skill="${esc(u.id)}" data-skill-title="${esc(u.title)}" class="px-2 py-1 rounded-lg border border-red-200 bg-white text-red-700 hover:bg-red-600 hover:text-white text-[11px] font-bold transition-colors">
+                    刪整單元
                   </button>
                 `
-                : `<span class="px-2.5 py-1.5 rounded-lg bg-paper text-[11px] font-bold text-muted inline-block">🔒 僅創作者可管理</span>`
+                : `<span class="text-[11px] text-muted font-bold">🔒 唯讀</span>`
               }
             </td>
           </tr>
-        `;
-      }).join('');
+        `);
+
+        // 逐一渲染該單元下的每一組獨立 Skill 管理列
+        matchedSkills.forEach(item => {
+          const s = item.data;
+          const sizeLabel = getZipSizeKbLabel(s.slug, s.zipBase64);
+          const isZipCloud = cloudSyncedSlugs.has(s.slug) || (u.isCloudSynced && !item.isSub);
+          const stepsCount = Array.isArray(s.steps) ? s.steps.length : (Array.isArray(u.steps) ? u.steps.length : 0);
+          const badgeLabel = item.isSub
+            ? (s.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + item.subIdx)}`)
+            : `SKILL ${u.id}｜主模組`;
+
+          rowsHtml.push(`
+            <tr class="hover:bg-paper/70 transition-colors bg-white">
+              <td class="py-3.5 px-4 pl-7 whitespace-nowrap">
+                <span class="inline-block px-2.5 py-1 rounded-lg bg-paper border border-line text-[11px] font-extrabold text-teal">${esc(badgeLabel)}</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <strong class="font-extrabold text-ink block text-xs sm:text-sm">${esc(s.name)}</strong>
+                <code class="text-[11px] font-mono text-muted">${esc(s.slug)}</code>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="text-xs text-ink block max-w-xs truncate" title="${esc(s.deliver || u.deliver)}">${esc(s.deliver || u.deliver)}</span>
+                <span class="text-[11px] text-muted">SOP 共 ${stepsCount} 步驟 · 實戰手冊已就緒</span>
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <div class="flex items-center gap-1.5">
+                  ${sizeLabel
+                    ? `<span class="px-2 py-0.5 rounded-full bg-lime/70 text-ink text-[11px] font-extrabold">📦 ${sizeLabel}</span>`
+                    : `<span class="px-2 py-0.5 rounded-full bg-paper border border-line text-muted text-[11px]">自動打包</span>`
+                  }
+                  <button type="button" data-admin-dl-slug="${esc(s.slug)}" data-admin-dl-unit="${esc(u.id)}" class="px-2 py-0.5 rounded border border-teal/30 bg-teal/5 hover:bg-teal hover:text-white text-teal text-[11px] font-bold transition-colors" title="下載並檢驗此 Skill 的 ZIP 壓縮包">
+                    📥 下載
+                  </button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                ${isZipCloud
+                  ? `<span class="px-2.5 py-1 rounded-lg bg-teal/15 text-teal text-xs font-bold">☁️ Firestore 雲端</span>`
+                  : `<span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-muted text-xs font-semibold">內建標準包</span>`
+                }
+              </td>
+              <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">
+                ${isCreatorUser
+                  ? item.isSub
+                    ? `
+                      <button type="button" data-edit-subskill-unit="${esc(u.id)}" data-edit-subskill-idx="${item.subIdx}" class="px-3 py-1.5 rounded-lg bg-teal/10 border border-teal text-teal hover:bg-teal hover:text-white text-xs font-extrabold transition-colors">
+                        ✏️ 編輯 / 上傳 ZIP
+                      </button>
+                      <button type="button" data-delete-subskill-unit="${esc(u.id)}" data-delete-subskill-idx="${item.subIdx}" data-skill-title="${esc(s.name)}" class="px-2.5 py-1.5 rounded-lg border border-red-300 text-red-700 hover:bg-red-600 hover:text-white text-xs font-bold transition-colors">
+                        刪除
+                      </button>
+                    `
+                    : `
+                      <button type="button" data-edit-skill="${esc(u.id)}" class="px-3 py-1.5 rounded-lg bg-teal/10 border border-teal text-teal hover:bg-teal hover:text-white text-xs font-extrabold transition-colors">
+                        ✏️ 編輯 / 上傳 ZIP
+                      </button>
+                      <button type="button" data-delete-skill="${esc(u.id)}" data-skill-title="${esc(s.name)}" class="px-2.5 py-1.5 rounded-lg border border-red-300 text-red-700 hover:bg-red-600 hover:text-white text-xs font-bold transition-colors">
+                        刪除
+                      </button>
+                    `
+                  : `<span class="px-2.5 py-1.5 rounded-lg bg-paper text-[11px] font-bold text-muted inline-block">🔒 僅創作者可管理</span>`
+                }
+              </td>
+            </tr>
+          `);
+        });
+      });
+
+      adminSkillsTableBody.innerHTML = rowsHtml.length
+        ? rowsHtml.join('')
+        : `<tr><td colspan="6" class="py-8 text-center text-muted">找不到符合篩選條件的 Skill，請調整關鍵字或單元篩選。</td></tr>`;
+    }
+
+    // 切換編輯器表單欄位顯示與 required 屬性（區分「單元層級」與「子 Skill 層級」）
+    function configureEditorModeUI(mode, contextMessage) {
+      currentEditorState.mode = mode;
+      currentEditorState.forceRebuildZip = false;
+      const unitGroup = document.getElementById('seUnitMetaFieldsGroup');
+      const subRoleGroup = document.getElementById('seSubSkillRoleGroup');
+      const skillDetailSection = document.getElementById('seSkillDetailSection');
+      const ctxText = document.getElementById('seEditContextText');
+      if (ctxText) ctxText.textContent = contextMessage;
+
+      const isSubMode = (mode === 'edit-subskill' || mode === 'add-subskill');
+      const isUnitOverviewOnly = (mode === 'edit-unit-overview');
+
+      unitGroup.classList.toggle('hidden', isSubMode);
+      subRoleGroup.classList.toggle('hidden', !isSubMode);
+      skillDetailSection.classList.toggle('hidden', isUnitOverviewOnly);
+
+      // 動態切換 HTML5 required，避免隱藏欄位阻擋送出
+      ['seId', 'seTag', 'seShortLabel', 'seTitle', 'seDesc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.required = !isSubMode;
+      });
+      document.getElementById('seId').readOnly = (mode !== 'new-unit');
+
+      const roleBadgeEl = document.getElementById('seRoleBadge');
+      if (roleBadgeEl) roleBadgeEl.required = isSubMode;
+
+      ['seSlug', 'seName', 'seDeliver', 'seSteps', 'seFields', 'seManual'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.required = !isUnitOverviewOnly;
+      });
     }
 
     // ==================== 智慧反向解析引擎：從上傳的 .zip 中提取 SKILL.md 與 practice.md 並自動更新網頁表單 ====================
@@ -6937,30 +7363,41 @@ service cloud.firestore {
       const built = buildStandardZipBase64FromEditorForm();
       pendingUploadedZipBase64 = built.dataUrl;
       pendingUploadedZipName = `${built.slug}.zip`;
+      currentEditorState.forceRebuildZip = true;
       const kb = (built.byteLength / 1024).toFixed(1);
-      seZipStatusBadge.textContent = `⚡ 已自動生成：${built.slug}.zip (${kb} KB)`;
+      seZipStatusBadge.textContent = `⚡ 已全新打包：${built.slug}.zip (${kb} KB)`;
       seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-lime text-ink text-xs font-extrabold';
-      toast(`⚡ 已將下方表單與 SKILL.md 自動封裝成標準 ZIP（${kb} KB）！`);
+      toast(`⚡ 已將下方表單與 SKILL.md 全新封裝成標準 ZIP（${kb} KB）！`);
     });
 
     document.getElementById('testPreviewZipBtn').addEventListener('click', () => {
       const slugVal = (document.getElementById('seSlug').value.trim() || 'tony-custom-skill');
+      const manualVal = document.getElementById('seManual').value || '';
       let targetB64 = pendingUploadedZipBase64;
+      if (targetB64 && (!seZipFile.files || !seZipFile.files.length) && !currentEditorState.forceRebuildZip) {
+        try {
+          targetB64 = patchSkillMdInExistingZipDataUrl(targetB64, slugVal, manualVal);
+        } catch (e) {}
+      }
       if (!targetB64) {
         const built = buildStandardZipBase64FromEditorForm();
         targetB64 = built.dataUrl;
       }
-      triggerBase64Download(targetB64, `${slugVal}.zip`, 'application/zip', slugVal, document.getElementById('seId').value.trim());
+      triggerBase64Download(targetB64, `${slugVal}.zip`, 'application/zip', slugVal, currentEditorState.unitId || document.getElementById('seId').value.trim());
       toast(`🔍 正在測試下載 ${slugVal}.zip`);
     });
 
+    // 開啟「＋ 新增獨立課程單元」
     document.getElementById('openNewSkillModalBtn').addEventListener('click', () => {
       if (!currentUser || (currentUser.email || '').toLowerCase() !== SYSTEM_CREATOR_EMAIL) {
         toast('🔒 僅限最高管理員 mindnodeai@gmail.com 可新增課程與 Skill！');
         return;
       }
       const nextNum = String(UNITS.length + 1).padStart(2, '0');
-      document.getElementById('skillEditorTitle').textContent = `＋ 新增課程單元與雲端 Skill（預設編號 ${nextNum}）`;
+      currentEditorState = { mode: 'new-unit', unitId: nextNum, subIdx: null, originalSlug: '', forceRebuildZip: false };
+      configureEditorModeUI('new-unit', `新增模式：建立全新獨立課程單元（預設編號 ${nextNum}）`);
+
+      document.getElementById('skillEditorTitle').textContent = `＋ 新增獨立課程單元與雲端 Skill（單元 ${nextNum}）`;
       document.getElementById('seId').value = nextNum;
       document.getElementById('seTag').value = 'CUSTOM';
       document.getElementById('seShortLabel').value = '';
@@ -6986,26 +7423,200 @@ service cloud.firestore {
       lastExtractedZipFiles = {};
       if (parseZipToFormBtn) parseZipToFormBtn.classList.add('hidden');
       seZipFile.value = '';
-      seZipStatusBadge.textContent = '尚未選擇新檔案';
+      seZipStatusBadge.textContent = '尚未選擇新檔案（儲存時可自動生成標準 ZIP）';
       seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted';
       skillEditorDialog.showModal();
     });
 
+    // 後台表格事件代理：支援「測試下載」、「新增子 Skill」、「編輯子 Skill」、「刪除子 Skill」、「編輯單元總覽」與「刪除整單元」
     adminSkillsTableBody.addEventListener('click', (e) => {
-      const editBtn = e.target.closest('[data-edit-skill]');
-      const delBtn = e.target.closest('[data-delete-skill]');
+      const dlBtn = e.target.closest('[data-admin-dl-slug]');
+      if (dlBtn) {
+        handleSkillZipDownload(dlBtn.getAttribute('data-admin-dl-slug'), dlBtn.getAttribute('data-admin-dl-unit'));
+        return;
+      }
 
-      if (editBtn || delBtn) {
+      const addSubBtn = e.target.closest('[data-add-subskill]');
+      const editSubBtn = e.target.closest('[data-edit-subskill-unit]');
+      const delSubBtn = e.target.closest('[data-delete-subskill-unit]');
+      const editUnitMetaBtn = e.target.closest('[data-edit-unit-meta]');
+      const editUnitBtn = e.target.closest('[data-edit-skill]');
+      const delUnitBtn = e.target.closest('[data-delete-skill]');
+
+      if (addSubBtn || editSubBtn || delSubBtn || editUnitMetaBtn || editUnitBtn || delUnitBtn) {
         if (!currentUser || (currentUser.email || '').toLowerCase() !== SYSTEM_CREATOR_EMAIL) {
-          toast('🔒 僅限最高管理員 mindnodeai@gmail.com 可修改或刪除 Skill！');
+          toast('🔒 僅限最高管理員 mindnodeai@gmail.com 可新增、修改或刪除 Skill！');
           return;
         }
       }
 
-      if (editBtn) {
-        const unitId = editBtn.getAttribute('data-edit-skill');
+      // 1. 在指定單元新增子 Skill（例如新增 02-C 或 04-C）
+      if (addSubBtn) {
+        const unitId = addSubBtn.getAttribute('data-add-subskill');
         const u = UNITS.find(x => x.id === unitId);
         if (!u) return;
+        const existingCount = (Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1;
+        const nextLetter = String.fromCharCode(65 + existingCount);
+        const suggestedSlug = `tony-unit${unitId}-skill-${nextLetter.toLowerCase()}`;
+
+        currentEditorState = { mode: 'add-subskill', unitId: u.id, subIdx: null, originalSlug: '', forceRebuildZip: false };
+        configureEditorModeUI('add-subskill', `新增子模組至「單元 ${u.id}：${u.shortLabel || u.title}」（預設代號 SKILL ${u.id}-${nextLetter}）`);
+
+        document.getElementById('skillEditorTitle').textContent = `＋ 在單元 ${u.id} 新增子 Skill（SKILL ${u.id}-${nextLetter}）`;
+        document.getElementById('seId').value = u.id;
+        document.getElementById('seParentUnitReadonly').value = `單元 ${u.id}｜${u.shortLabel || u.name}`;
+        document.getElementById('seRoleBadge').value = `SKILL ${u.id}-${nextLetter}｜新增實戰模組`;
+        document.getElementById('seSlug').value = suggestedSlug;
+        document.getElementById('seName').value = '';
+        document.getElementById('seDeliver').value = '';
+        document.getElementById('seSteps').value = '界定目標受眾與應用場景\n盤點真實品牌依據與限制條件\n產出結構化交付包並執行品質檢核';
+        document.getElementById('seFields').value = '本模組要解決的核心情境為何？\n目前具備哪些可查證的品牌素材？\n預計產出的規格與行動呼籲為何？';
+        document.getElementById('seQuiz').value = '只要用 AI 快速生成初稿就能直接對外發布嗎？';
+        document.getElementById('seAnswer').value = '不行，仍須通過事實來源核對、品牌語氣審查與授權邊界確認。';
+        document.getElementById('seManual').value = `---\nname: ${suggestedSlug}\ndescription: TONY Studio 單元 ${u.id} 擴充專業實戰 Skill\n---\n\n# TONY 品牌專業實戰教練\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.0.0。區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。\n\n## 專屬流程\n1. 界定目標與受眾情境。\n2. 盤點可信證據與合規邊界。\n3. 輸出結構化成果並完成驗收。\n`;
+        document.getElementById('seWhy').value = '';
+        document.getElementById('seWhat').value = '';
+        document.getElementById('seHow').value = '';
+        document.getElementById('seMermaid').value = '';
+
+        pendingUploadedZipBase64 = null;
+        pendingUploadedZipName = "";
+        lastExtractedZipFiles = {};
+        if (parseZipToFormBtn) parseZipToFormBtn.classList.add('hidden');
+        seZipFile.value = '';
+        seZipStatusBadge.textContent = '請選擇 .zip 壓縮包（或直接填表自動打包）';
+        seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted';
+        skillEditorDialog.showModal();
+        return;
+      }
+
+      // 2. 編輯任一獨立子 Skill（01-A ~ 05-C 全數支援）
+      if (editSubBtn) {
+        const unitId = editSubBtn.getAttribute('data-edit-subskill-unit');
+        const subIdx = Number(editSubBtn.getAttribute('data-edit-subskill-idx'));
+        const u = UNITS.find(x => x.id === unitId);
+        if (!u || !Array.isArray(u.extraSkills) || !u.extraSkills[subIdx]) return;
+        const sub = u.extraSkills[subIdx];
+
+        currentEditorState = { mode: 'edit-subskill', unitId: u.id, subIdx, originalSlug: sub.slug, forceRebuildZip: false };
+        configureEditorModeUI('edit-subskill', `正在編輯子模組：單元 ${u.id} → ${sub.roleBadge || sub.name}（${sub.slug}）`);
+
+        document.getElementById('skillEditorTitle').textContent = `✏️ 編輯 ${sub.roleBadge || `單元 ${u.id} 子模組`}｜${sub.name}`;
+        document.getElementById('seId').value = u.id;
+        document.getElementById('seParentUnitReadonly').value = `單元 ${u.id}｜${u.shortLabel || u.title}`;
+        document.getElementById('seRoleBadge').value = sub.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + subIdx)}`;
+        document.getElementById('seSlug').value = sub.slug || '';
+        document.getElementById('seName').value = sub.name || '';
+        document.getElementById('seDeliver').value = sub.deliver || u.deliver || '';
+        document.getElementById('seSteps').value = (Array.isArray(sub.steps) && sub.steps.length ? sub.steps : (u.steps || [])).join('\n');
+        document.getElementById('seFields').value = (Array.isArray(sub.fields) && sub.fields.length ? sub.fields : (u.fields || [])).join('\n');
+        document.getElementById('seQuiz').value = sub.quiz || u.quiz || '';
+        document.getElementById('seAnswer').value = sub.answer || u.answer || '';
+        document.getElementById('seManual').value = sub.manual || u.manual || '';
+
+        const wwhKey = SLUG_TO_WWH_KEY[sub.slug] || `${u.id}-${subIdx}`;
+        const presetWwh = UNIT_WWH_MERMAID_MAP[wwhKey] || UNIT_WWH_MERMAID_MAP[u.id] || {};
+        document.getElementById('seWhy').value = (sub.wwh && sub.wwh.why) || presetWwh.why || '';
+        document.getElementById('seWhat').value = (sub.wwh && sub.wwh.what) || presetWwh.what || '';
+        document.getElementById('seHow').value = (sub.wwh && sub.wwh.how) || presetWwh.how || '';
+        document.getElementById('seMermaid').value = sub.mermaidCode || presetWwh.mermaid || '';
+
+        pendingUploadedZipBase64 = SKILL_ASSETS[sub.slug + '.zip'] || sub.zipBase64 || null;
+        pendingUploadedZipName = `${sub.slug}.zip`;
+        lastExtractedZipFiles = {};
+        if (parseZipToFormBtn) parseZipToFormBtn.classList.add('hidden');
+        seZipFile.value = '';
+        const kbLabel = getZipSizeKbLabel(sub.slug, pendingUploadedZipBase64);
+        if (pendingUploadedZipBase64) {
+          seZipStatusBadge.textContent = `✓ 已載入現有壓縮包 (${kbLabel || '標準 ZIP'})，可選新檔覆蓋或直接改內文`;
+          seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-teal/15 text-teal text-xs font-bold';
+        } else {
+          seZipStatusBadge.textContent = '尚未上傳 ZIP 檔案';
+          seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted';
+        }
+        skillEditorDialog.showModal();
+        return;
+      }
+
+      // 3. 刪除單一子 Skill
+      if (delSubBtn) {
+        const unitId = delSubBtn.getAttribute('data-delete-subskill-unit');
+        const subIdx = Number(delSubBtn.getAttribute('data-delete-subskill-idx'));
+        const skillTitle = delSubBtn.getAttribute('data-skill-title');
+        const u = UNITS.find(x => x.id === unitId);
+        if (!u || !Array.isArray(u.extraSkills) || !u.extraSkills[subIdx]) return;
+
+        if (u.extraSkills.length <= 1) {
+          toast('⚠️ 此為該單元最後一個 Skill，若要移除請點擊上方「刪整單元」按鈕');
+          return;
+        }
+
+        openConfirm(
+          '確定刪除此子 Skill 模組？',
+          `您即將從「單元 ${unitId}」移除子模組「${skillTitle}（${u.extraSkills[subIdx].slug}）」，移除後前台卡片與工作台將不再顯示此 Skill，是否確定執行？`,
+          async () => {
+            try {
+              const removedSub = u.extraSkills[subIdx];
+              const updatedExtra = u.extraSkills.filter((_, idx) => idx !== subIdx);
+              const primarySub = updatedExtra[0];
+              const { zipBase64, ...cleanUnit } = u;
+              await setDoc(getSkillDocRef(u.id), {
+                ...cleanUnit,
+                slug: primarySub.slug,
+                extraSkills: updatedExtra,
+                subSkillsModifiedByAdmin: true,
+                isDeleted: false,
+                updatedAt: new Date().toISOString(),
+                updatedBy: currentUser ? currentUser.email : 'admin'
+              }, { merge: true });
+              await setDoc(getSkillZipAssetDocRef(removedSub.slug), {
+                docType: 'skill_zip_asset',
+                slug: removedSub.slug,
+                isDeleted: true,
+                deletedAt: new Date().toISOString()
+              }, { merge: true });
+              if (active === u.id && activeSubSkillIdx >= updatedExtra.length) {
+                activeSubSkillIdx = 0;
+              }
+              toast(`🗑️ 已從單元 ${unitId} 移除「${skillTitle}」`);
+            } catch (err) {
+              console.error("Delete sub-skill error:", err);
+              toast('⚠️ 刪除子模組失敗，請確認 Firestore Rules 權限');
+            }
+          }
+        );
+        return;
+      }
+
+      // 4. 編輯「單元總覽標題」（當單元有多個子 Skill 時，用來修改單元大標題、分類 Tag、五力短標題與簡介）
+      if (editUnitMetaBtn) {
+        const unitId = editUnitMetaBtn.getAttribute('data-edit-unit-meta');
+        const u = UNITS.find(x => x.id === unitId);
+        if (!u) return;
+
+        currentEditorState = { mode: 'edit-unit-overview', unitId: u.id, subIdx: null, originalSlug: u.slug, forceRebuildZip: false };
+        configureEditorModeUI('edit-unit-overview', `正在編輯單元總覽外顯設定：單元 ${u.id}（卡片標題、五力藍圖與整體簡介）`);
+
+        document.getElementById('skillEditorTitle').textContent = `⚙️ 編輯單元 ${u.id} 總覽標題與簡介`;
+        document.getElementById('seId').value = u.id;
+        document.getElementById('seTag').value = u.tag || '';
+        document.getElementById('seShortLabel').value = u.shortLabel || '';
+        document.getElementById('seTitle').value = u.title || '';
+        document.getElementById('sePromise').value = u.promise || '';
+        document.getElementById('seDesc').value = u.desc || '';
+        document.getElementById('seExample').value = u.example || '';
+        skillEditorDialog.showModal();
+        return;
+      }
+
+      // 5. 編輯單一主單元 Skill（針對無 extraSkills 的自訂獨立單元）
+      if (editUnitBtn) {
+        const unitId = editUnitBtn.getAttribute('data-edit-skill');
+        const u = UNITS.find(x => x.id === unitId);
+        if (!u) return;
+
+        currentEditorState = { mode: 'edit-unit', unitId: u.id, subIdx: null, originalSlug: u.slug, forceRebuildZip: false };
+        configureEditorModeUI('edit-unit', `正在編輯獨立課程單元：單元 ${u.id}｜${u.name}`);
 
         document.getElementById('skillEditorTitle').textContent = `✏️ 編輯單元 ${u.id}｜${u.name}`;
         document.getElementById('seId').value = u.id;
@@ -7030,8 +7641,8 @@ service cloud.firestore {
         document.getElementById('seHow').value = (u.wwh && u.wwh.how) || presetWwh.how || '';
         document.getElementById('seMermaid').value = u.mermaidCode || presetWwh.mermaid || '';
 
-        pendingUploadedZipBase64 = u.zipBase64 || SKILL_ASSETS[u.slug + '.zip'] || null;
-        pendingUploadedZipName = "";
+        pendingUploadedZipBase64 = SKILL_ASSETS[u.slug + '.zip'] || u.zipBase64 || null;
+        pendingUploadedZipName = `${u.slug}.zip`;
         lastExtractedZipFiles = {};
         if (parseZipToFormBtn) parseZipToFormBtn.classList.add('hidden');
         seZipFile.value = '';
@@ -7043,14 +7654,16 @@ service cloud.firestore {
           seZipStatusBadge.className = 'px-2.5 py-1 rounded-full bg-white border border-line text-xs font-bold text-muted';
         }
         skillEditorDialog.showModal();
+        return;
       }
 
-      if (delBtn) {
-        const unitId = delBtn.getAttribute('data-delete-skill');
-        const skillTitle = delBtn.getAttribute('data-skill-title');
+      // 6. 刪除整個課程單元
+      if (delUnitBtn) {
+        const unitId = delUnitBtn.getAttribute('data-delete-skill');
+        const skillTitle = delUnitBtn.getAttribute('data-skill-title');
         openConfirm(
-          '確定刪除此課程單元與雲端 Skill？',
-          `您即將從平台與 Firestore 雲端移除「單元 ${unitId}：${skillTitle}」，刪除後前台將不再顯示此單元，是否確定執行？`,
+          '確定刪除整個課程單元？',
+          `您即將從平台與 Firestore 雲端移除「單元 ${unitId}：${skillTitle}」（包含其下所有子模組），刪除後前台將不再顯示此單元，是否確定執行？`,
           async () => {
             try {
               await setDoc(getSkillDocRef(unitId), {
@@ -7078,81 +7691,192 @@ service cloud.firestore {
 
       const saveBtn = document.getElementById('saveSkillCloudBtn');
       saveBtn.disabled = true;
-      saveBtn.textContent = '正在上傳至 Firestore 雲端…';
+      saveBtn.textContent = '正在同步至 Firestore 雲端…';
 
-      const idVal = document.getElementById('seId').value.trim();
-      const slugVal = document.getElementById('seSlug').value.trim();
-      const stepsArr = document.getElementById('seSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const fieldsArr = document.getElementById('seFields').value.split('\n').map(s => s.trim()).filter(Boolean);
-
-      const existingUnit = UNITS.find(x => x.id === idVal);
-      let zipData = pendingUploadedZipBase64 || (existingUnit && (existingUnit.zipBase64 || SKILL_ASSETS[existingUnit.slug + '.zip'])) || '';
-
-      // 儲存至 Firestore 前的最後一道防線：
-      // 1. 若管理員沒有重新選擇新的外部 ZIP 檔，直接根據最新修改的網頁表單與 SKILL.md 自動重新打包成標準 ZIP！
-      // 2. 若管理員有上傳外部 ZIP 檔，則驗證該 ZIP 結構是否完好。
-      if (!seZipFile.files || seZipFile.files.length === 0) {
-        const autoBuilt = buildStandardZipBase64FromEditorForm();
-        zipData = autoBuilt.dataUrl;
-        pendingUploadedZipName = `${autoBuilt.slug}.zip`;
-      } else {
-        try {
-          const verified = verifyAndDecodeZipBase64(zipData);
-          zipData = verified.cleanDataUrl;
-        } catch (autoBuildErr) {
-          const autoBuilt = buildStandardZipBase64FromEditorForm();
-          zipData = autoBuilt.dataUrl;
-          pendingUploadedZipName = `${autoBuilt.slug}.zip`;
-        }
-      }
-
-      const whyVal = document.getElementById('seWhy').value.trim();
-      const whatVal = document.getElementById('seWhat').value.trim();
-      const howVal = document.getElementById('seHow').value.trim();
-      const mermaidVal = document.getElementById('seMermaid').value.trim();
-
-      const skillDocPayload = {
-        id: idVal,
-        slug: slugVal,
-        name: document.getElementById('seName').value.trim(),
-        title: document.getElementById('seTitle').value.trim(),
-        tag: document.getElementById('seTag').value.trim().toUpperCase(),
-        shortLabel: document.getElementById('seShortLabel').value.trim(),
-        promise: document.getElementById('sePromise').value.trim(),
-        desc: document.getElementById('seDesc').value.trim(),
-        deliver: document.getElementById('seDeliver').value.trim(),
-        steps: stepsArr.length ? stepsArr : ['界定目標與受眾情境'],
-        fields: fieldsArr.length ? fieldsArr : ['核心問題與情境為何？', '品牌有哪些可信證據？', '預計交付與行動目標為何？'],
-        quiz: document.getElementById('seQuiz').value.trim() || '請核對本單元產出是否具備真實來源依據？',
-        answer: document.getElementById('seAnswer').value.trim() || '所有宣稱與數據皆須有可追溯來源，未知資訊應標示工作假設。',
-        example: document.getElementById('seExample').value.trim() || '請先填寫觀察事實，再交給 AI 協作。',
-        manual: document.getElementById('seManual').value,
-        wwh: (whyVal || whatVal || howVal) ? { why: whyVal, what: whatVal, how: howVal } : null,
-        mermaidCode: mermaidVal || null,
-        samples: (existingUnit && existingUnit.samples) ? existingUnit.samples : null,
-        extraSkills: (existingUnit && Array.isArray(existingUnit.extraSkills)) ? existingUnit.extraSkills : null,
-        zipBase64: zipData,
-        zipFileName: pendingUploadedZipName || `${slugVal}.zip`,
-        customZipUploaded: !!(seZipFile.files && seZipFile.files.length > 0),
-        isDeleted: false,
-        updatedAt: new Date().toISOString(),
-        updatedBy: currentUser ? currentUser.email : 'admin'
-      };
+      const mode = currentEditorState.mode;
+      const nowIso = new Date().toISOString();
 
       try {
-        await setDoc(getSkillDocRef(idVal), skillDocPayload, { merge: true });
-        if (zipData) {
-          SKILL_ASSETS[slugVal + '.zip'] = zipData;
+        // 模式 A：僅更新單元總覽外顯標題與簡介
+        if (mode === 'edit-unit-overview') {
+          const u = UNITS.find(x => x.id === currentEditorState.unitId);
+          if (!u) throw new Error('Unit not found');
+          const { zipBase64, ...cleanUnit } = u;
+          await setDoc(getSkillDocRef(u.id), {
+            ...cleanUnit,
+            tag: document.getElementById('seTag').value.trim().toUpperCase(),
+            shortLabel: document.getElementById('seShortLabel').value.trim(),
+            title: document.getElementById('seTitle').value.trim(),
+            promise: document.getElementById('sePromise').value.trim(),
+            desc: document.getElementById('seDesc').value.trim(),
+            example: document.getElementById('seExample').value.trim(),
+            isDeleted: false,
+            updatedAt: nowIso,
+            updatedBy: currentUser.email
+          }, { merge: true });
+
+          skillEditorDialog.close();
+          toast(`☁️ 單元 ${u.id} 總覽設定已成功同步上雲端！`);
+          return;
         }
+
+        // 共用欄位解析（適用於 edit-subskill / add-subskill / edit-unit / new-unit）
+        const idVal = (mode === 'edit-subskill' || mode === 'add-subskill')
+          ? currentEditorState.unitId
+          : document.getElementById('seId').value.trim();
+        const slugVal = document.getElementById('seSlug').value.trim();
+        const nameVal = document.getElementById('seName').value.trim();
+        const deliverVal = document.getElementById('seDeliver').value.trim();
+        const stepsArr = document.getElementById('seSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const fieldsArr = document.getElementById('seFields').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const quizVal = document.getElementById('seQuiz').value.trim() || '請核對本模組產出是否具備真實來源依據？';
+        const answerVal = document.getElementById('seAnswer').value.trim() || '所有宣稱與數據皆須有可追溯來源，未知資訊應標示工作假設。';
+        const manualVal = document.getElementById('seManual').value;
+        const whyVal = document.getElementById('seWhy').value.trim();
+        const whatVal = document.getElementById('seWhat').value.trim();
+        const howVal = document.getElementById('seHow').value.trim();
+        const mermaidVal = document.getElementById('seMermaid').value.trim();
+        const wwhObj = (whyVal || whatVal || howVal) ? { why: whyVal, what: whatVal, how: howVal } : null;
+
+        // 決定最終上傳的標準 ZIP：
+        // 1. 若有重新選取外部 .zip 檔，驗證並使用該檔案；
+        // 2. 若未選取新檔但原本已有豐富的多檔壓縮包（如含 .docx / .yaml / references），無損更新其內部的 SKILL.md；
+        // 3. 若為全新模組無壓縮包或點擊了「全新打包」，則依表單自動建立標準 4 檔 ZIP。
+        let finalZipDataUrl = '';
+        const hasNewFileSelected = !!(seZipFile.files && seZipFile.files.length > 0);
+        if (hasNewFileSelected || currentEditorState.forceRebuildZip) {
+          const verified = verifyAndDecodeZipBase64(pendingUploadedZipBase64);
+          finalZipDataUrl = verified.cleanDataUrl;
+        } else if (pendingUploadedZipBase64) {
+          try {
+            finalZipDataUrl = patchSkillMdInExistingZipDataUrl(pendingUploadedZipBase64, slugVal, manualVal);
+          } catch (patchErr) {
+            finalZipDataUrl = buildStandardZipBase64FromEditorForm().dataUrl;
+          }
+        } else {
+          finalZipDataUrl = buildStandardZipBase64FromEditorForm().dataUrl;
+        }
+
+        // 先將此 Skill 的獨立 ZIP 壓縮包儲存至 /skills/asset__{slug}（獨立 1MB 配額，不擠爆單元文件）
+        await setDoc(getSkillZipAssetDocRef(slugVal), {
+          docType: 'skill_zip_asset',
+          slug: slugVal,
+          unitId: idVal,
+          zipBase64: finalZipDataUrl,
+          zipFileName: pendingUploadedZipName || `${slugVal}.zip`,
+          isDeleted: false,
+          updatedAt: nowIso,
+          updatedBy: currentUser.email
+        }, { merge: true });
+        SKILL_ASSETS[slugVal + '.zip'] = finalZipDataUrl;
+
+        // 模式 B：編輯或新增單元內的「子 Skill」
+        if (mode === 'edit-subskill' || mode === 'add-subskill') {
+          const targetUnit = UNITS.find(x => x.id === idVal);
+          if (!targetUnit) throw new Error('Parent unit not found');
+          const roleBadgeVal = document.getElementById('seRoleBadge').value.trim() || `SKILL ${idVal}`;
+
+          let extraList = Array.isArray(targetUnit.extraSkills)
+            ? JSON.parse(JSON.stringify(targetUnit.extraSkills))
+            : [{
+                slug: targetUnit.slug,
+                name: targetUnit.name,
+                roleBadge: `SKILL ${targetUnit.id}-A｜${targetUnit.shortLabel || targetUnit.name}`,
+                deliver: targetUnit.deliver,
+                steps: targetUnit.steps,
+                fields: targetUnit.fields,
+                quiz: targetUnit.quiz,
+                answer: targetUnit.answer,
+                samples: targetUnit.samples || null,
+                manual: targetUnit.manual,
+                wwh: targetUnit.wwh || null,
+                mermaidCode: targetUnit.mermaidCode || null
+              }];
+
+          const prevSub = (mode === 'edit-subskill' && extraList[currentEditorState.subIdx]) ? extraList[currentEditorState.subIdx] : {};
+          const updatedSubPayload = {
+            ...prevSub,
+            slug: slugVal,
+            name: nameVal,
+            roleBadge: roleBadgeVal,
+            deliver: deliverVal,
+            steps: stepsArr.length ? stepsArr : ['界定目標與受眾情境'],
+            fields: fieldsArr.length ? fieldsArr : ['核心問題與情境為何？', '品牌有哪些可信證據？', '預計交付與行動目標為何？'],
+            quiz: quizVal,
+            answer: answerVal,
+            manual: manualVal,
+            wwh: wwhObj,
+            mermaidCode: mermaidVal || null,
+            adminEdited: true,
+            updatedAt: nowIso
+          };
+
+          let targetSubIdx = 0;
+          if (mode === 'edit-subskill') {
+            targetSubIdx = currentEditorState.subIdx;
+            extraList[targetSubIdx] = updatedSubPayload;
+          } else {
+            extraList.push(updatedSubPayload);
+            targetSubIdx = extraList.length - 1;
+          }
+
+          const { zipBase64: _omitUnitZip, ...cleanUnit } = targetUnit;
+          await setDoc(getSkillDocRef(idVal), {
+            ...cleanUnit,
+            extraSkills: extraList,
+            subSkillsModifiedByAdmin: true,
+            isDeleted: false,
+            updatedAt: nowIso,
+            updatedBy: currentUser.email
+          }, { merge: true });
+
+          skillEditorDialog.close();
+          active = idVal;
+          activeSubSkillIdx = targetSubIdx;
+          toast(`☁️ 已成功將「${roleBadgeVal}：${nameVal}」與最新 ZIP 同步至 Firestore 雲端！`);
+          return;
+        }
+
+        // 模式 C：新增獨立單元 (new-unit) 或 編輯獨立單元 (edit-unit)
+        const existingUnit = UNITS.find(x => x.id === idVal);
+        const skillDocPayload = {
+          id: idVal,
+          slug: slugVal,
+          name: nameVal,
+          title: document.getElementById('seTitle').value.trim(),
+          tag: document.getElementById('seTag').value.trim().toUpperCase(),
+          shortLabel: document.getElementById('seShortLabel').value.trim(),
+          promise: document.getElementById('sePromise').value.trim(),
+          desc: document.getElementById('seDesc').value.trim(),
+          deliver: deliverVal,
+          steps: stepsArr.length ? stepsArr : ['界定目標與受眾情境'],
+          fields: fieldsArr.length ? fieldsArr : ['核心問題與情境為何？', '品牌有哪些可信證據？', '預計交付與行動目標為何？'],
+          quiz: quizVal,
+          answer: answerVal,
+          example: document.getElementById('seExample').value.trim() || '請先填寫觀察事實，再交給 AI 協作。',
+          manual: manualVal,
+          wwh: wwhObj,
+          mermaidCode: mermaidVal || null,
+          samples: (existingUnit && existingUnit.samples) ? existingUnit.samples : null,
+          extraSkills: (existingUnit && Array.isArray(existingUnit.extraSkills)) ? existingUnit.extraSkills : null,
+          subSkillsModifiedByAdmin: !!(existingUnit && existingUnit.subSkillsModifiedByAdmin),
+          zipFileName: pendingUploadedZipName || `${slugVal}.zip`,
+          customZipUploaded: hasNewFileSelected,
+          isDeleted: false,
+          updatedAt: nowIso,
+          updatedBy: currentUser.email
+        };
+
+        await setDoc(getSkillDocRef(idVal), skillDocPayload, { merge: true });
         skillEditorDialog.close();
         active = idVal;
-        toast(`☁️ 單元 ${idVal}「${skillDocPayload.name}」與 Skill 檔案已成功儲存至 Firestore 雲端！`);
+        toast(`☁️ 單元 ${idVal}「${skillDocPayload.name}」與雲端 ZIP 已成功儲存！`);
       } catch (err) {
         console.error("Save skill to Firestore error:", err);
         toast('⚠️ 雲端儲存失敗，請確認已於 Firebase Console 發布最新 Firestore Rules');
       } finally {
         saveBtn.disabled = false;
-        saveBtn.textContent = '💾 儲存並上傳至 Firestore 雲端';
+        saveBtn.textContent = '💾 儲存並同步至 Firestore 雲端';
       }
     });
 
@@ -7164,26 +7888,54 @@ service cloud.firestore {
         toast('🔒 僅限最高管理員 mindnodeai@gmail.com 可執行雲端同步！');
         return;
       }
+      const totalSubCount = UNITS.reduce((s, u) => s + ((Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1), 0);
       openConfirm(
-        '將預設 5 大單元與 ZIP 同步寫入 Firestore？',
-        '這會將內建的 01～05 單元教材與 Base64 ZIP 壓縮包完整上傳至 Firestore `/artifacts/{appId}/public/data/skills` 集合中，是否繼續？',
+        `將全站 ${UNITS.length} 大單元與全部 ${totalSubCount} 組 Skill 同步上雲端？`,
+        `系統將把目前全站所有課程單元結構，以及每一組獨立子 Skill（01-A～05-C 等共 ${totalSubCount} 包 .zip 壓縮檔）逐一寫入 Firestore 雲端資料庫，是否繼續？`,
         async () => {
+          const seedBtn = document.getElementById('seedDefaultSkillsBtn');
+          seedBtn.disabled = true;
+          seedBtn.textContent = '☁️ 正在同步全部 Skill 至雲端…';
           try {
-            for (const defU of DEFAULT_UNITS_BACKUP) {
-              const zipB64 = DEFAULT_SKILL_ASSETS_BACKUP[defU.slug + '.zip'] || '';
-              await setDoc(getSkillDocRef(defU.id), {
-                ...defU,
-                zipBase64: zipB64,
-                zipFileName: `${defU.slug}.zip`,
+            const nowIso = new Date().toISOString();
+            for (const u of UNITS) {
+              // 1. 上傳該單元旗下每一個獨立 Skill 的 ZIP 檔案資產 (asset__{slug})
+              const allSlugsInUnit = (Array.isArray(u.extraSkills) && u.extraSkills.length)
+                ? u.extraSkills.map(es => es.slug)
+                : [u.slug];
+
+              for (const slug of allSlugsInUnit) {
+                const zipB64 = SKILL_ASSETS[slug + '.zip'] || DEFAULT_SKILL_ASSETS_BACKUP[slug + '.zip'] || '';
+                if (zipB64) {
+                  await setDoc(getSkillZipAssetDocRef(slug), {
+                    docType: 'skill_zip_asset',
+                    slug: slug,
+                    unitId: u.id,
+                    zipBase64: zipB64,
+                    zipFileName: `${slug}.zip`,
+                    isDeleted: false,
+                    updatedAt: nowIso,
+                    updatedBy: currentUser.email
+                  }, { merge: true });
+                }
+              }
+
+              // 2. 上傳單元與其完整 extraSkills 清單結構（不含巨型 Base64，確保單檔輕量高速）
+              const { zipBase64: _omitZip, ...cleanUnitData } = u;
+              await setDoc(getSkillDocRef(u.id), {
+                ...cleanUnitData,
                 isDeleted: false,
-                updatedAt: new Date().toISOString(),
-                updatedBy: currentUser ? currentUser.email : 'admin'
+                updatedAt: nowIso,
+                updatedBy: currentUser.email
               }, { merge: true });
             }
-            toast('☁️ 已成功將預設 5 大單元與 Skill ZIP 完整同步至 Firestore 雲端！');
+            toast(`☁️ 已成功將 ${UNITS.length} 大單元與全部 ${totalSubCount} 組 Skill ZIP 完整同步至 Firestore 雲端！`);
           } catch (err) {
             console.error("Seed default skills error:", err);
-            toast('⚠️ 同步上雲端失敗，請先更新 Firestore Rules');
+            toast('⚠️ 同步上雲端失敗，請確認已套用最新 Firestore Rules');
+          } finally {
+            seedBtn.disabled = false;
+            seedBtn.textContent = '☁️ 將全套單元與全部 Skill 同步上雲端';
           }
         }
       );

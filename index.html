@@ -1,10 +1,11 @@
 <!doctype html>
-<!-- Platform: AI Brand Omnichannel Academy (Flagship v2.6) -->
+<!-- Platform: AI Brand Omnichannel Academy (Flagship v2.7) -->
 <!-- Creator: TONY Yang / TONY Studio -->
+<!-- AI Engine: Google gemini-4-hydrogen -->
 <!-- Bundle: Self-Contained Single-File HTML5 Application -->
 <!-- Modules: 01-05 Units & 14 Original Skills -->
-<!-- Storage: LocalStorage & Firebase Sync Ready -->
-<!-- Root: Clean HTML5 Entrypoint -->
+<!-- Storage: Firebase Auth, Firestore Sync & Local Backup -->
+<!-- Entrypoint: Valid HTML5 Document -->
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
@@ -338,8 +339,15 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <span id="navBrandBadge" class="px-2.5 py-1 rounded-lg bg-white border border-line text-ink text-xs font-bold">森日咖啡</span>
+          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-line">
+            <span id="cloudDot" class="w-2 h-2 rounded-full bg-teal animate-pulse-subtle"></span>
+            <span id="navBrandBadge" class="text-ink text-xs font-bold max-w-[90px] truncate">森日咖啡</span>
+          </div>
           <span id="navProgressBadge" class="px-2.5 py-1 rounded-lg bg-teal/10 text-teal text-xs font-extrabold">0 / 5 完成</span>
+
+          <button id="openAiModelModalBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal/10 hover:bg-teal hover:text-white border border-teal/30 text-teal text-xs font-extrabold transition-all shadow-sm" title="設定 Gemini API Key 與 gemini-4-hydrogen 推理層級">
+            <span>⚡ 模型：gemini-4-hydrogen</span>
+          </button>
 
           <button id="openAdminDashboardBtn" type="button" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-ink text-lime text-xs font-extrabold hover:bg-teal transition-all shadow-sm">
             <span>⚙️ 管理後台</span>
@@ -706,6 +714,42 @@
                   </div>
                 </div>
                 <pre id="promptPreview" class="p-4 rounded-xl bg-ink text-lime/95 font-mono text-xs leading-relaxed overflow-x-auto whitespace-pre-wrap border border-ink select-all"></pre>
+
+                <!-- 新增：gemini-4-hydrogen 工作台直接協作執行面板 -->
+                <div class="mt-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-teal/10 via-paper to-lime/25 border border-teal/25 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-ink text-lime font-mono text-[11px] font-extrabold">gemini-4-hydrogen</span>
+                        <strong class="text-xs sm:text-sm font-extrabold text-ink">一鍵啟動 AI 代理即時執行（選填 API Key，亦維持零金鑰複製提示詞模式）</strong>
+                      </div>
+                      <p class="text-[11px] text-muted mt-0.5">自動載入本模組完整 <code class="font-mono text-ink">SKILL.md</code> 作為系統指令，並以 <code class="font-mono text-teal font-bold">gemini-4-hydrogen</code> 執行上方提示詞。</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                      <button id="openAiSettingsInlineBtn" type="button" class="px-3 py-2 rounded-xl bg-white border border-line hover:border-teal text-xs font-bold text-ink transition-all">
+                        🔑 API / 思考層級設定
+                      </button>
+                      <button id="runGeminiHydrogenBtn" type="button" class="px-4 py-2 rounded-xl bg-ink text-lime hover:bg-teal hover:text-white text-xs sm:text-sm font-extrabold shadow-sm transition-all flex items-center gap-1.5">
+                        <span>🚀 用 gemini-4-hydrogen 立即生成</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="geminiOutputPanel" class="hidden pt-3 border-t border-teal/20 space-y-2.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span id="geminiOutputStatus" class="text-xs font-extrabold text-teal">✨ gemini-4-hydrogen 產出結果</span>
+                      <div class="flex items-center gap-2">
+                        <button id="copyGeminiOutputBtn" type="button" class="px-3 py-1 rounded-lg bg-white border border-line hover:bg-lime/40 text-xs font-bold text-ink">
+                          複製產出內容
+                        </button>
+                        <button id="downloadGeminiOutputBtn" type="button" class="px-3 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold">
+                          下載 .MD
+                        </button>
+                      </div>
+                    </div>
+                    <div id="geminiOutputContent" class="p-4 rounded-xl bg-white border border-line text-xs sm:text-sm text-ink leading-relaxed whitespace-pre-wrap max-h-[460px] overflow-y-auto font-sans"></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1540,44 +1584,44 @@
   <!-- 自訂確認對話框 (取代原生 confirm/alert) -->
   <dialog id="confirmDialog" class="rounded-2xl border border-line w-[min(440px,92vw)] p-6 bg-white text-ink shadow-2xl backdrop:bg-ink/75">
     <h3 id="confirmTitle" class="text-lg font-extrabold text-ink mb-2">確認執行此操作？</h3>
-    <p id="confirmMessage" class="text-sm text-muted leading-relaxed mb-6"></p>
-    <div class="flex items-center justify-end gap-3">
-      <button id="confirmCancelBtn" type="button" class="px-4 py-2 rounded-xl border border-line text-xs font-semibold hover:bg-paper">
-        取消
-      </button>
-      <button id="confirmOkBtn" type="button" class="px-4 py-2 rounded-xl bg-teal text-white text-xs font-semibold hover:bg-teal-dark">
-        確定執行
-      </button>
-    </div>
-  </dialog>
-
-  <!-- Mermaid 視覺化流程圖 放大檢視與下載 Modal -->
-  <dialog id="mermaidZoomDialog" class="rounded-3xl border border-line w-[min(1180px,96vw)] max-h-[92vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/85">
-    <div class="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-ink text-white border-b border-white/10">
-      <div>
-        <span class="text-[10px] font-bold tracking-widest text-lime uppercase block">PROCESS ARCHITECTURE VIEWER</span>
-        <h3 id="mermaidZoomTitle" class="text-base sm:text-lg font-extrabold text-white">單元作業邏輯全覽圖（高解析放大檢視）</h3>
+  <!-- ==================== Gemini 4 Hydrogen 模型與 API 設定 Modal ==================== -->
+  <dialog id="aiModelConfigDialog" class="rounded-3xl border border-line w-[min(520px,94vw)] p-6 sm:p-8 bg-white text-ink shadow-2xl backdrop:bg-ink/80">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <span class="px-2.5 py-1 rounded-lg bg-ink text-lime font-mono text-xs font-extrabold">MODEL ENGINE · gemini-4-hydrogen</span>
+        <button id="closeAiModelModalBtn" type="button" class="px-2.5 py-1 rounded-lg border border-line hover:bg-paper text-xs font-bold">關閉 ×</button>
       </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <div class="flex items-center bg-white/10 rounded-xl p-1 border border-white/15">
-          <button id="zoomOutMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="縮小">－</button>
-          <span id="zoomScaleLabel" class="px-2.5 text-xs font-mono font-bold text-lime">125%</span>
-          <button id="zoomInMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="放大">＋</button>
-          <button id="zoomResetMermaidModalBtn" type="button" class="px-2 py-1 rounded-lg hover:bg-white/15 text-[11px] text-white/80">重設</button>
+      <h3 class="text-xl font-black text-ink">設定 Google Gemini 4 Hydrogen 引擎</h3>
+      <p class="text-xs text-muted leading-relaxed">
+        全站已預設綁定最新代理工作流模型 <code class="px-1.5 py-0.5 rounded bg-paper border border-line font-mono font-bold text-teal">gemini-4-hydrogen</code>（支援 100 萬 Token 上下文與四段思考層級）。金鑰僅保存在您本機瀏覽器中，絕不上傳公開資料庫；若不填寫仍可正常複製提示詞與下載全部 Skill ZIP。
+      </p>
+      <form id="aiModelConfigForm" class="space-y-4 pt-1">
+        <div>
+          <label for="geminiModelReadonly" class="block text-xs font-extrabold text-muted mb-1">目前指定模型 ID（已鎖定最新模型）</label>
+          <input id="geminiModelReadonly" type="text" value="gemini-4-hydrogen" readonly class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-mono text-xs sm:text-sm font-extrabold text-teal cursor-not-allowed">
         </div>
-        <button id="downloadMermaidModalPngBtn" type="button" class="px-3.5 py-1.5 rounded-xl bg-lime text-ink text-xs font-extrabold hover:bg-lime-dark transition-all">
-          🖼️ 下載高解析 PNG
-        </button>
-        <button id="downloadMermaidModalSvgBtn" type="button" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all">
-          下載 SVG
-        </button>
-        <button id="closeMermaidZoomBtn" type="button" class="px-3 py-1.5 rounded-xl border border-white/20 hover:bg-white/10 text-white text-xs font-bold">
-          關閉 ×
-        </button>
-      </div>
-    </div>
-    <div class="p-6 sm:p-10 overflow-auto max-h-[calc(92vh-74px)] bg-white flex justify-center items-center min-h-[380px]">
-      <div id="mermaidZoomContent" class="transition-transform duration-200 origin-center py-4"></div>
+        <div>
+          <label for="geminiThinkingLevel" class="block text-xs font-extrabold text-muted mb-1">思考推理深度（Thinking Level）</label>
+          <select id="geminiThinkingLevel" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-xs sm:text-sm font-bold text-ink focus:outline-none focus:ring-2 focus:ring-teal">
+            <option value="high">High｜標準深度代理推理（官方預設推薦）</option>
+            <option value="xhigh">xHigh｜極高複雜度多步策略推演</option>
+            <option value="medium">Medium｜日常快速文案與規格整理</option>
+            <option value="low">Low｜極速輕量摘要與檢查</option>
+          </select>
+        </div>
+        <div>
+          <label for="geminiApiKeyInput" class="block text-xs font-extrabold text-muted mb-1">Google AI Studio API Key（選填）</label>
+          <input id="geminiApiKeyInput" type="password" autocomplete="off" placeholder="AIzaSy...（留空則維持免金鑰提示詞複製模式）" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-mono text-xs sm:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal focus:bg-white">
+        </div>
+        <div class="flex items-center justify-between gap-2 pt-2">
+          <button id="clearGeminiKeyBtn" type="button" class="px-3.5 py-2.5 rounded-xl border border-red-200 text-red-700 hover:bg-red-50 text-xs font-bold">
+            清除本機金鑰
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs sm:text-sm font-extrabold shadow-sm transition-all">
+            儲存 gemini-4-hydrogen 設定 ✓
+          </button>
+        </div>
+      </form>
     </div>
   </dialog>
 
@@ -3049,132 +3093,18 @@ const UNIT_WWH_MERMAID_MAP = {
       class B highlight;
       class G gate;`
   },
-  "03-0": {
-    framework: "故事母稿單一事實源 × 語氣邊界契約 × 跨平台原生節奏重構",
-    leverage: "人腦把關「真實品牌事件與語氣禁語」 ⇄ AI 展開「四象限內容矩陣與跨平台改寫」",
-    why: "【破局命題】批量產出沒有靈魂與事實根基的貼文，只會加速消耗品牌信任資產。\n・慣性盲點：把「一源多用」誤解成「同一篇文案刪減字數貼到所有平台」，或任由 AI 編造創辦人流淚故事與未驗證數據。\n・第一性原理：先鎖定一份經查核的「故事母稿」與「語氣紅線卡」，再依各平台閱讀心理重構開頭鉤子與行動呼籲，才能兼顧產能與品牌格調。",
-    what: "【決策資產】交付「品牌事實與語氣卡 ＋ 故事母稿 ＋ 四類內容矩陣（教育／共鳴／證據／轉換）＋ 整批審稿表」。\n・語氣防走鐘契約：明確界定「可以說、有條件說、絕對禁說」三道邊界與風格樣本。\n・去重複審稿機制：確保每一篇貼文具備獨立中心問題與來源編號。",
-    how: "【人機閉環】真實素材盤點 → 母稿與語氣立約 → 小批風格試產驗收 → 全矩陣展開與去重審稿。\n・人腦拍板：提供真實服務紀錄或標明虛構練習邊界，先驗收前 2 篇語氣手感。\n・AI 規模推演：依 FB、IG、Threads、LINE 原生閱讀節奏展開完整矩陣稿件。\n・驗證閉環：逐篇核對無誇大禁用詞、無重複開頭，通過整批審稿表後發佈。",
+  "05-1": {
+    framework: "前 3 秒注意力留存經濟 × 四段式微敘事弧線 × 口語時間物理學",
+    leverage: "人腦盤點「現場拍得到的真實證據鏡頭」 ⇄ AI 精算「雙軌黃金 Hook 與秒級對時分鏡表」",
+    why: "【破局命題】短影音演算法的底層邏輯是「留存率篩選器」——前 3 秒攔不住滑動的大拇指，後面 27 秒拍得像電影也是零曝光成本沉沒。\n・慣性盲點：開頭放 5 秒品牌 Logo 動畫或定格講話頭自報家門、全片背誦 250 字產品規格沒有畫面變奏、片尾同時要人按讚留言分享加私訊導致轉換失焦。\n・第一性原理：高完播與高轉換短影音靠的是「0–3 秒動態畫面＋反常識首句雙軌鉤子」抓停駐、「中段真實可拍 B-roll 證據」建信任、「片尾唯一低門檻 CTA」促行動。",
+    what: "【決策資產】產出可直接進場開拍的「四大選題評比表 ＋ 3 組前 3 秒雙軌 Hook ＋ 秒級分鏡計時腳本表（Storyboard & Timing）」。\n・口語字數物理鐵律：嚴格鎖定臺灣自然口語每秒 3.8–4.2 字上限（30 秒約 105–120 字），強制留出讓觀眾眼睛看懂畫面證據的呼吸空間。\n・視覺節奏防疲勞設計：強制每 4–6 秒安排景別切換或特寫動作 B-roll，確保視覺資訊密度與聽覺敘事同步推進。",
+    how: "【人機閉環】受眾痛點選題 → 雙軌 Hook 對照設計 → 四段式配秒分鏡 → 發布後 3 秒留存率 A/B 實測。\n・人腦拍板：確認門市／工廠現場「真正能拍到」的職人動作、檢驗紀錄或情境反差，剔除拍不出來的空想畫面。\n・AI 規模推演：依 0-3s（鉤子）→ 3-10s（痛點具象）→ 10-23s（轉折與證據）→ 23-30s（單一 CTA）精算每鏡台詞與螢幕字卡。\n・驗證閉環：固定 3–30 秒正片內容，僅替換 2 組不同前 3 秒雙軌 Hook，依後台 48 小時「3 秒留存率」與「完播率」汰弱留強。",
     mermaid: `flowchart LR
-      A["1. 真實事件盤點 (拒絕捏造經歷)"] --> B["2. 語氣與紅線立約 (能說・條件說・禁說)"]
-      B --> C["3. 故事母稿拆解 (阻礙→選擇→可證實結果)"]
-      C --> D["4. 跨平台原生矩陣 (教育・共鳴・證據・轉換)"]
-      D --> G{"整批去重與合規審稿"}
-      G -.->|"語氣浮誇或切角重複：局部重寫"| D
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,B,D step;
-      class C highlight;
-      class G gate;`
-  },
-  "03-1": {
-    framework: "數位人格資產學（Virtual Persona）× 跨圖視覺錨點工程 × 肖像合規治理",
-    leverage: "人腦設定「受眾信任關係與專業邊界」 ⇄ AI 鎖定「五官穿搭錨點與多視角定裝指令」",
-    why: "【破局命題】冷冰冰的企業商標難以建立日常情感連結，但缺乏錨點控制的 AI 人像每次生圖都換一張臉，反而摧毀專業感。\n・慣性盲點：指名模仿真實明星外貌引發肖像權侵權，或將虛擬角色偽裝成持有國家證照的真人醫師／專家誤導受眾。\n・第一性原理：成功的虛擬代言人建立在「誠實揭露數位身分」與「高度穩定的三層視覺錨點（五官髮型×標誌穿搭×光影焦段）」之上。",
-    what: "【決策資產】交付「角色人設聖經（Character Bible）＋ 固定外觀錨點字串 ＋ 標準四鏡定裝生圖包」。\n・人設語氣一致性：綁定口頭禪、專業分享範圍與禁語，無縫主持 03-A 社群專欄。\n・跨場景臉部穩定度：支援 `--cref` 與固定錨點工作流，確保頭像、工作照與Reels封面皆為同一人。",
-    how: "【人機閉環】受眾信任原型比稿 → 人設與揭露立約 → 視覺錨點鎖定 → 多鏡頭定裝與合規驗收。\n・人腦拍板：選定角色定位並確認原創無名人仿冒風險。\n・AI 規模推演：編譯中英對照固定錨點 Prompt 與正面／三視角／工作互動鏡頭組。\n・驗證閉環：檢核跨圖五官服裝一致、手部結構自然且明確標示虛擬品牌大使身分。",
-    mermaid: `flowchart LR
-      A["1. 角色原型比稿 (顧問・夥伴・領航員)"] --> B["2. 人設聖經與揭露 (語氣卡×誠實數位身分)"]
-      B --> C["3. 三層視覺錨點鎖定 (五官×品牌色穿搭×光影)"]
-      C --> D["4. 標準四鏡定裝生產 (定裝・三視角・工作互動)"]
-      D --> G{"肖像權與跨圖一致性驗收"}
-      G -.->|"臉部漂移或神似名人：修正錨點"| C
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,B,D step;
-      class C highlight;
-      class G gate;`
-  },
-  "03-2": {
-    framework: "超級符號學（Super Symbol）× 剪影辨識測試 × 2D/3D 量產可行性工程",
-    leverage: "人腦提煉「品牌靈魂隱喻與反差萌點」 ⇄ AI 產出「標準三視圖、表情集與雙軌材質規格」",
-    why: "【破局命題】把十幾種品牌理念全往一隻吉祥物身上塞，縮小成 64px 貼圖只會糊成一團色塊。\n・慣性盲點：抄襲知名商用動漫角色特徵踩中商標地雷，或畫出結構不對稱、工廠根本無法打樣成絨毛玩偶與公仔的奇幻廢圖。\n・第一性原理：頂級品牌 IP 遵循「極簡記憶錨點（1–2 個標誌特徵＋60-30-10 品牌配色）」，塗成全黑剪影也能在 1 秒內被認出。",
-    what: "【決策資產】交付「吉祥物 IP 設定書 ＋ 純白底正側背三視圖（Turnaround Sheet）＋ 6 款表情貼圖包 ＋ 週邊延展規範」。\n・雙軌美術規格：同步涵蓋「2D 向量平面印刷版」與「3D 霧面搪膠潮玩版」指令。\n・量產友善結構：確保頭身比例一致，可直接交接平面設計向量化或工廠立體建模。",
-    how: "【人機閉環】品牌符號擬人轉譯 → 比例與配色定錨 → 三視圖與表情包生成 → 剪影與量產可行性 QA。\n・人腦拍板：決定頭身比例（2 頭身／2.5 頭身）與核心記憶符號。\n・AI 規模推演：產出純白底標準三視圖與日常高頻互動表情貼圖 Prompt。\n・驗證閉環：通過全黑剪影辨識測試、64px 小圖清晰度測試與原創無侵權審查。",
-    mermaid: `flowchart LR
-      A["1. 品牌基因擬人轉譯 (原型×反差萌設定)"] --> B["2. 超級符號與配色 (2頭身×60-30-10品牌色)"]
-      B --> C["3. 標準三視圖與表情包 (正側背×6款貼圖)"]
-      C --> D["4. 雙軌商業延展 (2D包裝貼圖×3D潮玩公仔)"]
-      D --> G{"剪影辨識與量產可行性驗收"}
-      G -.->|"細節過碎或結構矛盾：精簡造型"| B
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,C,D step;
-      class B highlight;
-      class G gate;`
-  },
-  "04-0": {
-    framework: "提案視覺比稿學（Creative Pitching）× 跨版位原生構圖 × 概念與完稿分界",
-    leverage: "人腦裁定「品牌識別資產與商業場景」 ⇄ AI 展開「三案視覺企劃與多尺寸留白生圖包」",
-    why: "【破局命題】直接丟出一張沒有策略邏輯的 AI 美圖，客戶只會陷入主觀喜好拉鋸；缺乏留白規劃的構圖更會讓後製壓字淪為災難。\n・慣性盲點：拿同一張 1:1 圖片硬拉成 16:9 官網橫幅、放任 AI 生成變形的近似假 Logo，或誤把 RGB 概念圖當成可直接送印的 CMYK 完稿檔。\n・第一性原理：專業視覺導演先以「三案差異化比稿」收斂決策共識，再依各版位視線動線獨立規劃構圖與安全負空間（Safe Zone）。",
-    what: "【決策資產】交付「三案視覺方向比較表 ＋ 主視覺固定錨點 ＋ 三種跨媒體版位（4:5／16:9／實體陳列）規格與提示詞包」。\n・商標零失真原則：預留乾淨貼標與壓字座標供後製置入官方向量檔。\n・誠實交付邊界：清楚區分「提案概念模擬圖」與「正式印刷出血完稿工程」。",
-    how: "【人機閉環】真實識別盤點 → 三案比稿收斂 → 跨版位獨立構圖 → 像素與識別合規驗收。\n・人腦拍板：確認既有色票、材質限制並從三案中拍板主視覺方向。\n・AI 規模推演：為各版位獨立編譯含焦段、光影與安全留白比例之中英生圖指令。\n・驗證閉環：逐張檢核比例、系列光影一致性、無假投放數據暗示與印刷交接說明。",
-    mermaid: `flowchart LR
-      A["1. 真實識別資產盤點 (色票・商品・授權)"] --> B["2. 三案視覺方向比稿 (構圖×光影×受眾理由)"]
-      B --> G{"主視覺方向拍板閘門"}
-      G -->|"鎖定單一方向"| C["3. 三版位獨立展開 (4:5社群・16:9橫幅・實體)"]
-      C --> D["4. 預留安全留白與向量 Logo 後製座標"]
-      D -.->|"壓字空間不足或光影不連貫：微調構圖"| C
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,B,D step;
-      class C highlight;
-      class G gate;`
-  },
-  "04-1": {
-    framework: "物理材質光學渲染（PBR Materiality）× 生圖與貼標解耦工程 × 空間尺度學",
-    leverage: "人腦定義「紙材器皿工藝與品牌標準色」 ⇄ AI 生成「無字乾淨貼標母片與真實環境光影」",
-    why: "【破局命題】提案能否讓企業主一秒買單，關鍵在於「觸覺想像力」；但充滿塑膠油膩感與外星亂碼字的 AI 包裝圖只會顯得廉價外行。\n・慣性盲點：強求生圖模型直接拼寫複雜繁體中文與精密註冊商標，結果盒型扭曲、反光遮死貼標面，設計師根本無法套用真實 Logo。\n・第一性原理：將「物理材質光影渲染（AI 強項）」與「向量商標精準貼合（設計軟體強項）」徹底解耦——強制預留平整無字貼圖區（Blank Surface）。",
-    what: "【決策資產】交付「品牌材質與加工物理表 ＋ 四大商業載體 Mockup 矩陣 ＋ H28 生圖與透視貼標指南」。\n・高擬真材質詞庫：精準控制未塗佈棉紙、霧面陶瓷、磨砂玻璃與打凹工藝觸感。\n・後製友善透視：鎖定 0° 平視、30° 等角或 90° 俯拍，確保 30 秒內完成無痕合成。",
-    how: "【人機閉環】材質工藝定錨 → 無字貼標區鎖定 → 多載體實景渲染 → 接觸陰影與透視 QA。\n・人腦拍板：選定包裝材質磅數、加工細節與目標展示載體。\n・AI 規模推演：產出排除亂碼字與懸空偽影之 H28 專業產品攝影 Prompt。\n・驗證閉環：核對接觸面環境光遮蔽（AO）、光源一致性與真實人體工學比例。",
-    mermaid: `flowchart LR
-      A["1. 物理材質工藝建模 (棉紙・陶瓷・燙印肌理)"] --> B["2. 生圖與貼標解耦 (強制預留平整無字貼圖區)"]
-      B --> C["3. 四大商業載體展開 (包裝・陳列・燈箱・平拍)"]
-      C --> D["4. 後製透視貼合官方向量 Logo (Multiply混色)"]
-      D --> G{"接觸陰影AO與物理比例驗收"}
-      G -.->|"物體懸空或貼標面扭曲：重調透視焦段"| B
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,C,D step;
-      class B highlight;
-      class G gate;`
-  },
-  "04-2": {
-    framework: "微動態視覺停駐心理學（Cinemagraphic Attention）× 80/20 動靜分離遮罩 × 載入效能預算學",
-    leverage: "人腦裁定「商業焦點與檔案體積紅線」 ⇄ AI 精控「局部物理微動態指令與無縫閉環分鏡」",
-    why: "【破局命題】在靜態圖被快速滑過、完整影音又受限於自動靜音與高製作成本的夾縫中，「3 秒精品級微動態（Cinemagraph GIF）」是電子報、LINE 推播與電商主圖點擊率（CTR）最高的輕量武器。\n・慣性盲點：把 GIF 當成縮小版微電影亂加劇烈運鏡，導致產品瓶身與 Logo 產生恐怖的 AI 果凍融化變形（Morphing）、循環接點瘋狂跳針閃爍，且轉出 20MB 巨型檔案讓手機端直接白屏流失。\n・第一性原理：最高級的商業微動態來自「克制的動靜反差」——80% 畫面絕對靜止以守住商品質感與低檔案體積，僅釋放 20% 物理微動態（蒸氣、光影、波紋）精準劫持人類周邊視覺本能。",
-    what: "【決策資產】交付可直接進產線的「80/20 動靜分離遮罩表 ＋ 2–4 秒無縫閉環分鏡 ＋ 圖生微動態指令與輕量壓縮規格包」。\n・幾何零變形護欄：將「AI 底層物理微動態」與「頂層靜態向量商標／繁中字卡」徹底分層，保證品牌識別 100% 銳利不閃爍。\n・通路效能契約：針對 EDM（≤1.5MB）、LINE 圖文訊息、電商列表與官網（Animated WebP / MP4）訂立精確的 FPS 與色盤壓縮標準。",
-    how: "【人機閉環】觸點體積定錨 → 80/20 動靜區域切分 → 無縫循環生片 → 頂層疊標與檔案壓縮 QA。\n・人腦拍板：選定最能誘發感官渴望的單一微動態物理元素（如熱氣代表現烘、水珠代表冰鎮），並嚴格把關投放平台 MB 上限。\n・AI 規模推演：鎖定固定腳架機位（Locked Camera），產出 Motion Brush 筆刷遮罩座標、低幅度運動強度參數與無縫循環過渡指令。\n・驗證閉環：逐幀檢查商品邊緣無漂移、首尾接縫零跳動、無光敏頻閃風險，並實測行動網路秒開速度與點擊轉換率。",
-    mermaid: `flowchart LR
-      A["1. 觸點與體積預算 (EDM・LINE・電商≤1.5MB)"] --> B["2. 80/20 動靜分離遮罩 (鎖死商品×局部微動)"]
-      B --> C["3. 2-4秒無縫閉環生成 (固定機位×首尾疊化)"]
-      C --> D["4. 頂層疊加靜態向量 Logo 與輕量化壓縮"]
-      D --> G{"零變形與載入秒開驗收"}
-      G -.->|"商品果凍變形或檔案超標：調降動態幅度與FPS"| B
-      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
-      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
-      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,C,D step;
-      class B highlight;
-      class G gate;`
-  },
-  "05-0": {
-    framework: "品牌聽覺識別（Sonic Branding）× 頻譜空間讓位學（Anti-Masking）× 誠實音訊品管",
-    leverage: "人腦把關「聲音肖像權、破音字與試讀呼吸感」 ⇄ AI 編排「YAML 聲音規格、多時長標記稿與製播卡」",
-    why: "【破局命題】全媒體時代「眼睛看畫面決定停不停，耳朵聽聲音決定信不信」；混亂的聽覺細節會瞬間瓦解前面四個單元累積的品牌質感。\n・慣性盲點：拿「給眼睛看的書面長稿」硬塞進 30 秒唸成趕火車、破音字唸錯（如：焙茶唸成賠茶）、配樂搶走 1–3kHz 人聲頻段，甚至未授權克隆名人聲音或拿未實測的 LUFS 數據唬人。\n・第一性原理：聽覺是不可逆的「線性時間藝術」——語速字數上限、換氣停頓、專名讀音與人聲配樂分貝差（Ducking），必須在動手錄製前就以結構化規格鎖定。",
-    what: "【決策資產】一次交付可跨工具執行的「`brand-audio-profile.yaml` 聲音設定檔 ＋ 15/30/60s 標記旁白稿 ＋ 跨平台製播與整合驗收包」。\n・結構化聲音憲法：以 YAML 統一封裝音色年齡感、估算語速（每秒約 3.8–4.2 字）、三段式情緒曲線與品牌專屬破音字讀音字典。\n・頻段與動態讓位契約：強制設定旁白襯底配樂避開人聲中頻，並規範人聲進場自動閃避（Ducking -8～-12dB）與 CTA 前 0.5 秒黃金停頓。",
-    how: "【人機閉環】權利與用途立約 → YAML 聲音建模 → 估時標記與真人開口試讀 → 外部製播落地與單聲道實測驗收。\n・人腦拍板：核實商用配音／配樂授權範圍、審定品牌專名正確讀音，並親自開口朗讀計時校準呼吸氣口。\n・AI 規模推演：依目標秒數改寫自然口語稿、自動植入【重音】與 `[停頓秒數]` 標記，並產出 TTS／配樂／剪輯混音外部操作卡。\n・驗證閉環：嚴禁拿瀏覽器內建機械朗讀冒充成品；取得真實音檔後以手機單聲道外放實測清晰度、削波與片尾收束，絕不虛報未經儀器量測之 LUFS。",
-    mermaid: `flowchart LR
-      A["1. 用途與聲音權利立約 (brand-contract)"] --> B["2. 結構化聲音設定檔 (brand-audio-profile.yaml)"]
-      B --> C["3. 多時長標記旁白與讀音 (估時×重音×停頓)"]
-      C --> D["4. 防互搶混音與製播卡 (中頻讓位×Ducking)"]
-      D --> G{"真實音檔單聲道實測驗收"}
-      G -.->|"破音字誤讀或配樂壓人聲：回調標記與混音"| C
+      A["1. 痛點與反常識選題 (評估共鳴與可拍性)"] --> B["2. 前 3 秒雙軌 Hook (動態特寫＋18字內首句)"]
+      B --> C["3. 四段式配秒分鏡表 (每秒4字×5秒換景×B-roll)"]
+      C --> G{"開口計時與單一CTA檢核"}
+      G -->|"節奏與證據過關"| D["4. 雙版本 Hook 上線實測留存率"]
+      D -.->|"前3秒滑走率高：保留正片僅換Hook"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -4833,6 +4763,7 @@ function prompt() {
 
   return [
     `請啟用 Skill：【${meta.slug}】（${meta.name}）`,
+    `指定執行模型：gemini-4-hydrogen`,
     `協作模式：${MODE_LABELS[currentMode] || MODE_LABELS.B}`,
     `目標品牌／專案：${brandTitle}${isFictional ? '（此為課堂虛構示範案例）' : ''}`,
     `本單元目標產出：${meta.deliver}`,
@@ -5155,609 +5086,255 @@ function applyExtractedZipContentToForm(extractedMap) {
 }
 
 // ==================== 全端會員認證閘門與管理後台（支援 Firebase 雲端與本地持久化雙棲） ====================
-const SUPER_ADMIN_EMAIL = 'mindnodeai@gmail.com';
-const LOCAL_USERS_KEY = 'tony-academy-saas-users-v2';
+const GEMINI_MODEL_ID = 'gemini-4-hydrogen';
+const GEMINI_STORAGE_KEY = 'tony_academy_gemini4_hydrogen_cfg';
+let lastGeminiOutputText = '';
 
-let currentUser = null;
-let allMembersCache = [];
-let editingTarget = { mode: 'unit', unitId: null, subIdx: null }; // 'unit' | 'subskill' | 'new-unit' | 'new-subskill'
-let pendingUploadedZipDataUrl = '';
-let pendingExtractedZipMap = null;
-
-function getLocalMembers() {
+function getGeminiConfig() {
   try {
-    const raw = localStorage.getItem(LOCAL_USERS_KEY);
-    const arr = raw ? JSON.parse(raw) : [];
-    return Array.isArray(arr) ? arr : [];
+    const raw = localStorage.getItem(GEMINI_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return {
+      model: GEMINI_MODEL_ID,
+      apiKey: String(parsed.apiKey || '').trim(),
+      thinkingLevel: ['low', 'medium', 'high', 'xhigh'].includes(parsed.thinkingLevel) ? parsed.thinkingLevel : 'high'
+    };
   } catch (e) {
-    return [];
+    return { model: GEMINI_MODEL_ID, apiKey: '', thinkingLevel: 'high' };
   }
 }
 
-function saveLocalMembers(list) {
+function saveGeminiConfig(apiKey, thinkingLevel) {
+  const cfg = {
+    model: GEMINI_MODEL_ID,
+    apiKey: String(apiKey || '').trim(),
+    thinkingLevel: ['low', 'medium', 'high', 'xhigh'].includes(thinkingLevel) ? thinkingLevel : 'high'
+  };
   try {
-    localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(list));
+    localStorage.setItem(GEMINI_STORAGE_KEY, JSON.stringify(cfg));
   } catch (e) {}
+  updateAiModelButtonBadge();
+  return cfg;
 }
 
-function showAuthMessage(msg, isError = false) {
-  const box = $('#authAlertBox');
-  if (!box) return;
-  box.textContent = msg;
-  box.className = `mb-5 p-4 rounded-2xl border text-xs sm:text-sm font-bold leading-relaxed ${
-    isError
-      ? 'bg-red-50 border-red-300 text-red-800'
-      : 'bg-emerald-50 border-emerald-300 text-emerald-900'
-  }`;
-  box.classList.remove('hidden');
-}
-
-function switchAuthTab(mode) {
-  const loginForm = $('#loginForm');
-  const regForm = $('#registerForm');
-  const forgotForm = $('#forgotForm');
-  const tabLogin = $('#tabLoginBtn');
-  const tabReg = $('#tabRegisterBtn');
-  const spamBox = $('#spamReminderBox');
-
-  if ($('#authAlertBox')) $('#authAlertBox').classList.add('hidden');
-
-  if (mode === 'login') {
-    loginForm.classList.remove('hidden');
-    regForm.classList.add('hidden');
-    forgotForm.classList.add('hidden');
-    spamBox.classList.add('hidden');
-    tabLogin.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
-    tabReg.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
-  } else if (mode === 'register') {
-    loginForm.classList.add('hidden');
-    regForm.classList.remove('hidden');
-    forgotForm.classList.add('hidden');
-    spamBox.classList.remove('hidden');
-    tabReg.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
-    tabLogin.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
-  } else if (mode === 'forgot') {
-    loginForm.classList.add('hidden');
-    regForm.classList.add('hidden');
-    forgotForm.classList.remove('hidden');
-    spamBox.classList.remove('hidden');
+function updateAiModelButtonBadge() {
+  const cfg = getGeminiConfig();
+  const btn = $('#openAiModelModalBtn');
+  if (btn) {
+    btn.innerHTML = cfg.apiKey
+      ? `<span>⚡ ${GEMINI_MODEL_ID} (${cfg.thinkingLevel.toUpperCase()} · 已連線)</span>`
+      : `<span>⚡ 模型：${GEMINI_MODEL_ID}</span>`;
   }
 }
 
-function enterMainAcademy(userProfile) {
-  currentUser = userProfile;
-  const isSuperAdmin = String(userProfile.email || '').toLowerCase() === SUPER_ADMIN_EMAIL;
-  const isAdmin = isSuperAdmin || userProfile.role === 'admin';
+// 統一呼叫 Google Gemini REST API（鎖定模型：gemini-4-hydrogen，並支援 thinkingLevel 自動相容回退）
+async function callGeminiHydrogen({ systemInstruction = '', userPrompt = '' }) {
+  const cfg = getGeminiConfig();
+  if (!cfg.apiKey) {
+    throw new Error('NO_API_KEY');
+  }
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL_ID}:generateContent?key=${encodeURIComponent(cfg.apiKey)}`;
 
-  // 單一瀏覽工作階段僅記錄一次登入次數（加入 try/catch 防護沙盒 iFrame 存取限制）
-  try {
-    const sessionKey = `tony_logged_session_${userProfile.uid}`;
-    if (!sessionStorage.getItem(sessionKey)) {
-      sessionStorage.setItem(sessionKey, '1');
-      const members = getLocalMembers();
-      const idx = members.findIndex(m => m.uid === userProfile.uid || m.email === userProfile.email);
-      const nowIso = new Date().toISOString();
-      if (idx !== -1) {
-        members[idx].loginCount = (members[idx].loginCount || 0) + 1;
-        members[idx].lastLoginAt = nowIso;
-        if (!Array.isArray(members[idx].loginHistory)) members[idx].loginHistory = [];
-        members[idx].loginHistory.unshift(nowIso);
-        members[idx].loginHistory = members[idx].loginHistory.slice(0, 30);
-        saveLocalMembers(members);
-        currentUser = members[idx];
+  const buildBody = (includeThinking) => {
+    const payload = {
+      contents: [{ role: 'user', parts: [{ text: String(userPrompt || '') }] }],
+      generationConfig: {
+        temperature: 0.7
       }
+    };
+    if (systemInstruction && String(systemInstruction).trim()) {
+      payload.systemInstruction = { parts: [{ text: String(systemInstruction) }] };
     }
-  } catch (storageErr) {
-    console.warn('Session storage skipped in sandbox:', storageErr);
-  }
-
-  $('#authGateView').classList.add('hidden');
-  $('#appMainContainer').classList.remove('hidden');
-
-  if ($('#navUserBadge')) $('#navUserBadge').classList.remove('hidden');
-  if ($('#navUserName')) $('#navUserName').textContent = userProfile.realName || userProfile.email;
-  if ($('#navUserRoleTag')) {
-    $('#navUserRoleTag').textContent = isSuperAdmin ? '創作者最高權限' : isAdmin ? '管理員' : (userProfile.identity || '學員');
-  }
-  if ($('#openAdminDashboardBtn')) {
-    $('#openAdminDashboardBtn').classList.toggle('hidden', !isAdmin);
-    $('#openAdminDashboardBtn').classList.toggle('inline-flex', isAdmin);
-  }
-  if ($('#userUidDisplay')) $('#userUidDisplay').textContent = userProfile.uid || 'local-session';
-  if ($('#cloudBadgeText')) $('#cloudBadgeText').textContent = '已啟用即時同步 ✓';
-
-  syncCloudFn = () => {
-    const members = getLocalMembers();
-    const mIdx = members.findIndex(m => m.uid === currentUser.uid);
-    if (mIdx !== -1) {
-      members[mIdx].workspaceState = JSON.parse(JSON.stringify(state));
-      members[mIdx].completedUnitsCount = getUniqueCompletedUnitsCount(state.done);
-      members[mIdx].updatedAt = new Date().toISOString();
-      saveLocalMembers(members);
+    if (includeThinking && cfg.thinkingLevel) {
+      payload.generationConfig.thinkingConfig = { thinkingLevel: cfg.thinkingLevel };
     }
+    return payload;
   };
 
+  let res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(buildBody(true))
+  });
+
+  // 若特定 API 端點層級尚未啟用 thinkingLevel 參數欄位，自動無縫以標準 gemini-4-hydrogen 請求重試
+  if (res.status === 400) {
+    res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(buildBody(false))
+    });
+  }
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const errMsg = (data && data.error && data.error.message) || `API 請求失敗 (HTTP ${res.status})`;
+    throw new Error(errMsg);
+  }
+
+  const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+  const answerParts = parts.filter(p => !p.thought && typeof p.text === 'string').map(p => p.text);
+  const finalText = (answerParts.length ? answerParts : parts.map(p => p.text || '')).join('\n').trim();
+  if (!finalText) {
+    throw new Error('模型未回傳有效文字內容，請稍後再試。');
+  }
+  return finalText;
+}
+window.callGeminiHydrogen = callGeminiHydrogen;
+window.getGeminiConfig = getGeminiConfig;
+window.GEMINI_MODEL_ID = GEMINI_MODEL_ID;
+
+function openAiModelSettingsModal() {
+  const cfg = getGeminiConfig();
+  if ($('#geminiModelReadonly')) $('#geminiModelReadonly').value = GEMINI_MODEL_ID;
+  if ($('#geminiThinkingLevel')) $('#geminiThinkingLevel').value = cfg.thinkingLevel;
+  if ($('#geminiApiKeyInput')) $('#geminiApiKeyInput').value = cfg.apiKey;
+  if ($('#aiModelConfigDialog')) $('#aiModelConfigDialog').showModal();
+}
+window.openAiModelSettingsModal = openAiModelSettingsModal;
+
+// 暴露給 Firebase 雲端模組使用的狀態同步掛鉤（具備打字焦點保護，防止雲端回音打斷輸入）
+window.applyCloudState = function(cloudData) {
+  if (!valid(cloudData)) return;
+  const activeEl = document.activeElement;
+  const isTypingInWorkspace = activeEl && (activeEl.matches('textarea[data-field-idx]') || activeEl.id === 'brandName');
+  if (isTypingInWorkspace || (Date.now() - lastLocalEditTime < 2500)) {
+    return;
+  }
+  state = {
+    version: 1,
+    brand: cloudData.brand || 'coffee',
+    names: Object.assign({ coffee: '森日咖啡', tea: '海岸茶室', custom: '' }, cloudData.names || {}),
+    notes: cloudData.notes || {},
+    done: cloudData.done || {}
+  };
+  save(false);
   renderHeroMap();
   renderCards();
   renderWork();
-}
+};
 
-// ==================== 後台管理中心：會員報表、AI 商業洞察報告（匯出 Word）與 14 組 Skill 雲端管理 ====================
-function renderAdminMembersTable() {
-  allMembersCache = getLocalMembers();
-  const tbody = $('#adminMembersTableBody');
-  if (!tbody) return;
-
-  const q = ($('#memberSearchInput') ? $('#memberSearchInput').value : '').trim().toLowerCase();
-  const list = allMembersCache.filter(m => {
-    if (!q) return true;
-    return `${m.realName || ''} ${m.company || ''} ${m.email || ''} ${m.identity || ''}`.toLowerCase().includes(q);
-  });
-
-  const totalUsers = allMembersCache.length;
-  const studentUsers = allMembersCache.filter(m => m.identity === 'TONY老師學員').length;
-  const visitorUsers = totalUsers - studentUsers;
-  const totalLogins = allMembersCache.reduce((sum, m) => sum + (Number(m.loginCount) || 1), 0);
-
-  if ($('#statTotalUsers')) $('#statTotalUsers').textContent = String(totalUsers);
-  if ($('#statStudentUsers')) $('#statStudentUsers').textContent = String(studentUsers);
-  if ($('#statVisitorUsers')) $('#statVisitorUsers').textContent = String(visitorUsers);
-  if ($('#statTotalLogins')) $('#statTotalLogins').textContent = String(totalLogins);
-
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-muted">尚無符合搜尋條件的會員資料</td></tr>`;
-    return;
+// 連結雲端儲存代理函式
+syncCloudFn = () => {
+  if (typeof window.syncStateToCloud === 'function') {
+    window.syncStateToCloud(state);
   }
+};
 
-  tbody.innerHTML = list.map(m => {
-    const isCreator = String(m.email || '').toLowerCase() === SUPER_ADMIN_EMAIL;
-    const doneUnits = getUniqueCompletedUnitsCount((m.workspaceState && m.workspaceState.done) || {});
-    return `
-      <tr class="hover:bg-paper/60">
-        <td class="py-3 px-4">
-          <strong class="font-bold text-ink block">${esc(m.realName || '未填寫')}</strong>
-          <span class="text-xs text-muted">${esc(m.company || '個人')} · 完成 ${doneUnits}/${UNITS.length} 單元</span>
-        </td>
-        <td class="py-3 px-4 font-mono text-xs">${esc(m.email)}</td>
-        <td class="py-3 px-4">
-          <span class="px-2 py-0.5 rounded-full text-[11px] font-bold ${m.identity === 'TONY老師學員' ? 'bg-teal/15 text-teal' : 'bg-paper border border-line text-muted'}">
-            ${esc(m.identity || '一般訪客')}
-          </span>
-        </td>
-        <td class="py-3 px-4 text-xs text-muted">${esc((m.createdAt || '').slice(0, 10) || '2026-11')}</td>
-        <td class="py-3 px-4 text-center font-mono font-bold text-teal">${Number(m.loginCount) || 1}</td>
-        <td class="py-3 px-4">
-          <span class="px-2 py-0.5 rounded text-[11px] font-extrabold ${isCreator ? 'bg-ink text-lime' : m.role === 'admin' ? 'bg-amber-100 text-amber-900' : 'bg-paper text-muted'}">
-            ${isCreator ? '👑 最高管理員' : m.role === 'admin' ? '管理員' : '一般會員'}
-          </span>
-        </td>
-        <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
-          <button type="button" data-view-member="${esc(m.uid)}" class="px-2.5 py-1 rounded-lg border border-line bg-white hover:bg-paper text-xs font-bold text-ink">
-            實作紀錄
-          </button>
-          ${!isCreator ? `
-            <button type="button" data-toggle-admin="${esc(m.uid)}" class="px-2.5 py-1 rounded-lg border border-teal/30 text-teal hover:bg-teal/10 text-xs font-bold">
-              ${m.role === 'admin' ? '設為一般' : '設為管理員'}
-            </button>
-          ` : ''}
-        </td>
-      </tr>
-    `;
-  }).join('');
-}
-
-// 渲染後台全部單元與旗下所有 14 組獨立 Skill 模組管理表
-function renderAdminSkillsTable() {
-  const tbody = $('#adminSkillsTableBody');
-  const unitFilterEl = $('#adminSkillUnitFilter');
-  if (!tbody) return;
-
-  const isSuper = currentUser && String(currentUser.email || '').toLowerCase() === SUPER_ADMIN_EMAIL;
-  if ($('#creatorSkillReadonlyNotice')) $('#creatorSkillReadonlyNotice').classList.toggle('hidden', !!isSuper);
-  if ($('#creatorSkillCmsActions')) $('#creatorSkillCmsActions').classList.toggle('opacity-50', !isSuper);
-
-  if (unitFilterEl) {
-    const prevVal = unitFilterEl.value || 'all';
-    unitFilterEl.innerHTML = `<option value="all">顯示全部單元（共 ${getTotalSkillsCount()} 組 Skill）</option>` +
-      UNITS.map(u => `<option value="${esc(u.id)}">單元 ${esc(u.id)}｜${esc(u.shortLabel || u.title)}</option>`).join('');
-    if ([...unitFilterEl.options].some(o => o.value === prevVal)) unitFilterEl.value = prevVal;
-  }
-
-  const filterUnit = unitFilterEl ? unitFilterEl.value : 'all';
-  const q = ($('#adminSkillSearchInput') ? $('#adminSkillSearchInput').value : '').trim().toLowerCase();
-
-  let rowsHtml = '';
-  UNITS.forEach(u => {
-    if (filterUnit !== 'all' && u.id !== filterUnit) return;
-    const hasExtra = Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
-    const subList = hasExtra ? u.extraSkills : null;
-
-    if (q) {
-      const unitMatch = `${u.id} ${u.title} ${u.name} ${u.slug} ${u.deliver}`.toLowerCase().includes(q);
-      const subMatch = hasExtra && subList.some(es => `${es.name} ${es.slug} ${es.roleBadge || ''} ${es.deliver || ''}`.toLowerCase().includes(q));
-      if (!unitMatch && !subMatch) return;
-    }
-
-    // 單元主標題分組列
-    rowsHtml += `
-      <tr class="bg-teal/5 border-y border-teal/20">
-        <td class="py-3 px-4 font-mono font-black text-teal">UNIT ${esc(u.id)}</td>
-        <td class="py-3 px-4" colspan="2">
-          <strong class="font-extrabold text-ink text-xs sm:text-sm">${esc(u.title)}</strong>
-          <span class="ml-2 px-2 py-0.5 rounded bg-white border border-line text-[10px] font-bold text-muted">${esc(u.tag)}</span>
-        </td>
-        <td class="py-3 px-4 text-xs text-muted">${hasExtra ? `內含 ${subList.length} 組子 Skill` : '單一核心 Skill'}</td>
-        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold">✓ 已納管</span></td>
-        <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
-          <button type="button" data-cms-edit-unit="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-white border border-line hover:border-teal text-xs font-bold text-ink">
-            ⚙️ 單元總覽設定
-          </button>
-          <button type="button" data-cms-add-sub="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold">
-            ＋ 新增子 Skill
-          </button>
-        </td>
-      </tr>
-    `;
-
-    if (hasExtra) {
-      subList.forEach((es, sIdx) => {
-        if (q && !`${es.name} ${es.slug} ${es.roleBadge || ''} ${es.deliver || ''} ${u.id}`.toLowerCase().includes(q)) return;
-        const zipKey = `${es.slug}.zip`;
-        const hasValidZip = !!SKILL_ASSETS[zipKey];
-        rowsHtml += `
-          <tr class="hover:bg-paper/60 bg-white">
-            <td class="py-3 px-4 pl-7">
-              <span class="px-2 py-0.5 rounded bg-lime/60 text-ink text-[11px] font-extrabold">${esc(es.roleBadge || `SKILL ${u.id}-${sIdx + 1}`)}</span>
-            </td>
-            <td class="py-3 px-4">
-              <strong class="font-bold text-ink block">${esc(es.name)}</strong>
-              <code class="text-[11px] font-mono text-teal">${esc(es.slug)}.zip</code>
-            </td>
-            <td class="py-3 px-4 text-xs text-muted max-w-xs truncate" title="${esc(es.deliver)}">
-              ${esc(es.deliver)}（${(es.steps || u.steps || []).length} 步驟）
-            </td>
-            <td class="py-3 px-4 whitespace-nowrap">
-              <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-paper border border-line hover:bg-lime/40 text-[11px] font-bold text-ink">
-                ${hasValidZip ? '📦 測試下載 ZIP' : '⚡ 自動封裝下載'}
-              </button>
-            </td>
-            <td class="py-3 px-4 text-xs font-bold text-teal">標準封裝就緒</td>
-            <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
-              <button type="button" data-cms-edit-sub="${esc(u.id)}" data-cms-sub-idx="${sIdx}" class="px-3 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold">
-                ✏️ 編輯 / 上傳 ZIP
-              </button>
-              ${subList.length > 1 ? `
-                <button type="button" data-cms-del-sub="${esc(u.id)}" data-cms-sub-idx="${sIdx}" class="px-2.5 py-1 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 text-xs font-bold">
-                  刪除
-                </button>
-              ` : ''}
-            </td>
-          </tr>
-        `;
-      });
-    } else {
-      const zipKey = `${u.slug}.zip`;
-      const hasValidZip = !!SKILL_ASSETS[zipKey];
-      rowsHtml += `
-        <tr class="hover:bg-paper/60 bg-white">
-          <td class="py-3 px-4 pl-7"><span class="px-2 py-0.5 rounded bg-lime/60 text-ink text-[11px] font-extrabold">SKILL ${esc(u.id)}</span></td>
-          <td class="py-3 px-4">
-            <strong class="font-bold text-ink block">${esc(u.name)}</strong>
-            <code class="text-[11px] font-mono text-teal">${esc(u.slug)}.zip</code>
-          </td>
-          <td class="py-3 px-4 text-xs text-muted max-w-xs truncate">${esc(u.deliver)}（${(u.steps || []).length} 步驟）</td>
-          <td class="py-3 px-4">
-            <button type="button" data-download-zip="${esc(u.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-paper border border-line hover:bg-lime/40 text-[11px] font-bold text-ink">
-              ${hasValidZip ? '📦 測試下載 ZIP' : '⚡ 自動封裝下載'}
-            </button>
-          </td>
-          <td class="py-3 px-4 text-xs font-bold text-teal">標準封裝就緒</td>
-          <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
-            <button type="button" data-cms-edit-unit="${esc(u.id)}" class="px-3 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold">
-              ✏️ 編輯 / 上傳 ZIP
-            </button>
-            ${UNITS.length > 1 ? `
-              <button type="button" data-cms-del-unit="${esc(u.id)}" class="px-2.5 py-1 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 text-xs font-bold">
-                刪除單元
-              </button>
-            ` : ''}
-          </td>
-        </tr>
-      `;
-    }
-  });
-
-  tbody.innerHTML = rowsHtml || `<tr><td colspan="6" class="py-6 text-center text-muted">找不到符合條件的 Skill 模組</td></tr>`;
-  updateProgressIndicators();
-}
-
-function openSkillEditorModal(mode, unitId = null, subIdx = null) {
-  editingTarget = { mode, unitId, subIdx };
-  pendingUploadedZipDataUrl = '';
-  pendingExtractedZipMap = null;
-  if ($('#seZipFile')) $('#seZipFile').value = '';
-  if ($('#parseZipToFormBtn')) $('#parseZipToFormBtn').classList.add('hidden');
-  if ($('#seZipStatusBadge')) $('#seZipStatusBadge').textContent = '維持現有標準 ZIP（可上傳新檔覆蓋）';
-
-  const u = unitId ? UNITS.find(x => x.id === unitId) : null;
-  const isSubMode = mode === 'subskill' || mode === 'new-subskill';
-
-  $('#seUnitMetaFieldsGroup').classList.toggle('hidden', isSubMode);
-  $('#seSubSkillRoleGroup').classList.toggle('hidden', !isSubMode);
-
-  // 切換必填屬性，避免隱藏欄位阻擋表單送出
-  ['seId', 'seTag', 'seShortLabel', 'seTitle', 'seDesc'].forEach(id => {
-    const el = $('#' + id);
-    if (el) el.required = !isSubMode;
-  });
-
-  if (mode === 'new-unit') {
-    const nextNum = String(UNITS.length + 1).padStart(2, '0');
-    $('#seEditContextText').textContent = `新增獨立課程單元（預設編號 ${nextNum}）`;
-    $('#seId').value = nextNum;
-    $('#seTag').value = 'NEW MODULE';
-    $('#seShortLabel').value = '';
-    $('#seTitle').value = '';
-    $('#sePromise').value = '';
-    $('#seDesc').value = '';
-    $('#seExample').value = '';
-    $('#seSlug').value = '';
-    $('#seName').value = '';
-    $('#seDeliver').value = '';
-    $('#seSteps').value = '';
-    $('#seFields').value = '';
-    $('#seWhy').value = '';
-    $('#seWhat').value = '';
-    $('#seHow').value = '';
-    $('#seMermaid').value = '';
-    $('#seQuiz').value = '';
-    $('#seAnswer').value = '';
-    $('#seManual').value = '';
-  } else if (mode === 'unit' && u) {
-    $('#seEditContextText').textContent = `編輯單元 ${u.id}｜${u.title}`;
-    $('#seId').value = u.id;
-    $('#seTag').value = u.tag || '';
-    $('#seShortLabel').value = u.shortLabel || '';
-    $('#seTitle').value = u.title || '';
-    $('#sePromise').value = u.promise || '';
-    $('#seDesc').value = u.desc || '';
-    $('#seExample').value = u.example || '';
-    $('#seSlug').value = u.slug || '';
-    $('#seName').value = u.name || '';
-    $('#seDeliver').value = u.deliver || '';
-    $('#seSteps').value = (u.steps || []).join('\n');
-    $('#seFields').value = (u.fields || []).join('\n');
-    $('#seWhy').value = (u.wwh && u.wwh.why) || '';
-    $('#seWhat').value = (u.wwh && u.wwh.what) || '';
-    $('#seHow').value = (u.wwh && u.wwh.how) || '';
-    $('#seMermaid').value = u.mermaidCode || '';
-    $('#seQuiz').value = u.quiz || '';
-    $('#seAnswer').value = u.answer || '';
-    $('#seManual').value = u.manual || '';
-  } else if (mode === 'subskill' && u && u.extraSkills && u.extraSkills[subIdx]) {
-    const sub = u.extraSkills[subIdx];
-    $('#seEditContextText').textContent = `編輯子模組：單元 ${u.id} → ${sub.roleBadge || sub.name}`;
-    $('#seParentUnitReadonly').value = `UNIT ${u.id}｜${u.shortLabel || u.title}`;
-    $('#seRoleBadge').value = sub.roleBadge || '';
-    $('#seSlug').value = sub.slug || '';
-    $('#seName').value = sub.name || '';
-    $('#seDeliver').value = sub.deliver || '';
-    $('#seSteps').value = (sub.steps || u.steps || []).join('\n');
-    $('#seFields').value = (sub.fields || u.fields || []).join('\n');
-    $('#seWhy').value = (sub.wwh && sub.wwh.why) || '';
-    $('#seWhat').value = (sub.wwh && sub.wwh.what) || '';
-    $('#seHow').value = (sub.wwh && sub.wwh.how) || '';
-    $('#seMermaid').value = sub.mermaidCode || '';
-    $('#seQuiz').value = sub.quiz || '';
-    $('#seAnswer').value = sub.answer || '';
-    $('#seManual').value = sub.manual || '';
-  } else if (mode === 'new-subskill' && u) {
-    const nextLetter = String.fromCharCode(65 + ((u.extraSkills ? u.extraSkills.length : 1)));
-    $('#seEditContextText').textContent = `在單元 ${u.id} 新增子 Skill（預設 SKILL ${u.id}-${nextLetter}）`;
-    $('#seParentUnitReadonly').value = `UNIT ${u.id}｜${u.shortLabel || u.title}`;
-    $('#seRoleBadge').value = `SKILL ${u.id}-${nextLetter}｜新專業模組`;
-    $('#seSlug').value = '';
-    $('#seName').value = '';
-    $('#seDeliver').value = '';
-    $('#seSteps').value = '';
-    $('#seFields').value = '';
-    $('#seWhy').value = '';
-    $('#seWhat').value = '';
-    $('#seHow').value = '';
-    $('#seMermaid').value = '';
-    $('#seQuiz').value = '';
-    $('#seAnswer').value = '';
-    $('#seManual').value = '';
-  }
-
-  $('#skillEditorDialog').showModal();
-}
-
-// ==================== 全站事件綁定與初始化 ====================
-function bindAllEvents() {
-  // 點擊任何 <dialog> 背景黑幕自動關閉
+function bindCoreWorkspaceEvents() {
+  // 點擊任何 <dialog> 外部遮罩關閉（首次資料補齊視窗除外）
   document.querySelectorAll('dialog').forEach(dlg => {
     dlg.addEventListener('click', e => {
-      if (e.target === dlg) dlg.close();
+      if (e.target === dlg && dlg.id !== 'googleProfileDialog') {
+        dlg.close();
+      }
     });
   });
 
-  // 密碼顯示／隱藏切換
-  document.querySelectorAll('[data-toggle-pass]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-toggle-pass');
-      const inp = document.getElementById(targetId);
-      if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
-    });
-  });
+  // Gemini 4 Hydrogen 模型設定與即時執行綁定
+  if ($('#openAiModelModalBtn')) $('#openAiModelModalBtn').onclick = openAiModelSettingsModal;
+  if ($('#openAiSettingsInlineBtn')) $('#openAiSettingsInlineBtn').onclick = openAiModelSettingsModal;
+  if ($('#closeAiModelModalBtn')) $('#closeAiModelModalBtn').onclick = () => $('#aiModelConfigDialog').close();
 
-  // 登入閘門分頁切換
-  if ($('#tabLoginBtn')) $('#tabLoginBtn').onclick = () => switchAuthTab('login');
-  if ($('#tabRegisterBtn')) $('#tabRegisterBtn').onclick = () => switchAuthTab('register');
-  if ($('#goForgotBtn')) $('#goForgotBtn').onclick = () => switchAuthTab('forgot');
-  if ($('#backToLoginBtn')) $('#backToLoginBtn').onclick = () => switchAuthTab('login');
+  if ($('#clearGeminiKeyBtn')) {
+    $('#clearGeminiKeyBtn').onclick = () => {
+      saveGeminiConfig('', 'high');
+      if ($('#geminiApiKeyInput')) $('#geminiApiKeyInput').value = '';
+      toast('已清除本機 Gemini API Key');
+    };
+  }
 
-  // 登入表單送出
-  if ($('#loginForm')) {
-    $('#loginForm').addEventListener('submit', e => {
+  if ($('#aiModelConfigForm')) {
+    $('#aiModelConfigForm').addEventListener('submit', e => {
       e.preventDefault();
-      const email = $('#loginEmail').value.trim().toLowerCase();
-      const pass = $('#loginPassword').value;
-      const members = getLocalMembers();
-      let found = members.find(m => String(m.email || '').toLowerCase() === email);
+      const keyVal = $('#geminiApiKeyInput').value.trim();
+      const levelVal = $('#geminiThinkingLevel').value;
+      saveGeminiConfig(keyVal, levelVal);
+      $('#aiModelConfigDialog').close();
+      toast(keyVal ? `⚡ 已啟用 ${GEMINI_MODEL_ID}（推理層級：${levelVal.toUpperCase()}）` : `已儲存 ${GEMINI_MODEL_ID} 偏好設定`);
+    });
+  }
 
-      if (!found) {
-        if (email === SUPER_ADMIN_EMAIL) {
-          found = {
-            uid: 'creator-tony-admin',
-            email,
-            realName: 'TONY 楊文澤 老師',
-            identity: 'TONY老師學員',
-            company: 'TONY Studio',
-            role: 'admin',
-            passwordHash: btoa(unescape(encodeURIComponent(pass))),
-            createdAt: new Date().toISOString(),
-            loginCount: 0,
-            loginHistory: []
-          };
-          members.push(found);
-          saveLocalMembers(members);
-        } else {
-          showAuthMessage('查無此註冊信箱，請先點選上方「新會員註冊」建立專屬通行證。', true);
-          return;
-        }
-      } else if (found.passwordHash && found.passwordHash !== btoa(unescape(encodeURIComponent(pass)))) {
-        showAuthMessage('登入密碼不正確，請重新輸入或使用「忘記密碼」。', true);
+  if ($('#runGeminiHydrogenBtn')) {
+    $('#runGeminiHydrogenBtn').onclick = async () => {
+      const cfg = getGeminiConfig();
+      if (!cfg.apiKey) {
+        openAiModelSettingsModal();
+        toast(`請先輸入 Gemini API Key 以直接呼叫 ${GEMINI_MODEL_ID}`);
         return;
       }
+      const meta = getActiveUnitMeta();
+      const btn = $('#runGeminiHydrogenBtn');
+      const panel = $('#geminiOutputPanel');
+      const statusEl = $('#geminiOutputStatus');
+      const outEl = $('#geminiOutputContent');
 
-      enterMainAcademy(found);
-      toast(`歡迎回來，${found.realName || found.email}！`);
-    });
-  }
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ ${GEMINI_MODEL_ID} 推理產出中…</span>`;
+      panel.classList.remove('hidden');
+      statusEl.textContent = `⏳ 正在呼叫 ${GEMINI_MODEL_ID}（Thinking: ${cfg.thinkingLevel.toUpperCase()}）執行「${meta.name}」…`;
+      outEl.textContent = '正在根據您的品牌筆記與 SKILL.md 工作契約進行結構化推演，請稍候…';
 
-  // 新會員註冊送出
-  if ($('#registerForm')) {
-    $('#registerForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const realName = $('#regRealName').value.trim();
-      const identity = $('#regIdentity').value;
-      const company = $('#regCompany').value.trim();
-      const email = $('#regEmail').value.trim().toLowerCase();
-      const pass = $('#regPassword').value;
-
-      const members = getLocalMembers();
-      if (members.some(m => String(m.email || '').toLowerCase() === email)) {
-        showAuthMessage('此電子郵件已註冊過，請切換至「會員登入」直接進入學院。', true);
-        return;
-      }
-
-      const newMember = {
-        uid: 'usr_' + Date.now().toString(36),
-        realName,
-        identity,
-        company,
-        email,
-        role: email === SUPER_ADMIN_EMAIL ? 'admin' : 'member',
-        passwordHash: btoa(unescape(encodeURIComponent(pass))),
-        createdAt: new Date().toISOString(),
-        loginCount: 0,
-        loginHistory: [],
-        workspaceState: JSON.parse(JSON.stringify(state))
-      };
-      members.push(newMember);
-      saveLocalMembers(members);
-      enterMainAcademy(newMember);
-      toast('🎉 註冊成功！已為您開通實戰學院雲端工作台');
-    });
-  }
-
-  // 忘記密碼送出
-  if ($('#forgotForm')) {
-    $('#forgotForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const email = $('#forgotEmail').value.trim();
-      showAuthMessage(`已將密碼重設指引發送至 ${email}，請檢查信箱與垃圾郵件匣。`, false);
-    });
-  }
-
-  // Google 快速登入
-  if ($('#googleLoginBtn')) {
-    $('#googleLoginBtn').onclick = () => {
-      const members = getLocalMembers();
-      const existingGoogle = members.find(m => m.provider === 'google');
-      if (existingGoogle) {
-        enterMainAcademy(existingGoogle);
-        toast(`歡迎回來，${existingGoogle.realName}！`);
-      } else {
-        $('#googleProfileDialog').showModal();
+      try {
+        const resultText = await callGeminiHydrogen({
+          systemInstruction: meta.manual,
+          userPrompt: prompt()
+        });
+        lastGeminiOutputText = resultText;
+        statusEl.textContent = `✨ ${GEMINI_MODEL_ID}（${cfg.thinkingLevel.toUpperCase()}）協作產出完成`;
+        outEl.textContent = resultText;
+        toast(`✨ ${GEMINI_MODEL_ID} 已完成本單元產出！`);
+      } catch (err) {
+        statusEl.textContent = `⚠️ ${GEMINI_MODEL_ID} 呼叫異常`;
+        outEl.textContent = `執行失敗：${err.message || err}\n\n請檢查您的 API Key 權限或配額，或直接複製上方提示詞使用。`;
+        toast('⚠️ 模型呼叫未完成，請檢查 API Key 設定');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>🚀 用 ${GEMINI_MODEL_ID} 立即生成</span>`;
       }
     };
   }
 
-  // 講師展示／免填表一鍵預覽入口
+  if ($('#copyGeminiOutputBtn')) {
+    $('#copyGeminiOutputBtn').onclick = () => {
+      if (!lastGeminiOutputText) return;
+      copyTextToClipboard(lastGeminiOutputText, `已複製 ${GEMINI_MODEL_ID} 產出結果 ✓`);
+    };
+  }
+  if ($('#downloadGeminiOutputBtn')) {
+    $('#downloadGeminiOutputBtn').onclick = () => {
+      if (!lastGeminiOutputText) return;
+      const meta = getActiveUnitMeta();
+      download(`TONY_${meta.u.id}_${meta.slug}_${GEMINI_MODEL_ID}.md`, lastGeminiOutputText, 'text/markdown;charset=utf-8');
+      toast('已下載模型產出 .MD 檔案');
+    };
+  }
+
+  // 講師展示／免填表快速預覽入口（方便課堂展示與預覽視窗免登入直通）
   if ($('#quickPreviewDemoBtn')) {
     $('#quickPreviewDemoBtn').onclick = () => {
-      const members = getLocalMembers();
-      let creator = members.find(m => String(m.email || '').toLowerCase() === SUPER_ADMIN_EMAIL);
-      if (!creator) {
-        creator = {
-          uid: 'creator-tony-admin',
-          email: SUPER_ADMIN_EMAIL,
-          realName: 'TONY 楊文澤 老師',
-          identity: 'TONY老師學員',
-          company: 'TONY Studio',
-          role: 'admin',
-          createdAt: new Date().toISOString(),
-          loginCount: 1,
-          loginHistory: [new Date().toISOString()]
-        };
-        members.push(creator);
-        saveLocalMembers(members);
+      $('#authGateView').classList.add('hidden');
+      $('#appMainContainer').classList.remove('hidden');
+      if ($('#navUserBadge')) $('#navUserBadge').classList.remove('hidden');
+      if ($('#navUserName')) $('#navUserName').textContent = 'TONY 講師預覽模式';
+      if ($('#navUserRoleTag')) {
+        $('#navUserRoleTag').textContent = '👑 預覽 Admin';
+        $('#navUserRoleTag').className = 'px-2 py-0.5 rounded bg-ink text-lime text-[10px] font-extrabold';
       }
-      enterMainAcademy(creator);
-      toast('⚡ 已以創作者最高管理權限進入實戰學院！');
+      if ($('#openAdminDashboardBtn')) {
+        $('#openAdminDashboardBtn').classList.remove('hidden');
+        $('#openAdminDashboardBtn').classList.add('inline-flex');
+      }
+      if ($('#userUidDisplay')) $('#userUidDisplay').textContent = 'preview-demo-mode (本機自動保存)';
+      if ($('#cloudBadgeText')) $('#cloudBadgeText').textContent = '預覽模式';
+      renderHeroMap();
+      renderCards();
+      renderWork();
+      toast(`⚡ 已進入實戰學院預覽工作台（預設模型：${GEMINI_MODEL_ID}）`);
     };
   }
 
-  if ($('#googleProfileForm')) {
-    $('#googleProfileForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const realName = $('#gpRealName').value.trim() || 'Google 學員';
-      const identity = $('#gpIdentity').value;
-      const company = $('#gpCompany').value.trim() || '個人品牌';
-      const newMember = {
-        uid: 'google_' + Date.now().toString(36),
-        provider: 'google',
-        realName,
-        identity,
-        company,
-        email: `${realName.toLowerCase().replace(/\s+/g, '') || 'member'}@gmail.com`,
-        role: 'member',
-        createdAt: new Date().toISOString(),
-        loginCount: 0,
-        loginHistory: []
-      };
-      const members = getLocalMembers();
-      members.push(newMember);
-      saveLocalMembers(members);
-      $('#googleProfileDialog').close();
-      enterMainAcademy(newMember);
-      toast('🎉 已完成學員資料設定，歡迎進入學院！');
-    });
-  }
-
-  // 登出
-  if ($('#logoutBtn')) {
-    $('#logoutBtn').onclick = () => {
-      currentUser = null;
-      $('#appMainContainer').classList.add('hidden');
-      $('#authGateView').classList.remove('hidden');
-      toast('您已安全登出');
-    };
-  }
-
-  // 全域事件委派（處理五力藍圖跳轉、卡片按鈕、子 Skill 切換、手冊複製、ZIP 下載、後台操作）
+  // 前台全域事件委派（五力圖跳轉、分頁切換、子模組切換、手冊檢視、ZIP 下載）
   document.addEventListener('click', e => {
     const jumpBtn = e.target.closest('[data-jump-unit]');
     if (jumpBtn) {
@@ -5811,102 +5388,10 @@ function bindAllEvents() {
       const mode = hbCopyBtn.getAttribute('data-copy-handbook-prompt');
       const txtEl = mode === 'starter' ? $('#handbookStarterPromptText') : $('#handbookRefinePromptText');
       if (txtEl) copyTextToClipboard(txtEl.textContent, mode === 'starter' ? '已複製起始示範任務 ✓' : '已複製進階局部修訂指令 ✓');
-      return;
-    }
-
-    // 後台會員操作
-    const viewMemBtn = e.target.closest('[data-view-member]');
-    if (viewMemBtn) {
-      const uid = viewMemBtn.getAttribute('data-view-member');
-      const mem = getLocalMembers().find(m => m.uid === uid);
-      if (mem) {
-        $('#historyModalTitle').textContent = `${mem.realName || mem.email}｜登入與實作筆記詳情`;
-        const ws = mem.workspaceState || {};
-        const historyHtml = (mem.loginHistory || []).slice(0, 8).map(t => `<li class="font-mono text-xs text-muted">${esc(new Date(t).toLocaleString('zh-TW'))}</li>`).join('') || '<li>尚無紀錄</li>';
-        $('#memberHistoryContent').innerHTML = `
-          <div class="p-4 rounded-xl bg-white border border-line space-y-1">
-            <div><strong>企業／單位：</strong>${esc(mem.company || '-')}｜<strong>身份：</strong>${esc(mem.identity || '-')}</div>
-            <div><strong>累積登入次數：</strong>${Number(mem.loginCount) || 1} 次</div>
-          </div>
-          <div class="p-4 rounded-xl bg-white border border-line">
-            <strong class="block mb-2 text-teal">近期登入時間軸</strong>
-            <ul class="list-disc list-inside space-y-1">${historyHtml}</ul>
-          </div>
-          <div class="p-4 rounded-xl bg-white border border-line">
-            <strong class="block mb-2 text-teal">已完成單元數：${getUniqueCompletedUnitsCount(ws.done || {})} / ${UNITS.length}</strong>
-          </div>
-        `;
-        $('#memberHistoryDialog').showModal();
-      }
-      return;
-    }
-
-    const toggleAdmBtn = e.target.closest('[data-toggle-admin]');
-    if (toggleAdmBtn) {
-      const uid = toggleAdmBtn.getAttribute('data-toggle-admin');
-      const members = getLocalMembers();
-      const idx = members.findIndex(m => m.uid === uid);
-      if (idx !== -1) {
-        members[idx].role = members[idx].role === 'admin' ? 'member' : 'admin';
-        saveLocalMembers(members);
-        renderAdminMembersTable();
-        toast('已更新會員系統權限');
-      }
-      return;
-    }
-
-    // 後台 CMS 操作
-    const editUnitBtn = e.target.closest('[data-cms-edit-unit]');
-    if (editUnitBtn) {
-      openSkillEditorModal('unit', editUnitBtn.getAttribute('data-cms-edit-unit'), null);
-      return;
-    }
-    const editSubBtn = e.target.closest('[data-cms-edit-sub]');
-    if (editSubBtn) {
-      openSkillEditorModal('subskill', editSubBtn.getAttribute('data-cms-edit-sub'), Number(editSubBtn.getAttribute('data-cms-sub-idx')));
-      return;
-    }
-    const addSubBtn = e.target.closest('[data-cms-add-sub]');
-    if (addSubBtn) {
-      openSkillEditorModal('new-subskill', addSubBtn.getAttribute('data-cms-add-sub'), null);
-      return;
-    }
-    const delSubBtn = e.target.closest('[data-cms-del-sub]');
-    if (delSubBtn) {
-      const uId = delSubBtn.getAttribute('data-cms-del-sub');
-      const sIdx = Number(delSubBtn.getAttribute('data-cms-sub-idx'));
-      const uObj = UNITS.find(x => x.id === uId);
-      if (uObj && uObj.extraSkills && uObj.extraSkills[sIdx]) {
-        askConfirm('確認刪除此子 Skill？', `即將從單元 ${uId} 移除「${uObj.extraSkills[sIdx].name}」。`, () => {
-          uObj.extraSkills.splice(sIdx, 1);
-          activeSubSkillIdx = 0;
-          renderAdminSkillsTable();
-          renderCards();
-          renderWork();
-          toast('已刪除子 Skill 模組');
-        });
-      }
-      return;
-    }
-    const delUnitBtn = e.target.closest('[data-cms-del-unit]');
-    if (delUnitBtn) {
-      const uId = delUnitBtn.getAttribute('data-cms-del-unit');
-      const uIdx = UNITS.findIndex(x => x.id === uId);
-      if (uIdx !== -1 && UNITS.length > 1) {
-        askConfirm('確認刪除此課程單元？', `即將移除單元 ${uId}「${UNITS[uIdx].title}」。`, () => {
-          UNITS.splice(uIdx, 1);
-          active = UNITS[0].id;
-          activeSubSkillIdx = 0;
-          renderAdminSkillsTable();
-          renderCards();
-          renderWork();
-          toast('已刪除課程單元');
-        });
-      }
     }
   });
 
-  // 搜尋與篩選控制
+  // 課程搜尋與篩選控制
   if ($('#search')) $('#search').addEventListener('input', renderCards);
   if ($('#filter')) $('#filter').addEventListener('change', renderCards);
   if ($('#clear')) {
@@ -5917,7 +5402,7 @@ function bindAllEvents() {
     };
   }
 
-  // 工作台控制項
+  // 工作台品牌、模式、示範草稿與單元導覽
   if ($('#brand')) {
     $('#brand').addEventListener('change', e => {
       state.brand = e.target.value;
@@ -5944,10 +5429,18 @@ function bindAllEvents() {
     $('#fillSampleBtn').onclick = () => {
       const meta = getActiveUnitMeta();
       const sampleArr = (meta.samples && meta.samples[state.brand]) || (meta.samples && meta.samples.coffee) || [];
-      state.notes[key(meta.u.id, meta.subIdx)] = sampleArr.slice();
-      save();
-      renderWork();
-      toast('✨ 已帶入本模組示範草稿');
+      const curNotes = state.notes[key(meta.u.id, meta.subIdx)] || [];
+      const applyIt = () => {
+        state.notes[key(meta.u.id, meta.subIdx)] = sampleArr.slice();
+        save();
+        renderWork();
+        toast('✨ 已帶入本模組示範草稿');
+      };
+      if (curNotes.some(x => x && x.trim())) {
+        askConfirm('覆蓋目前筆記？', '帶入示範草稿將取代目前這個模組已輸入的內容，是否繼續？', applyIt);
+      } else {
+        applyIt();
+      }
     };
   }
   if ($('#copy')) $('#copy').onclick = () => copyTextToClipboard(prompt(), '✨ 已複製專屬 AI 協作提示詞！');
@@ -5985,25 +5478,24 @@ function bindAllEvents() {
     };
   }
 
-  // Mermaid 放大與下載按鈕
+  // Mermaid 流程圖放大與 PNG / SVG 下載
   if ($('#zoomMermaidBtn')) $('#zoomMermaidBtn').onclick = openMermaidZoomModal;
   if ($('#mermaidDiagramBox')) $('#mermaidDiagramBox').onclick = openMermaidZoomModal;
   if ($('#downloadMermaidPngBtn')) $('#downloadMermaidPngBtn').onclick = downloadMermaidAsPng;
   if ($('#downloadMermaidSvgBtn')) $('#downloadMermaidSvgBtn').onclick = downloadMermaidAsSvg;
   if ($('#closeMermaidZoomBtn')) $('#closeMermaidZoomBtn').onclick = () => $('#mermaidZoomDialog').close();
-  if ($('#zoomInMermaidModalBtn')) $('#zoomInMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.min(2.5, currentMermaidZoom + 0.25); applyMermaidModalZoom(); };
-  if ($('#zoomOutMermaidModalBtn')) $('#zoomOutMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.max(0.5, currentMermaidZoom - 0.25); applyMermaidModalZoom(); };
+  if ($('#zoomInMermaidModalBtn')) $('#zoomInMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.min(2.5, +(currentMermaidZoom + 0.25).toFixed(2)); applyMermaidModalZoom(); };
+  if ($('#zoomOutMermaidModalBtn')) $('#zoomOutMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.max(0.5, +(currentMermaidZoom - 0.25).toFixed(2)); applyMermaidModalZoom(); };
   if ($('#zoomResetMermaidModalBtn')) $('#zoomResetMermaidModalBtn').onclick = () => { currentMermaidZoom = 1.25; applyMermaidModalZoom(); };
   if ($('#downloadMermaidModalPngBtn')) $('#downloadMermaidModalPngBtn').onclick = downloadMermaidAsPng;
   if ($('#downloadMermaidModalSvgBtn')) $('#downloadMermaidModalSvgBtn').onclick = downloadMermaidAsSvg;
 
-  // 手冊 Modal 控制
+  // 手冊與全案品牌簡報 Modal
   if ($('#tabManualFullBtn')) $('#tabManualFullBtn').onclick = () => switchManualModalTab('full');
   if ($('#tabManualQuickBtn')) $('#tabManualQuickBtn').onclick = () => switchManualModalTab('quick');
   if ($('#closeDialog')) $('#closeDialog').onclick = () => $('#manualDialog').close();
   if ($('#copyManualBtn')) $('#copyManualBtn').onclick = () => copyTextToClipboard($('#manualText').textContent, '已複製 SKILL.md 全文 ✓');
 
-  // 全案品牌簡報 Modal
   const openBrief = () => {
     $('#briefMarkdownText').textContent = generateBriefMarkdown();
     $('#briefDialog').showModal();
@@ -6015,7 +5507,7 @@ function bindAllEvents() {
   if ($('#downloadBriefModalBtn')) $('#downloadBriefModalBtn').onclick = () => download('TONY_Brand_Proposal_Brief.md', generateBriefMarkdown(), 'text/markdown;charset=utf-8');
   if ($('#exportMarkdownBtn')) $('#exportMarkdownBtn').onclick = () => download('TONY_Brand_Proposal_Brief.md', generateBriefMarkdown(), 'text/markdown;charset=utf-8');
 
-  // 學習紀錄匯出／匯入／重設
+  // JSON 學習紀錄匯出／匯入／清除
   if ($('#export')) {
     $('#export').onclick = () => {
       download('TONY_Brand_Academy_Backup.json', JSON.stringify(state, null, 2), 'application/json');
@@ -6037,9 +5529,11 @@ function bindAllEvents() {
           renderHeroMap();
           renderCards();
           renderWork();
-          toast('✓ 已成功還原學習紀錄！');
+          toast('✓ 已成功匯入學習紀錄！');
         } catch (err) {
-          toast('⚠️ 備份檔格式不正確，無法匯入');
+          toast('⚠️ 備份檔格式不正確');
+        } finally {
+          $('#fileImport').value = '';
         }
       };
       reader.readAsText(file);
@@ -6047,18 +5541,17 @@ function bindAllEvents() {
   }
   if ($('#reset')) {
     $('#reset').onclick = () => {
-      askConfirm('清除此裝置學習紀錄？', '此動作將清空目前的筆記與打勾進度（建議先匯出 JSON 備份）。確定要執行嗎？', () => {
+      askConfirm('確定清除此裝置與雲端紀錄？', '此動作將清空所有品牌筆記與完成進度，建議先匯出 JSON 備份。', () => {
         state = { version: 1, brand: 'coffee', names: { coffee: '森日咖啡', tea: '海岸茶室', custom: '' }, notes: {}, done: {} };
         save();
         renderHeroMap();
         renderCards();
         renderWork();
-        toast('已重設學習紀錄');
+        toast('已重設全部學習紀錄');
       });
     };
   }
 
-  // 確認對話框按鈕
   if ($('#confirmCancelBtn')) $('#confirmCancelBtn').onclick = () => { confirmCallback = null; $('#confirmDialog').close(); };
   if ($('#confirmOkBtn')) {
     $('#confirmOkBtn').onclick = () => {
@@ -6068,279 +5561,12 @@ function bindAllEvents() {
       if (typeof cb === 'function') cb();
     };
   }
-
-  // 後台管理對話框與功能綁定
-  if ($('#openAdminDashboardBtn')) {
-    $('#openAdminDashboardBtn').onclick = () => {
-      const today = new Date().toISOString().slice(0, 10);
-      if ($('#reportEndDate') && !$('#reportEndDate').value) $('#reportEndDate').value = today;
-      if ($('#reportStartDate') && !$('#reportStartDate').value) $('#reportStartDate').value = '2026-01-01';
-      renderAdminMembersTable();
-      renderAdminSkillsTable();
-      $('#adminDashboardDialog').showModal();
-    };
-  }
-  if ($('#closeAdminDialogBtn')) $('#closeAdminDialogBtn').onclick = () => $('#adminDashboardDialog').close();
-  if ($('#refreshMembersBtn')) $('#refreshMembersBtn').onclick = () => { renderAdminMembersTable(); renderAdminSkillsTable(); toast('已重新整理最新資料'); };
-  if ($('#memberSearchInput')) $('#memberSearchInput').addEventListener('input', renderAdminMembersTable);
-  if ($('#adminSkillSearchInput')) $('#adminSkillSearchInput').addEventListener('input', renderAdminSkillsTable);
-  if ($('#adminSkillUnitFilter')) $('#adminSkillUnitFilter').addEventListener('change', renderAdminSkillsTable);
-  if ($('#closeHistoryDialogBtn')) $('#closeHistoryDialogBtn').onclick = () => $('#memberHistoryDialog').close();
-
-  // 匯出會員 CSV
-  if ($('#exportMembersCsvBtn')) {
-    $('#exportMembersCsvBtn').onclick = () => {
-      const members = getLocalMembers();
-      const header = ['真實姓名', '企業單位', '電子郵件', '身份分類', '系統權限', '登入次數', '完成單元數', '註冊時間'];
-      const rows = members.map(m => [
-        m.realName || '',
-        m.company || '',
-        m.email || '',
-        m.identity || '',
-        m.role || 'member',
-        Number(m.loginCount) || 1,
-        getUniqueCompletedUnitsCount((m.workspaceState && m.workspaceState.done) || {}),
-        m.createdAt || ''
-      ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','));
-      download('TONY_Academy_Members.csv', '\uFEFF' + [header.join(','), ...rows].join('\n'), 'text/csv;charset=utf-8');
-      toast('📥 已匯出會員名冊 CSV');
-    };
-  }
-
-  // AI 商業與學員成效分析報告產生器 + Word 匯出
-  if ($('#generateAiReportBtn')) {
-    $('#generateAiReportBtn').onclick = () => {
-      const members = getLocalMembers();
-      const sDate = $('#reportStartDate').value || '2026-01-01';
-      const eDate = $('#reportEndDate').value || new Date().toISOString().slice(0, 10);
-      const students = members.filter(m => m.identity === 'TONY老師學員').length;
-      const companies = [...new Set(members.map(m => m.company).filter(Boolean))];
-
-      const reportHtml = `
-        <div class="space-y-3">
-          <h5 class="text-base font-black text-teal">📊 TONY Studio 實戰學院營運洞察報告（期間：${esc(sDate)} 至 ${esc(eDate)}）</h5>
-          <p><strong>一、會員結構概況：</strong>目前累計註冊 <strong>${members.length}</strong> 位會員（其中 TONY 老師學員佔 <strong>${students}</strong> 位，企業／單位涵蓋：${esc(companies.slice(0, 8).join('、') || '個人學員')}）。</p>
-          <p><strong>二、課程與 Skill 資產規模：</strong>全站共計部署 <strong>${UNITS.length} 大實戰單元、${getTotalSkillsCount()} 組原創 Skill 壓縮包</strong>，涵蓋品牌新聞室議題編採、SSOT 與 GEO 知識架構、故事角色 IP、H28 材質與微動態 GIF、全媒體聲音與企業配樂。</p>
-          <p><strong>三、顧問營運建議：</strong>建議於課後追蹤單元 02（知識庫邊界）與單元 05（影音聽覺轉換）之完課率，協助企業客戶將課堂草稿轉為正式內部標準作業程序（SOP）。</p>
-        </div>
-      `;
-      const container = $('#aiReportContainer');
-      container.innerHTML = reportHtml;
-      container.classList.remove('hidden');
-      $('#exportWordReportBtn').classList.remove('hidden');
-      toast('✨ 已生成營運分析報告');
-    };
-  }
-  if ($('#exportWordReportBtn')) {
-    $('#exportWordReportBtn').onclick = () => {
-      const content = $('#aiReportContainer').innerHTML;
-      const openDoc = '<' + 'html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><' + 'head><meta charset="utf-8"><title>TONY Studio 營運分析報告<' + '/title><' + '/head><' + 'body>';
-      const closeDoc = '<' + '/body><' + '/html>';
-      const docHtml = openDoc + content + closeDoc;
-      download(`TONY_Academy_Report_${new Date().toISOString().slice(0, 10)}.doc`, docHtml, 'application/msword');
-      toast('📄 已匯出 Word 報告檔 (.doc)');
-    };
-  }
-
-  // Firestore 安全規則檢視與複製
-  if ($('#openRulesModalBtn')) {
-    $('#openRulesModalBtn').onclick = () => {
-      $('#firestoreRulesCode').textContent = `rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    function isSignedIn() { return request.auth != null; }\n    function isCreator() { return isSignedIn() && request.auth.token.email == 'mindnodeai@gmail.com'; }\n    match /users/{userId} {\n      allow read, write: if isSignedIn() && (request.auth.uid == userId || isCreator());\n    }\n    match /public/data/skills/{docId} {\n      allow read: if isSignedIn();\n      allow write: if isCreator();\n    }\n  }\n}`;
-      $('#firestoreRulesDialog').showModal();
-    };
-  }
-  if ($('#closeRulesDialogBtn')) $('#closeRulesDialogBtn').onclick = () => $('#firestoreRulesDialog').close();
-  if ($('#copyRulesTextBtn')) $('#copyRulesTextBtn').onclick = () => copyTextToClipboard($('#firestoreRulesCode').textContent, '已複製 Firestore 安全規則 ✓');
-
-  // CMS 新增與編輯對話框事件
-  if ($('#openNewSkillModalBtn')) $('#openNewSkillModalBtn').onclick = () => openSkillEditorModal('new-unit');
-  if ($('#closeSkillEditorBtn')) $('#closeSkillEditorBtn').onclick = () => $('#skillEditorDialog').close();
-  if ($('#cancelSkillEditorBtn')) $('#cancelSkillEditorBtn').onclick = () => $('#skillEditorDialog').close();
-  if ($('#seedDefaultSkillsBtn')) {
-    $('#seedDefaultSkillsBtn').onclick = () => {
-      renderAdminSkillsTable();
-      toast(`☁️ 已確認全站 ${UNITS.length} 大單元與 ${getTotalSkillsCount()} 組 Skill 皆為最新同步狀態！`);
-    };
-  }
-
-  // 上傳新 ZIP 自動驗證與反向解析
-  if ($('#seZipFile')) {
-    $('#seZipFile').addEventListener('change', e => {
-      const f = e.target.files && e.target.files[0];
-      if (!f) return;
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const { bytes, cleanDataUrl } = verifyAndDecodeZipBase64(String(reader.result || ''));
-          pendingUploadedZipDataUrl = cleanDataUrl;
-          $('#seZipStatusBadge').textContent = `✅ 驗證通過：${f.name} (${(bytes.length / 1024).toFixed(1)} KB)`;
-          pendingExtractedZipMap = await extractTextFilesFromZipBytes(bytes);
-          $('#parseZipToFormBtn').classList.remove('hidden');
-          applyExtractedZipContentToForm(pendingExtractedZipMap);
-        } catch (err) {
-          pendingUploadedZipDataUrl = '';
-          $('#seZipStatusBadge').textContent = '❌ 非標準 ZIP 檔案，請重新選擇';
-          toast('⚠️ 選擇的檔案不是合法的 .zip 壓縮檔');
-        }
-      };
-      reader.readAsDataURL(f);
-    });
-  }
-
-  if ($('#parseZipToFormBtn')) {
-    $('#parseZipToFormBtn').onclick = () => {
-      if (pendingExtractedZipMap) applyExtractedZipContentToForm(pendingExtractedZipMap);
-    };
-  }
-
-  if ($('#autoBuildZipFromFormBtn')) {
-    $('#autoBuildZipFromFormBtn').onclick = () => {
-      const slugVal = ($('#seSlug').value || 'tony-custom-skill').trim();
-      const nameVal = ($('#seName').value || 'TONY 自訂 Skill').trim();
-      const manualVal = $('#seManual').value || `# ${nameVal}`;
-      const stepsArr = $('#seSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const deliverVal = $('#seDeliver').value.trim();
-      const zipBytes = createStoreZipBytes([
-        { name: `${slugVal}/SKILL.md`, content: manualVal },
-        { name: `${slugVal}/agents/openai.yaml`, content: `name: ${slugVal}\ndescription: ${nameVal}\nversion: 1.0.0\nauthor: TONY Studio\ninstructions_file: ../SKILL.md\n` },
-        { name: `${slugVal}/references/practice.md`, content: `# ${nameVal}｜實作與驗收\n\n## 步驟\n${stepsArr.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n## 交付成果\n${deliverVal}\n` }
-      ]);
-      let bin = '';
-      for (let i = 0; i < zipBytes.length; i++) bin += String.fromCharCode(zipBytes[i]);
-      pendingUploadedZipDataUrl = 'data:application/zip;base64,' + btoa(bin);
-      $('#seZipStatusBadge').textContent = `⚡ 已依表單打包：${slugVal}.zip`;
-      toast(`⚡ 已即時打包標準 ${slugVal}.zip`);
-    };
-  }
-
-  if ($('#testPreviewZipBtn')) {
-    $('#testPreviewZipBtn').onclick = () => {
-      const slugVal = ($('#seSlug').value || 'tony-skill').trim();
-      const dataUrl = pendingUploadedZipDataUrl || SKILL_ASSETS[`${slugVal}.zip`] || '';
-      triggerBase64Download(dataUrl, `${slugVal}.zip`, 'application/zip', slugVal, editingTarget.unitId || '');
-    };
-  }
-
-  // 儲存單元或子 Skill 修改並無損更新 ZIP
-  if ($('#skillEditorForm')) {
-    $('#skillEditorForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const slugVal = $('#seSlug').value.trim().replace(/\.zip$/i, '');
-      const nameVal = $('#seName').value.trim();
-      const deliverVal = $('#seDeliver').value.trim();
-      const stepsArr = $('#seSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const fieldsArr = $('#seFields').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const manualVal = $('#seManual').value;
-      const quizVal = $('#seQuiz').value.trim();
-      const answerVal = $('#seAnswer').value.trim();
-      const wwhObj = {
-        why: $('#seWhy').value.trim(),
-        what: $('#seWhat').value.trim(),
-        how: $('#seHow').value.trim()
-      };
-      const mermaidCode = $('#seMermaid').value.trim();
-
-      // 處理 ZIP 同步（若有上傳新檔用新檔；否則對既有 ZIP 無損替換 SKILL.md）
-      if (pendingUploadedZipDataUrl) {
-        SKILL_ASSETS[`${slugVal}.zip`] = pendingUploadedZipDataUrl;
-      } else if (SKILL_ASSETS[`${slugVal}.zip`]) {
-        try {
-          SKILL_ASSETS[`${slugVal}.zip`] = patchSkillMdInExistingZipDataUrl(SKILL_ASSETS[`${slugVal}.zip`], slugVal, manualVal);
-        } catch (err) {
-          const fb = buildFallbackSkillZipBytes(slugVal, editingTarget.unitId || '');
-          let bin = '';
-          for (let i = 0; i < fb.length; i++) bin += String.fromCharCode(fb[i]);
-          SKILL_ASSETS[`${slugVal}.zip`] = 'data:application/zip;base64,' + btoa(bin);
-        }
-      }
-
-      if (editingTarget.mode === 'subskill' || editingTarget.mode === 'new-subskill') {
-        const u = UNITS.find(x => x.id === editingTarget.unitId);
-        if (u) {
-          if (!Array.isArray(u.extraSkills) || !u.extraSkills.length) {
-            u.extraSkills = [{
-              slug: u.slug,
-              name: u.name,
-              roleBadge: `SKILL ${u.id}-A｜核心模組`,
-              deliver: u.deliver,
-              steps: u.steps,
-              fields: u.fields,
-              samples: u.samples,
-              quiz: u.quiz,
-              answer: u.answer,
-              manual: u.manual
-            }];
-          }
-          const existingSub = editingTarget.mode === 'subskill' ? (u.extraSkills[editingTarget.subIdx] || {}) : {};
-          const updatedSub = Object.assign({}, existingSub, {
-            slug: slugVal,
-            name: nameVal,
-            roleBadge: $('#seRoleBadge').value.trim() || `SKILL ${u.id}`,
-            deliver: deliverVal,
-            steps: stepsArr,
-            fields: fieldsArr,
-            quiz: quizVal,
-            answer: answerVal,
-            manual: manualVal,
-            wwh: wwhObj,
-            mermaidCode
-          });
-          if (editingTarget.mode === 'subskill') {
-            u.extraSkills[editingTarget.subIdx] = updatedSub;
-          } else {
-            u.extraSkills.push(updatedSub);
-          }
-        }
-      } else {
-        const idVal = $('#seId').value.trim();
-        const existingIdx = UNITS.findIndex(x => x.id === (editingTarget.unitId || idVal));
-        const existingUnit = existingIdx !== -1 ? UNITS[existingIdx] : {};
-        const unitPayload = Object.assign({}, existingUnit, {
-          id: idVal,
-          tag: $('#seTag').value.trim(),
-          shortLabel: $('#seShortLabel').value.trim(),
-          title: $('#seTitle').value.trim(),
-          promise: $('#sePromise').value.trim(),
-          desc: $('#seDesc').value.trim(),
-          example: $('#seExample').value.trim(),
-          slug: slugVal,
-          name: nameVal,
-          deliver: deliverVal,
-          steps: stepsArr,
-          fields: fieldsArr,
-          quiz: quizVal,
-          answer: answerVal,
-          manual: manualVal,
-          wwh: wwhObj,
-          mermaidCode
-        });
-        if (!SKILL_ASSETS[`${slugVal}.zip`]) {
-          const fb = buildFallbackSkillZipBytes(slugVal, idVal);
-          let bin = '';
-          for (let i = 0; i < fb.length; i++) bin += String.fromCharCode(fb[i]);
-          SKILL_ASSETS[`${slugVal}.zip`] = 'data:application/zip;base64,' + btoa(bin);
-        }
-        if (existingIdx !== -1) {
-          UNITS[existingIdx] = unitPayload;
-        } else {
-          UNITS.push(unitPayload);
-        }
-      }
-
-      $('#skillEditorDialog').close();
-      renderAdminSkillsTable();
-      renderHeroMap();
-      renderCards();
-      renderWork();
-      toast('💾 已儲存並同步更新前台網頁與標準 ZIP 包！');
-    });
-  }
 }
 
-// 啟動初始化
 function initAcademyApp() {
   loadLocalState();
-  bindAllEvents();
+  updateAiModelButtonBadge();
+  bindCoreWorkspaceEvents();
   renderHeroMap();
   renderCards();
   renderWork();
@@ -6351,10 +5577,1103 @@ if (document.readyState === 'loading') {
 } else {
   initAcademyApp();
 }
-window.addEventListener('load', () => { const u = UNITS.find(x => x.id === active); if (u) renderWwhAndMermaid(u, Array.isArray(u.extraSkills) && u.extraSkills.length ? activeSubSkillIdx : null); });
-</script><!-- /academy-runtime -->
-</body><!-- /academy-body -->
-</html><!-- /academy-html -->
-<!-- TONY Studio Omnichannel Suite v2.6 -->
-<!-- Verified Clean HTML5 Footer -->
-<!-- All 14 Original Skills Ready -->
+window.addEventListener('load', () => {
+  const u = UNITS.find(x => x.id === active);
+  if (u) renderWwhAndMermaid(u, Array.isArray(u.extraSkills) && u.extraSkills.length ? activeSubSkillIdx : null);
+});
+  </script>
+
+  <!-- ==================== 6. Firebase 全端 SaaS 會員驗證、RBAC 權限、gemini-4-hydrogen 商業分析報告與 14 組 Skill 雲端管理模組 ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendEmailVerification,
+      sendPasswordResetEmail,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      updateDoc,
+      collection,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkS6t5BL-mHRDT7cvk4HC2_qL8u0aHY9o",
+      authDomain: "k42-ai-marketingagent-workflow.firebaseapp.com",
+      projectId: "k42-ai-marketingagent-workflow",
+      storageBucket: "k42-ai-marketingagent-workflow.firebasestorage.app",
+      messagingSenderId: "695107743933",
+      appId: "1:695107743933:web:4d3c3e3cffe8f6032887d4",
+      measurementId: "G-W2KSYPN52Q"
+    };
+
+    const SYSTEM_CREATOR_EMAIL = "mindnodeai@gmail.com";
+    const ACTIVE_AI_MODEL = "gemini-4-hydrogen";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const appId = firebaseConfig.projectId;
+    const googleProvider = new GoogleAuthProvider();
+
+    let currentUser = null;
+    let currentMemberProfile = null;
+    let allMembersCache = [];
+    let isRemoteUpdating = false;
+    let saveDebounceTimer = null;
+    let unsubWorkspace = null;
+    let unsubMembersList = null;
+    let unsubSkillsList = null;
+    let lastGeneratedReportHtml = "";
+    let pendingVerifyCredentials = null;
+    let pendingUploadedZipBase64 = null;
+    let pendingUploadedZipName = "";
+    let lastExtractedZipFiles = {};
+
+    const LATEST_FIRESTORE_RULES = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() { return request.auth != null; }
+    function isSystemCreator() { return isSignedIn() && request.auth.token.email == 'mindnodeai@gmail.com'; }
+    function isAdmin(appId) {
+      return isSystemCreator() || (
+        isSignedIn() &&
+        exists(/databases/$(database)/documents/artifacts/$(appId)/public/data/members/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/artifacts/$(appId)/public/data/members/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+    match /artifacts/{appId} {
+      match /users/{userId}/{collectionName}/{docId} {
+        allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin(appId));
+        allow write: if isSignedIn() && request.auth.uid == userId;
+      }
+      match /public/data/members/{memberId} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn() && request.auth.uid == memberId && (request.resource.data.role == 'user' || isSystemCreator());
+        allow update: if isSignedIn() && (
+          (isAdmin(appId) && !(resource.data.email == 'mindnodeai@gmail.com' && (request.resource.data.role != 'admin' || request.resource.data.isDeleted == true))) ||
+          (request.auth.uid == memberId && request.resource.data.role == resource.data.role)
+        );
+        allow delete: if isAdmin(appId) && resource.data.email != 'mindnodeai@gmail.com';
+      }
+      match /public/data/skills/{skillId} {
+        allow read: if isSignedIn();
+        allow create, update, delete: if isSystemCreator();
+      }
+      match /public/data/{collectionName}/{docId} {
+        allow read: if isSignedIn();
+        allow write: if isAdmin(appId);
+      }
+    }
+  }
+}`;
+
+    const authGateView = document.getElementById('authGateView');
+    const appMainContainer = document.getElementById('appMainContainer');
+    const authAlertBox = document.getElementById('authAlertBox');
+    const spamReminderBox = document.getElementById('spamReminderBox');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const forgotForm = document.getElementById('forgotForm');
+    const tabLoginBtn = document.getElementById('tabLoginBtn');
+    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+    const resendVerifyBtn = document.getElementById('resendVerifyBtn');
+
+    const cloudDot = document.getElementById('cloudDot');
+    const cloudBadgeText = document.getElementById('cloudBadgeText');
+    const userUidDisplay = document.getElementById('userUidDisplay');
+    const saveStatus = document.getElementById('saveStatus');
+    const navUserBadge = document.getElementById('navUserBadge');
+    const navUserRoleTag = document.getElementById('navUserRoleTag');
+    const navUserName = document.getElementById('navUserName');
+    const openAdminDashboardBtn = document.getElementById('openAdminDashboardBtn');
+
+    function showAuthAlert(type, htmlMessage, showSpamHint = false) {
+      authAlertBox.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-400', 'text-emerald-900', 'bg-red-50', 'border-red-400', 'text-red-800');
+      if (type === 'success') {
+        authAlertBox.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-900');
+      } else {
+        authAlertBox.classList.add('bg-red-50', 'border-red-400', 'text-red-800');
+      }
+      authAlertBox.innerHTML = htmlMessage;
+      if (showSpamHint) spamReminderBox.classList.remove('hidden');
+    }
+
+    function clearAuthAlert() {
+      authAlertBox.classList.add('hidden');
+      authAlertBox.innerHTML = '';
+      resendVerifyBtn.classList.add('hidden');
+    }
+
+    function switchAuthTab(mode) {
+      clearAuthAlert();
+      loginForm.classList.add('hidden');
+      registerForm.classList.add('hidden');
+      forgotForm.classList.add('hidden');
+      if (mode === 'login') {
+        loginForm.classList.remove('hidden');
+        spamReminderBox.classList.add('hidden');
+        tabLoginBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
+        tabRegisterBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
+      } else if (mode === 'register') {
+        registerForm.classList.remove('hidden');
+        spamReminderBox.classList.remove('hidden');
+        tabRegisterBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
+        tabLoginBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
+      } else if (mode === 'forgot') {
+        forgotForm.classList.remove('hidden');
+        spamReminderBox.classList.remove('hidden');
+      }
+    }
+
+    tabLoginBtn.onclick = () => switchAuthTab('login');
+    tabRegisterBtn.onclick = () => switchAuthTab('register');
+    document.getElementById('goForgotBtn').onclick = () => switchAuthTab('forgot');
+    document.getElementById('backToLoginBtn').onclick = () => switchAuthTab('login');
+
+    document.querySelectorAll('[data-toggle-pass]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inputEl = document.getElementById(btn.getAttribute('data-toggle-pass'));
+        if (!inputEl) return;
+        inputEl.type = inputEl.type === 'password' ? 'text' : 'password';
+      });
+    });
+
+    function getMemberDocRef(uid) { return doc(db, 'artifacts', appId, 'public', 'data', 'members', uid); }
+    function getWorkspaceDocRef(uid) { return doc(db, 'artifacts', appId, 'users', uid, 'workspace', 'brandAcademyState'); }
+    function getSkillDocRef(skillId) { return doc(db, 'artifacts', appId, 'public', 'data', 'skills', skillId); }
+    function getSkillZipAssetDocRef(slug) {
+      const safeSlug = String(slug || '').replace(/[^A-Za-z0-9_.-]/g, '_');
+      return doc(db, 'artifacts', appId, 'public', 'data', 'skills', `asset__${safeSlug}`);
+    }
+
+    function setCloudIndicator(status, message) {
+      if (cloudDot) {
+        cloudDot.className = status === 'online'
+          ? 'w-2 h-2 rounded-full bg-teal animate-pulse-subtle'
+          : status === 'saving'
+          ? 'w-2 h-2 rounded-full bg-amber-500 animate-ping'
+          : 'w-2 h-2 rounded-full bg-red-500';
+      }
+      if (cloudBadgeText) {
+        cloudBadgeText.textContent = status === 'online' ? '雲端已同步' : status === 'saving' ? '雲端同步中…' : '本機保存中';
+      }
+      if (message && saveStatus) {
+        saveStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${status === 'online' ? 'bg-teal' : 'bg-amber-500'}"></span><span>${message}</span>`;
+      }
+    }
+
+    window.syncStateToCloud = function(currentState) {
+      if (!currentUser || isRemoteUpdating) return;
+      setCloudIndicator('saving', '正在同步至 Firebase 雲端…');
+      clearTimeout(saveDebounceTimer);
+      saveDebounceTimer = setTimeout(async () => {
+        try {
+          const payload = JSON.parse(JSON.stringify(currentState));
+          payload.updatedAt = Date.now();
+          await setDoc(getWorkspaceDocRef(currentUser.uid), payload, { merge: true });
+
+          const doneUnits = getUniqueCompletedUnitsCount(currentState.done);
+          await setDoc(getMemberDocRef(currentUser.uid), {
+            lastActiveAt: new Date().toISOString(),
+            completedUnitsCount: doneUnits,
+            workspaceSummary: {
+              currentBrand: currentState.brand,
+              brandNames: currentState.names,
+              doneMap: currentState.done,
+              notesSnapshot: currentState.notes
+            }
+          }, { merge: true });
+          setCloudIndicator('online', '已即時同步儲存至 Firebase 雲端');
+        } catch (err) {
+          console.error("Cloud sync error:", err);
+          setCloudIndicator('error', '雲端寫入受阻，已保留本機備份');
+        }
+      }, 450);
+    };
+
+    // A. 新會員註冊
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAuthAlert();
+      const realName = document.getElementById('regRealName').value.trim();
+      const identity = document.getElementById('regIdentity').value;
+      const company = document.getElementById('regCompany').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const password = document.getElementById('regPassword').value;
+      const submitBtn = document.getElementById('regSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '正在建立帳號並發送驗證信…';
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: realName });
+        const isCreator = email === SYSTEM_CREATOR_EMAIL;
+        const nowIso = new Date().toISOString();
+        await setDoc(getMemberDocRef(cred.user.uid), {
+          uid: cred.user.uid,
+          email,
+          realName,
+          company,
+          identity,
+          role: isCreator ? 'admin' : 'user',
+          isSystemCreator: isCreator,
+          createdAt: nowIso,
+          lastLoginAt: nowIso,
+          loginCount: 0,
+          emailVerified: false,
+          loginHistory: [nowIso],
+          completedUnitsCount: 0
+        }, { merge: true });
+
+        await sendEmailVerification(cred.user);
+        await signOut(auth);
+        switchAuthTab('login');
+        document.getElementById('loginEmail').value = email;
+        showAuthAlert('success', `✅ 註冊成功！驗證信已寄至 <strong>${esc(email)}</strong>，點擊信中連結後即可登入。`, true);
+      } catch (err) {
+        let msg = '註冊失敗，請檢查輸入資訊。';
+        if (err.code === 'auth/email-already-in-use') msg = '⚠️ 此電子郵件已註冊過，請切換至「會員登入」或使用「忘記密碼」。';
+        else if (err.code === 'auth/weak-password') msg = '⚠️ 密碼強度不足，請設定至少 6 位字元以上。';
+        showAuthAlert('error', msg, true);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '註冊並發送驗證信 ✉️';
+      }
+    });
+
+    // B. Email 登入
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAuthAlert();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '驗證身分中…';
+
+      try {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        await cred.user.reload();
+        if (!cred.user.emailVerified) {
+          pendingVerifyCredentials = { email, password };
+          await signOut(auth);
+          showAuthAlert('error', `🚫 信箱尚未完成驗證！請前往 <strong>${esc(email)}</strong> 點擊驗證信連結後再登入。`, true);
+          resendVerifyBtn.classList.remove('hidden');
+          return;
+        }
+      } catch (err) {
+        showAuthAlert('error', '🚫 登入失敗：帳號或密碼不正確，請重新確認。', false);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '登入實戰學院 ↗';
+      }
+    });
+
+    resendVerifyBtn.addEventListener('click', async () => {
+      if (!pendingVerifyCredentials) return;
+      resendVerifyBtn.disabled = true;
+      try {
+        const cred = await signInWithEmailAndPassword(auth, pendingVerifyCredentials.email, pendingVerifyCredentials.password);
+        await sendEmailVerification(cred.user);
+        await signOut(auth);
+        showAuthAlert('success', `✅ 驗證信已重新寄出至 <strong>${esc(pendingVerifyCredentials.email)}</strong>！`, true);
+      } catch (err) {
+        showAuthAlert('error', '⚠️ 無法重新寄送驗證信，請稍候再試。', true);
+      } finally {
+        resendVerifyBtn.disabled = false;
+      }
+    });
+
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAuthAlert();
+      const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showAuthAlert('success', `✅ 密碼重設信已發送至 <strong>${esc(email)}</strong>！`, true);
+      } catch (err) {
+        showAuthAlert('error', '⚠️ 發送失敗，請確認電子郵件是否正確。', true);
+      }
+    });
+
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+      clearAuthAlert();
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (err) {
+        if (err.code !== 'auth/popup-closed-by-user') {
+          showAuthAlert('error', '⚠️ 彈出視窗受限，您可改用 Email 登入或點擊下方「⚡ 講師展示／免填表快速預覽」。', false);
+        }
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (unsubWorkspace) { unsubWorkspace(); unsubWorkspace = null; }
+      if (unsubMembersList) { unsubMembersList(); unsubMembersList = null; }
+      if (unsubSkillsList) { unsubSkillsList(); unsubSkillsList = null; }
+      currentUser = null;
+      await signOut(auth).catch(() => {});
+      appMainContainer.classList.add('hidden');
+      authGateView.classList.remove('hidden');
+      toast('您已安全登出系統');
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      const isPasswordProvider = user.providerData.some(p => p.providerId === 'password');
+      if (isPasswordProvider && !user.emailVerified) {
+        await signOut(auth);
+        return;
+      }
+
+      currentUser = user;
+      const emailLower = (user.email || '').toLowerCase();
+      const isCreator = emailLower === SYSTEM_CREATOR_EMAIL;
+
+      try {
+        const memRef = getMemberDocRef(user.uid);
+        const snap = await getDoc(memRef);
+        const nowIso = new Date().toISOString();
+        let alreadyCounted = false;
+        try {
+          alreadyCounted = sessionStorage.getItem(`tony_logged_session_${user.uid}`) === '1';
+          sessionStorage.setItem(`tony_logged_session_${user.uid}`, '1');
+        } catch (e) {}
+
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.isDeleted && !isCreator) {
+            await signOut(auth);
+            showAuthAlert('error', '🚫 此帳號已被停用，請聯繫管理員。', false);
+            return;
+          }
+          const newRole = isCreator ? 'admin' : (data.role || 'user');
+          const prevCount = Number(data.loginCount) || 1;
+          const newCount = alreadyCounted ? prevCount : (prevCount + 1);
+          const historyArr = Array.isArray(data.loginHistory) ? [...data.loginHistory] : [];
+          if (!alreadyCounted) historyArr.unshift(nowIso);
+          await setDoc(memRef, {
+            email: emailLower,
+            role: newRole,
+            isSystemCreator: isCreator,
+            emailVerified: true,
+            lastLoginAt: nowIso,
+            loginCount: newCount,
+            loginHistory: historyArr.slice(0, 30)
+          }, { merge: true });
+          currentMemberProfile = { ...data, email: emailLower, role: newRole, isSystemCreator: isCreator };
+          if (!data.company || !data.identity) openGoogleProfileCompletion(user, currentMemberProfile);
+        } else {
+          const initialProfile = {
+            uid: user.uid,
+            email: emailLower,
+            realName: user.displayName || emailLower.split('@')[0],
+            company: isCreator ? 'TONY Studio' : '',
+            identity: isCreator ? '系統創作者' : 'TONY老師學員',
+            role: isCreator ? 'admin' : 'user',
+            isSystemCreator: isCreator,
+            emailVerified: true,
+            createdAt: nowIso,
+            lastLoginAt: nowIso,
+            loginCount: 1,
+            loginHistory: [nowIso],
+            completedUnitsCount: 0
+          };
+          await setDoc(memRef, initialProfile, { merge: true });
+          currentMemberProfile = initialProfile;
+          if (!isCreator) openGoogleProfileCompletion(user, initialProfile);
+        }
+      } catch (err) {
+        currentMemberProfile = { uid: user.uid, email: emailLower, realName: user.displayName || emailLower, role: isCreator ? 'admin' : 'user', isSystemCreator: isCreator };
+      }
+
+      authGateView.classList.add('hidden');
+      appMainContainer.classList.remove('hidden');
+      if (userUidDisplay) userUidDisplay.textContent = user.uid;
+      if (navUserBadge) navUserBadge.classList.remove('hidden');
+      if (navUserName) navUserName.textContent = currentMemberProfile.realName || emailLower;
+
+      if (currentMemberProfile.role === 'admin' || isCreator) {
+        navUserRoleTag.textContent = isCreator ? '👑 創作者 Admin' : 'Admin 管理員';
+        navUserRoleTag.className = 'px-2 py-0.5 rounded bg-ink text-lime text-[10px] font-extrabold';
+        openAdminDashboardBtn.classList.remove('hidden');
+        openAdminDashboardBtn.classList.add('inline-flex');
+      } else {
+        navUserRoleTag.textContent = currentMemberProfile.identity || '學員';
+        navUserRoleTag.className = 'px-1.5 py-0.5 rounded bg-teal/15 text-teal text-[10px] font-bold';
+        openAdminDashboardBtn.classList.add('hidden');
+        openAdminDashboardBtn.classList.remove('inline-flex');
+      }
+
+      startWorkspaceRealtimeSync(user.uid);
+      startCloudSkillsRealtimeSync();
+    });
+
+    function openGoogleProfileCompletion(user, profile) {
+      const dlg = document.getElementById('googleProfileDialog');
+      document.getElementById('gpRealName').value = profile.realName || user.displayName || '';
+      document.getElementById('gpCompany').value = profile.company || '';
+      dlg.showModal();
+      document.getElementById('googleProfileForm').onsubmit = async (ev) => {
+        ev.preventDefault();
+        const rName = document.getElementById('gpRealName').value.trim();
+        const ident = document.getElementById('gpIdentity').value;
+        const comp = document.getElementById('gpCompany').value.trim();
+        await setDoc(getMemberDocRef(user.uid), { realName: rName, identity: ident, company: comp }, { merge: true }).catch(() => {});
+        if (navUserName) navUserName.textContent = rName;
+        dlg.close();
+        toast('✨ 會員資料已更新完成！');
+      };
+    }
+
+    function startWorkspaceRealtimeSync(uid) {
+      if (unsubWorkspace) unsubWorkspace();
+      unsubWorkspace = onSnapshot(getWorkspaceDocRef(uid), (snap) => {
+        if (snap.exists()) {
+          isRemoteUpdating = true;
+          window.applyCloudState(snap.data());
+          isRemoteUpdating = false;
+          setCloudIndicator('online', '已從 Firebase 雲端載入最新進度');
+        } else {
+          window.syncStateToCloud(state);
+        }
+      }, () => setCloudIndicator('error', '雲端連線離線'));
+    }
+
+    // ==================== 管理後台：會員 RBAC、CSV 匯出、gemini-4-hydrogen AI 報告與 14 組 Skill 雲端 CMS ====================
+    const adminDialog = document.getElementById('adminDashboardDialog');
+    const adminTableBody = document.getElementById('adminMembersTableBody');
+    const memberSearchInput = document.getElementById('memberSearchInput');
+    const aiReportContainer = document.getElementById('aiReportContainer');
+    const exportWordReportBtn = document.getElementById('exportWordReportBtn');
+    const adminSkillsTableBody = document.getElementById('adminSkillsTableBody');
+    const adminSkillSearchInput = document.getElementById('adminSkillSearchInput');
+    const adminSkillUnitFilter = document.getElementById('adminSkillUnitFilter');
+    const skillEditorDialog = document.getElementById('skillEditorDialog');
+    const skillEditorForm = document.getElementById('skillEditorForm');
+    const seZipFile = document.getElementById('seZipFile');
+    const seZipStatusBadge = document.getElementById('seZipStatusBadge');
+    const parseZipToFormBtn = document.getElementById('parseZipToFormBtn');
+    const firestoreRulesDialog = document.getElementById('firestoreRulesDialog');
+
+    const cloudSyncedSlugs = new Set();
+    let currentEditorState = { mode: 'new-unit', unitId: '', subIdx: null, forceRebuildZip: false };
+
+    (function initReportDates() {
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - 30);
+      document.getElementById('reportStartDate').value = start.toISOString().slice(0, 10);
+      document.getElementById('reportEndDate').value = end.toISOString().slice(0, 10);
+    })();
+
+    openAdminDashboardBtn.addEventListener('click', () => {
+      adminDialog.showModal();
+      const isCreatorUser = !currentUser || (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL;
+      document.getElementById('creatorSkillCmsActions').classList.toggle('hidden', !isCreatorUser);
+      document.getElementById('creatorSkillReadonlyNotice').classList.toggle('hidden', isCreatorUser);
+      if (currentUser) startMembersRealtimeListener();
+      renderAdminStatsAndTable();
+      renderAdminSkillsTable();
+    });
+
+    document.getElementById('closeAdminDialogBtn').onclick = () => adminDialog.close();
+    document.getElementById('refreshMembersBtn').onclick = () => {
+      if (currentUser) startMembersRealtimeListener();
+      renderAdminSkillsTable();
+      toast('已重新同步最新後台資料');
+    };
+
+    function startMembersRealtimeListener() {
+      if (unsubMembersList) unsubMembersList();
+      unsubMembersList = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'members'), (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => { const d = docSnap.data(); if (d && !d.isDeleted) list.push(d); });
+        list.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+        allMembersCache = list;
+        renderAdminStatsAndTable();
+      });
+    }
+
+    memberSearchInput.addEventListener('input', renderAdminStatsAndTable);
+    function formatDateTime(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return isNaN(d.getTime()) ? iso : d.toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function renderAdminStatsAndTable() {
+      document.getElementById('statTotalUsers').textContent = allMembersCache.length;
+      document.getElementById('statStudentUsers').textContent = allMembersCache.filter(m => (m.identity || '').includes('學員')).length;
+      document.getElementById('statVisitorUsers').textContent = allMembersCache.filter(m => (m.identity || '').includes('訪客')).length;
+      document.getElementById('statTotalLogins').textContent = allMembersCache.reduce((s, m) => s + (Number(m.loginCount) || 0), 0);
+
+      const q = (memberSearchInput.value || '').trim().toLowerCase();
+      const filtered = allMembersCache.filter(m => `${m.realName || ''} ${m.company || ''} ${m.email || ''} ${m.identity || ''}`.toLowerCase().includes(q));
+      if (!filtered.length) {
+        adminTableBody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-muted">目前尚無符合條件的雲端會員紀錄</td></tr>`;
+        return;
+      }
+      adminTableBody.innerHTML = filtered.map(m => {
+        const isCreatorRow = (m.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL || m.isSystemCreator;
+        const isAdminRole = m.role === 'admin' || isCreatorRow;
+        return `
+          <tr class="hover:bg-paper/60">
+            <td class="py-3.5 px-4"><strong class="font-extrabold text-ink block">${esc(m.realName || '未填寫')}</strong><span class="text-xs text-muted">${esc(m.company || '未填寫企業')}</span></td>
+            <td class="py-3.5 px-4 font-mono text-xs">${esc(m.email || '')}</td>
+            <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-teal/10 text-teal">${esc(isCreatorRow ? '系統創作者' : (m.identity || '一般訪客'))}</span></td>
+            <td class="py-3.5 px-4 text-xs text-muted whitespace-nowrap">${esc(formatDateTime(m.createdAt))}</td>
+            <td class="py-3.5 px-4 text-center font-mono text-xs font-extrabold">${Number(m.loginCount) || 0} 次</td>
+            <td class="py-3.5 px-4">${isCreatorRow ? '<span class="px-2.5 py-1 rounded-lg bg-ink text-lime text-xs font-black">👑 最高管理員</span>' : isAdminRole ? '<span class="px-2.5 py-1 rounded-lg bg-teal text-white text-xs font-bold">Admin</span>' : '<span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-muted text-xs">User</span>'}</td>
+            <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">
+              <button type="button" data-view-history="${esc(m.uid)}" class="px-2.5 py-1.5 rounded-lg border border-line bg-white hover:bg-lime/40 text-xs font-bold">📜 紀錄</button>
+              ${!isCreatorRow ? `<button type="button" data-toggle-role="${esc(m.uid)}" data-current-role="${isAdminRole ? 'admin' : 'user'}" class="px-2.5 py-1.5 rounded-lg border border-teal text-teal hover:bg-teal hover:text-white text-xs font-bold">${isAdminRole ? '降為 User' : '升為 Admin'}</button>` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    adminTableBody.addEventListener('click', async (e) => {
+      const histBtn = e.target.closest('[data-view-history]');
+      const roleBtn = e.target.closest('[data-toggle-role]');
+      if (histBtn) {
+        const member = allMembersCache.find(x => x.uid === histBtn.getAttribute('data-view-history'));
+        if (!member) return;
+        document.getElementById('historyModalTitle').textContent = `${member.realName || member.email}｜學習與登入詳情`;
+        document.getElementById('memberHistoryContent').innerHTML = `<div class="p-4 bg-white rounded-xl border border-line">累計登入 ${Number(member.loginCount) || 1} 次 · 已完成 ${Number(member.completedUnitsCount) || 0} 單元</div>`;
+        document.getElementById('memberHistoryDialog').showModal();
+      }
+      if (roleBtn) {
+        const uid = roleBtn.getAttribute('data-toggle-role');
+        const nextRole = roleBtn.getAttribute('data-current-role') === 'admin' ? 'user' : 'admin';
+        await updateDoc(getMemberDocRef(uid), { role: nextRole }).catch(() => {});
+        toast(`✅ 已更新權限為 ${nextRole.toUpperCase()}`);
+      }
+    });
+    document.getElementById('closeHistoryDialogBtn').onclick = () => document.getElementById('memberHistoryDialog').close();
+
+    document.getElementById('exportMembersCsvBtn').addEventListener('click', () => {
+      if (!allMembersCache.length) { toast('目前尚無雲端會員資料可匯出'); return; }
+      const headers = ['真實姓名', '企業名稱', '身份分類', '電子郵件', '系統權限', '註冊時間', '登入次數', '已完成單元數'];
+      const qCsv = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+      const rows = allMembersCache.map(m => [m.realName, m.company, m.identity, m.email, m.role, formatDateTime(m.createdAt), m.loginCount || 0, m.completedUnitsCount || 0].map(qCsv).join(','));
+      download(`TONY_Studio_會員報表_${new Date().toISOString().slice(0, 10)}.csv`, '\ufeff' + [headers.map(qCsv).join(','), ...rows].join('\r\n'), 'text/csv;charset=utf-8;');
+      toast('📥 已匯出會員 CSV 報表');
+    });
+
+    // AI 營運分析報告：優先使用 gemini-4-hydrogen 深度生成，未設定金鑰時無縫使用顧問分析引擎
+    document.getElementById('generateAiReportBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('generateAiReportBtn');
+      const startStr = document.getElementById('reportStartDate').value;
+      const endStr = document.getElementById('reportEndDate').value;
+      const startTime = startStr ? new Date(startStr + 'T00:00:00').getTime() : 0;
+      const endTime = endStr ? new Date(endStr + 'T23:59:59').getTime() : Date.now();
+
+      const periodMembers = allMembersCache.filter(m => !m.createdAt || (new Date(m.createdAt).getTime() >= startTime && new Date(m.createdAt).getTime() <= endTime));
+      const totalM = periodMembers.length;
+      const studentM = periodMembers.filter(m => (m.identity || '').includes('學員')).length;
+      const companies = [...new Set(periodMembers.map(m => (m.company || '').trim()).filter(Boolean))];
+      const totalCompletedUnits = periodMembers.reduce((s, m) => s + (Number(m.completedUnitsCount) || 0), 0);
+
+      let aiStrategicSectionHtml = '';
+      const cfg = window.getGeminiConfig ? window.getGeminiConfig() : { apiKey: '' };
+
+      if (cfg.apiKey && typeof window.callGeminiHydrogen === 'function') {
+        btn.disabled = true;
+        btn.textContent = `⏳ ${ACTIVE_AI_MODEL} 分析中…`;
+        try {
+          const aiText = await window.callGeminiHydrogen({
+            systemInstruction: '你是 TONY 楊文澤老師團隊的首席 SaaS 營運分析顧問，請使用臺灣繁體中文，針對實戰學院的會員數據給出 3 點具體的 B2B 培訓轉化與完課輔導建議（純文字條列，精煉務實，不編造未提供的數字）。',
+            userPrompt: `分析區間：${startStr} 至 ${endStr}\n註冊會員數：${totalM}（學員 ${studentM} 位）\n累計完成單元數：${totalCompletedUnits}\n參與企業清單：${companies.slice(0, 15).join('、') || '個人學員'}\n全站課程規模：${UNITS.length} 大單元、${getTotalSkillsCount()} 組原創 Skill。`
+          });
+          aiStrategicSectionHtml = `<div style="white-space:pre-wrap; background:#f6f5ef; padding:12px; border-radius:8px; border:1px solid #d5ddd3;">${esc(aiText)}</div>`;
+        } catch (err) {
+          aiStrategicSectionHtml = `<p>（${esc(ACTIVE_AI_MODEL)} 即時連線略過，改採內建顧問模型輸出）建議針對已登入之 ${companies.length} 家企業窗口提供單元 02 知識庫與單元 05 短影音進階內訓健檢。</p>`;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = '✨ 產出 AI 分析報告';
+        }
+      } else {
+        aiStrategicSectionHtml = `<ol><li><strong>模型引擎狀態：</strong>目前預設模型為 <code>${ACTIVE_AI_MODEL}</code>（可於頂部點擊模型按鈕填入 API Key 啟用即時深度推論）。</li><li><strong>學員完課輔導：</strong>區間內累計完成 ${totalCompletedUnits} 個單元，建議引導學員優先完成單元 02 知識架構再推進單元 04/05 視覺與聽覺資產。</li><li><strong>B2B 企業商機：</strong>共涵蓋 ${companies.length} 家企業單位，可主動邀約高活躍企業進行全案提案健檢。</li></ol>`;
+      }
+
+      lastGeneratedReportHtml = `
+        <div style="font-family:'Microsoft JhengHei','Noto Sans TC',sans-serif;color:#132629;line-height:1.7;">
+          <h2 style="font-size:19px;font-weight:800;color:#185b51;">TONY Studio｜AI 品牌全媒體實戰學院 — 營運分析報告（Engine: ${ACTIVE_AI_MODEL}）</h2>
+          <p style="font-size:12px;color:#526661;">分析區間：${esc(startStr)} 至 ${esc(endStr)} ｜ 總註冊：${totalM} 人（學員 ${studentM} 人） ｜ 企業數：${companies.length} 家</p>
+          <h3 style="font-size:15px;font-weight:800;margin-top:14px;">AI 顧問策略洞察（${ACTIVE_AI_MODEL}）</h3>
+          ${aiStrategicSectionHtml}
+        </div>
+      `;
+      aiReportContainer.innerHTML = lastGeneratedReportHtml;
+      aiReportContainer.classList.remove('hidden');
+      exportWordReportBtn.classList.remove('hidden');
+      toast(`✨ 已完成 ${ACTIVE_AI_MODEL} 營運分析報告！`);
+    });
+
+    exportWordReportBtn.addEventListener('click', () => {
+      if (!lastGeneratedReportHtml) return;
+      const openDoc = '<' + 'html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><' + 'head><meta charset="utf-8"><title>AI 營運報告<' + '/title><' + '/head><' + 'body>';
+      const closeDoc = '<' + '/body><' + '/html>';
+      download(`TONY_Studio_${ACTIVE_AI_MODEL}_分析報告.doc`, '\ufeff' + openDoc + lastGeneratedReportHtml + closeDoc, 'application/msword;charset=utf-8');
+      toast('📄 已輸出 WORD 報告 (.doc)');
+    });
+
+    // ==================== Firestore 14 組 Skill 雲端即時同步與管理中心 ====================
+    function getZipSizeKbLabel(slug, fallbackB64 = '') {
+      const raw = SKILL_ASSETS[slug + '.zip'] || fallbackB64 || '';
+      if (!raw) return null;
+      const b64 = raw.includes(',') ? raw.split(',')[1] : raw;
+      return `${(Math.round((b64.length * 3) / 4) / 1024).toFixed(1)} KB`;
+    }
+
+    function startCloudSkillsRealtimeSync() {
+      if (unsubSkillsList) unsubSkillsList();
+      unsubSkillsList = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'skills'), (snapshot) => {
+        const cloudDocsMap = {};
+        const deletedIds = new Set();
+        const cloudAssetZips = {};
+        cloudSyncedSlugs.clear();
+
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data();
+          if (!d) return;
+          if (docSnap.id.startsWith('asset__') || d.docType === 'skill_zip_asset') {
+            if (!d.isDeleted && d.slug && d.zipBase64) {
+              try {
+                const checked = verifyAndDecodeZipBase64(d.zipBase64);
+                SKILL_ASSETS[d.slug + '.zip'] = checked.cleanDataUrl;
+                cloudAssetZips[d.slug] = checked.cleanDataUrl;
+                cloudSyncedSlugs.add(d.slug);
+              } catch (e) {}
+            }
+          }
+        });
+
+        snapshot.forEach(docSnap => {
+          if (docSnap.id.startsWith('asset__')) return;
+          const d = docSnap.data();
+          if (!d || d.docType === 'skill_zip_asset') return;
+          if (d.isDeleted) deletedIds.add(docSnap.id);
+          else if (d.id && d.slug) {
+            d.isCloudSynced = true;
+            cloudDocsMap[d.id] = d;
+          }
+        });
+
+        const merged = [];
+        DEFAULT_UNITS_BACKUP.forEach(defU => {
+          if (deletedIds.has(defU.id)) return;
+          if (cloudDocsMap[defU.id]) {
+            const cu = cloudDocsMap[defU.id];
+            if (Array.isArray(defU.extraSkills) && !cu.subSkillsModifiedByAdmin) {
+              if (!Array.isArray(cu.extraSkills)) cu.extraSkills = JSON.parse(JSON.stringify(defU.extraSkills));
+              else {
+                defU.extraSkills.forEach(defSub => {
+                  if (!cu.extraSkills.some(cs => cs.slug === defSub.slug)) {
+                    cu.extraSkills.push(JSON.parse(JSON.stringify(defSub)));
+                  }
+                });
+              }
+            }
+            merged.push(cu);
+            delete cloudDocsMap[defU.id];
+          } else {
+            merged.push(JSON.parse(JSON.stringify(defU)));
+          }
+        });
+        Object.values(cloudDocsMap).forEach(extraU => merged.push(extraU));
+        merged.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+
+        UNITS.length = 0;
+        merged.forEach(u => UNITS.push(u));
+        renderHeroMap();
+        renderCards();
+        renderWork();
+        if (adminDialog.open) renderAdminSkillsTable();
+      });
+    }
+
+    if (adminSkillSearchInput) adminSkillSearchInput.addEventListener('input', renderAdminSkillsTable);
+    if (adminSkillUnitFilter) adminSkillUnitFilter.addEventListener('change', renderAdminSkillsTable);
+
+    function renderAdminSkillsTable() {
+      if (!adminSkillsTableBody) return;
+      const prevFilter = adminSkillUnitFilter.value || 'all';
+      adminSkillUnitFilter.innerHTML = `<option value="all">顯示全部單元（共 ${getTotalSkillsCount()} 組 Skill）</option>` +
+        UNITS.map(u => `<option value="${esc(u.id)}">單元 ${esc(u.id)}｜${esc(u.shortLabel || u.name)}</option>`).join('');
+      if ([...adminSkillUnitFilter.options].some(o => o.value === prevFilter)) adminSkillUnitFilter.value = prevFilter;
+
+      document.getElementById('cmsSkillCountBadge').textContent = `${UNITS.length} 大單元 · ${getTotalSkillsCount()} 組 Skill`;
+      const q = (adminSkillSearchInput.value || '').trim().toLowerCase();
+      const uFilter = adminSkillUnitFilter.value;
+      const rows = [];
+
+      UNITS.forEach(u => {
+        if (uFilter !== 'all' && u.id !== uFilter) return;
+        const hasExtra = Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
+        const items = hasExtra ? u.extraSkills.map((es, idx) => ({ isSub: true, subIdx: idx, data: es })) : [{ isSub: false, subIdx: null, data: u }];
+        const matched = items.filter(it => !q || `${u.id} ${u.title} ${it.data.roleBadge || ''} ${it.data.name || ''} ${it.data.slug || ''}`.toLowerCase().includes(q));
+        if (!matched.length) return;
+
+        rows.push(`
+          <tr class="bg-teal/5 border-y border-teal/20">
+            <td colspan="4" class="py-2.5 px-4"><strong class="text-xs sm:text-sm font-black text-ink">單元 ${esc(u.id)}｜${esc(u.title)}</strong> <span class="text-xs text-teal font-bold">（${items.length} 組 Skill）</span></td>
+            <td class="py-2.5 px-4 text-xs font-bold text-teal">${u.isCloudSynced ? '☁️ 雲端同步' : '內建標準'}</td>
+            <td class="py-2.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <button type="button" data-add-subskill="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white text-[11px] font-extrabold">＋ 新增子 Skill</button>
+              <button type="button" data-edit-unit-meta="${esc(u.id)}" class="px-2.5 py-1 rounded-lg border border-line bg-white text-[11px] font-bold">⚙️ 單元標題</button>
+            </td>
+          </tr>
+        `);
+
+        matched.forEach(it => {
+          const s = it.data;
+          const kb = getZipSizeKbLabel(s.slug, s.zipBase64);
+          rows.push(`
+            <tr class="bg-white hover:bg-paper/60">
+              <td class="py-3 px-4 pl-7"><span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-[11px] font-extrabold text-teal">${esc(it.isSub ? (s.roleBadge || `SKILL ${u.id}`) : `SKILL ${u.id}`)}</span></td>
+              <td class="py-3 px-4"><strong class="font-extrabold text-ink block text-xs sm:text-sm">${esc(s.name)}</strong><code class="text-[11px] font-mono text-muted">${esc(s.slug)}</code></td>
+              <td class="py-3 px-4 text-xs text-muted max-w-xs truncate">${esc(s.deliver || u.deliver)}</td>
+              <td class="py-3 px-4 whitespace-nowrap"><button type="button" data-download-zip="${esc(s.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded border border-teal/30 bg-teal/5 text-teal text-[11px] font-bold">📥 ${kb || '下載 ZIP'}</button></td>
+              <td class="py-3 px-4 text-xs font-bold ${cloudSyncedSlugs.has(s.slug) ? 'text-teal' : 'text-muted'}">${cloudSyncedSlugs.has(s.slug) ? '☁️ Firestore' : '內建就緒'}</td>
+              <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+                ${it.isSub
+                  ? `<button type="button" data-edit-subskill-unit="${esc(u.id)}" data-edit-subskill-idx="${it.subIdx}" class="px-3 py-1 rounded-lg bg-teal text-white text-xs font-bold">✏️ 編輯 / 上傳 ZIP</button>`
+                  : `<button type="button" data-edit-skill="${esc(u.id)}" class="px-3 py-1 rounded-lg bg-teal text-white text-xs font-bold">✏️ 編輯 / 上傳 ZIP</button>`
+                }
+              </td>
+            </tr>
+          `);
+        });
+      });
+
+      adminSkillsTableBody.innerHTML = rows.join('') || `<tr><td colspan="6" class="py-8 text-center text-muted">無符合條件的 Skill</td></tr>`;
+    }
+
+    function configureEditorModeUI(mode, msg) {
+      currentEditorState.mode = mode;
+      currentEditorState.forceRebuildZip = false;
+      document.getElementById('seEditContextText').textContent = msg;
+      const isSub = mode === 'edit-subskill' || mode === 'add-subskill';
+      const isOverview = mode === 'edit-unit-overview';
+      document.getElementById('seUnitMetaFieldsGroup').classList.toggle('hidden', isSub);
+      document.getElementById('seSubSkillRoleGroup').classList.toggle('hidden', !isSub);
+      document.getElementById('seSkillDetailSection').classList.toggle('hidden', isOverview);
+      ['seId', 'seTag', 'seShortLabel', 'seTitle', 'seDesc'].forEach(id => { document.getElementById(id).required = !isSub; });
+      ['seSlug', 'seName', 'seDeliver', 'seSteps', 'seFields', 'seManual'].forEach(id => { document.getElementById(id).required = !isOverview; });
+    }
+
+    adminSkillsTableBody.addEventListener('click', e => {
+      const addSub = e.target.closest('[data-add-subskill]');
+      const editSub = e.target.closest('[data-edit-subskill-unit]');
+      const editMeta = e.target.closest('[data-edit-unit-meta]');
+      const editUnit = e.target.closest('[data-edit-skill]');
+
+      if (addSub) {
+        const u = UNITS.find(x => x.id === addSub.getAttribute('data-add-subskill'));
+        if (!u) return;
+        const nextL = String.fromCharCode(65 + ((u.extraSkills || []).length || 1));
+        currentEditorState = { mode: 'add-subskill', unitId: u.id, subIdx: null, forceRebuildZip: false };
+        configureEditorModeUI('add-subskill', `新增子模組至單元 ${u.id}`);
+        document.getElementById('seParentUnitReadonly').value = `單元 ${u.id}｜${u.shortLabel || u.title}`;
+        document.getElementById('seRoleBadge').value = `SKILL ${u.id}-${nextL}｜新模組`;
+        document.getElementById('seSlug').value = `tony-unit${u.id}-skill-${nextL.toLowerCase()}`;
+        document.getElementById('seName').value = '';
+        document.getElementById('seDeliver').value = '';
+        document.getElementById('seSteps').value = '步驟 1：盤點情境\n步驟 2：確立證據\n步驟 3：輸出與驗收';
+        document.getElementById('seFields').value = '目標受眾情境？\n品牌可信證據？\n預計交付規格？';
+        document.getElementById('seManual').value = `---\nname: tony-unit${u.id}-skill-${nextL.toLowerCase()}\n---\n# TONY 實戰 Skill\n`;
+        pendingUploadedZipBase64 = null;
+        seZipFile.value = '';
+        skillEditorDialog.showModal();
+      } else if (editSub) {
+        const u = UNITS.find(x => x.id === editSub.getAttribute('data-edit-subskill-unit'));
+        const idx = Number(editSub.getAttribute('data-edit-subskill-idx'));
+        if (!u || !u.extraSkills || !u.extraSkills[idx]) return;
+        const sub = u.extraSkills[idx];
+        currentEditorState = { mode: 'edit-subskill', unitId: u.id, subIdx: idx, forceRebuildZip: false };
+        configureEditorModeUI('edit-subskill', `編輯子模組：${sub.roleBadge || sub.name}`);
+        document.getElementById('seParentUnitReadonly').value = `單元 ${u.id}｜${u.shortLabel || u.title}`;
+        document.getElementById('seRoleBadge').value = sub.roleBadge || '';
+        document.getElementById('seSlug').value = sub.slug || '';
+        document.getElementById('seName').value = sub.name || '';
+        document.getElementById('seDeliver').value = sub.deliver || '';
+        document.getElementById('seSteps').value = (sub.steps || u.steps || []).join('\n');
+        document.getElementById('seFields').value = (sub.fields || u.fields || []).join('\n');
+        document.getElementById('seQuiz').value = sub.quiz || '';
+        document.getElementById('seAnswer').value = sub.answer || '';
+        document.getElementById('seManual').value = sub.manual || '';
+        document.getElementById('seWhy').value = (sub.wwh && sub.wwh.why) || '';
+        document.getElementById('seWhat').value = (sub.wwh && sub.wwh.what) || '';
+        document.getElementById('seHow').value = (sub.wwh && sub.wwh.how) || '';
+        document.getElementById('seMermaid').value = sub.mermaidCode || '';
+        pendingUploadedZipBase64 = SKILL_ASSETS[sub.slug + '.zip'] || null;
+        seZipFile.value = '';
+        seZipStatusBadge.textContent = pendingUploadedZipBase64 ? '✓ 已載入現有 ZIP（可選新檔覆蓋）' : '尚未選擇新檔案';
+        skillEditorDialog.showModal();
+      } else if (editMeta || editUnit) {
+        const uId = (editMeta || editUnit).getAttribute(editMeta ? 'data-edit-unit-meta' : 'data-edit-skill');
+        const u = UNITS.find(x => x.id === uId);
+        if (!u) return;
+        const m = editMeta ? 'edit-unit-overview' : 'edit-unit';
+        currentEditorState = { mode: m, unitId: u.id, subIdx: null, forceRebuildZip: false };
+        configureEditorModeUI(m, `編輯單元 ${u.id} 設定`);
+        document.getElementById('seId').value = u.id;
+        document.getElementById('seTag').value = u.tag || '';
+        document.getElementById('seShortLabel').value = u.shortLabel || '';
+        document.getElementById('seTitle').value = u.title || '';
+        document.getElementById('sePromise').value = u.promise || '';
+        document.getElementById('seDesc').value = u.desc || '';
+        document.getElementById('seExample').value = u.example || '';
+        if (!editMeta) {
+          document.getElementById('seSlug').value = u.slug || '';
+          document.getElementById('seName').value = u.name || '';
+          document.getElementById('seDeliver').value = u.deliver || '';
+          document.getElementById('seSteps').value = (u.steps || []).join('\n');
+          document.getElementById('seFields').value = (u.fields || []).join('\n');
+          document.getElementById('seManual').value = u.manual || '';
+          pendingUploadedZipBase64 = SKILL_ASSETS[u.slug + '.zip'] || null;
+        }
+        skillEditorDialog.showModal();
+      }
+    });
+
+    document.getElementById('openNewSkillModalBtn').onclick = () => {
+      const nextNum = String(UNITS.length + 1).padStart(2, '0');
+      currentEditorState = { mode: 'new-unit', unitId: nextNum, subIdx: null, forceRebuildZip: false };
+      configureEditorModeUI('new-unit', `新增獨立課程單元 ${nextNum}`);
+      document.getElementById('seId').value = nextNum;
+      document.getElementById('seTag').value = 'NEW SKILL';
+      document.getElementById('seShortLabel').value = '';
+      document.getElementById('seTitle').value = '';
+      document.getElementById('seDesc').value = '';
+      document.getElementById('seSlug').value = `tony-custom-skill-${nextNum}`;
+      document.getElementById('seName').value = '';
+      document.getElementById('seDeliver').value = '';
+      document.getElementById('seSteps').value = '界定目標\n盤點證據\n產出驗收';
+      document.getElementById('seFields').value = '核心情境？\n可信依據？\n交付目標？';
+      document.getElementById('seManual').value = `---\nname: tony-custom-skill-${nextNum}\n---\n# TONY 新單元手冊\n`;
+      pendingUploadedZipBase64 = null;
+      skillEditorDialog.showModal();
+    };
+
+    seZipFile.addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const verified = verifyAndDecodeZipBase64(reader.result);
+          pendingUploadedZipBase64 = verified.cleanDataUrl;
+          pendingUploadedZipName = f.name;
+          lastExtractedZipFiles = await extractTextFilesFromZipBytes(verified.bytes);
+          applyExtractedZipContentToForm(lastExtractedZipFiles);
+          parseZipToFormBtn.classList.remove('hidden');
+          seZipStatusBadge.textContent = `✅ 驗證通過：${f.name}`;
+        } catch (err) {
+          seZipFile.value = '';
+          toast('⚠️ 非有效標準 ZIP 檔案');
+        }
+      };
+      reader.readAsDataURL(f);
+    });
+
+    if (parseZipToFormBtn) parseZipToFormBtn.onclick = () => applyExtractedZipContentToForm(lastExtractedZipFiles);
+    document.getElementById('closeSkillEditorBtn').onclick = () => skillEditorDialog.close();
+    document.getElementById('cancelSkillEditorBtn').onclick = () => skillEditorDialog.close();
+
+    document.getElementById('autoBuildZipFromFormBtn').onclick = () => {
+      const slugVal = (document.getElementById('seSlug').value.trim() || 'tony-skill');
+      const nameVal = document.getElementById('seName').value.trim() || 'TONY Skill';
+      const manualVal = document.getElementById('seManual').value || `# ${nameVal}`;
+      const zb = createStoreZipBytes([
+        { name: `${slugVal}/SKILL.md`, content: manualVal },
+        { name: `${slugVal}/agents/openai.yaml`, content: `name: ${slugVal}\nrecommended_model: ${ACTIVE_AI_MODEL}\n` }
+      ]);
+      let bin = '';
+      for (let i = 0; i < zb.length; i++) bin += String.fromCharCode(zb[i]);
+      pendingUploadedZipBase64 = 'data:application/zip;base64,' + btoa(bin);
+      currentEditorState.forceRebuildZip = true;
+      seZipStatusBadge.textContent = `⚡ 已打包標準 ${slugVal}.zip`;
+      toast(`⚡ 已打包 ${slugVal}.zip`);
+    };
+
+    document.getElementById('testPreviewZipBtn').onclick = () => {
+      const slugVal = (document.getElementById('seSlug').value.trim() || 'tony-skill');
+      triggerBase64Download(pendingUploadedZipBase64 || SKILL_ASSETS[slugVal + '.zip'] || '', `${slugVal}.zip`, 'application/zip', slugVal, currentEditorState.unitId);
+    };
+
+    skillEditorForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const mode = currentEditorState.mode;
+      const nowIso = new Date().toISOString();
+
+      if (mode === 'edit-unit-overview') {
+        const u = UNITS.find(x => x.id === currentEditorState.unitId);
+        if (u) {
+          u.tag = document.getElementById('seTag').value.trim().toUpperCase();
+          u.shortLabel = document.getElementById('seShortLabel').value.trim();
+          u.title = document.getElementById('seTitle').value.trim();
+          u.promise = document.getElementById('sePromise').value.trim();
+          u.desc = document.getElementById('seDesc').value.trim();
+          u.example = document.getElementById('seExample').value.trim();
+          if (currentUser && (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) {
+            const { zipBase64, ...cleanU } = u;
+            await setDoc(getSkillDocRef(u.id), { ...cleanU, updatedAt: nowIso }, { merge: true }).catch(() => {});
+          }
+        }
+        skillEditorDialog.close();
+        renderAdminSkillsTable();
+        renderHeroMap();
+        renderCards();
+        renderWork();
+        toast('💾 已更新單元總覽標題設定！');
+        return;
+      }
+
+      const idVal = (mode === 'edit-subskill' || mode === 'add-subskill') ? currentEditorState.unitId : document.getElementById('seId').value.trim();
+      const slugVal = document.getElementById('seSlug').value.trim();
+      const nameVal = document.getElementById('seName').value.trim();
+      const deliverVal = document.getElementById('seDeliver').value.trim();
+      const stepsArr = document.getElementById('seSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const fieldsArr = document.getElementById('seFields').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const manualVal = document.getElementById('seManual').value;
+      const quizVal = document.getElementById('seQuiz').value.trim();
+      const answerVal = document.getElementById('seAnswer').value.trim();
+      const whyVal = document.getElementById('seWhy').value.trim();
+      const whatVal = document.getElementById('seWhat').value.trim();
+      const howVal = document.getElementById('seHow').value.trim();
+      const wwhObj = (whyVal || whatVal || howVal) ? { why: whyVal, what: whatVal, how: howVal } : null;
+      const mermaidVal = document.getElementById('seMermaid').value.trim() || null;
+
+      let finalZip = pendingUploadedZipBase64;
+      if (finalZip && !seZipFile.files.length && !currentEditorState.forceRebuildZip) {
+        try { finalZip = patchSkillMdInExistingZipDataUrl(finalZip, slugVal, manualVal); } catch (err) {}
+      }
+      if (!finalZip) {
+        const fb = buildFallbackSkillZipBytes(slugVal, idVal);
+        let bin = '';
+        for (let i = 0; i < fb.length; i++) bin += String.fromCharCode(fb[i]);
+        finalZip = 'data:application/zip;base64,' + btoa(bin);
+      }
+      SKILL_ASSETS[slugVal + '.zip'] = finalZip;
+
+      if (mode === 'edit-subskill' || mode === 'add-subskill') {
+        const u = UNITS.find(x => x.id === idVal);
+        if (u) {
+          if (!Array.isArray(u.extraSkills)) u.extraSkills = [];
+          const subPayload = {
+            ...(mode === 'edit-subskill' ? u.extraSkills[currentEditorState.subIdx] : {}),
+            slug: slugVal,
+            name: nameVal,
+            roleBadge: document.getElementById('seRoleBadge').value.trim() || `SKILL ${idVal}`,
+            deliver: deliverVal,
+            steps: stepsArr,
+            fields: fieldsArr,
+            quiz: quizVal,
+            answer: answerVal,
+            manual: manualVal,
+            wwh: wwhObj,
+            mermaidCode: mermaidVal,
+            adminEdited: true
+          };
+          if (mode === 'edit-subskill') u.extraSkills[currentEditorState.subIdx] = subPayload;
+          else u.extraSkills.push(subPayload);
+
+          if (currentUser && (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) {
+            await setDoc(getSkillZipAssetDocRef(slugVal), { docType: 'skill_zip_asset', slug: slugVal, unitId: idVal, zipBase64: finalZip, isDeleted: false, updatedAt: nowIso }, { merge: true }).catch(() => {});
+            const { zipBase64, ...cleanU } = u;
+            await setDoc(getSkillDocRef(idVal), { ...cleanU, subSkillsModifiedByAdmin: true, updatedAt: nowIso }, { merge: true }).catch(() => {});
+          }
+        }
+      } else {
+        const existIdx = UNITS.findIndex(x => x.id === idVal);
+        const unitPayload = {
+          ...(existIdx !== -1 ? UNITS[existIdx] : {}),
+          id: idVal,
+          slug: slugVal,
+          name: nameVal,
+          title: document.getElementById('seTitle').value.trim(),
+          tag: document.getElementById('seTag').value.trim().toUpperCase(),
+          shortLabel: document.getElementById('seShortLabel').value.trim(),
+          promise: document.getElementById('sePromise').value.trim(),
+          desc: document.getElementById('seDesc').value.trim(),
+          example: document.getElementById('seExample').value.trim(),
+          deliver: deliverVal,
+          steps: stepsArr,
+          fields: fieldsArr,
+          quiz: quizVal,
+          answer: answerVal,
+          manual: manualVal,
+          wwh: wwhObj,
+          mermaidCode: mermaidVal
+        };
+        if (existIdx !== -1) UNITS[existIdx] = unitPayload;
+        else UNITS.push(unitPayload);
+
+        if (currentUser && (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) {
+          await setDoc(getSkillZipAssetDocRef(slugVal), { docType: 'skill_zip_asset', slug: slugVal, unitId: idVal, zipBase64: finalZip, isDeleted: false, updatedAt: nowIso }, { merge: true }).catch(() => {});
+          await setDoc(getSkillDocRef(idVal), { ...unitPayload, isDeleted: false, updatedAt: nowIso }, { merge: true }).catch(() => {});
+        }
+      }
+
+      skillEditorDialog.close();
+      renderAdminSkillsTable();
+      renderHeroMap();
+      renderCards();
+      renderWork();
+      toast('☁️ 已儲存並同步更新網頁內容與標準 ZIP 包！');
+    });
+
+    document.getElementById('seedDefaultSkillsBtn').addEventListener('click', async () => {
+      if (!currentUser || (currentUser.email || '').toLowerCase() !== SYSTEM_CREATOR_EMAIL) {
+        toast('🔒 僅限最高管理員 mindnodeai@gmail.com 可寫入 Firestore 雲端');
+        return;
+      }
+      const btn = document.getElementById('seedDefaultSkillsBtn');
+      btn.disabled = true;
+      btn.textContent = '☁️ 同步中…';
+      try {
+        const nowIso = new Date().toISOString();
+        for (const u of UNITS) {
+          const slugs = (Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.map(s => s.slug) : [u.slug];
+          for (const sl of slugs) {
+            const zb = SKILL_ASSETS[sl + '.zip'];
+            if (zb) {
+              await setDoc(getSkillZipAssetDocRef(sl), { docType: 'skill_zip_asset', slug: sl, unitId: u.id, zipBase64: zb, isDeleted: false, updatedAt: nowIso }, { merge: true });
+            }
+          }
+          const { zipBase64, ...cleanU } = u;
+          await setDoc(getSkillDocRef(u.id), { ...cleanU, isDeleted: false, updatedAt: nowIso }, { merge: true });
+        }
+        toast(`☁️ 全站 ${UNITS.length} 大單元與 ${getTotalSkillsCount()} 組 Skill 已完整同步上雲端！`);
+      } catch (err) {
+        toast('⚠️ 雲端同步失敗，請確認 Firestore Rules 權限');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '☁️ 將全套單元與全部 Skill 同步上雲端';
+      }
+    });
+
+    document.getElementById('openRulesModalBtn').onclick = () => {
+      document.getElementById('firestoreRulesCode').textContent = LATEST_FIRESTORE_RULES;
+      firestoreRulesDialog.showModal();
+    };
+    document.getElementById('closeRulesDialogBtn').onclick = () => firestoreRulesDialog.close();
+    document.getElementById('copyRulesTextBtn').onclick = () => copyTextToClipboard(LATEST_FIRESTORE_RULES, '🔐 已複製最新 Firestore 安全規則！');
+  </script>
+</body>
+</html>

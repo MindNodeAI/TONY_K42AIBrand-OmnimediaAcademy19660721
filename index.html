@@ -2,10 +2,6 @@
 <!-- Platform: AI Brand Omnichannel Academy (Flagship v2.7) -->
 <!-- Creator: TONY Yang / TONY Studio -->
 <!-- AI Engine: Google gemini-4-hydrogen -->
-<!-- Bundle: Self-Contained Single-File HTML5 Application -->
-<!-- Modules: 01-05 Units & 14 Original Skills -->
-<!-- Storage: Firebase Auth, Firestore Sync & Local Backup -->
-<!-- Entrypoint: Valid HTML5 Document -->
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
@@ -1584,6 +1580,47 @@
   <!-- 自訂確認對話框 (取代原生 confirm/alert) -->
   <dialog id="confirmDialog" class="rounded-2xl border border-line w-[min(440px,92vw)] p-6 bg-white text-ink shadow-2xl backdrop:bg-ink/75">
     <h3 id="confirmTitle" class="text-lg font-extrabold text-ink mb-2">確認執行此操作？</h3>
+    <p id="confirmMessage" class="text-sm text-muted leading-relaxed mb-6"></p>
+    <div class="flex items-center justify-end gap-3">
+      <button id="confirmCancelBtn" type="button" class="px-4 py-2 rounded-xl border border-line text-xs font-semibold hover:bg-paper">
+        取消
+      </button>
+      <button id="confirmOkBtn" type="button" class="px-4 py-2 rounded-xl bg-teal text-white text-xs font-semibold hover:bg-teal-dark">
+        確定執行
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Mermaid 視覺化流程圖 放大檢視與下載 Modal -->
+  <dialog id="mermaidZoomDialog" class="rounded-3xl border border-line w-[min(1180px,96vw)] max-h-[92vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/85">
+    <div class="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-ink text-white border-b border-white/10">
+      <div>
+        <span class="text-[10px] font-bold tracking-widest text-lime uppercase block">PROCESS ARCHITECTURE VIEWER</span>
+        <h3 id="mermaidZoomTitle" class="text-base sm:text-lg font-extrabold text-white">單元作業邏輯全覽圖（高解析放大檢視）</h3>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex items-center bg-white/10 rounded-xl p-1 border border-white/15">
+          <button id="zoomOutMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="縮小">－</button>
+          <span id="zoomScaleLabel" class="px-2.5 text-xs font-mono font-bold text-lime">125%</span>
+          <button id="zoomInMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="放大">＋</button>
+          <button id="zoomResetMermaidModalBtn" type="button" class="px-2 py-1 rounded-lg hover:bg-white/15 text-[11px] text-white/80">重設</button>
+        </div>
+        <button id="downloadMermaidModalPngBtn" type="button" class="px-3.5 py-1.5 rounded-xl bg-lime text-ink text-xs font-extrabold hover:bg-lime-dark transition-all">
+          🖼️ 下載高解析 PNG
+        </button>
+        <button id="downloadMermaidModalSvgBtn" type="button" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all">
+          下載 SVG
+        </button>
+        <button id="closeMermaidZoomBtn" type="button" class="px-3 py-1.5 rounded-xl border border-white/20 hover:bg-white/10 text-white text-xs font-bold">
+          關閉 ×
+        </button>
+      </div>
+    </div>
+    <div class="p-6 sm:p-10 overflow-auto max-h-[calc(92vh-74px)] bg-white flex justify-center items-center min-h-[380px]">
+      <div id="mermaidZoomContent" class="transition-transform duration-200 origin-center py-4"></div>
+    </div>
+  </dialog>
+
   <!-- ==================== Gemini 4 Hydrogen 模型與 API 設定 Modal ==================== -->
   <dialog id="aiModelConfigDialog" class="rounded-3xl border border-line w-[min(520px,94vw)] p-6 sm:p-8 bg-white text-ink shadow-2xl backdrop:bg-ink/80">
     <div class="space-y-4">
@@ -3333,25 +3370,31 @@ function openMermaidZoomModal() {
     toast('目前尚無可放大的流程圖');
     return;
   }
+  const zoomDialog = $('#mermaidZoomDialog');
+  const titleEl = $('#mermaidZoomTitle');
+  const zoomContent = $('#mermaidZoomContent');
+  if (!zoomDialog || !zoomContent) {
+    toast('流程圖預覽視窗尚未就緒');
+    return;
+  }
   const u = UNITS.find(x => x.id === active) || UNITS[0];
   const hasExtra = u && Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
   const subObj = hasExtra ? u.extraSkills[activeSubSkillIdx] : null;
   const titleText = subObj ? `單元 ${u.id}｜${subObj.name} 視覺化流程圖` : `單元 ${u ? u.id : ''}｜${u ? u.name : ''} 視覺化流程圖`;
 
-  $('#mermaidZoomTitle').textContent = titleText;
+  if (titleEl) titleEl.textContent = titleText;
   const cloneSvg = srcSvg.cloneNode(true);
   cloneSvg.removeAttribute('style');
   cloneSvg.setAttribute('width', '960');
   cloneSvg.style.maxWidth = 'none';
   cloneSvg.style.height = 'auto';
 
-  const zoomContent = $('#mermaidZoomContent');
   zoomContent.innerHTML = '';
   zoomContent.appendChild(cloneSvg);
 
   currentMermaidZoom = 1.25;
   applyMermaidModalZoom();
-  $('#mermaidZoomDialog').showModal();
+  zoomDialog.showModal();
 }
 
 function downloadMermaidAsSvg() {

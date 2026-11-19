@@ -1,17 +1,11 @@
 <!doctype html>
-<!-- Platform: AI Brand Omnichannel Academy - F&B & Retail Edition -->
-<!-- Industry Focus: Catering, Restaurant Chains, Specialty Retail & Gift Brands -->
-<!-- Creator: TONY Yang / TONY Studio -->
-<!-- AI Engine: Google gemini-4-hydrogen -->
-<!-- Edition: v2.5 F&B & Retail Omnichannel Flagship -->
-<!-- Build: Clean Standalone HTML5 Document -->
+<!-- TONY STUDIO · AI Brand Omnichannel Academy (F&B & Retail Edition) -->
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>AI 品牌全媒體實戰學院（餐飲零售實戰版）</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 非阻塞載入 Mermaid.js 視覺化流程圖引擎，避免 CDN 延遲造成白屏 -->
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,35 +42,24 @@
   </script>
 
   <style>
-    /* 基礎隱藏防護與自訂捲軸細節優化 */
     .hidden { display: none !important; }
     body {
       background-color: #f6f5ef;
       color: #132629;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f6f5ef;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #c2cec0;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #185b51;
-    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f6f5ef; }
+    ::-webkit-scrollbar-thumb { background: #c2cec0; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #185b51; }
     .glass-nav {
-      background: rgba(246, 245, 239, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(246, 245, 239, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     @keyframes pulse-subtle {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      50% { opacity: 0.65; }
     }
     .animate-pulse-subtle {
       animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -129,8 +112,8 @@
 
         <div class="grid grid-cols-2 gap-3 pt-2">
           <div class="p-4 rounded-2xl bg-white border border-line shadow-sm">
-            <span class="text-xs font-extrabold text-teal block mb-1">餐飲×零售 14 組原創 Skill</span>
-            <p class="text-xs text-muted">離峰與節慶議題、菜單與產品知識庫、主廚職人與吉祥物 IP、包裝立牌 Mockup、探店短影音與門市公播配樂一次到位。</p>
+            <span class="text-xs font-extrabold text-teal block mb-1">01–06 全套 18 組原創 Skill</span>
+            <p class="text-xs text-muted">涵蓋議題新聞室、知識庫 GEO、故事與 LINE 貼圖、視覺 Mockup、短影音配樂與餐飲節慶促銷。</p>
           </div>
           <div class="p-4 rounded-2xl bg-white border border-line shadow-sm">
             <span class="text-xs font-extrabold text-teal block mb-1">食安合規 × 雲端即時備份</span>
@@ -313,48 +296,49 @@
 
   <!-- ==================== 2. 實戰學院主應用程式容器 ==================== -->
   <div id="appMainContainer" class="hidden min-h-screen flex flex-col">
-    <!-- 頂部固定導覽列 -->
+    <!-- 頂部固定導覽列（清爽單行對齊設計） -->
     <nav class="sticky top-0 z-40 glass-nav border-b border-line">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
-        <a href="#" class="flex items-center gap-3">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+        <a href="#" class="flex items-center gap-3 min-w-0 shrink-0">
           <img 
             src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1785039560457_1.png?alt=media&token=19b27497-4101-4436-bc80-b299741b7984" 
             alt="TONY STUDIO" 
             class="w-9 h-9 rounded-xl object-contain bg-white border border-line p-0.5 shadow-sm shrink-0"
             onerror="this.onerror=null;this.src='https://placehold.co/72x72/185b51/dcf394?text=TS';"
           >
-          <div>
-            <span class="font-extrabold text-sm sm:text-base text-ink block leading-tight">AI 品牌全媒體實戰學院（餐飲零售版）</span>
-            <span class="text-[10px] font-semibold tracking-wider text-muted block">TONY STUDIO · F&amp;B &amp; RETAIL EDITION</span>
+          <div class="truncate">
+            <span class="font-extrabold text-sm sm:text-base text-ink block leading-tight truncate">AI 品牌全媒體實戰學院</span>
+            <span class="text-[10px] font-bold tracking-wider text-teal uppercase block">F&amp;B &amp; RETAIL EDITION</span>
           </div>
         </a>
 
-        <div class="hidden md:flex items-center gap-5 text-xs font-bold text-ink">
+        <div class="hidden xl:flex items-center gap-6 text-xs font-bold text-muted">
           <a href="#curriculum" class="hover:text-teal transition-colors">01 課程與 Skill</a>
           <a href="#practice" class="hover:text-teal transition-colors">02 實作工作台</a>
           <a href="#creator" class="hover:text-teal transition-colors">03 顧問簡介</a>
-          <a href="#guide" class="hover:text-teal transition-colors">04 備份與指南</a>
+          <a href="#guide" class="hover:text-teal transition-colors">04 備份指南</a>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-line">
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-line shadow-sm text-xs">
             <span id="cloudDot" class="w-2 h-2 rounded-full bg-teal animate-pulse-subtle"></span>
-            <span id="navBrandBadge" class="text-ink text-xs font-bold max-w-[90px] truncate">森日咖啡</span>
+            <span id="navBrandBadge" class="text-ink font-bold max-w-[84px] truncate">森日咖啡</span>
+            <span class="text-line">|</span>
+            <span id="navProgressBadge" class="text-teal font-extrabold whitespace-nowrap">0 / 6 完成</span>
           </div>
-          <span id="navProgressBadge" class="px-2.5 py-1 rounded-lg bg-teal/10 text-teal text-xs font-extrabold">0 / 5 完成</span>
 
-          <button id="openAiModelModalBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal/10 hover:bg-teal hover:text-white border border-teal/30 text-teal text-xs font-extrabold transition-all shadow-sm" title="設定 Gemini API Key 與 gemini-4-hydrogen 推理層級">
-            <span>⚡ 模型：gemini-4-hydrogen</span>
+          <button id="openAiModelModalBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-teal hover:text-white border border-teal/30 text-teal text-xs font-extrabold transition-all shadow-sm" title="設定 Gemini API Key 與推理層級">
+            <span>⚡ gemini-4-hydrogen</span>
           </button>
 
-          <button id="openAdminDashboardBtn" type="button" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-ink text-lime text-xs font-extrabold hover:bg-teal transition-all shadow-sm">
-            <span>⚙️ 管理後台</span>
+          <button id="openAdminDashboardBtn" type="button" class="hidden items-center gap-1 px-3 py-1.5 rounded-full bg-ink text-lime text-xs font-extrabold hover:bg-teal transition-all shadow-sm">
+            <span>⚙️ 後台</span>
           </button>
 
           <div id="navUserBadge" class="hidden flex items-center gap-1.5 pl-2 border-l border-line">
-            <span id="navUserName" class="text-xs font-bold text-ink max-w-[110px] truncate">學員</span>
-            <span id="navUserRoleTag" class="px-2 py-0.5 rounded bg-lime text-ink text-[10px] font-extrabold">學員</span>
-            <button id="logoutBtn" type="button" class="px-2.5 py-1 rounded-lg border border-line bg-white hover:bg-paper text-xs font-bold text-muted hover:text-ink transition-colors">
+            <span id="navUserRoleTag" class="hidden sm:inline-block px-2 py-0.5 rounded-md bg-lime text-ink text-[10px] font-extrabold">學員</span>
+            <span id="navUserName" class="hidden sm:inline-block text-xs font-bold text-ink max-w-[88px] truncate">學員</span>
+            <button id="logoutBtn" type="button" class="px-2.5 py-1.5 rounded-full border border-line bg-white hover:bg-red-50 hover:text-red-700 text-xs font-bold text-muted transition-colors">
               登出
             </button>
           </div>
@@ -364,100 +348,98 @@
 
   <main class="flex-grow">
     <!-- Hero 區塊 -->
-    <header class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-14 lg:py-20">
+    <header class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-12 lg:py-16">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
         
         <!-- 左側主視覺文案 -->
         <div class="lg:col-span-7 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal/10 border border-teal/20 text-teal text-xs font-bold tracking-widest uppercase">
-            <span>F&amp;B &amp; RETAIL WORKFLOW / 2026 EDITION</span>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-xs font-extrabold tracking-widest uppercase">
+            <span>OMNICHANNEL F&amp;B &amp; RETAIL WORKFLOW · 2026</span>
           </div>
           
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-ink leading-[1.15]">
+          <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight text-ink leading-[1.16]">
             從門市與商品洞察，<br>
             到<span class="text-teal underline decoration-lime decoration-8 underline-offset-4">餐飲零售全媒體創造力。</span>
           </h1>
           
-          <p class="text-lg sm:text-xl text-muted max-w-2xl leading-relaxed font-normal">
-            把餐飲離峰集客、菜單與商品溯源知識庫、職人故事與品牌吉祥物、門市 POP 立牌與包裝盒 Mockup、探店短影音與店內公播配樂串成一套可驗證的營運流程。帶著你的餐廳或零售品牌進來，帶走能直接上架促購的完整提案。
+          <p class="text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
+            把離峰集客議題、食安溯源知識庫、故事與 LINE 貼圖 IP、包裝立牌 Mockup、探店短影音到節慶主打商品促銷串成一套可驗證的營運系統。帶著你的品牌進來，帶走能直接上架促購的完整提案。
           </p>
           
-          <div class="flex flex-wrap items-center gap-3.5 pt-2">
-            <a href="#practice" class="px-6 py-3.5 rounded-xl bg-teal text-white font-semibold shadow-md hover:bg-teal-dark hover:shadow-lg transition-all flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#practice" class="px-6 py-3.5 rounded-xl bg-teal text-white text-sm font-extrabold shadow-md hover:bg-teal-dark transition-all flex items-center gap-2">
               <span>進入品牌實作工作台</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
-            <a href="#curriculum" class="px-6 py-3.5 rounded-xl bg-white text-ink font-semibold border border-line hover:bg-lime/40 hover:border-ink transition-all flex items-center gap-2">
-              <span>探索五大單元與 Skill</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <a href="#curriculum" class="px-5 py-3.5 rounded-xl bg-white text-ink text-sm font-bold border border-line hover:bg-lime/40 hover:border-ink transition-all flex items-center gap-2">
+              <span>瀏覽六大單元與 18 組 Skill</span>
             </a>
-            <button id="heroBriefBtn" type="button" class="px-4 py-3.5 rounded-xl text-teal font-semibold hover:bg-teal/10 transition-all text-sm flex items-center gap-1.5">
+            <button id="heroBriefBtn" type="button" class="px-4 py-3.5 rounded-xl text-teal font-bold hover:bg-teal/10 transition-all text-sm flex items-center gap-1.5">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              <span>預覽全案品牌簡報</span>
+              <span>全案提案總覽</span>
             </button>
           </div>
 
-          <a href="#creator" class="pt-5 flex items-center gap-4 border-t border-line/80 text-xs text-muted group hover:text-ink transition-colors">
+          <a href="#creator" class="pt-5 flex items-center gap-3.5 border-t border-line/80 text-xs text-muted group hover:text-ink transition-colors">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027" 
               alt="TONY 楊文澤老師" 
-              class="w-12 h-12 rounded-full object-cover border-2 border-teal shrink-0 shadow-sm"
+              class="w-11 h-11 rounded-full object-cover border-2 border-teal shrink-0 shadow-sm"
               onerror="this.onerror=null;this.src='https://placehold.co/88x88/132629/dcf394?text=TONY';"
             >
             <div class="space-y-0.5">
-              <strong class="text-ink text-sm font-bold block group-hover:text-teal transition-colors">課程與 Skill 原創開發｜TONY 楊文澤 老師 ↗</strong>
+              <strong class="text-ink text-sm font-extrabold block group-hover:text-teal transition-colors">課程與 Skill 原創開發｜TONY 楊文澤 老師 ↗</strong>
               <span class="block text-muted">資深數位行銷科技顧問・生成式 AI 創作者・創業導師｜Human Insight, AI Amplified.</span>
             </div>
           </a>
         </div>
 
-        <!-- 右側互動式五力藍圖 -->
+        <!-- 右側互動式六力藍圖 -->
         <div class="lg:col-span-5">
-          <div class="bg-teal text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden border border-white/10">
-            <!-- 裝飾背景圓圈 -->
-            <div class="absolute -right-24 -top-24 w-64 h-64 rounded-full border border-white/10 pointer-events-none"></div>
-            <div class="absolute -right-12 -bottom-28 w-56 h-56 rounded-full bg-lime/10 blur-2xl pointer-events-none"></div>
+          <div class="bg-ink text-white rounded-3xl p-6 sm:p-7 shadow-xl relative overflow-hidden border border-teal/40">
+            <div class="absolute -right-20 -top-20 w-56 h-56 rounded-full bg-teal/30 blur-2xl pointer-events-none"></div>
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-3 pb-3 border-b border-white/10">
+                <small class="text-[11px] font-extrabold tracking-[0.18em] text-lime uppercase">ONE BRAND · SIX CAPABILITIES</small>
+                <span class="text-[11px] bg-white/10 px-2.5 py-0.5 rounded-full text-white/85">點擊直達工作台</span>
+              </div>
 
-            <div class="flex items-center justify-between mb-4">
-              <small class="text-xs font-bold tracking-[0.2em] text-lime uppercase">ONE BRAND. FIVE CAPABILITIES.</small>
-              <span class="text-[11px] bg-white/10 px-2.5 py-0.5 rounded-full text-white/80">點擊跳轉實作</span>
+              <div id="heroMapRows" class="divide-y divide-white/10">
+                <!-- 由 JS 動態渲染 01~06 互動列 -->
+              </div>
+
+              <footer class="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[11px] text-lime/90 font-semibold">
+                <span>洞察 → 知識 → 內容 IP → 視覺 → 影音 → 節慶促銷</span>
+                <span>v2.6</span>
+              </footer>
             </div>
-
-            <div id="heroMapRows" class="divide-y divide-white/15">
-              <!-- 由 JS 動態渲染互動列 -->
-            </div>
-
-            <footer class="mt-6 pt-4 border-t border-white/20 flex items-center justify-between text-xs text-lime/90 font-medium">
-              <span>發現 → 定義 → 製作 → 檢核 → 換題重做</span>
-              <span>v1.0.0</span>
-            </footer>
           </div>
         </div>
 
       </div>
     </header>
 
-      <!-- 數據統計橫幅 -->
+    <!-- 數據統計橫幅 -->
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-3 bg-white rounded-2xl border border-line shadow-sm divide-y sm:divide-y-0 sm:divide-x divide-line overflow-hidden">
-        <div class="p-6 flex items-baseline gap-4">
-          <b id="heroStatUnitsCount" class="text-4xl font-extrabold text-teal tracking-tight">05</b>
+        <div class="p-5 sm:p-6 flex items-baseline gap-4">
+          <b id="heroStatUnitsCount" class="text-3xl sm:text-4xl font-black text-teal tracking-tight font-mono">06</b>
           <div>
-            <span class="font-bold text-ink block text-sm">完整實戰單元</span>
-            <span class="text-xs text-muted">涵蓋議題、RAG、故事、視覺、聲音</span>
+            <span class="font-extrabold text-ink block text-sm">完整實戰單元</span>
+            <span class="text-xs text-muted">串聯品牌新聞室至餐飲零售節慶檔期</span>
           </div>
         </div>
-        <div class="p-6 flex items-baseline gap-4">
-          <b id="heroStatSkillsCount" class="text-4xl font-extrabold text-teal tracking-tight">05</b>
+        <div class="p-5 sm:p-6 flex items-baseline gap-4">
+          <b id="heroStatSkillsCount" class="text-3xl sm:text-4xl font-black text-teal tracking-tight font-mono">18</b>
           <div>
-            <span class="font-bold text-ink block text-sm">可下載原創 Skill 包</span>
-            <span class="text-xs text-muted">雲端即時同步 SKILL.md 與評量表</span>
+            <span class="font-extrabold text-ink block text-sm">可下載原創 Skill 包</span>
+            <span class="text-xs text-muted">內含完整 SKILL.md、範本與檢核規範</span>
           </div>
         </div>
-        <div class="p-6 flex items-baseline gap-4">
-          <b class="text-4xl font-extrabold text-teal tracking-tight">01</b>
+        <div class="p-5 sm:p-6 flex items-baseline gap-4">
+          <b class="text-3xl sm:text-4xl font-black text-teal tracking-tight font-mono">01</b>
           <div>
-            <span class="font-bold text-ink block text-sm">貫穿全程品牌專案</span>
+            <span class="font-extrabold text-ink block text-sm">貫穿全程品牌專案</span>
             <span class="text-xs text-muted">支援一鍵匯出全案 Markdown 提案簡報</span>
           </div>
         </div>
@@ -465,62 +447,63 @@
     </div>
 
     <!-- 01 / 課程與 Skill 區塊 -->
-    <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-24 scroll-mt-16">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-line">
+    <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-20 scroll-mt-16">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
         <div>
-          <div class="text-xs font-bold tracking-[0.2em] text-teal uppercase mb-2">01 / CURRICULUM & SKILLS</div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">選一個入口，開始創造。</h2>
+          <div class="text-xs font-extrabold tracking-[0.2em] text-teal uppercase mb-2">01 / CURRICULUM &amp; ORIGINAL SKILLS</div>
+          <h2 class="text-3xl sm:text-4xl font-black text-ink tracking-tight">六大實戰單元，18 組專業教練。</h2>
           <p class="text-muted mt-2 max-w-2xl text-sm sm:text-base">
-            每個單元皆配備獨立 Skill 下載包、完整手冊與實作任務。建議先完成「單元 02」的來源與邊界整理，再展開全媒體內容製作。
+            每個單元皆配備獨立 Skill ZIP 壓縮包、六大結構實戰手冊與工作台引導任務。可依需求單獨下載任一模組，或照順序完成全案提案。
           </p>
         </div>
 
         <!-- 學習進度條面板 -->
         <div class="bg-white p-4 rounded-2xl border border-line shadow-sm min-w-[260px]">
-          <div class="flex items-center justify-between text-xs font-semibold mb-2">
-            <span id="count" class="text-ink">本案例 0 / 5 單元已完成</span>
-            <span id="percentText" class="text-teal font-bold">0%</span>
+          <div class="flex items-center justify-between text-xs font-bold mb-2">
+            <span id="count" class="text-ink">本案例 0 / 6 單元已完成</span>
+            <span id="percentText" class="text-teal font-extrabold">0%</span>
           </div>
-          <div id="curriculumProgressBar" class="w-full h-2.5 bg-paper rounded-full overflow-hidden border border-line/60" role="progressbar" aria-label="學習進度" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+          <div id="curriculumProgressBar" class="w-full h-2.5 bg-paper rounded-full overflow-hidden border border-line/60" role="progressbar" aria-label="學習進度" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0">
             <div id="bar" class="h-full bg-teal transition-all duration-500 rounded-full" style="width: 0%"></div>
           </div>
         </div>
       </div>
 
-      <!-- 搜尋與篩選工具列 -->
-      <div class="flex flex-wrap items-center justify-between gap-4 my-8">
-        <div class="flex flex-wrap items-center gap-3 flex-grow sm:flex-grow-0">
-          <div class="relative flex-grow sm:w-80">
+      <!-- 清爽對齊的搜尋與快速定位工具列 -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 my-7 bg-white p-3.5 rounded-2xl border border-line shadow-sm">
+        <div class="flex flex-wrap items-center gap-2.5 flex-1">
+          <div class="relative flex-grow sm:max-w-xs">
             <svg class="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input id="search" type="search" placeholder="搜尋 06 餐飲零售、商品攝影、議題、RAG、Mockup…" aria-label="搜尋課程" class="w-full pl-10 pr-4 py-2.5 bg-white border border-line rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal">
+            <input id="search" type="search" placeholder="搜尋節慶促銷、商品攝影、LINE 貼圖、RAG…" aria-label="搜尋課程" class="w-full pl-9 pr-3.5 py-2 bg-paper border border-line rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal">
           </div>
 
-          <select id="filter" aria-label="課程狀態" class="px-4 py-2.5 bg-white border border-line rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-teal">
+          <select id="filter" aria-label="課程狀態" class="px-3.5 py-2 bg-paper border border-line rounded-xl text-xs sm:text-sm font-bold text-ink focus:outline-none focus:ring-2 focus:ring-teal">
             <option value="all">全部單元 (6)</option>
             <option value="todo">尚未完成</option>
             <option value="done">已完成 ✓</option>
           </select>
 
-          <button id="clear" type="button" class="px-4 py-2.5 rounded-xl border border-line bg-white hover:bg-paper text-xs font-semibold text-muted transition-colors">
-            重設篩選
+          <button id="clear" type="button" class="px-3 py-2 rounded-xl border border-line bg-white hover:bg-paper text-xs font-bold text-muted transition-colors">
+            重設
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 text-xs text-muted">
-          <button type="button" data-work-unit="03" data-work-sub="3" class="px-3.5 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark font-extrabold transition-all shadow-sm">
-            💬 直接前往「03-D：LINE 貼圖創作導演」→
+        <div class="flex flex-wrap items-center gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-line/60">
+          <span class="text-[11px] font-bold text-muted mr-1">熱門直達：</span>
+          <button type="button" data-work-unit="03" data-work-sub="3" class="px-3 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
+            💬 03-D LINE 貼圖
           </button>
-          <button type="button" data-work-unit="06" data-work-sub="6" class="px-3.5 py-2 rounded-xl bg-lime text-ink hover:bg-lime-dark font-extrabold transition-all shadow-sm">
-            🧧 直接前往「06-G：節日賀卡設計導演」→
+          <button type="button" data-work-unit="06" data-work-sub="0" class="px-3 py-1.5 rounded-lg bg-teal/10 hover:bg-teal hover:text-white border border-teal/25 text-teal text-xs font-extrabold transition-all">
+            🍱 06-A 節慶促銷與主打商品
           </button>
-          <button type="button" data-jump-unit="06" class="px-3.5 py-2 rounded-xl bg-ink text-lime hover:bg-teal hover:text-white font-extrabold transition-all shadow-sm">
-            🍱 前往「單元 06：餐飲零售增強包 (7 組 Skill)」→
+          <button type="button" data-work-unit="06" data-work-sub="2" class="px-3 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
+            🧧 06-C 節日賀卡
           </button>
         </div>
       </div>
 
-      <!-- 課程卡片網格 -->
-      <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- 課程卡片網格（雙欄等高對齊） -->
+      <div id="cards" class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         <!-- 由 JS 動態渲染 -->
       </div>
     </section>
@@ -2495,36 +2478,78 @@ const UNITS = [
   },
   {
     "id": "06",
-    "slug": "create-product-photography",
-    "name": "TONY 餐飲零售產業增強實戰組（7 大專用 Skill 整合單元）",
-    "title": "餐飲零售產業增強實戰：商品攝影、門市檔期、食安知識庫、探店影音與節日賀卡",
-    "tag": "F&B & RETAIL PACK (v2026.11)",
-    "shortLabel": "餐飲零售增強包",
-    "promise": "把門市客流、食安合規、商品視覺與節慶賀卡一次串聯",
-    "desc": "2026-11-17 最新《TONY 餐飲零售產業增強更新包》專屬單元！精選收錄「商品攝影產生器 v1.1.0」、「節日賀卡與伴手禮祝賀卡設計導演」及 5 組餐飲零售增強版 Skill（全數內建 food-retail.md 產業操作指引與 food-retail-contract.md 共用活動交接契約），專治門市離峰冷清、伴手禮節慶促購、菜單食安檢核、垂涎商品商攝與 VIP 節慶禮數。",
+    "slug": "tony-food-retail-festival-promo-planner",
+    "name": "節慶促銷與主打商品策劃師 ＋ 商品攝影產生器 ＋ 節日賀卡設計導演",
+    "title": "餐飲零售節慶檔期實戰：主打商品促銷組合、垂涎商攝與伴手禮賀卡創建",
+    "tag": "F&B & RETAIL FESTIVAL",
+    "shortLabel": "節慶促銷・商攝・賀卡",
+    "promise": "守住毛利紅線、放大節慶檔期客單價",
+    "desc": "專為餐飲連鎖、咖啡烘焙與伴手禮零售打造的三核直線戰役模組：先用「節慶促銷與主打商品策劃師」鎖定 Hero SKU 組合與毛利結構，再以「商品攝影產生器 v1.1.0」產出高食慾主視覺，最後用「節日賀卡設計導演」完成隨盒祝賀小卡與熟客回流。",
     "steps": [
-      "【共用活動交接契約（food-retail-contract.md）】鎖定檔期活動代號、主推門市菜色／零售禮盒 SKU、原產地與過敏原標示、優惠生效起訖日與食安法絕對禁用詞。",
-      "【餐飲零售檔期議題策劃（06-A v1.2.0）】運用 scenario-map.md 與 food-retail.md 拆解平日離峰、午間外帶或節慶企業送禮痛點，規劃 IG／Google 商家與 LINE 熟客領券雙通路接力。",
-      "【食安規格知識庫與 GEO 架構（06-B v1.1.0）】將菜單成分、豬牛肉原產地、SGS 檢驗批號、冷凍覆熱條件與門市營業規則建立為 SSOT 結構化知識庫與官網 Restaurant/Product 結構化標記。",
-      "【餐飲五感故事與探店短影音（06-C v1.1.0 / 06-D v1.3.0）】從備料工序展開跨平台促購貼文，並搭配 visual-continuity.md 與 music-prompt.md 規劃前 3 秒備料特寫雙軌 Hook 短影音。",
-      "【垂涎商品攝影與門市 POP Mockup（06-E / 06-F v1.1.0）】運用「商品攝影產生器 create-product-photography」控制逆光蒸氣、器皿肌理與實品比例忠實度，並展開外帶杯袖、禮盒腰封與店門口立牌 Mockup。",
-      "【節日賀卡與伴手禮祝賀小卡設計（06-G v1.0.0）】針對春節、中秋、端午、母親節與 VIP 熟客關懷，產出分眾得體祝賀文案（企業客戶／長輩／熟客）與預留壓字留白之實體隨盒小卡及 LINE 電子賀卡視覺。"
+      "【檔期目標與主打商品架構（06-A）】盤點節慶／門市檔期目標，設計「引流款 × 招牌利潤主打款（Hero SKU）× 湊單加購款」三層商品組合，並試算扣除包材、運費與折扣後的實質毛利紅線。",
+      "【促銷機制與共用契約（food-retail-contract.md）】規劃早鳥預購、滿額贈禮或企業大宗階梯價（拒絕無底線破價），統一鎖定原產地、過敏原、保存溫層與食安法合規用語。",
+      "【垂涎商品攝影生成（06-B v1.1.0）】承接主打商品規格，運用側逆光蒸氣／冷凝水珠光學與 45° 餐桌視角產出無字高食慾商攝底圖，預留乾淨貼標平面。",
+      "【節日賀卡與隨盒賞味叮嚀（06-C v1.0.0）】針對企業 VIP、親友長輩與品牌熟客撰寫分眾得體賀詞，設計正面心意祝福、背面沖泡／覆熱指引之 A6 隨盒小卡與 LINE 電子賀卡。"
     ],
-    "deliver": "餐飲零售共用活動交接契約（food-retail-contract.md）、商品攝影分鏡與生圖提示詞包（create-product-photography）、門市檔期接力表（scenario-map.md）、食安合規知識主檔、探店短影音分鏡、門市視覺 Mockup 與節日賀卡／隨盒祝賀小卡設計包（design-festival-greeting-cards）",
+    "deliver": "節慶主打商品組合與毛利紅線試算表、早鳥波段排程與共用交接契約（food-retail-contract.md）、多視角商品攝影 Prompt 包（create-product-photography）、隨盒祝賀小卡與 LINE 電子賀卡設計包（design-festival-greeting-cards）",
     "fields": [
-      "本次主推的餐飲菜色／飲品或零售商品規格、定價與原產地／過敏原標示為何？",
-      "目標消費場景（如平日離峰內用、下班 6 分鐘覆熱晚餐、節慶伴手禮採購與隨盒賀卡）與預計搭配哪兩個線上線下觸點？",
-      "視覺拍攝、節日賀卡或短影音最想呈現的「食慾與禮數細節」與必須遵守的食安合規紅線為何？"
+      "本次鎖定哪個餐飲／零售節慶檔期？預計由哪幾項單品組成「引流款 × 主打 Hero SKU × 加購湊單款」？",
+      "目標客單價（AOV）、成本毛利底線（含食材、禮盒包材、冷鏈運費）與促銷優惠機制（如早鳥禮、企業滿盒贈）為何？",
+      "主打商品的垂涎商攝畫面重點、隨盒節日賀卡收禮對象，以及必須遵守的食安標示／限量交期條件為何？"
     ],
     "extraSkills": [
+      {
+        "slug": "tony-food-retail-festival-promo-planner",
+        "versionTag": "1.0.0",
+        "name": "餐飲零售節慶促銷與主打商品策劃師 v1.0.0",
+        "roleBadge": "SKILL 06-A｜節慶促銷與主打商品",
+        "deliver": "節慶主打商品黃金三角表（引流×主打Hero×湊單）、促銷機制與防破價毛利試算表（promo-mechanics-and-margin.md）、四波段預購排程曆、門市與電商話術卡、共用活動交接契約（food-retail-contract.md）",
+        "fields": [
+          "本次要策劃哪一個節慶或門市檔期？（如：中秋／春節伴手禮預購、母親節聚餐套餐、週年慶寄杯／常備箱囤貨、冬季暖飲新品季）目標客群是個人自用、家庭聚餐還是企業福委大宗採購？",
+          "手邊有哪些候選商品可配置為「引流帶客款」、「核心利潤主打款（Hero SKU）」與「高毛利湊單加購款」？原價、預估食材包材成本與產能／庫存上限為何？",
+          "預計採取哪種不傷品牌價值的促銷機制？（如：早鳥階梯優惠、買大送試飲組、滿額免運＋贈品，避免全館無差別打折破價）有哪些食安標示與最後出貨日（Cut-off Date）條件？"
+        ],
+        "quiz": "節慶檔期為了衝高營業額，直接推出「全館禮盒無條件 65 折＋免運費」是最好的促銷策略嗎？",
+        "answer": "絕對不是！餐飲與食品零售原本就背負食材耗損、精裝禮盒包材與冷鏈／宅配運費，盲目深折極易造成「賣越多賠越多」，更會摧毀平日原價購買熟客的價格信任。專業做法是建立「Hero SKU 組合階梯」：用早鳥贈禮或試飲包創造價值感、用高毛利加購品拉高客單價（AOV）跨越免運門檻，並在動手宣傳前先算清「實質毛利保本紅線」。",
+        "samples": {
+          "coffee": [
+            "・檔期與目標客群：森日咖啡「歲末冬日暖陽・企業與熟客咖啡禮盒檔期」（12/01–01/20）；雙軌鎖定「周邊中小企業年節送客戶」與「門市熟客冬季居家囤貨」。",
+            "・黃金三角商品組合（hero-product-architecture.md）：\n  1. 【引流體驗款】冬日雙風味濾掛嚐鮮組（4入 NT$199，降低新客試喝門檻）。\n  2. 【主打利潤款 Hero SKU】森日晨光雙層禮盒（含瑞士水低咖啡因濾掛 10 入＋半山焙茶粉罐，定價 NT$780，食材＋環保灰卡包材成本約 NT$265）。\n  3. 【高毛利湊單加購款】手沖細口溫度貼紙＋品牌霧面陶瓷分享杯（加購價 NT$299，將客單價拉升破千享免運）。",
+            "・防破價促銷機制與交接契約（promo-mechanics-and-margin.md & food-retail-contract.md）：\n  - 拒絕直接打 7 折：改推「12/20 前早鳥預購滿 3 盒贈門市午後雙人手沖招待券（高感知價值、低邊際食材成本）」；企業滿 30 盒享 88 折並免費附贈 06-C 客製署名祝賀小卡。\n  - 營運與食安紅線：標明生豆原產地、瑞士水處理批次與保存期限 12 個月；春節繁盛期宅配最後收單日明訂為除夕前 10 天，不保證指定時段送達。"
+          ],
+          "tea": [
+            "・檔期與目標客群：海岸茶室「中秋山海月圓・B2B 企業茶禮與體面伴手禮早鳥戰役」（檔期前 45 天啟動）；主攻企業福委會、設計事務所公關贈禮與重視體面的送禮客群。",
+            "・黃金三角商品組合（hero-product-architecture.md）：\n  1. 【引流破冰款】企業採購專屬「3 款台灣高山茶風味試飲盒」（申請價 NT$150 可全額折抵大宗訂單）。\n  2. 【主打利潤款 Hero SKU】山海雙層抽屜灰卡茶禮盒（鹿谷凍頂＋魚池紅玉雙錫罐＋冷泡體驗包，定價 NT$1,280，守住毛利率 ≥58%）。\n  3. 【尊榮升級款】山海藏韻木盒旗艦組（搭配台灣職人青瓷茶海，定價 NT$2,280，鎖定高階主管贈禮）。",
+            "・防破價促銷機制與交接契約：\n  - 四波段節奏：T-45 天企業試飲破冰 → T-30 天早鳥滿 10 盒贈 1 盒同款（等效約 91 折且不破壞牌價）→ T-14 天現貨倒數 → 節後憑盒內小卡回購冷泡補充包折 $100。\n  - 嚴格綁定台灣產地溯源編號與 SGS 無農藥殘留報告，交接給 06-B 拍冷泡茶湯商攝、06-C 印製企業署名中秋賀卡。"
+          ],
+          "bistro": [
+            "・檔期與目標客群：禾味日常「立冬＆年節家常免開火・冷凍常備箱囤貨節」；鎖定雙薪小家庭與加班族冷凍庫補貨需求。",
+            "・黃金三角商品組合：\n  1. 【引流款】剝皮辣椒舒肥雞胸單包體驗（門市自取加購價 NT$89）。\n  2. 【主打 Hero SKU】6 分鐘還原堂食・冬日暖胃 8 包常備箱（含舒肥雞、紅蔥炊飯磚、慢燉雞湯，組合價 NT$1,180，原價總和 NT$1,360）。\n  3. 【湊單滿額款】手工黃金泡菜／剝皮辣椒醬玻璃罐（加購價 NT$180，輕鬆湊滿 NT$1,350 冷凍黑貓免運門檻，避免低客單訂單被 $190 冷凍運費吃光毛利）。",
+            "・防破價促銷機制與食安紅線：早鳥下單贈保冷袋與覆熱教學賀卡；清楚標示 -18°C 冷凍保存 6 個月、國產豬雞原產地及過敏原，絕不宣稱減脂瘦身療效。"
+          ],
+          "custom": [
+            "・節慶／門市檔期名稱、起訖日期與目標客群（個人／家庭／企業大宗）：",
+            "・商品組合設計（1. 引流帶客款 ／ 2. 主打高毛利 Hero SKU ／ 3. 湊免運加購款）與成本定價：",
+            "・早鳥或滿額促銷機制、每日產能／最後出貨日限制，以及需交接給 06-B 商攝與 06-C 賀卡的重點："
+          ]
+        },
+        "steps": [
+          "檔期定位與客群場景拆解（讀取 references/food-retail.md）：確立本次節慶或季節檔期的核心購買動機（企業體面送禮、家庭團聚加菜、日常囤貨省時），設定營業額與客單價（AOV）目標。",
+          "建構「黃金三角商品組合」（讀取 references/hero-product-architecture.md）：明確配置「引流破冰款（低門檻試吃／試飲）」、「主打利潤款（Hero SKU，佔檔期營收 60% 核心）」與「湊單加購款（拉高客單價跨越免運線）」。",
+          "執行促銷機制與毛利紅線試算（讀取 references/promo-mechanics-and-margin.md）：將食材成本、禮盒包材、冷鏈／常溫運費補貼、贈品成本與平台抽成納入計算，優先採用「階梯滿贈、早鳥升等、回購券」取代直接砍價。",
+          "規劃四波段檔期節奏與產能防呆：制定「預熱試吃期 → 早鳥收單期 → 現貨衝刺期 → 節後回流期」行事曆，明確標註門市取貨／繁盛期物流截單日（Cut-off Date）與限量組數，防止爆單違約。",
+          "輸出共用活動交接契約（套用 references/food-retail-contract.md）：統一鎖定主推 SKU 名稱、售價、優惠條件、原產地與過敏原標示及食安禁用詞，無縫交接給 06-B 商品攝影與 06-C 節日賀卡。"
+        ],
+        "manual": "---\nname: tony-food-retail-festival-promo-planner\nversion: 1.0.0\ndescription: 餐飲零售節慶促銷與主打商品策劃師 v1.0.0；當使用者需要規劃餐飲門市或食品伴手禮之年節檔期、主打商品組合（Hero SKU）、湊單定價、毛利紅線試算、早鳥預購波段與活動交接契約時使用。\n---\n\n# TONY 餐飲零售節慶促銷與主打商品策劃師 v1.0.0\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.0.0。提供 A 示範、B 逐步實作、C 直接製作、D 檢核修訂、E 使用說明五種模式。\n區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。嚴格遵守《食品安全衛生管理法》與公平交易法：不得設計「先調高定價再打假折」之欺罔促銷；不得宣稱食品醫療效能；未提供真實成本時以清楚標示之【財務工作假設】試算毛利結構，不保證銷售業績。\n\n## 專屬流程（五步高毛利節慶檔期工作流）\n1. **節慶場景與採購心理定錨**（參照 `references/food-retail.md`）：區分「送禮市場（重品牌體面、價格帶明確、客製小卡）」與「自用囤貨市場（重換算單價、保存便利、免運門檻）」。\n2. **主打商品黃金三角組品**（參照 `references/hero-product-architecture.md`）：設計引流款、Hero SKU 主打禮盒／套餐、以及高毛利加購湊單品，避免單品孤軍奮戰或選項過多造成選擇癱瘓。\n3. **防破價促銷機制與毛利保本試算**（參照 `references/promo-mechanics-and-margin.md`）：精算「實收淨額 −（食材＋包材＋運費補貼＋贈品成本）＝ 實質貢獻毛利」，確保早鳥優惠、團購階梯價與企業大宗折扣皆在安全毛利紅線之上。\n4. **四波段檔期排程與物流產能護欄**：規劃早鳥預熱至最後截單日時間軸，明訂繁盛期宅配免責聲明與門市自取分流機制。\n5. **簽發跨模組共用交接契約**（套用 `references/food-retail-contract.md`）：將核定之主打商品規格、售價、產地過敏原標示直接交接予 `create-product-photography`（06-B 商攝）與 `design-festival-greeting-cards`（06-C 賀卡）。\n\n## 交付與驗收\n交付：1. 主打商品黃金三角架構表、2. 促銷階梯與毛利紅線試算表、3. 四波段預購與截單行事曆、4. 門市店員／私域推播促購話術卡、5. 餐飲零售共用活動交接契約（`food-retail-contract.md`）。\n"
+      },
       {
         "slug": "create-product-photography",
         "versionTag": "1.1.0",
         "name": "商品攝影產生器 v1.1.0（餐飲美食＆零售包裝商攝導演）",
-        "roleBadge": "SKILL 06-E｜商品攝影產生器 v1.1.0",
+        "roleBadge": "SKILL 06-B｜商品攝影產生器 v1.1.0",
         "deliver": "餐飲零售商品攝影企劃卡、光位與焦段設定表（逆光蒸氣／微距質地／45度餐桌視角）、中英對照無字商攝生圖 Prompt 包、實品相符度與食安標示後製交接表（food-retail.md & food-retail-contract.md）",
         "fields": [
-          "要拍攝的餐飲菜品／飲品或零售商品本體特徵為何？（如：手沖咖啡液面油脂、琥珀色冷泡茶湯、舒肥雞胸切面肉汁、濾掛禮盒材質）",
+          "要拍攝的餐飲菜品／飲品或零售商品本體特徵為何？（承接 06-A 主打 Hero SKU，如：手沖咖啡液面油脂、琥珀色冷泡茶湯、舒肥雞胸切面肉汁、濾掛禮盒材質）",
           "預計採用哪種商攝視角、光線氛圍與道具搭配？（如：45 度進食主觀視角、90 度 Flat-lay 俯拍、側逆光表現熱氣水珠；版位比例 1:1 / 4:5 / 16:9）",
           "有哪些實品忠實度與合規要求？（如：配料份量不誇大造假、包裝預留乾淨無字貼標區、後製加註「調理參考」或過敏原資訊）"
         ],
@@ -2559,123 +2584,13 @@ const UNITS = [
           "輸出中英對照商品攝影 Prompt 包：精確控制鏡頭焦段（85mm / 100mm Macro）、景深與材質描述，並強制加入反失真與無字約束（`authentic food texture, natural portion size, clean blank label area, no AI gibberish text, no plastic food look`）。",
           "執行實品相符度與後製交接驗收：核對成圖色澤自然不發假螢光、容器透視正確，並將官方 Logo、品名定價、原產地及「調理參考」字樣交由後製圖層精準疊加。"
         ],
-        "manual": "---\nname: create-product-photography\ndescription: 商品攝影產生器 v1.1.0（TONY 餐飲零售產業增強版）；當使用者需要餐飲美食商攝、飲品冰珠與熱氣光影表現、伴手禮與零售包裝商業攝影企劃、多版位構圖與無字乾淨貼標生圖提示詞時使用。\n---\n\n# 商品攝影產生器 v1.1.0（create-product-photography｜餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.1.0（2026-11-17 餐飲零售增強包）。提供 A 示範、B 逐步實作、C 直接製作、D 檢核修訂、E 使用說明五種模式。\n區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。嚴格遵守《食品安全衛生管理法》與公平交易原則：不得將食品份量誇大造假誤導消費者；調理包或生鮮食材之盛盤情境圖須提醒加註「調理參考」；包裝正面與杯袖一律預留無字乾淨貼標區，嚴禁以 AI 亂碼字冒充官方商標或法定營養標示。\n\n## 專屬流程\n1. 對齊餐飲零售活動交接契約（讀取 [共用活動交接契約](references/food-retail-contract.md)）：確認主推商品 SKU、包裝載體、標準色票与法定標示項目。\n2. 規劃垂涎感商攝光學設定（讀取 [餐飲零售商攝指引](references/food-retail.md)）：\n   - **光位設計**：利用 135° 側逆光（Back-side Rim Light）勾勒食物立體邊緣、蒸氣與醬汁光澤（Specular Highlight）。\n   - **視角選擇**：0° 平視呈現漢堡／千層／禮盒高度層次；45° 呈現餐桌主觀食慾感；90° 俯拍呈現套餐組合與禮盒開箱。\n3. 展開跨通路三版位構圖（1:1 外送／商城主圖、4:5 社群直式海報、16:9 官網橫幅安全留白）。\n4. 輸出結構化中英對照商品攝影提示詞包與負面排除詞。\n5. 執行食慾感、實品一致性與後製貼標座標驗收。\n\n## 交付與驗收\n交付：1. 商品攝影光影與構圖企劃表、2. 三版位中英對照商攝生圖 Prompt 包、3. 包裝無字貼標與壓字留白座標指南、4. 餐飲零售實品相符與合規驗收表。\n\n搭配檔案：`SKILL.md`、`agents/openai.yaml`、`assets/icon.svg`、`references/food-retail.md`、`references/food-retail-contract.md`。\n"
-      },
-      {
-        "slug": "tony-omnichannel-issue-planner-v1.2.0",
-        "versionTag": "1.2.0",
-        "name": "TONY 全通路議題行銷策劃師 v1.2.0（餐飲零售增強版）",
-        "roleBadge": "SKILL 06-A｜全通路議題策劃 v1.2.0",
-        "deliver": "餐飲零售場景地圖（references/scenario-map.md）、檔期議題三案評比表、線上線下雙通路接力表（IG/Google商家 → LINE熟客核銷）、三組單一變因測試 Hook 與共用交接契約（food-retail-contract.md）",
-        "fields": [
-          "門市或零售通路目前面臨什麼具體營收／客流卡關？（如：平日 14:00–17:00 離峰空桌、外帶客單價偏低、節慶禮盒早鳥詢問未結帳）",
-          "品牌有哪些真實可驗證的餐飲零售證據？（如：產地契作證明、當日現烤出爐時段、SGS 檢驗、門市插座環境；紅線：絕不宣稱醫療療效）",
-          "預計選用哪兩個主力觸點完成「公域吸客破圈 → 私域／到店領券核銷」接力？"
-        ],
-        "quiz": "餐廳辦社群抽獎貼文拿到上千個留言「tag 朋友抽免費套餐」，就代表離峰時段營業額一定會成長嗎？",
-        "answer": "不會。無門檻抽獎吸引的多半是跨縣市羊毛黨而非周邊 1.5 公里內會實際到店的商圈客群；餐飲零售版 v1.2.0 強調透過 scenario-map.md 對準「商圈受眾用餐時刻摩擦」，並以 LINE 離峰電子體驗券追蹤實際「到店核銷率（Redemption Rate）」與加購客單價。",
-        "steps": [
-          "讀取 references/scenario-map.md 與 references/food-retail.md：定位餐飲零售四大黃金場景（平日離峰填充、尖峰外帶提袋率、節慶伴手禮預購、居家常備回購），分離客觀POS數據與原因假設。",
-          "提出三個貼合用餐／購物情境的議題方向，逐項評估受眾共鳴度、食材製程可信度、門市執行負荷與食安法規風險。",
-          "鎖定單一檔期主題，填寫 references/food-retail-contract.md 共用交接契約（統一檔期名稱、價格條件、限量庫存與禁用療效詞）。",
-          "設計雙通路接力漏斗（如：IG Reels／在地 Google 商家圖文破圈 → LINE 官方帳號領取離峰雙杯券／試飲包到店核銷）。",
-          "產出 3 組不同切角的開頭 Hook（用餐痛點提問／反常識挑選法／主廚備料揭秘），設定單一變因測試與門市核銷回流指標。"
-        ],
-        "manual": "---\nname: tony-omnichannel-issue-planner\nversion: 1.2.0\ndescription: TONY 全通路議題行銷策劃師 v1.2.0（2026-11-17 餐飲零售產業增強版）；整合 scenario-map.md 餐飲零售場景地圖、food-retail.md 操作指引與 food-retail-contract.md 共用活動交接契約。\n---\n\n# TONY 全通路議題行銷策劃師 v1.2.0（餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.2.0。保留原有通用五步流程，新增餐飲零售操作指引（`references/food-retail.md`）、餐飲消費場景地圖（`references/scenario-map.md`）與共用活動交接契約（`references/food-retail-contract.md`）。嚴守《食品安全衛生管理法》，不捏造排隊盛況、假評價或醫療效能，不保證爆款銷量。\n\n## 專屬流程（餐飲零售增強工作流）\n1. 對齊餐飲零售消費時段與場景地圖（參照 `references/scenario-map.md`）：區分 POS／門市觀察事實與受眾原因假設。\n2. 提出三案餐飲／零售議題方向並評比可信度與食安合規風險（參照 `references/food-retail.md`）。\n3. 建立跨模組共用活動交接契約（參照 `references/food-retail-contract.md`）。\n4. 規劃「公域內容吸客 → 私域／門市到店核銷」雙通路接力表。\n5. 設計三組單一變因測試 Hook 與到店核銷／轉換歸因計畫。\n"
-      },
-      {
-        "slug": "tony-ai-brand-knowledge-architect-v1.1.0",
-        "versionTag": "1.1.0",
-        "name": "TONY AI 品牌知識架構師 v1.1.0（餐飲零售增強版）",
-        "roleBadge": "SKILL 06-B｜AI 品牌知識架構師 v1.1.0",
-        "deliver": "餐飲零售結構化知識母檔（MD + brand_knowledge.schema.json）、食安與產地過敏原驗證表（food-retail.md）、餐廳與商品 GEO Schema.org JSON-LD（Restaurant / Product / Offer / FAQPage）與企業白皮書範本（.docx）",
-        "fields": [
-          "目前有哪些第一手菜單價目表、商品成分規格、肉品／茶葉原產地證明與 SGS 檢驗報告？",
-          "主力餐點／禮盒的定價、保存與覆熱條件、過敏原提示，以及食安法絕對禁說的紅線詞彙有哪些？",
-          "希望優先產出哪種知識資產？（1. 門市與行銷共用 SSOT 知識主檔 ／ 2. 官網 Restaurant & Product GEO 結構化標記 ／ 3. 品牌知識白皮書 Word 報告）"
-        ],
-        "quiz": "把店裡的紙本菜單拍照直接丟給 AI，為什麼 AI 還是常把「內用低消」跟「外帶自取優惠」搞混，甚至漏報過敏原？",
-        "answer": "因為圖片與非結構化文字缺乏明確的條件欄位綁定！透过 v1.1.0 餐飲零售知識架構師，將每個品項拆解為標準 JSON Schema（綁定價格、內用／外帶／冷凍宅配適用條件、原產地、過敏原與有效日期），才能讓內部 AI 與外部搜尋引擎 100% 精準引用。",
-        "steps": [
-          "盤點餐飲零售信源並分級（Tier 1 最新菜單價目與官方規格、Tier 2 SGS 檢驗與產地證明、Tier 3 網友評論待查證）。",
-          "依 brand_knowledge_schema.md 與 food-retail.md 建立結構化欄位（含菜單 SKU、原產地、保存溫層、過敏原、門市營業規則與檔期效期）。",
-          "執行 brand_validation_rules.md 與食安合規掃描：攔截無檢驗依據之營養宣稱與醫療字眼。",
-          "依 geo_schema_mapping.md 轉譯為 Restaurant / CafeOrCoffeeShop / Product / FAQPage JSON-LD 標記。",
-          "同步輸出 Markdown、JSON、共用交接契約（food-retail-contract.md）與 Word 白皮書報告章節。"
-        ],
-        "manual": "---\nname: tony-ai-brand-knowledge-architect\nversion: 1.1.0\ndescription: TONY AI 品牌知識架構師 v1.1.0（2026-11-17 餐飲零售產業增強版）；包含 16 個完整檔案，新增餐飲零售菜單／產地／過敏原／溫層知識建模指引（food-retail.md）與共用活動交接契約（food-retail-contract.md）。\n---\n\n# TONY AI 品牌知識架構師 v1.1.0（餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.1.0。嚴守零幻覺與證據綁定鐵則：菜單價格、原產地、檢驗批號、保存期限與過敏原資訊皆須綁定 Tier 1/2 來源編號；無依據處標記 `pending_verification`。\n\n## 專屬流程\n1. 來源分級盤點（`research_source_policy.md` & `food-retail.md`）。\n2. 餐飲零售七大模組 Schema 建模（`brand_knowledge_schema.md` & `brand_knowledge.schema.json`）。\n3. 食安法規與效期衝突驗證（`brand_validation_rules.md`）。\n4. 餐廳門市與零售商品 GEO Schema.org 對映（`geo_schema_mapping.md`）。\n5. 雙格式知識母檔、Word 白皮書（`brand_knowledge_template.docx`）與共用交接契約交付。\n"
-      },
-      {
-        "slug": "tony-brand-content-factory-v1.1.0",
-        "versionTag": "1.1.0",
-        "name": "TONY 品牌故事與社群內容工廠 v1.1.0（餐飲零售增強版）",
-        "roleBadge": "SKILL 06-C｜故事與內容工廠 v1.1.0",
-        "deliver": "餐飲零售事實與食安語氣卡（能說／條件說／食安禁說）、職人備料故事母稿、四維促購內容矩陣（知識教學／用餐共鳴／溯源證據／領券轉換）、6 篇跨平台完稿與審稿表（food-retail.md）",
-        "fields": [
-          "門市的招牌餐點或零售商品背後有哪些真實的備料工序、食材挑選取捨或熟客日常故事？",
-          "品牌希望維持什麼說話溫度（如：溫暖鄰家烘豆師、講究侍茶師、踏實主廚），並絕對禁用哪些違反食安法或俗氣的叫賣詞？",
-          "預計產出幾篇貼文、發佈於哪些平台（IG / FB / Threads / LINE 熟客推播），並引導什麼具體到店或下單行動？"
-        ],
-        "quiz": "在撰寫黑豆茶或低咖啡因咖啡的社群貼文時，為了吸引養生客群，寫出「每天喝一杯幫助排毒消水腫、改善失眠體質」可以嗎？",
-        "answer": "絕對不行！一般食品與餐飲在台灣受《食品安全衛生管理法》第 28 條嚴格規範，凡涉及「消水腫、排毒、治失眠、降三高、減肥」皆屬易生誤解或醫療效能之違規詞彙，最高可處數百萬罰鍰。v1.1.0 餐飲零售版強制將描述聚焦於「真實物理製程（如瑞士水處理法、慢火焙炒）、風味層次與飲用時刻儀式感」。",
-        "steps": [
-          "讀取 references/food-retail.md 與 references/food-retail-contract.md：收集真實食材規格、備料工序與門市服務紀錄，無真實故事時明示虛構示範。",
-          "建立餐飲零售專屬「事實與食安語氣卡」：明確劃分【核准風味與製程描述】、【需附條件之優惠／保存說明】與【食安法絕對禁用詞】。",
-          "將食材研發或門市日常拆解為「人物、願望、阻礙、工序選擇、可驗證成果與顧客餐桌意義」故事母稿。",
-          "展開四大餐飲內容類型：1. 沖泡／覆熱美味教學（教育）、2. 時段用餐心情（共鳴）、3. 產地檢驗與備料實拍（證據）、4. 離峰領券與禮盒預購（轉換）。",
-          "依 IG、Threads、FB 與 LINE 熟客推播原生重寫閱讀節奏，並完成整批食安合規與去重審稿表。"
-        ],
-        "manual": "---\nname: tony-brand-content-factory\nversion: 1.1.0\ndescription: TONY 品牌故事與社群內容工廠 v1.1.0（2026-11-17 餐飲零售產業增強版）；內建食安法規語氣護欄、五感風味詞庫與門市促購四維內容矩陣（food-retail.md & food-retail-contract.md）。\n---\n\n# TONY 品牌故事與社群內容工廠 v1.1.0（餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.1.0。嚴禁杜撰創辦人造訪百座莊園經歷、偽造排隊口碑或宣稱食品醫療效能。\n\n## 專屬流程\n1. 盤點真實食材、製程工序與顧客用餐場景（參照 `references/food-retail.md`）。\n2. 建立餐飲零售事實表與食安合規語氣卡（參照 `references/food-retail-contract.md`）。\n3. 撰寫具五感細節之品牌故事母稿。\n4. 展開教育（吃法教學）、共鳴（時段場景）、證據（溯源工序）、轉換（領券到店）四類內容矩陣。\n5. 跨平台原生改寫與整批食安去重審稿。\n"
-      },
-      {
-        "slug": "plan-short-video-topics-and-stories-v1.3.0",
-        "versionTag": "1.3.0",
-        "name": "32｜短影音主題選題及敘事 v1.3.0（餐飲零售增強 14 檔旗艦版）",
-        "roleBadge": "SKILL 06-D｜32 短影音選題敘事 v1.3.0",
-        "deliver": "餐飲探店／開箱選題評估表、前 3 秒色香味雙軌 Hook、15/30/60 秒配時分鏡表（storyboard-and-timing.md）、跨鏡頭視覺連貫表（visual-continuity.md）、短影音配樂提示詞（music-prompt.md）與驗收測試表（共 14 檔完整結構）",
-        "fields": [
-          "這支餐飲／零售短影音要切入哪種選題？（如：午後喝咖啡怕失眠痛點、企業送禮茶水間實測、下班 6 分鐘覆熱開箱或主廚備料揭秘）",
-          "前 3 秒要拍什麼「高食慾動態特寫動作（ASMR 聲音＋畫面）」搭配哪一句 18 字內的開頭反問？",
-          "中段要展示哪些門市或商品真實證據（B-roll）？跨鏡頭視覺連貫（visual-continuity）與片尾單一領券／購買 CTA 為何？"
-        ],
-        "quiz": "拍餐廳短影音時，第一鏡先拍店門口招牌 4 秒，接著店員站著背誦菜單價格 20 秒，為什麼觀看留存率不到 10%？",
-        "answer": "因為前 3 秒缺乏「感官動態鉤子」且畫面毫無視覺連貫變化！v1.3.0 餐飲零售旗艦版強調：0–3 秒必須直接從最具食慾的動態特寫切入（如：熱水沖入咖啡粉層膨脹、剪開調理包肉汁湧出、琥珀茶湯注入冰杯），並透過 `visual-continuity.md` 控制光線色溫與動作銜接、搭配 `music-prompt.md` 節奏點切鏡。",
-        "steps": [
-          "讀取 START_HERE.md 與 references/food-retail.md：對齊餐飲門市導流或零售商品帶貨目標，選擇逐步引導或直接產出模式。",
-          "參照 references/topics-and-hooks.md：從「用餐痛點診斷、挑選迷思破除、後廚／產地製程揭秘、錯誤 vs 正確覆熱對比」選出最佳切角，設計 3 組前 3 秒「動態美食特寫＋痛點首句」雙軌 Hook。",
-          "參照 references/storyboard-and-timing.md 與 references/sample-script.md：精算每秒 3.8–4.2 字口播台詞，規劃 0-3s 鉤子 → 3-10s 痛點 → 10-23s 真實備料／檢驗證據 → 23-30s 單一領券 CTA。",
-          "套用 v1.3.0 新增之 references/visual-continuity.md 與 references/music-prompt.md：鎖定跨鏡食物色溫、器皿位置連貫性與 BGM 節拍切鏡點。",
-          "執行 references/acceptance-tests.md 與 references/food-retail-contract.md 雙重驗收：確保無誇大療效、價格效期正確且前 3 秒留存誘因明確。"
-        ],
-        "manual": "---\nname: plan-short-video-topics-and-stories\nversion: 1.3.0\ndescription: 32｜短影音主題選題及敘事 v1.3.0（2026-11-17 餐飲零售產業增強 14 檔完整版）；新增 food-retail.md、food-retail-contract.md、visual-continuity.md、music-prompt.md 與 LICENSE.md。\n---\n\n# 32｜短影音主題選題及敘事 v1.3.0（餐飲零售增強旗艦版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.3.0。包含 14 個完整知識與範本檔案，專為餐飲探店、門市離峰引流、伴手禮開箱與食品零售帶貨打造。\n\n## 專屬流程（v1.3.0 六步引導工作流）\n1. 讀取 `START_HERE.md` 與 `references/food-retail.md` 鎖定餐飲零售轉換目標。\n2. 依 `references/topics-and-hooks.md` 設計三組前 3 秒「視覺食慾特寫＋聽覺反問」雙軌 Hook。\n3. 依 `references/storyboard-and-timing.md` 建立秒級配時分鏡表（每秒約 3.8–4.2 字）。\n4. 依 `references/visual-continuity.md` 規劃跨鏡頭光線、餐具與動作連貫錨點。\n5. 依 `references/music-prompt.md` 配置襯底節奏與環境音效（Foley ASMR）。\n6. 依 `references/acceptance-tests.md` 與 `references/food-retail-contract.md` 完成完稿驗收。\n"
-      },
-      {
-        "slug": "tony-proposal-visual-director-v1.1.0",
-        "versionTag": "1.1.0",
-        "name": "TONY 提案級品牌視覺與廣告 Mockup 導演 v1.1.0（餐飲零售增強版）",
-        "roleBadge": "SKILL 06-F｜提案視覺與門市 Mockup v1.1.0",
-        "deliver": "餐飲零售三案視覺比稿表、主視覺固定錨點、三大線上線下版位規格（IG 4:5 促購圖／電商 16:9 橫幅／門市 A 字立牌與外帶包裝 Mockup）及共用交接契約檢核表（food-retail.md）",
-        "fields": [
-          "目前具備哪些品牌標準色、器皿包裝材質（如：陶瓷杯、牛皮紙耳掛盒、雙層茶禮盒、植纖便當盒）與官方 Logo 使用規範？",
-          "本次檔期視覺預計同步展開於哪三種餐飲零售版位？（如：IG 4:5 垂直廣告、LINE 圖文選單／官網 Banner、門市門口立牌或櫃檯桌卡）",
-          "各版位需要預留多少安全留白區供後製壓上「檔期優惠價、供應時段與食安產地標示」？"
-        ],
-        "quiz": "用 AI 生成一張「店門口大排長龍買咖啡」的合成照放在外送平台當首圖，能有效提升信任感嗎？",
-        "answer": "不能，反而構成欺罔與廣告不實風險！v1.1.0 餐飲零售版嚴格規範：門市陳列與戶外立牌 Mockup 僅用於呈現「版位設計與材質光影示意」，嚴禁偽造虛假排隊人潮、假名人到店合照或未實際獲得之美食評鑑獎章。",
-        "steps": [
-          "盤點餐飲零售視覺資產與共用交接契約（讀取 references/food-retail-contract.md）：確認標準色票、容器包裝外觀、供應時段與法定標示文字。",
-          "依 references/food-retail.md 提出三個具差異化的檔期視覺方向（如：職人手沖光影風、當代節慶禮數風、溫暖家庭餐桌風）。",
-          "鎖定單一方向建立主視覺色溫與材質固定錨點，分別獨立構圖「社群 4:5 廣告」、「官網／商城 16:9 橫幅」與「實體門市 POP 立牌／外帶包裝 Mockup」。",
-          "逐張指定安全留白區（Safe Zone）、器物真實人體工學比例與無字乾淨貼標平面（供後製置入 100% 精準官方 Logo 與價格標示）。",
-          "核對跨版位系列一致性，明確區分「提案概念 Mockup」與「印刷廠 CMYK 出血刀模完稿」。"
-        ],
-        "manual": "---\nname: tony-proposal-visual-director\nversion: 1.1.0\ndescription: TONY 提案級品牌視覺與廣告 Mockup 導演 v1.1.0（2026-11-17 餐飲零售產業增強版）；新增門市 POP 立牌、桌卡、外帶杯袖與禮盒包裝版位規範（food-retail.md & food-retail-contract.md）。\n---\n\n# TONY 提案級品牌視覺與廣告 Mockup 導演 v1.1.0（餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.1.0。不以 AI 近似亂碼冒充官方商標；不偽造排隊人潮或假評鑑標章；明確區分提案概念圖與正式印刷刀模檔。\n\n## 專屬流程\n1. 盤點容器包裝、標準色票與活動交接契約（`references/food-retail-contract.md`）。\n2. 提出三案餐飲零售檔期視覺策略比稿（`references/food-retail.md`）。\n3. 鎖定主視覺錨點並展開社群、官網與門市實體 POP 三大版位。\n4. 輸出逐張中英對照生圖提示詞與後製壓字／貼標安全座標。\n5. 完成系列一致性與印刷交接驗收。\n"
+        "manual": "---\nname: create-product-photography\ndescription: 商品攝影產生器 v1.1.0（TONY 餐飲零售產業增強版）；當使用者需要餐飲美食商攝、飲品冰珠與熱氣光影表現、伴手禮與零售包裝商業攝影企劃、多版位構圖與無字乾淨貼標生圖提示詞時使用。\n---\n\n# 商品攝影產生器 v1.1.0（create-product-photography｜餐飲零售增強版）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.1.0（2026-11-17 餐飲零售增強包）。提供 A 示範、B 逐步實作、C 直接製作、D 檢核修訂、E 使用說明五種模式。\n區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。嚴格遵守《食品安全衛生管理法》與公平交易原則：不得將食品份量誇大造假誤導消費者；調理包或生鮮食材之盛盤情境圖須提醒加註「調理參考」；包裝正面與杯袖一律預留無字乾淨貼標區，嚴禁以 AI 亂碼字冒充官方商標或法定營養標示。\n\n## 專屬流程\n1. 對齊餐飲零售活動交接契約（讀取 [共用活動交接契約](references/food-retail-contract.md)）：確認主推商品 SKU、包裝載體、標準色票與法定標示項目。\n2. 規劃垂涎感商攝光學設定（讀取 [餐飲零售商攝指引](references/food-retail.md)）：\n   - **光位設計**：利用 135° 側逆光（Back-side Rim Light）勾勒食物立體邊緣、蒸氣與醬汁光澤（Specular Highlight）。\n   - **視角選擇**：0° 平視呈現漢堡／千層／禮盒高度層次；45° 呈現餐桌主觀食慾感；90° 俯拍呈現套餐組合與禮盒開箱。\n3. 展開跨通路三版位構圖（1:1 外送／商城主圖、4:5 社群直式海報、16:9 官網橫幅安全留白）。\n4. 輸出結構化中英對照商品攝影提示詞包與負面排除詞。\n5. 執行食慾感、實品一致性與後製貼標座標驗收。\n\n## 交付與驗收\n交付：1. 商品攝影光影與構圖企劃表、2. 三版位中英對照商攝生圖 Prompt 包、3. 包裝無字貼標與壓字留白座標指南、4. 餐飲零售實品相符與合規驗收表。\n\n搭配檔案：`SKILL.md`、`agents/openai.yaml`、`assets/icon.svg`、`references/food-retail.md`、`references/food-retail-contract.md`。\n"
       },
       {
         "slug": "design-festival-greeting-cards",
         "versionTag": "1.0.0",
         "name": "節日賀卡與伴手禮祝賀卡設計導演 v1.0.0（餐飲零售增強版）",
-        "roleBadge": "SKILL 06-G｜節日賀卡設計導演 v1.0.0",
+        "roleBadge": "SKILL 06-C｜節日賀卡設計導演 v1.0.0",
         "deliver": "分眾節慶祝賀文案矩陣（VIP 企業客戶／長輩親友／熟客會員）、隨盒印刷祝賀小卡與腰封規格、LINE／IG 電子賀卡構圖表、圖文分離無字節慶底圖生圖 Prompt 包與印刷出血驗收表（festival-card-guide.md & food-retail-contract.md）",
         "fields": [
           "本次要設計哪一個節日或檔期的賀卡？（如：中秋團圓禮盒、農曆春節拜年、端午節、母親節感恩、週年慶熟客尊榮謝卡或生日禮券卡）",
@@ -2718,30 +2633,30 @@ const UNITS = [
     ],
     "samples": {
       "coffee": [
-        "・主推商品與標示：森日咖啡「午後瑞士水低咖啡因手沖（NT$160）」＋「半山焙茶拿鐵（NT$150）」與「晨光濾掛禮盒（10入 NT$480，標示生豆原產地與瑞士水處理批次）」。",
-        "・消費場景與雙觸點：鎖定平日 14:00–16:30 周邊自由工作者「想喝咖啡進入專注狀態、又怕晚上失眠」場景；以 IG 4:5 垂涎商攝圖＋30秒手沖蒸氣短影音破圈，接力至 LINE 官方帳號領取「平日午後雙杯 85 折體驗券」到店核銷。",
-        "・食慾細節與合規紅線：側逆光特寫手沖粉層膨脹與溫潤陶瓷杯蒸氣（預留無字杯袖供後製貼 Logo）；旁白鎖定「半山焙（ㄅㄟˋ）茶」正確讀音；嚴守食安法絕不宣稱治療失眠或抗焦慮療效。"
+        "・節慶檔期與商品三角：森日咖啡「歲末冬日暖陽禮盒檔期」—— 引流款（4入嚐鮮包 $199）× 主打 Hero SKU（晨光低咖啡因雙層禮盒 $780）× 加購款（溫度貼紙＋分享杯 $299）。",
+        "・毛利紅線與促銷機制：禮盒食材＋包材成本 $265，拒絕全館直接打折破價；改採「早鳥滿 3 盒贈門市雙人手沖招待券」與「企業滿 30 盒 88 折免費客製署名小卡」，守住實質毛利率 ≥55%。",
+        "・商攝與隨盒賀卡交接：以 06-B 拍攝暖陽側逆光手沖蒸氣與無字牛皮紙盒主視覺，再以 06-C 印製正面歲末暖心祝賀、背面 90°C 沖泡叮嚀之 A6 棉卡。"
       ],
       "tea": [
-        "・主推商品與標示：海岸茶室「山海雙層灰卡茶禮盒（NT$1,280）」與「琥珀冷泡茶體驗組（附坪林包種、鹿谷凍頂、魚池紅玉 3 款試飲包，具台灣產地溯源編號與 SGS 無農藥殘留報告）」。",
-        "・消費場景與雙觸點：鎖定節慶前夕企業福委與公關「怕送禮踩雷被堆在茶水間」痛點；以 FB／IG 雙欄挑選指南與冷泡茶湯商攝主圖吸引詢問，接力至 LINE 專人禮盒顧問申請企業試飲包。",
-        "・食慾細節與合規紅線：微距穿透光拍攝玻璃瓶身冷凝水珠與清澈金黃茶湯，禮盒宣紙腰封預留乾淨無字貼標區；嚴禁宣稱降三高或排毒減脂療效。"
+        "・節慶檔期與商品三角：海岸茶室「中秋企業茶禮早鳥戰役」—— 引流款（企業 3 款風味試飲盒 $150 可折抵）× 主打 Hero SKU（山海雙層灰卡茶禮盒 $1,280）× 旗艦款（青瓷茶海木盒組 $2,280）。",
+        "・毛利紅線與促銷機制：採「T-30 早鳥滿 10 盒贈 1 盒同款」維持單盒牌價體面，並附贈節後回購冷泡補充包 $100 折價券。",
+        "・商攝與隨盒賀卡交接：以 06-B 微距穿透光呈現琥珀冷泡茶湯與冰珠，搭配 06-C 宣紙燙金中秋企業署名賀卡與產地溯源章。"
       ],
       "bistro": [
-        "・主推商品與標示：禾味日常「剝皮辣椒舒肥雞炊飯便當（門市 NT$135）」與「居家常備真空冷凍調理包組（5包入 NT$620，明確標示台灣國產雞肉溯源、保存溫層 -18°C 與大豆／麩質過敏原）」。",
-        "・消費場景與雙觸點：鎖定下班族「晚上八點回家不想開火、又怕超商微波便當乾柴油膩」場景；以 30 秒「不拆袋隔水覆熱 6 分鐘還原堂食」短影音破圈，接力至 LINE 領取首購冷凍宅配免運券。",
-        "・食慾細節與合規紅線：45 度餐桌視角特寫舒肥雞胸粉嫩肉汁切面與粒粒分明紅蔥炊飯熱氣；冷凍包盛盤照加註「調理參考」，僅陳述實測蛋白質與鈉含量，絕不宣稱減肥瘦身療效。"
+        "・節慶檔期與商品三角：禾味日常「立冬＆年節免開火常備箱」—— 引流款（門市舒肥雞單包加購 $89）× 主打 Hero SKU（8 包暖胃常備箱 $1,180）× 湊免運款（手工黃金泡菜／剝皮辣椒罐 $180）。",
+        "・毛利紅線與促銷機制：透過加購品將客單價拉過 $1,350 冷凍免運門檻，避免 $190 低溫宅配費侵蝕毛利；早鳥贈品牌保冷袋。",
+        "・商攝與隨盒賀卡交接：06-B 拍攝舒肥雞粉嫩爆汁切面（加註調理參考），06-C 隨箱附上「6 分鐘沸水不拆袋覆熱步驟」溫馨家常賀卡。"
       ],
       "custom": [
-        "・主推餐飲菜品／零售商品名稱、售價、原產地與過敏原標示：",
-        "・目標用餐／購買場景與「公域吸客 → 私域／門市核銷」雙通路配置：",
-        "・最想呈現的色香味視覺／聽覺細節，以及食安法規絕對禁說紅線："
+        "・目標節慶檔期與「引流款 × 主打 Hero SKU × 湊單加購款」組合：",
+        "・成本結構、目標客單價（免運門檻）與不破價早鳥／滿贈機制：",
+        "・主打商品垂涎商攝重點、隨盒賀卡對象與最後截單日／食安標示規範："
       ]
     },
-    "quiz": "餐飲與食品零售品牌在使用 AI 生成文案、商品照與短影音腳本時，哪三條合規紅線絕對不能踩？",
-    "answer": "第一是「食安法醫療效能紅線」（一般食品嚴禁宣稱治失眠、消水腫、降三高、減肥排毒）；第二是「實品忠實度紅線」（AI 商攝不得誇大主菜份量造假，調理包盛盤須註明調理參考，且包裝商標與法定標示須由後製精準置入）；第三是「門市公播與廣告商用音樂授權紅線」。",
-    "example": "單元 06 完整整合 2026-11-17《TONY 餐飲零售產業增強更新包》8 組技能：可自由切換「06-F 商品攝影產生器 v1.1.0」、「06-A 議題策劃 v1.2.0」、「06-E 短影音選題敘事 v1.3.0」等模組，並共用 food-retail-contract.md 活動交接契約。",
-    "manual": "---\nname: tony-food-retail-enhancement-suite\nversion: 2026.11.17\ndescription: TONY 餐飲零售產業增強更新包整合單元（Unit 06）；包含商品攝影產生器 v1.1.0、全通路議題策劃 v1.2.0、AI 品牌知識架構師 v1.1.0、多品牌 RAG 教練 v1.1.0、品牌故事內容工廠 v1.1.0、32 短影音選題敘事 v1.3.0、提案級視覺導演 v1.1.0 與品牌聲音導演 v1.2.0 共八個完整技能包。\n---\n\n# TONY 單元 06｜餐飲零售產業增強更新包（8 組完整技能整合單元）\n\n- **更新日期**：2026-11-17\n- **核心架構**：包含八個完整技能包；各包保留原有檔案與通用流程，新增餐飲零售操作指引（`references/food-retail.md`）及共用活動交接契約（`references/food-retail-contract.md`）。\n- **使用方式**：您可於上方切換器點選任一子 Skill（06-A 至 06-H）單獨檢視手冊、切換工作台提示詞或直接下載個別 Skill ZIP。\n"
+    "quiz": "節慶檔期為了衝高營業額，直接推出「全館禮盒無條件 65 折＋免運費」是最好的促銷策略嗎？",
+    "answer": "絕對不是！盲目深折加上免運補貼極易讓實質毛利轉負，且會傷害原價購買熟客的信任。應透過 06-A 設計「引流×主打×加購」黃金三角拉高客單價跨越免運門檻，並以早鳥贈禮或企業滿盒階梯優惠守住品牌牌價與毛利紅線。",
+    "example": "單元 06 串聯餐飲零售節慶黃金三部曲：先用「06-A 節慶促銷與主打商品策劃師」算好 Hero SKU 組合與毛利，再用「06-B 商品攝影產生器」拍出垂涎主視覺，最後用「06-C 節日賀卡設計導演」完成隨盒祝賀小卡。",
+    "manual": "---\nname: tony-food-retail-festival-suite\nversion: 2.6.0\ndescription: TONY 餐飲零售節慶檔期三核實戰單元（Unit 06）；整合「餐飲零售節慶促銷與主打商品策劃師 v1.0.0」、「商品攝影產生器 v1.1.0」與「節日賀卡設計導演 v1.0.0」。\n---\n\n# TONY 單元 06｜餐飲零售節慶促銷 × 商品攝影 × 節日賀卡\n\n透過共用活動交接契約（`references/food-retail-contract.md`），從檔期組品與毛利試算、高食慾無字商攝到體面隨盒賀卡一氣呵成。\n"
   }
 ];
 
@@ -3149,7 +3064,7 @@ const SKILL_PRACTICAL_HANDBOOK_MAP = {
     ]
   },
   "design-festival-greeting-cards": {
-    badges: ["對應領航員：W6 餐飲零售增強坊", "對應指導員：06-G 節日賀卡設計導演 v1.0.0", "2026-11-17 更新版"],
+    badges: ["對應領航員：W6 餐飲零售節慶坊", "對應指導員：06-C 節日賀卡設計導演 v1.0.0", "餐飲零售實戰版"],
     positioning: "專為餐飲連鎖、咖啡烘焙與伴手禮門市打造的「節慶隨盒祝賀小卡 × LINE 電子賀卡設計導演」，兼顧送禮者的體面禮數（分眾得體賀詞）、食材賞味叮嚀與「無字節慶底圖 ＋ 後製精準排版」的高級印刷質感。",
     structureTitle: "二、餐飲零售節日賀卡四階段設計結構",
     tableHeaders: ["設計階段", "禮數與視覺重點", "印刷與品牌合規規範"],
@@ -3172,6 +3087,32 @@ const SKILL_PRACTICAL_HANDBOOK_MAP = {
       "祝賀文案已依「商務客戶 ／ 親友長輩 ／ 品牌熟客」分眾撰寫，語氣得體無忌諱詞且無硬廣叫賣感。",
       "已結合餐飲零售特性，於背面或副欄附上精確的沖泡／覆熱美味步驟與保存提醒。",
       "生圖提示詞已強制設定 45%–55% 無字乾淨壓字區，並明確標示實體印刷 3mm 出血與 CMYK 交接規範。"
+    ]
+  },
+  "tony-food-retail-festival-promo-planner": {
+    badges: ["對應領航員：W6 餐飲零售節慶坊", "對應指導員：06-A 節慶促銷與主打商品策劃師", "餐飲零售實戰版 v1.0.0"],
+    positioning: "專治餐飲與伴手禮門市「節慶只會打折流血戰、單品客單價拉不高、爆單做不出來」三大痛點，透過「引流×主打Hero×湊單加購」黃金三角組品與毛利紅線試算，打造賺得到錢又顧及品牌體面的檔期促銷方案。",
+    structureTitle: "二、餐飲零售節慶促銷與主打商品四階段結構",
+    tableHeaders: ["策劃階段", "商品與促銷重點", "財務毛利與合規護欄"],
+    tableRows: [
+      ["黃金三角組品 (Hero Matrix)", "配置引流體驗款、核心利潤主打款 (Hero SKU) 與高毛利湊單品", "主打款建議鎖定 1–2 款集中備料與曝光，避免款式過多造成庫存積壓"],
+      ["防破價促銷設計 (Promo Rule)", "善用早鳥升等、滿盒贈同款、企業試飲折抵與回購券取代深折", "嚴禁「先漲原價再打假折」；維持品牌牌價尊嚴，保障熟客信任"],
+      ["實質毛利試算 (Margin Gate)", "扣除食材、精裝禮盒包材、冷鏈／常溫運費補貼與通路抽成", "設定免運門檻高於平均客單價 15%–25%，用高毛利加購小品幫助顧客湊單"],
+      ["波段與產能截單 (Cut-off Plan)", "規劃 T-45 企業破冰 → T-30 早鳥 → T-14 現貨 → 節後回流", "明訂手工產能上限與繁盛期物流最後收單日，並簽發 food-retail-contract"]
+    ],
+    sopSteps: [
+      "提供預計操作的節慶／季節檔期、候選商品定價與概估成本（食材＋包材＋運費），選擇個人囤貨或企業送禮場景。",
+      "檢視 AI 依 `hero-product-architecture.md` 與 `promo-mechanics-and-margin.md` 產出的「黃金三角組合」與「毛利保本試算表」。",
+      "確認四波段預購截單日與食安標示後，將產出的 `food-retail-contract.md` 直接交接給 06-B 拍商攝、06-C 做隨盒賀卡。"
+    ],
+    starterTask: "請使用本 Skill（tony-food-retail-festival-promo-planner v1.0.0），為虛構品牌「森日咖啡」規劃「歲末冬日企業與熟客咖啡禮盒檔期」：請依序完成 1. 引流款×主打 Hero SKU×湊免運加購款黃金三角架構表、2. 不直接砍價的早鳥與企業團購階梯促銷方案及毛利紅線試算（含包材與運費考量）、3. 四波段預購與春節物流截單行事曆，以及 4. 交接給 06-B 商攝與 06-C 賀卡的共用活動契約：[貼上您的商品與價格構想]。",
+    refineTask: "請保留目前的主打禮盒組合，針對「冷凍／常溫宅配免運門檻與湊單加購設計」進行精修：假設單筆宅配運費成本為 NT$160，請幫我重新設計 2 款低備料負擔、高毛利的「NT$180–$299 結帳頁順手加購品」，確保顧客湊滿免運後品牌實質毛利率仍維持在 52% 以上。",
+    pitfallWrong: "「中秋節快到了，我們把定價 $800 的禮盒先偷改成 $1,200 再喊全館 5 折大放送，而且買一盒就免冷凍運費，保證接單接到手軟！」（涉及欺罔虛偽定價違法風險，且單盒免運直接把毛利吃光變成做白工）",
+    pitfallRight: "「維持山海茶禮盒 NT$1,280 官方誠實牌價，針對企業採購推出『150 元試飲盒全額折抵大單』破冰，早鳥期間享『滿 10 盒贈 1 盒＋免費客製企業署名祝賀小卡』，並明確公告繁盛期最後收單日，兼顧體面與實質獲利。」",
+    checklist: [
+      "已明確區分「引流款」、「主打利潤 Hero SKU」與「湊單加購款」各自的角色與價格帶。",
+      "促銷折扣已計入禮盒包材、贈品與宅配運費補貼成本，通過實質毛利保本檢核。",
+      "已明訂每日產能／限量組數、繁盛期最後出貨截單日與法定原產地／過敏原標示。"
     ]
   },
   "tony-enterprise-music-generator": {
@@ -3728,22 +3669,41 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "06": {
-    framework: "餐飲零售共用交接契約（food-retail-contract）× 垂涎商攝光學 × 門市到店核銷閉環",
-    leverage: "人腦把關「真實食材份量、產地過敏原與食安紅線」 ⇄ AI 串聯「8大餐飲零售增強 Skill 從檔期、商攝到探店短影音」",
-    why: "【破局命題】餐飲與門市零售同時面臨「離峰時段空桌率高、外送與電商商品圖不夠誘人、小編貼文誤觸食安法遭檢舉」三大營運痛點。\n・慣性盲點：各部門做各的——企劃推的檔期價格跟門市菜單對不上、AI 生成的食物圖誇大失真被客人負評「圖文不符」、或是隨手寫出「排毒消水腫／治失眠」觸犯食安法第 28 條。\n・第一性原理：以一份 `food-retail-contract.md` 共用活動交接契約貫穿全案，將「離峰與節慶場景地圖 → 食安知識庫 → 備料故事 → 垂涎商品攝影與立牌 Mockup → 前 3 秒色香味短影音與門市公播配音」鎖進同一條價值鏈。",
-    what: "【決策資產】一次交付 2026-11-17《TONY 餐飲零售產業增強更新包》8 大完整技能產出物。\n・共用契約防呆：統一主推 SKU、原產地、過敏原標示、供應時段與食安禁用詞。\n・垂涎商攝與探店影音：產出 `create-product-photography v1.1.0` 多視角美食商攝指令與 `plan-short-video-topics-and-stories v1.3.0` 視覺連貫短影音分鏡。",
-    how: "【人機閉環】簽署餐飲交接契約 → 離峰／節慶雙通路策劃 → 食安 SSOT 檢核 → 垂涎商攝與門市立牌展開 → 探店影音與到店核銷驗收。\n・人腦拍板：核定真實食材配比、原產地證明、門市可承受之核銷規則與公播版權。\n・AI 規模推演：依 06-A～06-H 八組增強版 Skill 一鍵產出跨部門標準交付包。\n・驗證閉環：追蹤 LINE 體驗券實際「到店核銷率」與門市加購客單價。",
+    framework: "節慶黃金三角組品（Hero SKU）× 毛利保本紅線 × 垂涎商攝與體面賀卡閉環",
+    leverage: "人腦拍板「成本毛利底線、產能上限與送禮分寸」 ⇄ AI 串聯「06-A 促銷組品 → 06-B 垂涎商攝 → 06-C 隨盒賀卡」",
+    why: "【破局命題】節慶檔期是餐飲與伴手禮零售全年營收爆發點，但缺乏組品邏輯與視覺禮數的設計，最容易演變成「打折流血戰、被運費吃光毛利、圖片不誘人」的白忙一場。\n・慣性盲點：全館無差別砍價傷透熟客心、沒算包材冷鏈運費導致賣越多虧越多，或禮盒打開只有塞一張俗氣促銷單。\n・第一性原理：以 `06-A` 先鎖定「引流×主打Hero×湊單加購」毛利結構與共用契約，再交由 `06-B` 渲染高食慾無字商攝主圖，最後用 `06-C` 附上正面體面祝福、背面賞味指南的隨盒賀卡促成回流。",
+    what: "【決策資產】一次交付「主打商品與毛利試算表 ＋ 共用活動交接契約 ＋ 多版位美食商攝 Prompt ＋ 正反面節日賀卡設計包」。",
+    how: "【人機閉環】黃金三角組品與毛利試算 → 早鳥波段與截單設定 → 135° 側逆光垂涎商攝 → 分眾隨盒賀卡與節後回購券閉環。",
     mermaid: `flowchart LR
-      A["1. 共用交接契約 (SKU・產地・過敏原・食安紅線)"] --> B["2. 檔期與食安知識庫 (06-A場景地圖×06-B/C)"]
-      B --> C["3. 五感故事與商品攝影 (06-D×06-F垂涎商攝×06-G立牌)"]
-      C --> D["4. 探店短影音與門市聲音 (06-E視覺連貫×06-H破音字)"]
-      D --> G{"食安合規與到店核銷驗收"}
-      G -.->|"圖文不符或核銷率低：回調契約與鉤子"| A
+      A["1. 節慶組品與毛利試算 (06-A 引流×Hero×湊單)"] --> G{"毛利紅線與產能閘門"}
+      G -->|"實質毛利達標"| B["2. 垂涎商品攝影生成 (06-B 側逆光×無字貼標)"]
+      B --> C["3. 分眾隨盒與電子賀卡 (06-C 正面禮數×背面賞味)"]
+      C --> D["4. 早鳥收單與節後回購核銷"]
+      G -.->|"被運費或深折吃光毛利：重調湊單門檻"| A
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,B,D step;
-      class C highlight;
+      class B,C,D step;
+      class A highlight;
+      class G gate;`
+  },
+  "06-promo": {
+    framework: "零售價格錨點心理學 × 黃金三角組品（Traffic・Hero・Add-on）× 貢獻毛利護欄",
+    leverage: "人腦核定「真實食材包材成本與每日產能上限」 ⇄ AI 推演「早鳥階梯機制、湊免運組合與四波段排程」",
+    why: "【破局命題】不看毛利結構的節慶促銷只是虛榮營收泡沫；真正厲害的檔期策劃是「不破牌價也能讓顧客覺得超值、主動湊高客單價」。\n・慣性盲點：單品打折打到見骨、低客單價卻硬做免運被物流費倒扣，或沒設最後收單日導致節前爆單延誤客訴。\n・第一性原理：用「引流款」帶進新客流量、靠「Hero SKU 禮盒／套餐」創造核心利潤、用「高毛利小單價加購品」幫顧客優雅跨過免運門檻。",
+    what: "【決策資產】交付 `tony-food-retail-festival-promo-planner` 黃金三角組品表、防破價毛利紅線試算表、四波段預購行事曆與 `food-retail-contract.md`。",
+    how: "【人機閉環】鎖定節慶送禮／自用場景 → 配置三層商品價格帶 → 扣除包材運費試算貢獻毛利 → 制定早鳥至截單波段並交接下游視覺。",
+    mermaid: `flowchart LR
+      A["1. 節慶場景定錨 (企業送禮 vs 家庭囤貨)"] --> B["2. 黃金三角組品 (引流×主打Hero×湊免運加購)"]
+      B --> G{"扣除包材運費毛利檢核"}
+      G -->|"守住毛利紅線"| C["3. 四波段預購與截單排程"]
+      C --> D["4. 簽發 food-retail-contract 交接商攝與賀卡"]
+      G -.->|"淨毛利過低：改贈高感知低成本禮或調門檻"| B
+      classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
+      classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
+      classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
+      class A,C,D step;
+      class B highlight;
       class G gate;`
   },
   "06-photo": {
@@ -3847,26 +3807,22 @@ function formatWwhRichHtml(rawText) {
 // 依 Skill Slug 精準映射預設顧問思維模型（即使在後台新增、排序或刪除子 Skill 也絕不錯位）
 const SLUG_TO_WWH_KEY = {
   "tony-omnichannel-issue-planner": "01-0",
-  "tony-omnichannel-issue-planner-v1.2.0": "01-0",
   "tony-issue-story-social-editor": "01-1",
   "tony-news-issue-visual-director": "01-2",
   "tony-multi-brand-rag-coach": "02-0",
   "tony-ai-brand-knowledge-architect": "02-1",
-  "tony-ai-brand-knowledge-architect-v1.1.0": "02-1",
   "tony-brand-content-factory": "03-0",
-  "tony-brand-content-factory-v1.1.0": "03-0",
   "design-virtual-brand-spokespeople": "03-1",
   "design-brand-mascots": "03-2",
   "design-line-stickers": "03-3",
+  "tony-food-retail-festival-promo-planner": "06-promo",
   "create-product-photography": "06-photo",
   "design-festival-greeting-cards": "06-card",
   "tony-proposal-visual-director": "04-0",
-  "tony-proposal-visual-director-v1.1.0": "04-0",
   "h28-mockup": "04-1",
   "tony-ai-gif-motion-director": "04-2",
   "tony-brand-audio-director": "05-0",
   "plan-short-video-topics-and-stories": "05-1",
-  "plan-short-video-topics-and-stories-v1.3.0": "05-1",
   "tony-enterprise-music-generator": "05-2"
 };
 
@@ -5066,15 +5022,16 @@ rights_and_qa_status:
         { name: `${baseFolder}/references/food-retail-contract.md`, content: sharedFoodRetailContractMd },
         { name: `${baseFolder}/references/food-retail.md`, content: sharedFoodRetailGuideMd }
       ];
-      if (baseFolder === 'tony-omnichannel-issue-planner') {
-        entries.push({ name: `${baseFolder}/references/scenario-map.md`, content: '# 餐飲零售四大黃金營收場景地圖（scenario-map.md）\n- 場景 1：平日午後離峰填補（14:00-17:00）\n- 場景 2：午間商務外帶與預訂自取提袋率\n- 場景 3：節慶企業伴手禮早鳥大宗採購\n- 場景 4：門市堂食轉化冷凍常備調理包回購\n' });
-      }
-      if (baseFolder === 'plan-short-video-topics-and-stories') {
+      if (baseFolder === 'tony-food-retail-festival-promo-planner') {
         entries.push(
-          { name: `${baseFolder}/START_HERE.md`, content: '# START_HERE｜32 短影音主題選題及敘事 v1.3.0（餐飲零售增強版）\n請先對齊 food-retail-contract.md，再選擇 A 示範或 B 逐步引導模式。\n' },
-          { name: `${baseFolder}/LICENSE.md`, content: '© 2026 TONY Studio（TONY 楊文澤老師）. 教學與商業實戰授權版。\n' },
-          { name: `${baseFolder}/references/visual-continuity.md`, content: '# 跨鏡頭視覺連貫指南（visual-continuity.md）\n鎖定食物色溫（3200K-4500K 暖食慾光）、器皿位置與手部動作方向，確保切鏡流暢不跳戲。\n' },
-          { name: `${baseFolder}/references/music-prompt.md`, content: '# 餐飲短影音配樂與 ASMR 音效提示詞指南（music-prompt.md）\n結合手沖水聲、酥脆切聲等自然 Foley 音效，搭配 80-96 BPM 輕快木質襯底音樂並預留人聲中頻。\n' }
+          {
+            name: `${baseFolder}/references/hero-product-architecture.md`,
+            content: '# 餐飲零售主打商品黃金三角組品指南（hero-product-architecture.md）\n\n1. **引流破冰款（Traffic Builder｜佔比約 15-20%）**：低決策門檻之試飲包、單人嚐鮮組或門市自取體驗價，任務是獲取新名單與試吃信任。\n2. **核心利潤主打款（Hero SKU｜佔比約 60%）**：具高禮數體面感或家庭剛需之主力禮盒／常備箱，集中 70% 行銷與商攝資源打透。\n3. **高毛利湊單加購款（AOV Booster｜佔比約 20-25%）**：定價 NT$150–$299 之常溫醬料、濾掛小包、茶食點心或品牌器皿，幫助顧客輕鬆跨過免運門檻並拉升整體毛利率。\n'
+          },
+          {
+            name: `${baseFolder}/references/promo-mechanics-and-margin.md`,
+            content: '# 防破價促銷機制與毛利紅線試算規範（promo-mechanics-and-margin.md）\n\n## 一、實質貢獻毛利試算公式\n`實質貢獻毛利 ＝ 促銷實收淨額 − 食材原物料成本 − 禮盒包材與提袋小卡成本 − 運費補貼（常溫/冷凍） − 贈品邊際成本 − 金流與平台抽成`\n\n## 二、四大不傷牌價促銷設計\n- **早鳥價值升等**：早鳥期間預訂享免費升級禮盒腰封、加贈門市兌換券或新品試吃包，維持禮盒原牌價。\n- **企業大宗階梯滿贈**：如「滿 10 盒贈 1 盒同款（等效 90.9 折）」，優於直接標示低折數。\n- **試飲／試吃費折抵大單**：B2B 採購申請試飲盒之費用，於正式下單滿額時 100% 折抵。\n- **節後回流鎖客券**：隨盒賀卡附上節後離峰月份可用之回購折抵金，將送禮流量轉化為自有會員。\n'
+          }
         );
       }
       if (baseFolder === 'design-festival-greeting-cards') {
@@ -5087,7 +5044,7 @@ rights_and_qa_status:
     });
     // 確保 create-product-photography 手冊也註冊於 SKILL_PRACTICAL_HANDBOOK_MAP
     SKILL_PRACTICAL_HANDBOOK_MAP["create-product-photography"] = {
-      badges: ["對應領航員：W6 餐飲零售增強坊", "對應指導員：06-F 商品攝影產生器 v1.1.0", "2026-11-17 更新版"],
+      badges: ["對應領航員：W6 餐飲零售節慶坊", "對應指導員：06-B 商品攝影產生器 v1.1.0", "2026-11-17 更新版"],
       positioning: "專為餐飲美食、手搖咖啡飲品、伴手禮盒與生鮮調理包打造的商業攝影企劃與生圖提示詞產生器，精準控制「135° 側逆光蒸氣與水珠」、「45° 餐桌主觀食慾視角」與「無字乾淨貼標平面」。",
       structureTitle: "二、餐飲零售商品攝影四階段結構",
       tableHeaders: ["攝影階段", "光學與構圖重點", "食安與實品忠實規範"],
@@ -5179,25 +5136,8 @@ function copyTextToClipboard(text, successMsg = '已複製到剪貼簿 ✓') {
     document.body.removeChild(ta);
   };
 
-  try {
-    const ta = document.createElement('textarea');
-    ta.value = str;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.top = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    const ok = document.execCommand('copy');
-    document.body.removeChild(ta);
-    if (ok) {
-      toast(successMsg);
-      return;
-    }
-  } catch (err) {
-    // 繼續嘗試 clipboard API
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(str).then(() => toast(successMsg)).catch(fallbackCopy);
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(str).then(() => toast(successMsg)).catch(() => fallbackCopy());
   } else {
     fallbackCopy();
   }
@@ -5218,14 +5158,38 @@ function download(name, content, type = 'text/plain;charset=utf-8') {
   }, 60000);
 }
 
-// 取得筆記儲存鍵值（維持主模組相容，子模組各自擁有獨立儲存槽）
+// 取得筆記儲存鍵值（同時向下相容既有會員雲端 `${brand}-${unitId}` 與新版格式）
+function migrateLegacyWorkspaceKeys(targetState) {
+  if (!targetState || typeof targetState !== 'object') return;
+  if (targetState.notes && typeof targetState.notes === 'object') {
+    Object.keys(targetState.notes).forEach(k => {
+      if (k.includes('__')) {
+        const normalized = k.replace('__sub', '-s').replace('__', '-');
+        if (!targetState.notes[normalized]) {
+          targetState.notes[normalized] = targetState.notes[k];
+        }
+      }
+    });
+  }
+  if (targetState.done && typeof targetState.done === 'object') {
+    Object.keys(targetState.done).forEach(k => {
+      if (k.includes('__')) {
+        const normalized = k.replace('__', '-');
+        if (targetState.done[normalized] === undefined) {
+          targetState.done[normalized] = targetState.done[k];
+        }
+      }
+    });
+  }
+}
+
 function key(unitId, subIdx = 0) {
-  if (!subIdx || subIdx === 0) return `${state.brand}__${unitId}`;
-  return `${state.brand}__${unitId}__sub${subIdx}`;
+  if (!subIdx || subIdx === 0) return `${state.brand}-${unitId}`;
+  return `${state.brand}-${unitId}-s${subIdx}`;
 }
 
 function doneKey(unitId) {
-  return `${state.brand}__${unitId}`;
+  return `${state.brand}-${unitId}`;
 }
 
 function valid(obj) {
@@ -5238,6 +5202,7 @@ function loadLocalState() {
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (valid(parsed)) {
+      migrateLegacyWorkspaceKeys(parsed);
       state = {
         version: 1,
         brand: parsed.brand || 'coffee',
@@ -5251,7 +5216,7 @@ function loadLocalState() {
   }
 }
 
-let syncCloudFn = null;
+window.syncCloudFn = window.syncCloudFn || null;
 function save(triggerCloud = true) {
   lastLocalEditTime = Date.now();
   try {
@@ -5263,9 +5228,9 @@ function save(triggerCloud = true) {
   if (statusEl) {
     statusEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-teal"></span><span>已自動保存（${new Date().toLocaleTimeString('zh-TW', { hour12: false })}）</span>`;
   }
-  if (triggerCloud && typeof syncCloudFn === 'function') {
+  if (triggerCloud && typeof window.syncCloudFn === 'function') {
     clearTimeout(timer);
-    timer = setTimeout(() => syncCloudFn(), 450);
+    timer = setTimeout(() => window.syncCloudFn(), 450);
   }
 }
 
@@ -5286,7 +5251,7 @@ function getUniqueCompletedUnitsCount(doneMap) {
   const completedSet = new Set();
   Object.keys(doneMap).forEach(k => {
     if (!doneMap[k]) return;
-    const parts = k.split('__');
+    const parts = k.includes('__') ? k.split('__') : k.split('-');
     const uid = parts.length > 1 ? parts[1] : parts[0];
     if (UNITS.some(u => u.id === uid)) completedSet.add(uid);
   });
@@ -5385,17 +5350,17 @@ function renderHeroMap() {
     const isDone = !!state.done[doneKey(u.id)];
     const skillCount = (Array.isArray(u.extraSkills) && u.extraSkills.length > 0) ? u.extraSkills.length : 1;
     return `
-      <button type="button" data-jump-unit="${esc(u.id)}" class="w-full py-3.5 px-2 flex items-center justify-between gap-3 text-left hover:bg-white/10 rounded-xl transition-all group">
+      <button type="button" data-jump-unit="${esc(u.id)}" class="w-full py-2.5 px-2.5 flex items-center justify-between gap-3 text-left hover:bg-white/10 rounded-xl transition-all group">
         <div class="flex items-center gap-3 min-w-0">
-          <span class="w-8 h-8 rounded-lg ${isDone ? 'bg-lime text-ink' : 'bg-white/15 text-lime'} font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
+          <span class="w-7 h-7 rounded-lg ${isDone ? 'bg-lime text-ink' : 'bg-white/15 text-lime'} font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
             ${isDone ? '✓' : esc(u.id)}
           </span>
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <strong class="text-sm font-bold text-white truncate group-hover:text-lime transition-colors">${esc(u.shortLabel || u.title)}</strong>
-              <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-lime/90 font-semibold shrink-0">${skillCount} Skill</span>
+              <strong class="text-xs sm:text-sm font-bold text-white truncate group-hover:text-lime transition-colors">${esc(u.shortLabel || u.title)}</strong>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-lime/90 font-semibold shrink-0">${skillCount} 組</span>
             </div>
-            <span class="text-xs text-white/75 block truncate">${esc(u.promise || u.desc)}</span>
+            <span class="text-[11px] text-white/70 block truncate">${esc(u.promise || u.desc)}</span>
           </div>
         </div>
         <span class="text-xs text-lime opacity-80 group-hover:translate-x-1 transition-transform shrink-0">→</span>
@@ -5423,7 +5388,7 @@ function renderCards() {
 
   if (!filtered.length) {
     container.innerHTML = `
-      <div class="md:col-span-2 bg-white rounded-2xl p-10 border border-line text-center space-y-3">
+      <div class="lg:col-span-2 bg-white rounded-2xl p-10 border border-line text-center space-y-2">
         <p class="text-base font-bold text-ink">找不到符合篩選條件的課程單元</p>
         <p class="text-xs text-muted">請嘗試清除搜尋關鍵字或切換完成狀態篩選。</p>
       </div>
@@ -5437,32 +5402,39 @@ function renderCards() {
 
     const skillsBlockHtml = hasExtra
       ? `
-        <div class="mt-4 pt-4 border-t border-line space-y-2.5">
+        <div class="mt-5 pt-4 border-t border-line space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-teal uppercase tracking-wider">📦 本單元內含 ${u.extraSkills.length} 組原創 Skill 模組</span>
-            <span class="text-[11px] text-muted">可獨立檢視手冊或下載 ZIP</span>
+            <span class="text-[11px] font-extrabold text-teal uppercase tracking-wider">內含 ${u.extraSkills.length} 組協作 Skill</span>
+            <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="0" class="text-[11px] font-extrabold text-ink hover:text-teal transition-colors">
+              進入本單元工作台 →
+            </button>
           </div>
-          <div class="space-y-2">
-            ${u.extraSkills.map((es, idx) => `
-              <div class="p-3 rounded-xl bg-paper border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                <div class="min-w-0">
-                  <span class="inline-block px-2 py-0.5 rounded bg-teal/10 text-teal text-[10px] font-extrabold mb-0.5">${esc(es.roleBadge || `SKILL ${u.id}-${idx + 1}`)}</span>
-                  <strong class="text-xs sm:text-sm font-bold text-ink block truncate">${esc(es.name)}</strong>
-                  <code class="text-[10px] text-muted font-mono block truncate">${esc(es.slug)}.zip</code>
+          <div class="divide-y divide-line/70 rounded-2xl border border-line bg-paper/70 overflow-hidden">
+            ${u.extraSkills.map((es, idx) => {
+              const shortBadge = (es.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + idx)}`).split('｜')[0];
+              return `
+                <div class="px-3.5 py-2.5 flex items-center justify-between gap-3 hover:bg-white transition-colors">
+                  <div class="min-w-0 flex items-center gap-2.5">
+                    <span class="px-2 py-0.5 rounded-md bg-teal/10 text-teal font-mono text-[10px] font-extrabold shrink-0">${esc(shortBadge.replace('SKILL ', ''))}</span>
+                    <div class="min-w-0">
+                      <strong class="text-xs sm:text-[13px] font-bold text-ink block truncate" title="${esc(es.name)}">${esc(es.name)}</strong>
+                      <code class="text-[10px] text-muted font-mono block truncate">${esc(es.slug)}</code>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2.5 py-1 rounded-lg bg-white border border-line hover:border-teal text-ink text-[11px] font-bold transition-colors">
+                      手冊
+                    </button>
+                    <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-[11px] font-bold transition-colors">
+                      ZIP ↓
+                    </button>
+                    <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="${idx}" class="px-2.5 py-1 rounded-lg bg-lime text-ink hover:bg-lime-dark text-[11px] font-extrabold transition-colors">
+                      實作
+                    </button>
+                  </div>
                 </div>
-                <div class="flex items-center gap-1.5 shrink-0">
-                  <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2.5 py-1.5 rounded-lg bg-white border border-line hover:border-teal text-ink text-xs font-bold transition-colors">
-                    使用手冊
-                  </button>
-                  <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1.5 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold transition-colors">
-                    下載 Skill ↓
-                  </button>
-                  <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="${idx}" class="px-2.5 py-1.5 rounded-lg bg-lime text-ink hover:bg-lime-dark text-xs font-extrabold transition-colors">
-                    實作 →
-                  </button>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
       `
@@ -5473,31 +5445,31 @@ function renderCards() {
               📖 使用手冊
             </button>
             <button type="button" data-download-zip="${esc(u.slug)}" data-unit-id="${esc(u.id)}" class="px-3.5 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-bold transition-colors">
-              下載 Skill ↓
+              下載 ZIP ↓
             </button>
           </div>
           <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="0" class="px-4 py-2 rounded-xl bg-lime text-ink hover:bg-lime-dark text-xs font-extrabold transition-colors">
-            進入工作台實作 →
+            進入實作 →
           </button>
         </div>
       `;
 
     return `
-      <article class="bg-white rounded-3xl p-6 sm:p-7 border ${isDone ? 'border-teal ring-1 ring-teal/20' : 'border-line'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+      <article class="bg-white rounded-3xl p-6 sm:p-7 border ${isDone ? 'border-teal ring-1 ring-teal/20' : 'border-line'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-full">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-ink text-lime font-mono text-xs font-extrabold">UNIT ${esc(u.id)}</span>
-              <span class="px-2.5 py-1 rounded-full bg-teal/10 text-teal text-[11px] font-extrabold tracking-wider uppercase">${esc(u.tag)}</span>
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="px-2.5 py-1 rounded-lg bg-ink text-lime font-mono text-xs font-extrabold shrink-0">UNIT ${esc(u.id)}</span>
+              <span class="px-2.5 py-1 rounded-full bg-teal/10 text-teal text-[10px] font-extrabold tracking-wider uppercase truncate">${esc(u.tag)}</span>
             </div>
-            <span class="text-xs font-bold ${isDone ? 'text-teal bg-teal/10 px-2.5 py-1 rounded-full' : 'text-muted'}">
-              ${isDone ? '✓ 已完成實作' : '待完成'}
+            <span class="text-[11px] font-extrabold shrink-0 ${isDone ? 'text-teal bg-teal/10 px-2.5 py-1 rounded-full' : 'text-muted'}">
+              ${isDone ? '✓ 已完成' : '待完成'}
             </span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-ink leading-snug">${esc(u.title)}</h3>
+          <h3 class="text-lg sm:text-xl font-black text-ink leading-snug">${esc(u.title)}</h3>
           <p class="text-xs sm:text-sm text-muted mt-2 leading-relaxed">${esc(u.desc)}</p>
-          <div class="mt-3 p-3 rounded-xl bg-paper/80 border border-line/70 text-xs text-ink">
-            <strong class="text-teal font-bold">預計帶走成果：</strong>${esc(u.deliver)}
+          <div class="mt-3.5 px-3.5 py-2.5 rounded-xl bg-paper/80 border border-line/70 text-xs text-ink leading-relaxed">
+            <strong class="text-teal font-extrabold">核心交付：</strong>${esc(u.deliver)}
           </div>
         </div>
         ${skillsBlockHtml}
@@ -5587,41 +5559,43 @@ function renderWork() {
   if ($('#modeSelect')) $('#modeSelect').value = currentMode;
   if ($('#caseNote')) $('#caseNote').textContent = u.example || u.desc || '';
 
-  if ($('#workTag')) $('#workTag').textContent = u.tag || 'WORKFLOW';
+  if ($('#workTag')) $('#workTag').textContent = meta.sub ? (meta.sub.roleBadge || u.tag) : (u.tag || 'WORKFLOW');
   if ($('#workTitle')) $('#workTitle').textContent = `${u.id} / ${meta.name}`;
-  if ($('#taskOutput')) $('#taskOutput').textContent = `預計交付成果：${meta.deliver}`;
-
-  // 子 Skill 切換器渲染
+  if ($('#taskOutput')) $('#taskOutput').textContent = `核心交付成果：${meta.deliver}`;
+  // 子 Skill 切換器渲染（對齊工整的膠囊卡片網格）
   const switcherBox = $('#subSkillSwitcherBox');
   const switcherBtns = $('#subSkillButtons');
   if (switcherBox && switcherBtns) {
     if (meta.hasExtra) {
       switcherBox.classList.remove('hidden');
       const colsCls = u.extraSkills.length === 2
-        ? 'grid-cols-1 md:grid-cols-2'
+        ? 'grid-cols-1 sm:grid-cols-2'
         : u.extraSkills.length === 4
-        ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+        ? 'grid-cols-1 sm:grid-cols-2'
         : 'grid-cols-1 md:grid-cols-3';
       switcherBtns.className = `grid ${colsCls} gap-2.5`;
       switcherBtns.innerHTML = u.extraSkills.map((es, idx) => {
         const isSel = idx === meta.subIdx;
         return `
-          <div class="p-3 rounded-xl border transition-all flex flex-col justify-between gap-2 ${
-            isSel ? 'bg-white border-teal ring-2 ring-teal/20 shadow-sm' : 'bg-white/60 border-line hover:bg-white'
+          <div class="p-3.5 rounded-xl border transition-all flex flex-col justify-between gap-2.5 ${
+            isSel ? 'bg-white border-teal ring-2 ring-teal/20 shadow-sm' : 'bg-white/70 border-line hover:bg-white'
           }">
-            <button type="button" data-switch-sub="${idx}" class="text-left">
-              <span class="inline-block px-2 py-0.5 rounded text-[10px] font-extrabold ${
-                isSel ? 'bg-teal text-white' : 'bg-paper text-muted'
-              } mb-1">${esc(es.roleBadge || `SKILL ${u.id}-${idx + 1}`)}</span>
+            <button type="button" data-switch-sub="${idx}" class="text-left w-full">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                  isSel ? 'bg-teal text-white' : 'bg-paper text-teal'
+                }">${esc(es.roleBadge || `SKILL ${u.id}-${idx + 1}`)}</span>
+                ${isSel ? '<span class="text-[10px] font-extrabold text-teal">● 使用中</span>' : ''}
+              </div>
               <strong class="text-xs sm:text-sm font-extrabold text-ink block leading-snug">${esc(es.name)}</strong>
               <code class="text-[10px] text-muted font-mono block truncate mt-0.5">${esc(es.slug)}</code>
             </button>
-            <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-line/60">
-              <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2 py-1 rounded-lg bg-paper hover:bg-lime/50 text-ink text-[11px] font-bold transition-colors">
-                📖 手冊
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-line/60">
+              <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2.5 py-1 rounded-lg bg-paper hover:bg-lime/50 text-ink text-[11px] font-bold transition-colors">
+                📖 實戰手冊
               </button>
-              <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2 py-1 rounded-lg bg-teal/10 hover:bg-teal hover:text-white text-teal text-[11px] font-bold transition-colors">
-                📦 ZIP ↓
+              <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal/10 hover:bg-teal hover:text-white text-teal text-[11px] font-bold transition-colors">
+                📦 下載 ZIP
               </button>
             </div>
           </div>
@@ -6329,6 +6303,8 @@ service cloud.firestore {
     const adminDialog = document.getElementById('adminDashboardDialog');
     const adminTableBody = document.getElementById('adminMembersTableBody');
     const memberSearchInput = document.getElementById('memberSearchInput');
+    const aiReportContainer = document.getElementById('aiReportContainer');
+    const exportWordReportBtn = document.getElementById('exportWordReportBtn');
     const adminSkillsTableBody = document.getElementById('adminSkillsTableBody');
     const adminSkillSearchInput = document.getElementById('adminSkillSearchInput');
     const adminSkillUnitFilter = document.getElementById('adminSkillUnitFilter');
@@ -6350,6 +6326,121 @@ service cloud.firestore {
       return doc(db, 'artifacts', appId, 'public', 'data', 'skills', `asset__${safeSlug}`);
     }
 
+    function safeSessionGet(k) {
+      try { return sessionStorage.getItem(k); } catch (e) { return null; }
+    }
+    function safeSessionSet(k, v) {
+      try { sessionStorage.setItem(k, v); } catch (e) {}
+    }
+
+    function formatDateTime(isoStr) {
+      if (!isoStr) return '—';
+      const d = new Date(isoStr);
+      if (isNaN(d.getTime())) return String(isoStr);
+      return d.toLocaleString('zh-TW', {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    function initReportDateRange() {
+      const endEl = document.getElementById('reportEndDate');
+      const startEl = document.getElementById('reportStartDate');
+      if (!endEl || !startEl) return;
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - 30);
+      startEl.value = start.toISOString().slice(0, 10);
+      endEl.value = end.toISOString().slice(0, 10);
+    }
+    initReportDateRange();
+
+    function applyMemberProfileToFrontendUI(profile) {
+      if (!profile) return;
+      const emailLower = (profile.email || '').toLowerCase();
+      const isCreator = emailLower === SYSTEM_CREATOR_EMAIL || !!profile.isSystemCreator;
+      const isAdminUser = isCreator || profile.role === 'admin';
+
+      const navBadge = document.getElementById('navUserBadge');
+      const roleTag = document.getElementById('navUserRoleTag');
+      const nameSpan = document.getElementById('navUserName');
+
+      if (navBadge) navBadge.classList.remove('hidden');
+      if (roleTag) {
+        if (isCreator) {
+          roleTag.textContent = '👑 創作者 Admin';
+          roleTag.className = 'hidden sm:inline-block px-2 py-0.5 rounded-md bg-ink text-lime text-[10px] font-extrabold';
+        } else if (isAdminUser) {
+          roleTag.textContent = 'Admin 管理員';
+          roleTag.className = 'hidden sm:inline-block px-2 py-0.5 rounded-md bg-teal text-white text-[10px] font-extrabold';
+        } else {
+          roleTag.textContent = profile.identity || '學員';
+          roleTag.className = 'hidden sm:inline-block px-2 py-0.5 rounded-md bg-lime text-ink text-[10px] font-extrabold';
+        }
+      }
+      if (nameSpan) {
+        const displayLabel = profile.company
+          ? `${profile.realName || emailLower} (${profile.company})`
+          : (profile.realName || emailLower);
+        nameSpan.textContent = profile.realName || emailLower;
+        nameSpan.title = displayLabel;
+      }
+
+      if (openAdminDashboardBtn) {
+        openAdminDashboardBtn.classList.toggle('hidden', !isAdminUser);
+        openAdminDashboardBtn.classList.toggle('inline-flex', isAdminUser);
+      }
+
+      // 自動將註冊填寫的「企業／單位名稱」帶入工作台的「我的餐飲／零售品牌」預設名稱（若尚未自訂）
+      if (profile.company && !['餐飲零售學員單位', '未填寫企業'].includes(profile.company)) {
+        if (!state.names.custom || !state.names.custom.trim()) {
+          state.names.custom = profile.company;
+          if (state.brand === 'custom' && document.getElementById('brandName')) {
+            document.getElementById('brandName').value = profile.company;
+          }
+          updateProgressIndicators();
+          updatePromptPreview();
+        }
+      }
+    }
+
+    function openGoogleProfileCompletion(user, profile) {
+      const dlg = document.getElementById('googleProfileDialog');
+      if (!dlg) return;
+      document.getElementById('gpRealName').value = profile.realName || user.displayName || '';
+      if (profile.identity && ['TONY老師學員', '一般訪客'].includes(profile.identity)) {
+        document.getElementById('gpIdentity').value = profile.identity;
+      }
+      document.getElementById('gpCompany').value = profile.company || '';
+      dlg.showModal();
+
+      const form = document.getElementById('googleProfileForm');
+      form.onsubmit = async (ev) => {
+        ev.preventDefault();
+        const rName = document.getElementById('gpRealName').value.trim();
+        const ident = document.getElementById('gpIdentity').value;
+        const comp = document.getElementById('gpCompany').value.trim();
+        try {
+          await setDoc(getMemberDocRef(user.uid), {
+            realName: rName,
+            identity: ident,
+            company: comp
+          }, { merge: true });
+          currentMemberProfile = {
+            ...currentMemberProfile,
+            realName: rName,
+            identity: ident,
+            company: comp
+          };
+          applyMemberProfileToFrontendUI(currentMemberProfile);
+          dlg.close();
+          toast('✨ 學員與企業資料已更新並帶入工作台！');
+        } catch (err) {
+          dlg.close();
+        }
+      };
+    }
+
     function showAuthAlert(type, msg, showSpam = false) {
       if (!authAlertBox) return;
       authAlertBox.className = `mb-5 p-4 rounded-2xl border text-xs sm:text-sm font-bold leading-relaxed ${
@@ -6367,6 +6458,7 @@ service cloud.firestore {
         registerForm.classList.add('hidden');
         forgotForm.classList.add('hidden');
         authAlertBox.classList.add('hidden');
+        resendVerifyBtn.classList.add('hidden');
         tabLoginBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
         tabRegisterBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
       };
@@ -6375,6 +6467,7 @@ service cloud.firestore {
         loginForm.classList.add('hidden');
         forgotForm.classList.add('hidden');
         authAlertBox.classList.add('hidden');
+        resendVerifyBtn.classList.add('hidden');
         spamReminderBox.classList.remove('hidden');
         tabRegisterBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all bg-teal text-white shadow-sm';
         tabLoginBtn.className = 'py-2.5 rounded-xl text-sm font-extrabold transition-all text-muted hover:text-ink';
@@ -6404,18 +6497,44 @@ service cloud.firestore {
     if (loginForm) {
       loginForm.addEventListener('submit', async e => {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
+        const submitBtn = document.getElementById('loginSubmitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '驗證身分與載入會員資料中…';
         try {
           const cred = await signInWithEmailAndPassword(auth, email, pass);
-          if (!cred.user.emailVerified && email.toLowerCase() !== SYSTEM_CREATOR_EMAIL) {
+          await cred.user.reload();
+          if (!cred.user.emailVerified && email !== SYSTEM_CREATOR_EMAIL) {
             pendingVerifyCredentials = { email, pass };
             resendVerifyBtn.classList.remove('hidden');
             await signOut(auth);
-            showAuthAlert('error', '⚠️ 您的信箱尚未完成驗證！請前往信箱（含垃圾郵件匣）點擊驗證連結，或點擊下方按鈕重寄驗證信。', true);
+            showAuthAlert('error', `⚠️ 您的信箱（<strong>${esc(email)}</strong>）尚未完成驗證！請前往信箱點擊驗證連結後再登入。`, true);
           }
         } catch (err) {
           showAuthAlert('error', '登入失敗：請檢查帳號密碼是否正確，或使用 Google 快速登入。');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '登入實戰學院 ↗';
+        }
+      });
+    }
+
+    if (resendVerifyBtn) {
+      resendVerifyBtn.addEventListener('click', async () => {
+        if (!pendingVerifyCredentials) return;
+        resendVerifyBtn.disabled = true;
+        resendVerifyBtn.textContent = '正在重新寄送驗證信…';
+        try {
+          const cred = await signInWithEmailAndPassword(auth, pendingVerifyCredentials.email, pendingVerifyCredentials.pass);
+          await sendEmailVerification(cred.user);
+          await signOut(auth);
+          showAuthAlert('success', `✅ 驗證信已重新寄出至 <strong>${esc(pendingVerifyCredentials.email)}</strong>！`, true);
+        } catch (err) {
+          showAuthAlert('error', '⚠️ 無法重新寄送驗證信，請稍候再試。', true);
+        } finally {
+          resendVerifyBtn.disabled = false;
+          resendVerifyBtn.textContent = '重新寄送驗證信至上述信箱';
         }
       });
     }
@@ -6426,32 +6545,49 @@ service cloud.firestore {
         const realName = document.getElementById('regRealName').value.trim();
         const identity = document.getElementById('regIdentity').value;
         const company = document.getElementById('regCompany').value.trim();
-        const email = document.getElementById('regEmail').value.trim();
+        const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
+        const submitBtn = document.getElementById('regSubmitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '正在建立會員檔案並寄出驗證信…';
+
+        // 先於本機暫存註冊欄位，確保信箱驗證後首次登入時 100% 不會遺失姓名、身份與企業資料
+        try {
+          localStorage.setItem(`tony_reg_cache_${email}`, JSON.stringify({ realName, identity, company, email }));
+        } catch (err) {}
+
         try {
           const cred = await createUserWithEmailAndPassword(auth, email, pass);
           await updateProfile(cred.user, { displayName: realName });
           const nowIso = new Date().toISOString();
-          const isCreator = email.toLowerCase() === SYSTEM_CREATOR_EMAIL;
+          const isCreator = email === SYSTEM_CREATOR_EMAIL;
           await setDoc(getMemberDocRef(cred.user.uid), {
             uid: cred.user.uid,
             realName,
             identity,
             company,
-            email: email.toLowerCase(),
+            email,
             role: isCreator ? 'admin' : 'user',
             isSystemCreator: isCreator,
             createdAt: nowIso,
             lastLoginAt: nowIso,
-            loginCount: 1,
+            loginCount: 0,
+            emailVerified: false,
+            loginHistory: [nowIso],
             completedUnitsCount: 0
           }, { merge: true });
           await sendEmailVerification(cred.user);
           await signOut(auth);
           tabLoginBtn.click();
-          showAuthAlert('success', `✅ 註冊成功！驗證信已寄至 ${esc(email)}，請先點擊信中連結完成驗證後再登入。`, true);
+          document.getElementById('loginEmail').value = email;
+          showAuthAlert('success', `✅ 註冊成功！已建立 <strong>${esc(realName)}（${esc(company)}）</strong> 會員檔案，驗證信已寄至 <strong>${esc(email)}</strong>，請點擊信中連結後登入。`, true);
         } catch (err) {
-          showAuthAlert('error', `註冊未完成：${err.message}`);
+          let msg = `註冊未完成：${err.message}`;
+          if (err.code === 'auth/email-already-in-use') msg = '⚠️ 此電子郵件已經註冊過，請直接切換至「會員登入」或點選「忘記密碼」。';
+          showAuthAlert('error', msg, true);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '註冊並發送驗證信 ✉️';
         }
       });
     }
@@ -6459,36 +6595,44 @@ service cloud.firestore {
     if (forgotForm) {
       forgotForm.addEventListener('submit', async e => {
         e.preventDefault();
-        const email = document.getElementById('forgotEmail').value.trim();
+        const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
         try {
           await sendPasswordResetEmail(auth, email);
-          showAuthAlert('success', `✉️ 密碼重設信已發送至 ${esc(email)}，請檢查收件匣與垃圾郵件匣。`, true);
+          showAuthAlert('success', `✉️ 密碼重設信已發送至 <strong>${esc(email)}</strong>，請檢查收件匣與垃圾郵件匣。`, true);
         } catch (err) {
           showAuthAlert('error', '無法發送重設信，請確認信箱是否正確。');
         }
       });
     }
 
-    if ( document.getElementById('googleLoginBtn')) {
+    if (document.getElementById('googleLoginBtn')) {
       document.getElementById('googleLoginBtn').onclick = async () => {
         try {
           await signInWithPopup(auth, googleProvider);
         } catch (err) {
-          showAuthAlert('error', 'Google 登入視窗關閉或受環境限制，您可直接點擊下方「⚡ 講師展示／免填表快速預覽」進入學院。');
+          if (err.code !== 'auth/popup-closed-by-user') {
+            showAuthAlert('error', 'Google 登入視窗關閉或受環境限制，您可改用 Email 登入或點擊下方快速預覽。');
+          }
         }
       };
     }
 
     if (document.getElementById('logoutBtn')) {
       document.getElementById('logoutBtn').onclick = async () => {
+        if (unsubWorkspace) { unsubWorkspace(); unsubWorkspace = null; }
+        if (unsubMembersList) { unsubMembersList(); unsubMembersList = null; }
+        if (unsubSkillsList) { unsubSkillsList(); unsubSkillsList = null; }
+        currentUser = null;
+        currentMemberProfile = null;
         try { await signOut(auth); } catch (e) {}
         authGateView.classList.remove('hidden');
         appMainContainer.classList.add('hidden');
+        toast('您已安全登出系統');
       };
     }
 
     // 綁定雲端儲存回呼
-    syncCloudFn = async () => {
+    window.syncCloudFn = async () => {
       if (!currentUser) return;
       try {
         await setDoc(getWorkspaceDocRef(currentUser.uid), {
@@ -6496,8 +6640,10 @@ service cloud.firestore {
           updatedAt: new Date().toISOString()
         }, { merge: true });
         await setDoc(getMemberDocRef(currentUser.uid), {
+          lastActiveAt: new Date().toISOString(),
           completedUnitsCount: getUniqueCompletedUnitsCount(state.done),
           workspaceSummary: {
+            currentBrand: state.brand,
             brandNames: state.names,
             doneMap: state.done,
             notesSnapshot: state.notes
@@ -6515,67 +6661,127 @@ service cloud.firestore {
       currentUser = user;
       const isCreator = emailLower === SYSTEM_CREATOR_EMAIL;
 
-      authGateView.classList.add('hidden');
-      appMainContainer.classList.remove('hidden');
-      if (document.getElementById('userUidDisplay')) document.getElementById('userUidDisplay').textContent = user.uid;
-      if (document.getElementById('cloudBadgeText')) document.getElementById('cloudBadgeText').textContent = '已連線同步';
-      if (document.getElementById('navUserBadge')) document.getElementById('navUserBadge').classList.remove('hidden');
+      // 讀取本機是否有剛註冊時暫存的會員資料備援
+      let cachedReg = null;
+      try {
+        const rawCache = localStorage.getItem(`tony_reg_cache_${emailLower}`);
+        if (rawCache) cachedReg = JSON.parse(rawCache);
+      } catch (e) {}
 
       try {
-        const mSnap = await getDoc(getMemberDocRef(user.uid));
+        const memRef = getMemberDocRef(user.uid);
+        const mSnap = await getDoc(memRef);
         const nowIso = new Date().toISOString();
+        const sessionLoginKey = `tony_logged_session_${user.uid}`;
+        const alreadyCounted = safeSessionGet(sessionLoginKey) === '1';
+
         if (mSnap.exists()) {
-          currentMemberProfile = mSnap.data();
-          const newRole = isCreator ? 'admin' : (currentMemberProfile.role || 'user');
-          await setDoc(getMemberDocRef(user.uid), {
+          const data = mSnap.data();
+          if (data.isDeleted && !isCreator) {
+            await signOut(auth);
+            showAuthAlert('error', '🚫 此帳號已被管理員停用或移除，若有疑問請聯繫系統管理員。');
+            return;
+          }
+
+          const mergedRealName = data.realName || (cachedReg && cachedReg.realName) || user.displayName || emailLower.split('@')[0];
+          const mergedCompany = (data.company && data.company !== '餐飲零售學員單位')
+            ? data.company
+            : ((cachedReg && cachedReg.company) || (isCreator ? 'TONY Studio' : ''));
+          const mergedIdentity = data.identity || (cachedReg && cachedReg.identity) || (isCreator ? '系統創作者' : 'TONY老師學員');
+          const newRole = isCreator ? 'admin' : (data.role || 'user');
+          const prevCount = Number(data.loginCount) || 1;
+          const newCount = alreadyCounted ? prevCount : (Number(data.loginCount) === 0 ? 1 : prevCount + 1);
+          const historyArr = Array.isArray(data.loginHistory) ? [...data.loginHistory] : [];
+          if (!alreadyCounted) {
+            historyArr.unshift(nowIso);
+            safeSessionSet(sessionLoginKey, '1');
+          }
+          const trimmedHistory = historyArr.slice(0, 30);
+
+          const updatedProfile = {
+            ...data,
+            uid: user.uid,
+            email: emailLower,
+            realName: mergedRealName,
+            company: mergedCompany,
+            identity: mergedIdentity,
             role: newRole,
             isSystemCreator: isCreator,
+            emailVerified: true,
             lastLoginAt: nowIso,
-            loginCount: (Number(currentMemberProfile.loginCount) || 0) + 1
-          }, { merge: true });
-          currentMemberProfile.role = newRole;
+            loginCount: newCount,
+            loginHistory: trimmedHistory
+          };
+
+          await setDoc(memRef, updatedProfile, { merge: true });
+          currentMemberProfile = updatedProfile;
+
+          if (!mergedCompany && !isCreator) {
+            openGoogleProfileCompletion(user, updatedProfile);
+          }
         } else {
-          currentMemberProfile = {
+          safeSessionSet(sessionLoginKey, '1');
+          const initialProfile = {
             uid: user.uid,
-            realName: user.displayName || emailLower.split('@')[0],
             email: emailLower,
-            company: isCreator ? 'TONY STUDIO' : '餐飲零售學員單位',
-            identity: isCreator ? '系統創作者' : 'TONY老師學員',
+            realName: (cachedReg && cachedReg.realName) || user.displayName || emailLower.split('@')[0],
+            company: (cachedReg && cachedReg.company) || (isCreator ? 'TONY Studio' : ''),
+            identity: (cachedReg && cachedReg.identity) || (isCreator ? '系統創作者' : 'TONY老師學員'),
             role: isCreator ? 'admin' : 'user',
             isSystemCreator: isCreator,
+            emailVerified: true,
             createdAt: nowIso,
             lastLoginAt: nowIso,
             loginCount: 1,
+            loginHistory: [nowIso],
             completedUnitsCount: getUniqueCompletedUnitsCount(state.done)
           };
-          await setDoc(getMemberDocRef(user.uid), currentMemberProfile, { merge: true });
+          await setDoc(memRef, initialProfile, { merge: true });
+          currentMemberProfile = initialProfile;
+
+          if (!initialProfile.company && !isCreator) {
+            openGoogleProfileCompletion(user, initialProfile);
+          }
         }
       } catch (e) {
-        currentMemberProfile = { uid: user.uid, realName: user.displayName || '會員', email: emailLower, role: isCreator ? 'admin' : 'user' };
+        console.error('Member profile hydration error:', e);
+        currentMemberProfile = {
+          uid: user.uid,
+          realName: (cachedReg && cachedReg.realName) || user.displayName || emailLower,
+          company: (cachedReg && cachedReg.company) || '',
+          identity: (cachedReg && cachedReg.identity) || 'TONY老師學員',
+          email: emailLower,
+          role: isCreator ? 'admin' : 'user',
+          isSystemCreator: isCreator
+        };
       }
 
-      if (document.getElementById('navUserName')) document.getElementById('navUserName').textContent = currentMemberProfile.realName || emailLower;
-      const isAdminUser = isCreator || (currentMemberProfile && currentMemberProfile.role === 'admin');
-      if (document.getElementById('navUserRoleTag')) {
-        document.getElementById('navUserRoleTag').textContent = isCreator ? '👑 創作者' : (isAdminUser ? '管理員' : '學員');
-      }
-      if (openAdminDashboardBtn) {
-        openAdminDashboardBtn.classList.toggle('hidden', !isAdminUser);
-        openAdminDashboardBtn.classList.toggle('inline-flex', isAdminUser);
-      }
+      authGateView.classList.add('hidden');
+      appMainContainer.classList.remove('hidden');
+      if (document.getElementById('userUidDisplay')) document.getElementById('userUidDisplay').textContent = user.uid;
+      if (document.getElementById('cloudBadgeText')) document.getElementById('cloudBadgeText').textContent = '雲端已同步';
 
+      applyMemberProfileToFrontendUI(currentMemberProfile);
       startCloudSkillsRealtimeSync();
 
       if (unsubWorkspace) unsubWorkspace();
       unsubWorkspace = onSnapshot(getWorkspaceDocRef(user.uid), snap => {
-        if (!snap.exists()) return;
+        if (!snap.exists()) {
+          window.syncCloudFn();
+          return;
+        }
         if (Date.now() - lastLocalEditTime < 2200) return;
         const data = snap.data();
         if (valid(data)) {
+          migrateLegacyWorkspaceKeys(data);
+          const mergedNames = Object.assign({ coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '' }, data.names || {});
+          if (!mergedNames.custom && currentMemberProfile && currentMemberProfile.company) {
+            mergedNames.custom = currentMemberProfile.company;
+          }
           state = {
             version: 1,
             brand: data.brand || state.brand,
-            names: Object.assign({ coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '' }, data.names || {}),
+            names: mergedNames,
             notes: Object.assign({}, state.notes, data.notes || {}),
             done: Object.assign({}, state.done, data.done || {})
           };
@@ -6583,24 +6789,406 @@ service cloud.firestore {
           renderCards();
           renderWork();
         }
+      }, err => {
+        console.warn('Workspace listener error:', err);
       });
     });
+
+    // ==================== 後台會員名冊即時同步、權限管理、歷史紀錄、CSV 與 Word 報告 ====================
+    function startMembersRealtimeListener() {
+      if (unsubMembersList) {
+        unsubMembersList();
+        unsubMembersList = null;
+      }
+      if (!currentUser) {
+        allMembersCache = [];
+        renderAdminStatsAndTable(true);
+        return;
+      }
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'members');
+      unsubMembersList = onSnapshot(colRef, snapshot => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data();
+          if (d && !d.isDeleted) {
+            list.push({ ...d, uid: d.uid || docSnap.id });
+          }
+        });
+        list.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+        allMembersCache = list;
+        renderAdminStatsAndTable(false);
+      }, err => {
+        console.error('Admin members fetch error:', err);
+        if (adminTableBody) {
+          adminTableBody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-red-700 font-bold">⚠️ 讀取雲端會員名冊受阻（${esc(err.code || err.message)}），請確認已使用管理員帳號正式登入並發布最新 Firestore Rules。</td></tr>`;
+        }
+      });
+    }
+
+    function renderAdminStatsAndTable(isPreviewUnauthed = false) {
+      const total = allMembersCache.length;
+      const students = allMembersCache.filter(m => (m.identity || '').includes('學員')).length;
+      const visitors = allMembersCache.filter(m => (m.identity || '').includes('訪客')).length;
+      const totalLogins = allMembersCache.reduce((sum, m) => sum + (Number(m.loginCount) || 0), 0);
+
+      if (document.getElementById('statTotalUsers')) document.getElementById('statTotalUsers').textContent = total;
+      if (document.getElementById('statStudentUsers')) document.getElementById('statStudentUsers').textContent = students;
+      if (document.getElementById('statVisitorUsers')) document.getElementById('statVisitorUsers').textContent = visitors;
+      if (document.getElementById('statTotalLogins')) document.getElementById('statTotalLogins').textContent = totalLogins;
+
+      if (!adminTableBody) return;
+
+      if (isPreviewUnauthed || !currentUser) {
+        adminTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-8 px-4 text-center space-y-3 bg-amber-50/70">
+              <p class="text-sm font-extrabold text-amber-950">🔒 目前處於「免填表快速預覽模式（尚未登入 Firebase 帳號）」</p>
+              <p class="text-xs text-amber-900">基於雲端資安保護規則（Firestore Rules），註冊會員個資名冊需驗證管理員登入身分後才會從雲端載入。</p>
+              <button type="button" id="goLoginFromAdminPreviewBtn" class="px-4 py-2 rounded-xl bg-teal text-white text-xs font-extrabold hover:bg-teal-dark transition-all shadow-sm">
+                前往正式登入管理員帳號 ↗
+              </button>
+            </td>
+          </tr>
+        `;
+        const goBtn = document.getElementById('goLoginFromAdminPreviewBtn');
+        if (goBtn) {
+          goBtn.onclick = () => {
+            adminDialog.close();
+            appMainContainer.classList.add('hidden');
+            authGateView.classList.remove('hidden');
+          };
+        }
+        return;
+      }
+
+      const q = (memberSearchInput ? memberSearchInput.value : '').trim().toLowerCase();
+      const filtered = allMembersCache.filter(m => {
+        const text = `${m.realName || ''} ${m.company || ''} ${m.email || ''} ${m.identity || ''} ${m.role || ''}`.toLowerCase();
+        return text.includes(q);
+      });
+
+      if (!filtered.length) {
+        adminTableBody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-muted">目前沒有符合條件的註冊會員紀錄</td></tr>`;
+        return;
+      }
+
+      adminTableBody.innerHTML = filtered.map(m => {
+        const isCreatorRow = (m.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL || !!m.isSystemCreator;
+        const isAdminRole = m.role === 'admin' || isCreatorRow;
+        return `
+          <tr class="hover:bg-paper/60 transition-colors">
+            <td class="py-3.5 px-4">
+              <strong class="font-extrabold text-ink block">${esc(m.realName || '未填寫姓名')}</strong>
+              <span class="text-xs text-muted block">${esc(m.company || '未填寫企業')}</span>
+            </td>
+            <td class="py-3.5 px-4 font-mono text-xs text-ink">${esc(m.email || '')}</td>
+            <td class="py-3.5 px-4">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold ${
+                isCreatorRow ? 'bg-ink text-lime' : (m.identity || '').includes('學員') ? 'bg-teal/15 text-teal' : 'bg-paper border border-line text-muted'
+              }">
+                ${esc(isCreatorRow ? '系統創作者' : (m.identity || '一般訪客'))}
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-xs text-muted whitespace-nowrap">${esc(formatDateTime(m.createdAt))}</td>
+            <td class="py-3.5 px-4 text-center">
+              <span class="px-2.5 py-0.5 rounded-full bg-paper border border-line font-mono text-xs font-extrabold text-ink">
+                ${Number(m.loginCount) || 0} 次
+              </span>
+            </td>
+            <td class="py-3.5 px-4">
+              ${isCreatorRow
+                ? `<span class="px-2.5 py-1 rounded-lg bg-ink text-lime text-xs font-black">👑 最高管理員 (Creator)</span>`
+                : isAdminRole
+                ? `<span class="px-2.5 py-1 rounded-lg bg-teal text-white text-xs font-bold">Admin 管理員</span>`
+                : `<span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-muted text-xs font-semibold">User 一般會員</span>`
+              }
+            </td>
+            <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">
+              <button type="button" data-view-history="${esc(m.uid)}" class="px-2.5 py-1.5 rounded-lg border border-line bg-white hover:bg-lime/40 text-xs font-bold text-ink transition-colors">
+                📜 歷史紀錄
+              </button>
+              ${isCreatorRow
+                ? `<span class="px-2.5 py-1.5 rounded-lg bg-paper text-[11px] font-bold text-muted inline-block">🔒 系統保護</span>`
+                : `
+                  <button type="button" data-toggle-role="${esc(m.uid)}" data-current-role="${isAdminRole ? 'admin' : 'user'}" class="px-2.5 py-1.5 rounded-lg border border-teal text-teal hover:bg-teal hover:text-white text-xs font-bold transition-colors">
+                    ${isAdminRole ? '↓ 降為 User' : '↑ 升為 Admin'}
+                  </button>
+                  <button type="button" data-delete-member="${esc(m.uid)}" data-member-name="${esc(m.realName || m.email)}" class="px-2.5 py-1.5 rounded-lg border border-red-300 text-red-700 hover:bg-red-600 hover:text-white text-xs font-bold transition-colors">
+                    刪除
+                  </button>
+                `
+              }
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function openMemberHistoryModal(uid) {
+      const member = allMembersCache.find(x => x.uid === uid);
+      if (!member) return;
+
+      const histDialog = document.getElementById('memberHistoryDialog');
+      const histTitle = document.getElementById('historyModalTitle');
+      const histContent = document.getElementById('memberHistoryContent');
+      if (!histDialog || !histContent) return;
+
+      histTitle.textContent = `${member.realName || '會員'}（${member.company || '無企業名稱'}）歷史紀錄與實作詳情`;
+      histContent.innerHTML = `<div class="p-4 text-center text-muted">正在讀取該會員之雲端工作台與歷史軌跡…</div>`;
+      histDialog.showModal();
+
+      let wsData = member.workspaceSummary || null;
+      try {
+        const wsSnap = await getDoc(getWorkspaceDocRef(uid));
+        if (wsSnap.exists()) {
+          const d = wsSnap.data();
+          wsData = {
+            currentBrand: d.brand,
+            brandNames: d.names,
+            doneMap: d.done,
+            notesSnapshot: d.notes
+          };
+        }
+      } catch (err) {}
+
+      const historyList = Array.isArray(member.loginHistory) && member.loginHistory.length
+        ? member.loginHistory
+        : [member.lastLoginAt || member.createdAt].filter(Boolean);
+      const doneMap = (wsData && wsData.doneMap) || {};
+      const notesMap = (wsData && wsData.notesSnapshot) || {};
+      const bNames = (wsData && wsData.brandNames) || { coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: member.company || '未命名' };
+
+      const notesHtml = Object.entries(notesMap).filter(([, arr]) => Array.isArray(arr) && arr.some(x => x && String(x).trim())).map(([k, arr]) => {
+        return `
+          <div class="p-3.5 rounded-xl bg-paper border border-line space-y-1.5">
+            <div class="flex items-center justify-between">
+              <strong class="text-xs font-extrabold text-teal">單元鍵值：${esc(k)}</strong>
+              <span class="text-[11px] font-bold ${doneMap[k] ? 'text-teal' : 'text-muted'}">${doneMap[k] ? '✓ 已勾選完成' : '撰寫中'}</span>
+            </div>
+            ${arr.map((txt, idx) => txt ? `<p class="text-xs text-ink bg-white p-2.5 rounded-lg border border-line whitespace-pre-wrap"><b>欄位 ${idx + 1}：</b>${esc(txt)}</p>` : '').join('')}
+          </div>
+        `;
+      }).join('') || `<p class="text-xs text-muted">此會員目前尚無填寫實作筆記。</p>`;
+
+      histContent.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-4 rounded-xl border border-line">
+          <div><span class="text-[11px] text-muted block">電子郵件</span><strong class="font-mono text-xs">${esc(member.email || '')}</strong></div>
+          <div><span class="text-[11px] text-muted block">身份 / 企業</span><strong class="text-xs">${esc(member.identity || '—')}｜${esc(member.company || '—')}</strong></div>
+          <div><span class="text-[11px] text-muted block">累計登入 / 完成單元數</span><strong class="text-xs text-teal">${Number(member.loginCount) || 1} 次登入 / ${Number(member.completedUnitsCount) || 0} 單元完成</strong></div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-line space-y-2">
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-teal">📅 近期登入時間軌跡（最近 ${historyList.length} 次）</h4>
+          <div class="flex flex-wrap gap-2">
+            ${historyList.map((iso, idx) => `
+              <span class="px-2.5 py-1 rounded-lg bg-paper border border-line font-mono text-xs text-ink">
+                #${idx + 1} ${esc(formatDateTime(iso))}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-line space-y-3">
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-teal">📝 品牌實作工作台筆記快照（自訂品牌：${esc(bNames.custom || member.company || '未命名')}）</h4>
+          ${notesHtml}
+        </div>
+      `;
+    }
+
+    if (memberSearchInput) {
+      memberSearchInput.addEventListener('input', () => renderAdminStatsAndTable(!currentUser));
+    }
+
+    if (document.getElementById('refreshMembersBtn')) {
+      document.getElementById('refreshMembersBtn').onclick = () => {
+        startMembersRealtimeListener();
+        toast('🔄 已重新同步雲端註冊會員名冊');
+      };
+    }
+
+    if (document.getElementById('closeHistoryDialogBtn')) {
+      document.getElementById('closeHistoryDialogBtn').onclick = () => {
+        document.getElementById('memberHistoryDialog').close();
+      };
+    }
+
+    if (adminTableBody) {
+      adminTableBody.addEventListener('click', async e => {
+        const histBtn = e.target.closest('[data-view-history]');
+        const roleBtn = e.target.closest('[data-toggle-role]');
+        const delBtn = e.target.closest('[data-delete-member]');
+
+        if (histBtn) {
+          openMemberHistoryModal(histBtn.getAttribute('data-view-history'));
+          return;
+        }
+        if (roleBtn) {
+          const uid = roleBtn.getAttribute('data-toggle-role');
+          const targetMember = allMembersCache.find(x => x.uid === uid);
+          if (!targetMember) return;
+          if ((targetMember.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) {
+            toast('🔒 系統創作者最高權限不可降維！');
+            return;
+          }
+          const nextRole = roleBtn.getAttribute('data-current-role') === 'admin' ? 'user' : 'admin';
+          try {
+            await updateDoc(getMemberDocRef(uid), { role: nextRole });
+            toast(`✅ 已將「${targetMember.realName || targetMember.email}」權限更新為 ${nextRole.toUpperCase()}`);
+          } catch (err) {
+            toast('⚠️ 權限變更失敗，請確認管理員權限');
+          }
+          return;
+        }
+        if (delBtn) {
+          const uid = delBtn.getAttribute('data-delete-member');
+          const mName = delBtn.getAttribute('data-member-name');
+          const targetMember = allMembersCache.find(x => x.uid === uid);
+          if (targetMember && (targetMember.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) {
+            toast('🔒 系統創作者帳號受保護，不可刪除！');
+            return;
+          }
+          askConfirm(
+            '確認刪除此會員資料？',
+            `您即將移除會員「${mName}」，移除後該帳號將無法進入平台且從名冊中隱藏，是否確定執行？`,
+            async () => {
+              try {
+                await setDoc(getMemberDocRef(uid), { isDeleted: true, deletedAt: new Date().toISOString() }, { merge: true });
+                toast(`🗑️ 已移除會員「${mName}」`);
+              } catch (err) {
+                toast('⚠️ 刪除失敗');
+              }
+            }
+          );
+        }
+      });
+    }
+
+    // 匯出 Excel 相容繁中 CSV 會員報表
+    if (document.getElementById('exportMembersCsvBtn')) {
+      document.getElementById('exportMembersCsvBtn').addEventListener('click', () => {
+        if (!allMembersCache.length) {
+          toast('目前尚無會員資料可匯出');
+          return;
+        }
+        const headers = ['真實姓名', '企業名稱', '身份分類', '電子郵件', '系統權限', '註冊時間', '最後登入時間', '登入次數', '已完成單元數'];
+        const escapeCsv = val => `"${String(val == null ? '' : val).replace(/"/g, '""')}"`;
+        const rows = allMembersCache.map(m => [
+          m.realName || '',
+          m.company || '',
+          ((m.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL) ? '系統創作者' : (m.identity || ''),
+          m.email || '',
+          m.role || 'user',
+          formatDateTime(m.createdAt),
+          formatDateTime(m.lastLoginAt),
+          Number(m.loginCount) || 0,
+          Number(m.completedUnitsCount) || 0
+        ].map(escapeCsv).join(','));
+
+        const csvContent = '\ufeff' + [headers.map(escapeCsv).join(','), ...rows].join('\r\n');
+        download(`TONY_Studio_會員名單報表_${new Date().toISOString().slice(0, 10)}.csv`, csvContent, 'text/csv;charset=utf-8;');
+        toast('📥 已匯出 Excel 相容之繁體中文 CSV 報表');
+      });
+    }
+
+    // AI 營運與學員分析報告產出與匯出 Word (.doc)
+    if (document.getElementById('generateAiReportBtn')) {
+      document.getElementById('generateAiReportBtn').addEventListener('click', () => {
+        const startStr = document.getElementById('reportStartDate').value;
+        const endStr = document.getElementById('reportEndDate').value;
+        const startTime = startStr ? new Date(startStr + 'T00:00:00').getTime() : 0;
+        const endTime = endStr ? new Date(endStr + 'T23:59:59').getTime() : Date.now();
+
+        const periodMembers = allMembersCache.filter(m => {
+          if (!m.createdAt) return true;
+          const t = new Date(m.createdAt).getTime();
+          return t >= startTime && t <= endTime;
+        });
+
+        const totalM = periodMembers.length;
+        const studentM = periodMembers.filter(m => (m.identity || '').includes('學員')).length;
+        const visitorM = periodMembers.filter(m => (m.identity || '').includes('訪客')).length;
+        const totalLogins = periodMembers.reduce((s, m) => s + (Number(m.loginCount) || 0), 0);
+        const avgLogins = totalM ? (totalLogins / totalM).toFixed(1) : 0;
+        const activeCompleters = periodMembers.filter(m => (Number(m.completedUnitsCount) || 0) > 0).length;
+        const totalCompletedUnits = periodMembers.reduce((s, m) => s + (Number(m.completedUnitsCount) || 0), 0);
+        const companies = [...new Set(periodMembers.map(m => (m.company || '').trim()).filter(Boolean))];
+        const topActiveMembers = [...periodMembers]
+          .sort((a, b) => ((Number(b.loginCount) || 0) + (Number(b.completedUnitsCount) || 0) * 2) - ((Number(a.loginCount) || 0) + (Number(a.completedUnitsCount) || 0) * 2))
+          .slice(0, 5);
+
+        lastGeneratedReportHtml = `
+          <div style="font-family: 'Microsoft JhengHei', 'Noto Sans TC', sans-serif; color: #132629; line-height: 1.7;">
+            <h2 style="font-size: 20px; font-weight: 800; color: #185b51; margin-bottom: 4px;">
+              TONY Studio｜AI 品牌全媒體實戰學院（餐飲零售實戰版）— 營運與學習成效報告
+            </h2>
+            <p style="font-size: 12px; color: #526661; margin-bottom: 16px;">
+              分析區間：<strong>${esc(startStr || '不限')} 至 ${esc(endStr || '今日')}</strong> ｜ 產出時間：${esc(new Date().toLocaleString('zh-TW'))} ｜ 總顧問：TONY 楊文澤 老師
+            </p>
+            <h3 style="font-size: 16px; font-weight: 800; border-left: 4px solid #185b51; padding-left: 10px;">一、核心營運數據摘要</h3>
+            <ul>
+              <li><strong>區間內註冊總人數：</strong>共 ${totalM} 位會員（「TONY老師學員」${studentM} 位，「一般訪客」${visitorM} 位）。</li>
+              <li><strong>平台互動活躍度：</strong>累計登入 ${totalLogins} 次，平均每位會員登入 <strong>${avgLogins} 次</strong>。</li>
+              <li><strong>六大單元實作推進：</strong>共 ${activeCompleters} 位學員完成單元檢核，累計完成 <strong>${totalCompletedUnits} 個實戰單元</strong>。</li>
+              <li><strong>涵蓋企業與品牌數：</strong>共 ${companies.length} 家單位（${esc(companies.slice(0, 12).join('、') || '尚待填寫')}）。</li>
+            </ul>
+            <h3 style="font-size: 16px; font-weight: 800; border-left: 4px solid #185b51; padding-left: 10px; margin-top: 16px;">二、高活躍度標竿學員與企業 Top 5</h3>
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; border-color: #d5ddd3;">
+              <thead>
+                <tr style="background-color: #e6f0ed; font-weight: bold;">
+                  <th align="left">真實姓名</th>
+                  <th align="left">企業／單位名稱</th>
+                  <th align="left">身份</th>
+                  <th align="center">登入次數</th>
+                  <th align="center">完成單元數</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${topActiveMembers.map(m => `
+                  <tr>
+                    <td>${esc(m.realName || '—')}</td>
+                    <td>${esc(m.company || '—')}</td>
+                    <td>${esc(m.identity || '—')}</td>
+                    <td align="center">${Number(m.loginCount) || 0}</td>
+                    <td align="center">${Number(m.completedUnitsCount) || 0} / ${UNITS.length}</td>
+                  </tr>
+                `).join('') || `<tr><td colspan="5" align="center">區間內尚無會員資料</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        `;
+        aiReportContainer.innerHTML = lastGeneratedReportHtml;
+        aiReportContainer.classList.remove('hidden');
+        exportWordReportBtn.classList.remove('hidden');
+        toast('✨ AI 營運與學員分析報告已產出！');
+      });
+    }
+
+    if (exportWordReportBtn) {
+      exportWordReportBtn.addEventListener('click', () => {
+        if (!lastGeneratedReportHtml) return;
+        const startStr = document.getElementById('reportStartDate').value || 'Start';
+        const endStr = document.getElementById('reportEndDate').value || 'End';
+        const docOpen = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>TONY Studio AI 分析報告</title></head><body>';
+        const docClose = '</body>' + '</html>';
+        const blob = new Blob(['\ufeff', docOpen + lastGeneratedReportHtml + docClose], { type: 'application/msword;charset=utf-8' });
+        download(`TONY_Studio_AI營運分析報告_${startStr}_至_${endStr}.doc`, blob);
+        toast('📄 已輸出成 WORD 檔 (.doc)');
+      });
+    }
 
     // 後台管理視窗開啟與關閉
     if (openAdminDashboardBtn) {
       openAdminDashboardBtn.onclick = () => {
         adminDialog.showModal();
+        const isCreatorUser = currentUser && (currentUser.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL;
+        const cmsActions = document.getElementById('creatorSkillCmsActions');
+        const cmsNotice = document.getElementById('creatorSkillReadonlyNotice');
+        if (cmsActions && cmsNotice) {
+          cmsActions.classList.toggle('hidden', !isCreatorUser);
+          cmsNotice.classList.toggle('hidden', !!isCreatorUser);
+        }
+        startMembersRealtimeListener();
         renderAdminSkillsTable();
-        const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'members');
-        getDocs(colRef).then(snap => {
-          const arr = [];
-          snap.forEach(d => { const v = d.data(); if (!v.isDeleted) arr.push(v); });
-          allMembersCache = arr;
-          document.getElementById('statTotalUsers').textContent = arr.length;
-          document.getElementById('statStudentUsers').textContent = arr.filter(x => (x.identity || '').includes('學員')).length;
-          document.getElementById('statVisitorUsers').textContent = arr.filter(x => (x.identity || '').includes('訪客')).length;
-          document.getElementById('statTotalLogins').textContent = arr.reduce((s, x) => s + (Number(x.loginCount) || 1), 0);
-        }).catch(() => {});
       };
     }
     if (document.getElementById('closeAdminDialogBtn')) {
@@ -6690,11 +7278,17 @@ service cloud.firestore {
         const merged = [];
         const mandatoryNewSlugs = new Set([
           'design-line-stickers',
+          'tony-food-retail-festival-promo-planner',
           'create-product-photography',
           'design-festival-greeting-cards'
         ]);
         const removedUnit06Slugs = new Set([
+          'tony-omnichannel-issue-planner-v1.2.0',
+          'tony-ai-brand-knowledge-architect-v1.1.0',
           'tony-multi-brand-rag-coach-v1.1.0',
+          'tony-brand-content-factory-v1.1.0',
+          'plan-short-video-topics-and-stories-v1.3.0',
+          'tony-proposal-visual-director-v1.1.0',
           'tony-brand-audio-director-v1.2.0'
         ]);
 
@@ -6703,13 +7297,16 @@ service cloud.firestore {
           if (cloudDocsMap[defU.id]) {
             const cu = cloudDocsMap[defU.id];
             if (defU.id === '03' || defU.id === '06') {
+              cu.slug = defU.slug;
               cu.name = defU.name;
               cu.title = defU.title;
               cu.tag = defU.tag;
               cu.shortLabel = defU.shortLabel;
+              cu.promise = defU.promise;
               cu.desc = defU.desc;
               cu.deliver = defU.deliver;
               cu.steps = JSON.parse(JSON.stringify(defU.steps));
+              cu.samples = JSON.parse(JSON.stringify(defU.samples));
             }
             if (Array.isArray(defU.extraSkills)) {
               if (!Array.isArray(cu.extraSkills)) {
@@ -6726,6 +7323,14 @@ service cloud.firestore {
                     cu.extraSkills[existIdx].roleBadge = defSub.roleBadge;
                   }
                 });
+                if (defU.id === '06') {
+                  const orderMap = {
+                    'tony-food-retail-festival-promo-planner': 0,
+                    'create-product-photography': 1,
+                    'design-festival-greeting-cards': 2
+                  };
+                  cu.extraSkills.sort((a, b) => (orderMap[a.slug] ?? 99) - (orderMap[b.slug] ?? 99));
+                }
               }
             }
             merged.push(cu);
@@ -7117,6 +7722,3 @@ service cloud.firestore {
   </script>
 </body>
 </html>
-<!-- TONY Studio F&B & Retail Omnichannel Academy -->
-<!-- Engine: Google gemini-4-hydrogen -->
-<!-- Clean End of Document -->

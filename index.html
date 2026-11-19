@@ -107,7 +107,7 @@
           <span class="text-teal underline decoration-lime decoration-8 underline-offset-4">餐飲零售 AI 行銷工作流。</span>
         </h1>
         <p class="text-muted text-base sm:text-lg leading-relaxed">
-          專為餐飲連鎖、咖啡烘焙、伴手禮門市、食品生鮮零售與品牌團隊打造的實戰 SaaS 學院。整合五大實戰單元、14 組原創 Skill 與食安法規合規邊界，從離峰導流、包裝與門市立牌 Mockup 到探店短影音一次落地。
+          專為餐飲連鎖、咖啡烘焙、伴手禮門市、食品生鮮零售與品牌團隊打造的實戰 SaaS 學院。整合六大實戰單元、18 組原創 Skill 與食安法規合規邊界，從離峰導流、包裝與門市立牌 Mockup、探店短影音到節慶主打商品促銷一次落地。
         </p>
 
         <div class="grid grid-cols-2 gap-3 pt-2">
@@ -936,7 +936,7 @@
             </div>
 
             <div class="mt-6 pt-4 border-t border-teal/20 flex items-center justify-between text-xs text-muted">
-              <span>全套五力課程與 Skill 架構原創設計</span>
+              <span>全套六力課程與 18 組 Skill 架構原創設計</span>
               <span class="font-bold text-teal tracking-wider">TONY STUDIO</span>
             </div>
           </div>
@@ -1017,7 +1017,7 @@
             <span class="text-teal group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-sm text-muted mt-3 pt-3 border-t border-line leading-relaxed">
-            本單檔 HTML 已將五組原創 Skill ZIP 以 Base64 內嵌封裝，點擊「下載 Skill」即可直接存檔，不依賴外部伺服器資料夾。解壓縮後內含 <code class="text-ink font-mono">SKILL.md</code>、<code class="text-ink font-mono">agents/openai.yaml</code>、<code class="text-ink font-mono">references/practice.md</code> 與 <code class="text-ink font-mono">references/brand-contract.md</code>。
+            本單檔 HTML 已將六大單元共 18 組原創 Skill ZIP 內嵌與動態封裝，點擊「ZIP ↓」即可直接存檔，不依賴外部伺服器資料夾。解壓縮後內含 <code class="text-ink font-mono">SKILL.md</code>、<code class="text-ink font-mono">agents/openai.yaml</code> 與專屬實戰參考規範檔（如 <code class="text-ink font-mono">references/</code> 檢核表與交接契約）。
           </p>
         </details>
 
@@ -1215,10 +1215,10 @@
             <div class="flex flex-wrap items-center gap-2 mb-1">
               <span class="text-[11px] font-extrabold tracking-widest text-teal uppercase">03 / CLOUD SKILL & CURRICULUM CMS</span>
               <span class="px-2 py-0.5 rounded bg-ink text-lime text-[10px] font-extrabold">👑 僅限最高管理員 mindnodeai@gmail.com</span>
-              <span id="cmsSkillCountBadge" class="px-2.5 py-0.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-[11px] font-extrabold">5 大單元 · 14 組 Skill</span>
+              <span id="cmsSkillCountBadge" class="px-2.5 py-0.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-[11px] font-extrabold">6 大單元 · 18 組 Skill</span>
             </div>
             <h4 class="text-lg font-extrabold text-ink">全站課程單元與全部 Skill 模組雲端管理（支援單獨新增、編輯、上傳更新 ZIP、刪除）</h4>
-            <p class="text-xs text-muted mt-0.5">涵蓋 01–05 各單元旗下所有子 Skill（如 01-A/B/C、02-A/B、03-A/B/C、04-A/B、05-A/B/C）。每個 Skill 皆可獨立上傳更新 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> 並即時同步至 Firestore 雲端。</p>
+            <p class="text-xs text-muted mt-0.5">涵蓋 01–06 六大單元旗下全部 18 組子 Skill（01-A/B/C、02-A/B、03-A/B/C/D、04-A/B/C、05-A/B/C、06-A/B/C）。每個 Skill 皆可獨立上傳更新 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> 並即時同步至 Firestore 雲端。</p>
           </div>
           <div id="creatorSkillCmsActions" class="flex flex-wrap items-center gap-2.5">
             <button id="openRulesModalBtn" type="button" class="px-3.5 py-2 rounded-xl border border-ink bg-paper hover:bg-lime/50 text-ink text-xs font-extrabold transition-all flex items-center gap-1.5">
@@ -1291,18 +1291,18 @@
 
       <!-- 單元層級專屬欄位群組（當編輯「單元總覽」或「新增獨立單元」時顯示） -->
       <div id="seUnitMetaFieldsGroup" class="space-y-4 p-4 rounded-2xl bg-white border border-line">
-        <div class="text-[11px] font-extrabold text-teal uppercase tracking-wider">📌 單元層級外顯設定（卡片與五力藍圖）</div>
+        <div class="text-[11px] font-extrabold text-teal uppercase tracking-wider">📌 單元層級外顯設定（卡片與六力藍圖）</div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label for="seId" class="block text-xs font-extrabold text-muted mb-1">單元編號 (例如 01, 06) *</label>
-            <input id="seId" type="text" required maxlength="10" placeholder="06" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
+            <label for="seId" class="block text-xs font-extrabold text-muted mb-1">單元編號 (例如 01, 07) *</label>
+            <input id="seId" type="text" required maxlength="10" placeholder="07" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
           </div>
           <div>
             <label for="seTag" class="block text-xs font-extrabold text-muted mb-1">英文分類標籤 (TAG) *</label>
             <input id="seTag" type="text" required maxlength="30" placeholder="STRATEGY / VIDEO / CRM" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-teal uppercase">
           </div>
           <div>
-            <label for="seShortLabel" class="block text-xs font-extrabold text-muted mb-1">五力短標題 (4~10 字) *</label>
+            <label for="seShortLabel" class="block text-xs font-extrabold text-muted mb-1">六力短標題 (4~10 字) *</label>
             <input id="seShortLabel" type="text" required maxlength="24" placeholder="例如：影音腳本" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-bold text-ink">
           </div>
         </div>
@@ -5865,7 +5865,7 @@ function bindGlobalWorkspaceEvents() {
       renderHeroMap();
       renderCards();
       renderWork();
-      toast('⚡ 已進入講師快速預覽模式（含全部 6 大單元與 20 組 Skill）');
+      toast(`⚡ 已進入講師快速預覽模式（含全部 ${UNITS.length} 大單元與 ${getTotalSkillsCount()} 組 Skill）`);
     });
   }
 

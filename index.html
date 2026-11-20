@@ -1,10 +1,13 @@
-<!doctype html>
-<!-- TONY STUDIO · AI Brand Omnichannel Academy (F&B & Retail Edition) -->
+<!DOCTYPE html>
+<!-- TONY STUDIO · AI 品牌全媒體實戰學院（餐飲零售實戰版 v2.7） -->
+<!-- Standard HTML5 Entry -->
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TONY STUDIO AI 品牌全媒體實戰學院（餐飲零售實戰版）">
   <title>AI 品牌全媒體實戰學院（餐飲零售實戰版）</title>
+  <!-- Tailwind CSS & Mermaid Engine -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,51 +15,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   
   <script>
-    if (typeof tailwind !== 'undefined') {
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ink: '#132629',
-              teal: {
-                DEFAULT: '#185b51',
-                dark: '#0f3d36',
-                light: '#e6f0ed'
-              },
-              lime: {
-                DEFAULT: '#dcf394',
-                dark: '#c5e26b'
-              },
-              paper: '#f6f5ef',
-              line: '#d5ddd3',
-              muted: '#526661'
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#132629',
+            teal: {
+              DEFAULT: '#185b51',
+              dark: '#0f3d36',
+              light: '#e6f0ed'
             },
-            fontFamily: {
-              sans: ['Inter', '"Noto Sans TC"', 'system-ui', 'sans-serif'],
-              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
-            }
+            lime: {
+              DEFAULT: '#dcf394',
+              dark: '#c5e26b'
+            },
+            paper: '#f6f5ef',
+            line: '#d5ddd3',
+            muted: '#526661'
+          },
+          fontFamily: {
+            sans: ['Inter', '"Noto Sans TC"', 'system-ui', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
           }
         }
-      };
-    }
+      }
+    };
   </script>
 
   <style>
-    .hidden { display: none !important; }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       background-color: #f6f5ef;
       color: #132629;
+      font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: hidden;
+    }
+    /* 修正 Tailwind Preflight 將 dialog margin 設為 0 導致彈窗偏左上角的問題 */
+    dialog {
+      margin: auto;
+    }
+    dialog::backdrop {
+      background: rgba(19, 38, 41, 0.72);
+      backdrop-filter: blur(4px);
     }
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #f6f5ef; }
     ::-webkit-scrollbar-thumb { background: #c2cec0; border-radius: 9999px; }
     ::-webkit-scrollbar-thumb:hover { background: #185b51; }
     .glass-nav {
-      background: rgba(246, 245, 239, 0.92);
+      background: rgba(246, 245, 239, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes pulse-subtle {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.65; }
@@ -107,17 +121,17 @@
           <span class="text-teal underline decoration-lime decoration-8 underline-offset-4">餐飲零售 AI 行銷工作流。</span>
         </h1>
         <p class="text-muted text-base sm:text-lg leading-relaxed">
-          專為餐飲連鎖、咖啡烘焙、伴手禮門市、食品生鮮零售與品牌團隊打造的實戰 SaaS 學院。整合六大實戰單元、18 組原創 Skill 與食安法規合規邊界，從離峰導流、包裝與門市立牌 Mockup、探店短影音到節慶主打商品促銷一次落地。
+          專為餐飲連鎖、咖啡烘焙、伴手禮門市、食品生鮮零售與品牌團隊打造的實戰 SaaS 學院。整合六大實戰單元、19 組原創 Skill 與食安法規合規邊界，從離峰導流、未來店面改造、包裝 Mockup、探店短影音到節慶主打商品促銷一次落地。
         </p>
 
-        <div class="grid grid-cols-2 gap-3 pt-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           <div class="p-4 rounded-2xl bg-white border border-line shadow-sm">
-            <span class="text-xs font-extrabold text-teal block mb-1">01–06 全套 18 組原創 Skill</span>
-            <p class="text-xs text-muted">涵蓋議題新聞室、知識庫 GEO、故事與 LINE 貼圖、視覺 Mockup、短影音配樂與餐飲節慶促銷。</p>
+            <span class="text-xs font-extrabold text-teal block mb-1">01–06 全套 19 組原創 Skill</span>
+            <p class="text-xs text-muted leading-relaxed">涵蓋議題新聞室、知識庫與未來商店、故事與 LINE 貼圖、視覺 Mockup、短影音配樂與節慶促銷。</p>
           </div>
           <div class="p-4 rounded-2xl bg-white border border-line shadow-sm">
             <span class="text-xs font-extrabold text-teal block mb-1">食安合規 × 雲端即時備份</span>
-            <p class="text-xs text-muted">內建食品標示與不誇大療效檢核紅線，跨門市與跨裝置保存品牌實作筆記與行銷提案進度。</p>
+            <p class="text-xs text-muted leading-relaxed">內建食品標示與不誇大療效檢核紅線，跨門市與跨裝置保存品牌實作筆記與行銷提案進度。</p>
           </div>
         </div>
 
@@ -372,7 +386,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
             <a href="#curriculum" class="px-5 py-3.5 rounded-xl bg-white text-ink text-sm font-bold border border-line hover:bg-lime/40 hover:border-ink transition-all flex items-center gap-2">
-              <span>瀏覽六大單元與 18 組 Skill</span>
+              <span>瀏覽六大單元與 19 組 Skill</span>
             </a>
             <button id="heroBriefBtn" type="button" class="px-4 py-3.5 rounded-xl text-teal font-bold hover:bg-teal/10 transition-all text-sm flex items-center gap-1.5">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -430,7 +444,7 @@
           </div>
         </div>
         <div class="p-5 sm:p-6 flex items-baseline gap-4">
-          <b id="heroStatSkillsCount" class="text-3xl sm:text-4xl font-black text-teal tracking-tight font-mono">18</b>
+          <b id="heroStatSkillsCount" class="text-3xl sm:text-4xl font-black text-teal tracking-tight font-mono">19</b>
           <div>
             <span class="font-extrabold text-ink block text-sm">可下載原創 Skill 包</span>
             <span class="text-xs text-muted">內含完整 SKILL.md、範本與檢核規範</span>
@@ -451,7 +465,7 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
         <div>
           <div class="text-xs font-extrabold tracking-[0.2em] text-teal uppercase mb-2">01 / CURRICULUM &amp; ORIGINAL SKILLS</div>
-          <h2 class="text-3xl sm:text-4xl font-black text-ink tracking-tight">六大實戰單元，18 組專業教練。</h2>
+          <h2 class="text-3xl sm:text-4xl font-black text-ink tracking-tight">六大實戰單元，19 組專業教練。</h2>
           <p class="text-muted mt-2 max-w-2xl text-sm sm:text-base">
             每個單元皆配備獨立 Skill ZIP 壓縮包、六大結構實戰手冊與工作台引導任務。可依需求單獨下載任一模組，或照順序完成全案提案。
           </p>
@@ -470,11 +484,11 @@
       </div>
 
       <!-- 清爽對齊的搜尋與快速定位工具列 -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 my-7 bg-white p-3.5 rounded-2xl border border-line shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 my-7 bg-white p-4 rounded-2xl border border-line shadow-sm">
         <div class="flex flex-wrap items-center gap-2.5 flex-1">
           <div class="relative flex-grow sm:max-w-xs">
             <svg class="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input id="search" type="search" placeholder="搜尋節慶促銷、商品攝影、LINE 貼圖、RAG…" aria-label="搜尋課程" class="w-full pl-9 pr-3.5 py-2 bg-paper border border-line rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal">
+            <input id="search" type="search" placeholder="搜尋未來商店、節慶促銷、LINE 貼圖、RAG…" aria-label="搜尋課程" class="w-full pl-9 pr-3.5 py-2 bg-paper border border-line rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal">
           </div>
 
           <select id="filter" aria-label="課程狀態" class="px-3.5 py-2 bg-paper border border-line rounded-xl text-xs sm:text-sm font-bold text-ink focus:outline-none focus:ring-2 focus:ring-teal">
@@ -488,16 +502,16 @@
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-line/60">
-          <span class="text-[11px] font-bold text-muted mr-1">熱門直達：</span>
-          <button type="button" data-work-unit="03" data-work-sub="3" class="px-3 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
+        <div class="flex flex-wrap items-center gap-1.5 pt-2 lg:pt-0 border-t lg:border-t-0 border-line/60">
+          <span class="text-[11px] font-bold text-muted mr-1">快速直達：</span>
+          <button type="button" data-work-unit="02" data-work-sub="2" class="px-2.5 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
+            🏪 02-C 未來商店
+          </button>
+          <button type="button" data-work-unit="03" data-work-sub="3" class="px-2.5 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
             💬 03-D LINE 貼圖
           </button>
-          <button type="button" data-work-unit="06" data-work-sub="0" class="px-3 py-1.5 rounded-lg bg-teal/10 hover:bg-teal hover:text-white border border-teal/25 text-teal text-xs font-extrabold transition-all">
-            🍱 06-A 節慶促銷與主打商品
-          </button>
-          <button type="button" data-work-unit="06" data-work-sub="2" class="px-3 py-1.5 rounded-lg bg-paper hover:bg-lime/60 border border-line text-ink text-xs font-bold transition-all">
-            🧧 06-C 節日賀卡
+          <button type="button" data-work-unit="06" data-work-sub="0" class="px-2.5 py-1.5 rounded-lg bg-teal/10 hover:bg-teal hover:text-white border border-teal/25 text-teal text-xs font-extrabold transition-all">
+            🍱 06-A 節慶促銷
           </button>
         </div>
       </div>
@@ -509,16 +523,16 @@
     </section>
 
     <!-- 02 / 品牌實作工作台 -->
-    <section id="practice" class="bg-[#e8ede2] border-y border-line py-16 sm:py-24 scroll-mt-14">
+    <section id="practice" class="bg-[#e8ede2] border-y border-line py-16 sm:py-20 scroll-mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-8">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div class="text-xs font-bold tracking-[0.2em] text-teal uppercase mb-2">02 / YOUR BRAND WORKSPACE</div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">把方法，用在你的品牌。</h2>
+            <div class="text-xs font-extrabold tracking-[0.2em] text-teal uppercase mb-2">02 / YOUR BRAND WORKSPACE</div>
+            <h2 class="text-3xl sm:text-4xl font-black text-ink tracking-tight">把方法，用在你的品牌。</h2>
           </div>
           <div class="flex flex-wrap items-center gap-2.5">
-            <button id="openBriefModalBtn" type="button" class="px-4 py-2.5 rounded-xl bg-white border border-ink/20 text-ink hover:bg-lime/50 text-xs font-bold shadow-sm transition-all flex items-center gap-2">
+            <button id="openBriefModalBtn" type="button" class="px-4 py-2.5 rounded-xl bg-white border border-ink/20 text-ink hover:bg-lime/50 text-xs font-extrabold shadow-sm transition-all flex items-center gap-2">
               <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
               <span>總覽並匯出「全案品牌提案簡報」</span>
             </button>
@@ -526,14 +540,14 @@
         </div>
 
         <!-- 單元快速切換分頁列 -->
-        <div id="unitTabs" class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 border-b border-line/80">
-          <!-- 由 JS 動態渲染 01~05 切換按鈕 -->
+        <div id="unitTabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 border-b border-line/80">
+          <!-- 由 JS 動態渲染 01~06 切換按鈕 -->
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
           
           <!-- 左側控制欄 -->
-          <aside class="lg:col-span-4 bg-white rounded-2xl p-6 border border-line shadow-sm space-y-5 lg:sticky lg:top-24">
+          <aside class="lg:col-span-4 bg-white rounded-3xl p-6 border border-line shadow-sm space-y-5 lg:sticky lg:top-20">
             <div>
               <label for="brand" class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">1. 選擇餐飲／零售實作案例</label>
               <select id="brand" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-teal">
@@ -592,10 +606,10 @@
           </aside>
 
           <!-- 右側主要工作區 -->
-          <div class="lg:col-span-8 space-y-6">
+          <div class="lg:col-span-8 space-y-6 min-w-0">
             
             <!-- 單元標題與流程摺疊區 -->
-            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-line shadow-sm">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-line shadow-sm">
               <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <span id="workTag" class="px-3 py-1 rounded-full bg-lime text-ink text-xs font-extrabold tracking-wider">STRATEGY</span>
                 <span id="saveStatus" class="text-xs font-medium text-teal flex items-center gap-1.5" aria-live="polite">
@@ -604,19 +618,17 @@
                 </span>
               </div>
 
-              <h3 id="workTitle" class="text-2xl sm:text-3xl font-extrabold text-ink">01 / 全通路議題行銷策劃師</h3>
-              <p id="taskOutput" class="text-sm font-medium text-muted mt-1.5 leading-relaxed"></p>
+              <h3 id="workTitle" class="text-2xl sm:text-3xl font-black text-ink leading-tight">01 / 全通路議題行銷策劃師</h3>
+              <p id="taskOutput" class="text-xs sm:text-sm font-medium text-muted mt-1.5 leading-relaxed"></p>
 
-              <!-- 多 Skill 切換器（當該單元擁有多個 Skill 如單元 05 時自動顯示） -->
-              <div id="subSkillSwitcherBox" class="hidden mt-4 p-4 rounded-xl bg-teal/5 border border-teal/20 space-y-2.5">
+              <!-- 俐落緊湊型多 Skill 切換工具列 -->
+              <div id="subSkillSwitcherBox" class="hidden mt-5 p-4 rounded-2xl bg-paper border border-line space-y-3">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="text-xs font-extrabold text-teal uppercase tracking-wider flex items-center gap-1.5">
-                    <span>🎬 本單元內建多組 Skill 協作模組（點擊切換手冊、流程圖與提示詞焦點）</span>
-                  </span>
-                  <span class="text-[11px] text-muted">支援獨立下載 ZIP 與切換工作台提示詞</span>
+                  <span class="text-xs font-extrabold text-teal uppercase tracking-wider">切換本單元專業 Skill 模組</span>
+                  <span class="text-[11px] text-muted">切換時將同步更新下方流程圖、思考提問與提示詞</span>
                 </div>
-                <div id="subSkillButtons" class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-                  <!-- 由 JS 動態渲染子 Skill 切換按鈕 -->
+                <div id="subSkillButtons" class="space-y-2.5">
+                  <!-- 由 JS 動態渲染緊湊切換列與當前模組動作條 -->
                 </div>
               </div>
 
@@ -646,24 +658,36 @@
                     <div>
                       <span class="text-xs font-extrabold text-ink flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-teal"></span>
-                        <span>📊 本單元作業邏輯全覽圖（Mermaid 視覺化流程）</span>
+                        <span>📊 本單元作業邏輯全覽圖（Mermaid 高清雙行視覺化流程）</span>
                       </span>
-                      <span class="text-[11px] text-muted block mt-0.5">從起點判斷到最終驗收的一條龍路徑（點擊圖表可直接放大）</span>
+                      <span class="text-[11px] text-muted block mt-0.5">點擊圖表可放大檢視，亦可切換「橫向／直式」版面後下載高解析 PNG</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-1.5">
+                      <button id="toggleMermaidDirBtn" type="button" class="px-2.5 py-1.5 rounded-lg border border-teal/35 bg-teal/5 hover:bg-teal hover:text-white text-teal text-xs font-extrabold transition-all flex items-center gap-1" title="切換橫向或直式流程圖排版">
+                        <span>↕ 切換直式高清</span>
+                      </button>
                       <button id="zoomMermaidBtn" type="button" class="px-2.5 py-1.5 rounded-lg border border-line bg-paper hover:bg-lime/50 text-ink text-xs font-bold transition-all flex items-center gap-1">
                         <span>🔍 放大檢視</span>
                       </button>
                       <button id="downloadMermaidPngBtn" type="button" class="px-2.5 py-1.5 rounded-lg bg-teal text-white hover:bg-teal-dark text-xs font-bold transition-all flex items-center gap-1 shadow-sm">
-                        <span>🖼️ 下載 PNG 圖片</span>
+                        <span>🖼️ 下載高清 PNG</span>
                       </button>
                       <button id="downloadMermaidSvgBtn" type="button" class="px-2.5 py-1.5 rounded-lg border border-teal/30 bg-teal/5 hover:bg-teal/15 text-teal text-xs font-bold transition-all">
                         <span>SVG</span>
                       </button>
                     </div>
                   </div>
-                  <div id="mermaidDiagramBox" title="點擊放大檢視流程圖" class="w-full overflow-x-auto py-3 flex justify-center items-center min-h-[110px] cursor-zoom-in hover:bg-paper/50 rounded-lg transition-colors">
-                    <!-- 由 Mermaid.js 動態渲染 SVG -->
+                  <div id="mermaidDiagramBox" title="點擊放大檢視流程圖" class="w-full overflow-x-auto py-4 px-3 flex justify-center items-center min-h-[190px] cursor-zoom-in bg-[#fcfcfa] hover:bg-paper/60 rounded-xl border border-line/60 transition-colors">
+                    <!-- 由 Mermaid.js 動態渲染高清 SVG -->
+                  </div>
+                  <div class="mt-2.5 pt-2.5 border-t border-line/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-paper border border-teal inline-block"></span>標準執行步驟</span>
+                      <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-lime border border-ink inline-block"></span>核心價值樞紐</span>
+                      <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-ink inline-block"></span>人腦決策／合規閘門</span>
+                      <span class="inline-flex items-center gap-1.5"><span class="font-mono font-bold text-teal">⇢</span>未達標回流校準</span>
+                    </div>
+                    <span class="text-[10px] font-semibold text-teal">已啟用智慧雙行斷句與高清防壓縮排版</span>
                   </div>
                 </div>
               </div>
@@ -936,7 +960,7 @@
             </div>
 
             <div class="mt-6 pt-4 border-t border-teal/20 flex items-center justify-between text-xs text-muted">
-              <span>全套六力課程與 18 組 Skill 架構原創設計</span>
+              <span>全套六力課程與 19 組 Skill 架構原創設計</span>
               <span class="font-bold text-teal tracking-wider">TONY STUDIO</span>
             </div>
           </div>
@@ -1007,7 +1031,7 @@
             <span class="text-teal group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-sm text-muted mt-3 pt-3 border-t border-line leading-relaxed">
-            本平台已整合 Firebase 雲端即時同步備份機制，自動保存您的品牌實作筆記與單元進度；同時也可隨時匯出 JSON 與 Markdown 檔案離線留存。RAG 單元提供完整架構設計、操作引導與 10 題評測流程，實際檢索系統與 AI 推論請依您採用的 AI 平台執行。
+            本平台已內建 Google <code class="text-ink font-mono">gemini-4-hydrogen</code> 即時協作引擎（選填個人 API Key 即可直接在工作台產出，亦可免金鑰複製提示詞），並整合 Firebase Auth 雙重驗證與 Firestore 雲端即時同步備份機制，自動保存您的品牌實作筆記與進度。
           </p>
         </details>
 
@@ -1017,7 +1041,7 @@
             <span class="text-teal group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-sm text-muted mt-3 pt-3 border-t border-line leading-relaxed">
-            本單檔 HTML 已將六大單元共 18 組原創 Skill ZIP 內嵌與動態封裝，點擊「ZIP ↓」即可直接存檔，不依賴外部伺服器資料夾。解壓縮後內含 <code class="text-ink font-mono">SKILL.md</code>、<code class="text-ink font-mono">agents/openai.yaml</code> 與專屬實戰參考規範檔（如 <code class="text-ink font-mono">references/</code> 檢核表與交接契約）。
+            本單檔 HTML 已將六大單元共 19 組原創 Skill ZIP 內嵌與動態封裝，點擊「ZIP ↓」即可直接存檔，不依賴外部伺服器資料夾。解壓縮後內含 <code class="text-ink font-mono">SKILL.md</code>、<code class="text-ink font-mono">agents/openai.yaml</code> 與專屬實戰參考規範檔（如 <code class="text-ink font-mono">references/</code> 檢核表與交接契約）。
           </p>
         </details>
 
@@ -1215,10 +1239,10 @@
             <div class="flex flex-wrap items-center gap-2 mb-1">
               <span class="text-[11px] font-extrabold tracking-widest text-teal uppercase">03 / CLOUD SKILL & CURRICULUM CMS</span>
               <span class="px-2 py-0.5 rounded bg-ink text-lime text-[10px] font-extrabold">👑 僅限最高管理員 mindnodeai@gmail.com</span>
-              <span id="cmsSkillCountBadge" class="px-2.5 py-0.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-[11px] font-extrabold">6 大單元 · 18 組 Skill</span>
+              <span id="cmsSkillCountBadge" class="px-2.5 py-0.5 rounded-full bg-teal/10 border border-teal/20 text-teal text-[11px] font-extrabold">6 大單元 · 19 組 Skill</span>
             </div>
             <h4 class="text-lg font-extrabold text-ink">全站課程單元與全部 Skill 模組雲端管理（支援單獨新增、編輯、上傳更新 ZIP、刪除）</h4>
-            <p class="text-xs text-muted mt-0.5">涵蓋 01–06 六大單元旗下全部 18 組子 Skill（01-A/B/C、02-A/B、03-A/B/C/D、04-A/B/C、05-A/B/C、06-A/B/C）。每個 Skill 皆可獨立上傳更新 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> 並即時同步至 Firestore 雲端。</p>
+            <p class="text-xs text-muted mt-0.5">涵蓋 01–06 六大單元旗下全部 19 組子 Skill（01-A/B/C、02-A/B/C、03-A/B/C/D、04-A/B/C、05-A/B/C、06-A/B/C）。每個 Skill 皆可獨立上傳更新 <code class="bg-paper px-1.5 py-0.5 rounded border border-line text-ink">.zip</code> 並即時同步至 Firestore 雲端。</p>
           </div>
           <div id="creatorSkillCmsActions" class="flex flex-wrap items-center gap-2.5">
             <button id="openRulesModalBtn" type="button" class="px-3.5 py-2 rounded-xl border border-ink bg-paper hover:bg-lime/50 text-ink text-xs font-extrabold transition-all flex items-center gap-1.5">
@@ -1586,18 +1610,21 @@
   </dialog>
 
   <!-- Mermaid 視覺化流程圖 放大檢視與下載 Modal -->
-  <dialog id="mermaidZoomDialog" class="rounded-3xl border border-line w-[min(1180px,96vw)] max-h-[92vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/85">
+  <dialog id="mermaidZoomDialog" class="rounded-3xl border border-line w-[min(1240px,96vw)] max-h-[92vh] p-0 bg-paper text-ink shadow-2xl backdrop:bg-ink/85">
     <div class="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-ink text-white border-b border-white/10">
       <div>
-        <span class="text-[10px] font-bold tracking-widest text-lime uppercase block">PROCESS ARCHITECTURE VIEWER</span>
+        <span class="text-[10px] font-bold tracking-widest text-lime uppercase block">PROCESS ARCHITECTURE VIEWER · HD VECTOR</span>
         <h3 id="mermaidZoomTitle" class="text-base sm:text-lg font-extrabold text-white">單元作業邏輯全覽圖（高解析放大檢視）</h3>
       </div>
       <div class="flex flex-wrap items-center gap-2">
+        <button id="zoomToggleDirBtn" type="button" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-lime text-xs font-extrabold transition-all">
+          ↕ 切換直式高清
+        </button>
         <div class="flex items-center bg-white/10 rounded-xl p-1 border border-white/15">
           <button id="zoomOutMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="縮小">－</button>
           <span id="zoomScaleLabel" class="px-2.5 text-xs font-mono font-bold text-lime">125%</span>
           <button id="zoomInMermaidModalBtn" type="button" class="px-2.5 py-1 rounded-lg hover:bg-white/15 text-xs font-extrabold text-white" title="放大">＋</button>
-          <button id="zoomResetMermaidModalBtn" type="button" class="px-2 py-1 rounded-lg hover:bg-white/15 text-[11px] text-white/80">重設</button>
+          <button id="zoomResetMermaidModalBtn" type="button" class="px-2 py-1 rounded-lg hover:bg-white/15 text-[11px] text-white/80">100%</button>
         </div>
         <button id="downloadMermaidModalPngBtn" type="button" class="px-3.5 py-1.5 rounded-xl bg-lime text-ink text-xs font-extrabold hover:bg-lime-dark transition-all">
           🖼️ 下載高解析 PNG
@@ -1610,8 +1637,8 @@
         </button>
       </div>
     </div>
-    <div class="p-6 sm:p-10 overflow-auto max-h-[calc(92vh-74px)] bg-white flex justify-center items-center min-h-[380px]">
-      <div id="mermaidZoomContent" class="transition-transform duration-200 origin-center py-4"></div>
+    <div class="p-6 sm:p-10 overflow-auto max-h-[calc(92vh-74px)] bg-[#fcfcfa] min-h-[420px]">
+      <div id="mermaidZoomContent" class="w-fit mx-auto py-4"></div>
     </div>
   </dialog>
 
@@ -1829,20 +1856,20 @@ const UNITS = [
   {
     "id": "02",
     "slug": "tony-multi-brand-rag-coach",
-    "name": "多品牌 RAG 建置教練 ＋ AI 品牌知識架構師",
-    "title": "多客戶品牌知識庫、GEO 結構化知識架構與 RAG 系統建立",
-    "tag": "KNOWLEDGE & GEO",
-    "shortLabel": "品牌知識・GEO",
-    "promise": "建立可信且被 AI 引用的依據",
-    "desc": "結合「多品牌知識庫與 RAG 建置教練」與「AI 品牌知識架構師 v1.0」雙模組，從第一手來源分級、結構化 JSON Schema、GEO 生成式搜尋優化到多租戶 RAG 隔離測試一次到位。",
+    "name": "多品牌 RAG 建置教練 ＋ AI 品牌知識架構師 ＋ M01 未來商店創造師",
+    "title": "品牌知識庫、GEO 結構化架構與 M01 未來概念商店創造",
+    "tag": "KNOWLEDGE・GEO・STORE",
+    "shortLabel": "品牌知識・未來商店",
+    "promise": "建立可信知識底座並具象化未來實體空間",
+    "desc": "串聯「多品牌知識庫與 RAG 建置教練」、「AI 品牌知識架構師 v1.0」與「M01 未來商店創造師 v1.3」三大模組，從第一手來源隔離、GEO 結構化標記到空店面改造概念與開幕行銷計畫一次到位。",
     "steps": [
       "盤點品牌來源與分級（讀取 research_source_policy）：區分官方第一手、第三方權威與待查證資訊，確保多客戶資料預設隔離。",
       "建立結構化品牌知識母體（讀取 brand_knowledge_schema）：統整品牌核心識別、產品規格、可驗證主張、語氣紅線與 FAQ，輸出 Markdown 與標準 JSON 雙格式。",
-      "執行事實與邏輯驗證（讀取 brand_validation_rules）：逐筆核對宣稱與證據綁定、效期衝突及合規邊界，無依據欄位強制保留待確認。",
       "部署 GEO 生成式引擎標記對映（讀取 geo_schema_mapping）：轉譯為 Schema.org（Organization / Product / FAQPage）與 AI 易讀結構，提升生成式搜尋引用準確度。",
-      "選擇 A 來源型知識庫操作卡或 B 工程級 RAG（伺服器端驗證 tenant_id 與 brand_id），並以 10 道壓力測試題與企業級白皮書結構（word_report_structure）完成交付。"
+      "【M01 未來商店空間轉譯】套用 future-store-creator 將品牌識別與五感動線注入空店面基底（default-empty-storefront.jpeg），產出日間立面、夜間發光與室內動線改造企劃及開幕三波段行銷計畫（marketing-plan.md）。",
+      "執行 10 道 RAG 壓力測試與建築／食安合規邊界審查，明確區分空間概念示意圖與正式建築消防施工圖。"
     ],
-    "deliver": "品牌來源清冊、結構化品牌知識包（MD + JSON Schema）、GEO 標記對映表、品牌知識白皮書報告、RAG 架構卡與 10 題測試集",
+    "deliver": "品牌來源清冊、結構化品牌知識包（MD + JSON Schema）、GEO 標記對映表、RAG 10 題測試集、M01 未來商店空間改造 Prompt 與開幕行銷企劃包（future-store-creator）",
     "fields": [
       "品牌 A／B 各有哪些資料？",
       "要做來源問答教學，還是工程 RAG？",
@@ -1925,6 +1952,50 @@ const UNITS = [
           "雙格式知識資產與白皮書交付（讀取 references/word_report_structure.md 與 examples/）：同步輸出機器可讀之 `.json`、AI 協作易讀之 `.md` 品牌知識母檔，以及可供企業決策層審批簽核之《AI 品牌知識架構白皮書》章節內容（可套用內附 `brand_knowledge_template.docx`）。"
         ],
         "manual": "---\nname: tony-ai-brand-knowledge-architect\ndescription: TONY AI 品牌知識架構師 v1.0；專精於企業品牌知識盤點、來源可信度分級、結構化 JSON Schema 建模、事實合規驗證、GEO（生成式引擎優化）Schema.org 對映與企業級品牌知識白皮書交付。\n---\n\n# TONY AI 品牌知識架構師 v1.0（TONY_AI_Brand_Knowledge_Architect_v1.0）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.0.0。提供 A 示範教學、B 逐步引導實作、C 直接產出架構、D 檢核驗證修訂、E 使用說明五種模式。\n區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。嚴格遵守「零幻覺與證據綁定鐵則（Zero-Hallucination & Evidence Binding）」：任何產品規格、價格、認證、得獎紀錄、環保數據或客戶見證，若無對應之 Tier 1 / Tier 2 來源編號，一律標記為 `status: pending_verification`（待確認），絕不自行腦補編造。\n\n## 專屬流程（六階段知識架構工程）\n1. **來源盤點與可信度分級**（參照 `agents/research_workflow.md` 與 `references/research_source_policy.md`）：\n   - 將輸入素材區分為 Tier 1（官方核發文件／官網正式規格）、Tier 2（政府機構／第三方檢驗／權威媒體）、Tier 3（口頭轉述／未驗證網路討論，不可直接作為事實宣稱）。\n2. **結構化品牌知識建模**（參照 `references/brand_knowledge_schema.md` 與 `schemas/brand_knowledge.schema.json`）：\n   - 建立七大核心模組：`brand_identity`（品牌核心識別）、`value_propositions`（價值主張與受眾痛點對映）、`offerings`（產品／服務規格與價格條件）、`evidence_vault`（可驗證證據庫）、`voice_and_compliance`（品牌語氣與禁用詞紅線）、`canonical_faqs`（標準問答集）、`governance`（版本、擁有人與重審週期）。\n3. **事實綁定與合規規則檢核**（參照 `references/brand_validation_rules.md`）：\n   - 執行孤兒主張檢查（Orphan Claim Check）、過期效期攔截、跨文件數值衝突比對與產業法規敏感詞過濾。\n4. **GEO 生成式搜尋優化與結構化標記對映**（參照 `references/geo_schema_mapping.md`）：\n   - 將品牌核心實體轉譯為 Schema.org 標準 JSON-LD（`Organization`、`Brand`、`Product`、`FAQPage`）及語意清晰之權威事實段落（Fact Snippets），讓外部生成式 AI 搜尋與內部 Agent 皆能精準理解不誤讀。\n5. **輸出雙格式標準範例與主檔**（參照 `examples/example_brand_knowledge.json` 與 `examples/example_brand_knowledge.md`）：\n   - 同步產出通過 Schema 檢驗之 JSON 結構檔與人類／LLM 雙棲易讀之 Markdown 知識母檔。\n6. **企業級品牌知識白皮書匯整**（參照 `references/word_report_structure.md` 與 `assets/brand_knowledge_template.docx`）：\n   - 依七大標準章節產出可供企業高層、法務與行銷部門共同簽核之品牌知識白皮書內文。\n\n## 交付與驗收\n交付：1. 品牌來源分級清冊、2. 結構化品牌知識主檔（Markdown + JSON）、3. 事實與合規驗證報告、4. GEO & Schema.org JSON-LD 標記建議、5. 企業品牌知識白皮書完稿大綱。\n"
+      },
+      {
+        "slug": "future-store-creator",
+        "versionTag": "1.3.0",
+        "name": "M01 未來商店創造師 v1.3（實體門市空間與開幕行銷導演）",
+        "roleBadge": "SKILL 02-C｜M01 未來商店創造師",
+        "deliver": "未來概念店空間定位卡、顧客五感動線規劃表（output-template.md）、空店面圖生圖改造中英對照 Prompt 包（搭配 default-empty-storefront.jpeg 日／夜／室內三視角）、開幕三波段集客行銷計畫（marketing-plan.md）與展店提案簡報（document-delivery.md）",
+        "fields": [
+          "預計打造的實體店型與坪數規模為何？（如：8 坪街邊外帶快閃店、25 坪社區精品咖啡烘焙店、百貨伴手禮專櫃或複合式無人取餐概念店）是否有店面現況照或使用內附空店面基準圖？",
+          "希望空間傳遞什麼建築材質、品牌標準色與「五感體驗動線」？（如：遠看吸睛門頭 → 駐足聞香／試飲打卡點 → 點單結帳與零售展架 → 內用插座或快速外帶取餐分流）",
+          "新店開幕預計設定什麼集客目標與預熱活動？（如：施工圍籬掃碼領早鳥券、開幕首三日熟客封測、周邊上班族午休／午後回流機制）"
+        ],
+        "quiz": "用 AI 將空店面照片改造成超炫的玻璃懸空未來概念店視覺圖後，可以直接交給工班照著這張圖敲牆施工嗎？",
+        "answer": "絕對不行！AI 生成之未來店面圖屬於「品牌空間概念提案與視覺溝通示意圖（Concept Visualization）」，不能取代正式建築結構安全簽證、室內裝修審查、無障礙動線、餐飲油水電排煙配置與消防法規施工圖（CAD／BIM）。提案交付時必須依 document-delivery.md 明確標示概念示意與工程簽證之分界。",
+        "samples": {
+          "coffee": [
+            "・店型與基底設定：森日咖啡「18 坪街角午後專注概念店」，採用內附 `assets/default-empty-storefront.jpeg` 標準一樓空店面作為圖生圖（Image-to-Image）改造基準，嚴格保留原建築梁柱結構。",
+            "・材質色票與五感動線（output-template.md）：\n  - 立面材質：溫潤淺色樺木格柵搭配 #185B51 森林深綠霧面金屬門框、亞麻米白無字燈箱招牌區（後製置入官方 Logo）。\n  - 四段動線：1. 騎樓手沖聞香外帶窗（30 秒快速取杯分流）→ 2. 瑞士水低咖啡因豆聞香試飲中島 → 3. 濾掛禮盒常溫零售牆 → 4. 內側全插座靜音深思長桌區。",
+            "・開幕三波段行銷（marketing-plan.md）：\n  1. T-14 圍籬預熱期：施工帆布印製「午後三點不心悸倒數」QR Code，掃碼加 LINE 領開幕雙杯體驗券。\n  2. T-3 鄰里封測日：邀請周邊自由工作者與工作室免費試飲低咖啡因手沖換取 Google 地標真實評論。\n  3. 開幕首月回流：憑外帶杯袖集滿 3 點兌換晨光濾掛嚐鮮包。"
+          ],
+          "tea": [
+            "・店型與基底設定：海岸茶室「12 坪都會極簡台灣茶禮概念店＆冷泡茶立飲吧」，以一樓街邊空店面改造為當代東方美學展售空間。",
+            "・材質色票與五感動線（output-template.md）：\n  - 立面材質：#162C30 深墨青手工肌理塗料外牆、溫潤原石奉茶台、大面積清透落地玻璃展示雙層灰卡茶禮盒光影。\n  - 四段動線：1. 街邊琥珀冷泡茶奉茶體驗口 → 2. 台灣三大茶區風土聞香罐互動桌 → 3. 企業客製燙金祝賀小卡挑選區 → 4. VIP 靜謐試茶席。",
+            "・開幕三波段行銷（marketing-plan.md）：\n  - 針對周邊商辦福委與公關發送「開幕憑名片免費兌換冷泡紅玉乙瓶＋企業節慶試飲盒預約卡」，將路過客轉化為高單價 B2B 禮盒訂單。"
+          ],
+          "bistro": [
+            "・店型與基底設定：禾味日常「15 坪鮮食便當智能取餐＆冷凍調理包社區新零售概念店」，解決午晚餐尖峰排隊壅塞並放大離峰零售坪效。",
+            "・材質色票與五感動線：\n  - 溫暖赤陶磚與奶油白潔淨門面；左側為「LINE 預訂 10 秒保溫格自取通道」，右側為「居家常備冷凍調理包透明立式展櫃＋6 分鐘覆熱實演螢幕」。",
+            "・開幕三波段行銷：午間買鮮食便當贈「下班順手帶冷凍舒肥雞加購折 $30 券」，打通堂食外帶與居家囤貨雙營收閉環。"
+          ],
+          "custom": [
+            "・目標店型、坪數與空店面照片現況（街邊店／百貨櫃／快閃店）：",
+            "・門頭立面材質、品牌標準色，以及「進店前→體驗區→結帳零售架→取餐／內用」動線配置：",
+            "・開幕前圍籬蓄水、開幕首週引流與首月熟客留存行銷規劃："
+          ]
+        },
+        "steps": [
+          "盤點店型定位與基地條件（讀取 SKILL.md 與 assets/output-template.md）：確認業態坪數、商圈客群與既有空店面照片（無現況照時直接啟用內附 `assets/default-empty-storefront.jpeg` 標準空店面基準圖）。",
+          "設計「顧客五感動線與坪效分區」：規劃門頭視覺黃金 3 秒吸睛點、門口外帶／體驗破冰區、高毛利零售伴手禮順手拿展架，以及內用／取餐分流動線。",
+          "輸出結構保持型店面改造生圖指令包（Image-to-Image Prompts）：維持原建築梁柱、騎樓與門窗比例不扭曲，產出「日間自然光門頭立面」、「夜間溫暖發光招牌情境」與「室內吧台展架視角」三組中英對照無字 Prompt（門頭招牌預留乾淨留白區供後製置入官方 Logo）。",
+          "制定新店開幕三波段行銷作戰計畫（讀取 references/marketing-plan.md）：串聯「T-14 施工圍籬預熱蓄水 → 開幕首週試吃／奉茶破冰體驗 → 首月集點與鄰里企業回購鎖客」。",
+          "彙整展店提案報告與合規驗收（讀取 references/document-delivery.md 與 references/classroom.md）：核對動線合理性、招牌無 AI 亂碼字，並明確標註概念渲染圖與正式建築消防／水電排煙施工圖之工程邊界。"
+        ],
+        "manual": "---\nname: future-store-creator\nversion: 1.3.0\ndescription: M01 未來商店創造師 v1.3；當使用者需要將空店面改造成未來品牌概念店、規劃實體門市五感動線、產出日夜立面與室內空間渲染生圖提示詞、制定新店開幕三波段行銷計畫（marketing-plan.md）或匯整展店提案簡報（document-delivery.md）時使用。\n---\n\n# M01 未來商店創造師 v1.3（future-store-creator）\n\n## 共同工作契約\n使用臺灣繁體中文，作者為 TONY 楊文澤老師，TONY Studio，版本 v1.3.0。提供 A 示範、B 逐步實作、C 直接製作、D 檢核修訂、E 使用說明五種模式。\n區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。嚴守建築與工程誠實邊界：AI 店面視覺僅供「品牌空間概念溝通與展店提案示意」，絕不宣稱可直接作為施工藍圖，實際裝修須經合格建築師／室內設計師依消防、無障礙、結構安全與餐飲排煙油水分離法規簽證；門頭招牌強制預留乾淨無字貼標區，不以 AI 亂碼字冒充官方店招。\n\n## 專屬流程（五步未來概念店創造工作流）\n1. **基地與商業模式定錨**：確認街邊店、商場櫃位或快閃店型，若學員手邊無空店面照片，引導使用壓縮包內附之 `assets/default-empty-storefront.jpeg` 作為改造底圖。\n2. **五感體驗與坪效動線設計**（套用 `assets/output-template.md`）：設計「遠距門頭辨識 → 近距聞香／試吃駐足 → 吧台點單與伴手禮展架連帶銷售 → 取餐／座位分流」。\n3. **多視角空間改造生圖指令輸出**：產出日間立面、夜間燈光氛圍與室內陳列三組中英對照 Prompt，強制維持建築透視合理與門頭無字乾淨招牌面。\n4. **開幕三波段集客行銷規劃**（參照 `references/marketing-plan.md`）：規劃施工圍籬掃碼蓄水、熟客封測口碑與首月回購機制。\n5. **展店提案文件交付與課堂檢核**（參照 `references/document-delivery.md` 與 `references/classroom.md`）：完成七章節展店提案大綱與工程合規免責標註。\n\n## 交付與驗收\n交付：1. 未來商店定位與五感動線規格表（`assets/output-template.md`）、2. 日／夜／室內三視角空間改造中英生圖 Prompt 包（搭配 `assets/default-empty-storefront.jpeg`）、3. 開幕三波段行銷計畫（`references/marketing-plan.md`）、4. 展店提案簡報結構與合規檢核表（`references/document-delivery.md`）。\n"
       }
     ],
     "samples": {
@@ -2829,30 +2900,30 @@ const SKILL_PRACTICAL_HANDBOOK_MAP = {
       "GEO 與 Schema.org JSON-LD 標記語法正確且完全忠於已驗證事實，不夾帶違規誇大詞。"
     ]
   },
-  "tony-brand-content-factory": {
-    badges: ["對應領航員：W3 內容矩陣工作坊", "對應指導員：U3 品牌故事與社群工廠", "教學版 v1.0.0"],
-    positioning: "以一份經過事實查核的「品牌故事母稿」與「語氣邊界卡」為核心，批量衍生出適合 Facebook、IG、Threads 與 LINE 閱讀節奏的高共鳴內容，自動濾除誇大詞與機械感。",
-    structureTitle: "二、品牌母稿與跨平台內容四段式結構",
-    tableHeaders: ["段落 / 模組", "寫作重點", "字數與排版規範"],
+  "future-store-creator": {
+    badges: ["對應領航員：W2 品牌空間轉譯坊", "對應指導員：M01 未來商店創造師 v1.3", "餐飲零售展店實戰版"],
+    positioning: "將抽象的品牌知識與標準色直接具象化為「未來概念店空間提案（future-store-creator v1.3）」，結合內附標準空店面底圖（`default-empty-storefront.jpeg`）、五感坪效動線表與開幕三波段集客行銷計畫，讓展店比稿、招商提案與快閃店籌備一目了然。",
+    structureTitle: "二、M01 未來商店創造與開幕行銷四階段結構",
+    tableHeaders: ["創造階段", "空間與營運重點", "工程與商業合規規範"],
     tableRows: [
-      ["事實與語氣卡 (Voice Card)", "明確界定「可以說、有條件說、絕對禁說」與常用／禁用詞", "無真實語氣樣本時不宣稱已學會專屬文風，嚴禁杜撰創辦人經歷"],
-      ["故事母稿核心 (Core Story)", "拆解人物、願望、阻礙、選擇、真實行動與可驗證結果", "聚焦受眾能投射的生活意義，不寫歌功頌德的八股公關稿"],
-      ["四大內容矩陣 (Matrix)", "展開為「教育知識、情緒共鳴、真實證據、行動轉換」四切角", "跨平台必須重寫閱讀節奏與分段空行，絕不只做字數刪減"],
-      ["整批審稿與去重 (Audit)", "逐篇檢查 Hook 是否重複、事實是否一致、CTA 是否清晰", "清除多餘 Markdown 符號，將查證說明與可貼成稿分區呈現"]
+      ["基地與店型定錨 (Store Base)", "界定街邊店、百貨專櫃或外帶快閃店，載入空店面基準照", "保持原建築梁柱、騎樓高度與周邊街景結構合理，不憑空捏造違建"],
+      ["五感與坪效動線 (Sensory Flow)", "串聯「遠看門頭→門口聞香試飲→零售順手買→外帶內用分流」", "兼顧尖峰出餐效率與伴手禮零售連帶率，避免動線打結"],
+      ["日夜三視角渲染 (3-View Prompt)", "輸出日間自然光門面、夜間溫暖發光招牌與室內展架生圖指令", "門頭招牌強制預留乾淨無字空白牌面供後製貼入官方 Logo，杜絕亂碼字"],
+      ["開幕三波段行銷 (Launch Plan)", "依 `marketing-plan.md` 規劃 T-14 圍籬蓄水→封測口碑→首月鎖客", "依 `document-delivery.md` 明示概念渲染圖不能取代正式建築消防施工圖"]
     ],
     sopSteps: [
-      "貼上品牌的真實事件、產品規格與希望保留的說話語氣（以及絕對不想出現的禁用詞），建立「品牌事實與語氣卡」。",
-      "檢視 AI 拆解的「故事母稿」與「6 篇跨平台內容矩陣」，可先驗收前 2 篇風格，確認滿意後再展開全批完稿。",
-      "核對底部的「整批審稿表」，確認每篇切角不重複，且沒有擅自加上未經測量的數據（如未驗證的減碳百分比或療效）。"
+      "選定預計展店的業態坪數與空店面底圖（可直接採用壓縮包內附之 `assets/default-empty-storefront.jpeg`）。",
+      "檢視 AI 依 `output-template.md` 產出的「五感動線配置表」與「日／夜／室內三視角空間改造中英生圖 Prompt」。",
+      "生成概念空間圖並後製壓上官方店招後，搭配 `marketing-plan.md` 開幕三波段活動與 `document-delivery.md` 匯整為完整展店提案簡報。"
     ],
-    starterTask: "請使用本 Skill（tony-brand-content-factory），將以下虛構品牌「森日咖啡」推行熟客自帶杯折抵與每週三調整低咖啡因配方的真實紀錄，先建立「品牌事實與語氣卡」及「故事母稿」，再規劃 6 篇跨平台貼文矩陣（IG、Threads、LINE），不誇大環保減碳數據：[貼上品牌素材]。",
-    refineTask: "請針對矩陣中的第 2 篇（Threads 共鳴短文）與第 5 篇（LINE 熟客推播），改為「像鄰居烘豆師日常聊天」的溫和克制語氣，去除所有「**」星號與驚嘆號轟炸，不重寫其他篇。",
-    pitfallWrong: "「**震撼全網！** 創辦人走遍全球三百座莊園流淚研發！喝一杯森日咖啡等於為地球種下十棵樹、100% 根治失眠焦慮，今天不買對不起自己！」（捏造經歷、誇大數據且充滿罐頭推銷感）",
-    pitfallRight: "「過去一年，店裡累積了 1,200 次熟客自帶杯的日常紀錄。我們沒有做偉大的口號，只是每週三固定在烘豆機前微調低咖啡因豆的曲線，讓午後三點走進來的你，能有一杯不給夜晚添負擔的溫熱拿鐵。」",
+    starterTask: "請使用本 Skill（future-store-creator v1.3），針對虛構品牌「森日咖啡」（標準色：森林深綠 #185B51、亞麻米白 #F5F4EE、溫潤樺木），以標準一樓街邊 18 坪空店面為基底，依序完成：1. 未來概念店定位與四段五感動線表（output-template）、2. 日間門頭立面、夜間發光情境與室內吧台零售區三組無字生圖 Prompt、3. 開幕前中後三波段集客行銷計畫（marketing-plan），以及 4. 展店提案合規檢核表（document-delivery）：[貼上展店構想]。",
+    refineTask: "請保留目前的森林深綠與樺木立面材質錨點，針對「門口 30 秒快速外帶取杯窗 ＋ 施工圍籬 T-14 預熱掃碼活動」進行局部強化：補充外帶窗與內用客群不互卡的動線細節，並設計 2 組印在施工圍籬帆布上的吸睛預熱文案。",
+    pitfallWrong: "「請 AI 把一樓老屋直接畫成拆掉所有承重柱的全懸空透明水晶屋，上面還帶著歪七扭八的中文假招牌，直接拿給木工師傅說下禮拜照這樣敲牆施工！」（違反建築結構與消防法規、招牌亂碼且誤把概念示意圖當成施工藍圖）",
+    pitfallRight: "「以 `default-empty-storefront.jpeg` 保留既有建築柱位與騎樓尺度，設計樺木格柵與 #185B51 森林綠門框，預留乾淨無字燈箱供後製套入精準官方店招；提案末頁明確標示正式裝修將交由合格建築／室內設計師依消防與排煙法規簽證。」",
     checklist: [
-      "不捏造創辦人傳奇、客戶見證、未測量的數據或保證成效。",
-      "跨平台稿件已依各平台閱讀習慣重新調整開頭 Hook、空行節奏與 CTA。",
-      "每篇完稿皆附來源 ID 與整批審稿表，確保中心問題與開頭不重複。"
+      "空間設計已完整涵蓋「門頭吸睛、門口破冰體驗、零售順手拿展架、取餐／內用分流」商業動線。",
+      "日／夜／室內生圖提示詞皆保留合理建築結構，且門頭招牌區設定為無字乾淨平面供後製置入真實商標。",
+      "已附上開幕三波段行銷計畫，並清楚標示「空間概念示意圖」與「正式建築／消防／機電施工圖」之分界。"
     ]
   },
   "tony-proposal-visual-director": {
@@ -3423,18 +3494,18 @@ const UNIT_WWH_MERMAID_MAP = {
       class B highlight;
       class G gate;`
   },
-  "03": {
-    framework: "餐飲零售五感敘事學 × 職人／吉祥物 IP 人格化 × 一源多用內容矩陣",
-    leverage: "人腦注入「主廚選料堅持與熟客真實互動」 ⇄ AI 展開「四維社群矩陣與角色一致性資產」",
-    why: "【破局命題】餐飲與零售若只靠「買一送一、限時特價」搶客，只會陷入毛利歸零的價格戰；能支撐溢價與高回購的是「品牌信任故事與鮮明角色記憶」。\n・慣性盲點：請 AI 亂編「祖傳秘方、走遍百座莊園」的假故事，或十篇貼文都在喊「好吃必買」，缺乏食用情境共鳴與合規分寸。\n・第一性原理：餐飲零售最好的故事就在「每日備料工序、食材取捨與顧客餐桌日常」；搭配原創虛擬店長或吉祥物 IP，就能把低頻購買轉化為高頻陪伴。",
-    what: "【決策資產】交付「食安合規語氣卡 ＋ 品牌故事母稿 ＋ 虛擬店長／吉祥物設定 ＋ 跨平台促購內容矩陣」。\n・四維內容配比：平衡配置「挑選／覆熱教學（教育）」、「用餐時刻共鳴（情緒）」、「產地製程實拍（證據）」與「領券到店／下單（轉換）」。",
-    how: "【人機閉環】真實工序盤點 → 語氣紅線定錨 → 角色 IP 鎖定 → 跨平台原生改寫與去重審稿。\n・人腦拍板：提供真實備料細節與門市觀察，嚴審禁用醫療療效與誇大字眼。\n・AI 規模推演：依 IG 視覺滑動、Threads 話題互動、LINE 熟客回購推播重寫閱讀節奏。\n・驗證閉環：核對每篇貼文之商品規格、價格條件與角色跨圖一致性。",
+  "02-2": {
+    framework: "空間體驗轉譯學（Spatial Branding）× 五感坪效動線 × 開幕三波段蓄水閉環",
+    leverage: "人腦核定「真實坪數預算、取餐分流與建築法規」 ⇄ AI 渲染「空店面日夜改造視覺與開幕集客計畫」",
+    why: "【破局命題】實體門市不只是付房租賣東西的場所，而是品牌最高轉換率的「立體 3D 媒體與五感信任場域」；但傳統展店往往等到裝潢完工才開始想怎麼行銷，錯失黃金預熱期。\n・慣性盲點：空間設計只顧網美拍照卻害尖峰出餐動線大打結、讓 AI 在門頭畫出扭曲中文假店招，或誤把 AI 概念圖當成可直接敲承重牆的施工圖。\n・第一性原理：將「空間動線坪效（外帶快取×零售順手拿×內用體驗）」與「T-14 施工圍籬預熱蓄水」同步設計，並以保留原建築結構之無字門頭底圖快速完成展店提案決策。",
+    what: "【決策資產】交付 `future-store-creator v1.3` 空間五感動線規格表、日／夜／室內三視角改造 Prompt 包（含空店面基準圖 `default-empty-storefront.jpeg`）與開幕三波段行銷簡報。",
+    how: "【人機閉環】鎖定店型與空店面底圖 → 規劃四段五感與零售動線 → 產出結構保持型無字店招空間圖 → 執行圍籬預熱至首月回購閉環，並移交合格建築／室內設計師簽證施工。",
     mermaid: `flowchart LR
-      A["1. 製程事實與食安語氣卡 (能說・條件說・禁說)"] --> B["2. 品牌母稿與角色IP (職人代言人・吉祥物)"]
-      B --> C["3. 四維促購矩陣 (教學・共鳴・溯源・領券)"]
-      C --> D["4. 跨平台原生改寫 (IG・Threads・LINE熟客)"]
-      D --> G{"食安合規與去重終審"}
-      G -.->|"誇大療效或切角重複：退回重修"| A
+      A["1. 店型與空店面定錨 (default-empty-storefront)"] --> B["2. 五感與坪效動線設計 (外帶分流×零售展架)"]
+      B --> C["3. 日・夜・室內空間渲染 (保留梁柱×無字店招)"]
+      C --> D["4. 開幕三波段蓄水行銷 (圍籬領券→封測→鎖客)"]
+      D --> G{"動線效率與建築消防分界QA"}
+      G -.->|"動線壅塞或誤當施工圖：重調分區與合規聲明"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3538,16 +3609,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "04-0": {
-    framework: "餐飲零售商攝光學 × 跨觸點版位原生構圖（社群・官網・門市 POP）",
-    leverage: "人腦鎖定「主推商品外觀與促銷留白需求」 ⇄ AI 產出「三案視覺比稿與多尺寸獨立構圖指令」",
-    why: "【破局命題】同一檔餐飲新品或年節禮盒戰役，必須同時鋪設 IG 4:5 廣告、電商首頁 16:9 橫幅與門市櫃檯海報；一張正方形圖硬裁切只會切掉重點或壓不到字。\n・慣性盲點：未先對齊受眾用餐／送禮情境就盲目生圖，或讓照片與實際餐點份量差異過大造成「圖片僅供參考」消費爭議。\n・第一性原理：先鎖定主視覺色溫與器皿錨點，再為每個線上線下觸點量身預留標題與價格安全留白區（Safe Zone）。",
-    what: "【決策資產】交付「三案視覺方向比較表 ＋ 主視覺固定錨點 ＋ 社群／電商橫幅／門市海報三版位生圖提示詞」。",
-    how: "【人機閉環】盤點商品外觀與品牌色 → 三案策略比稿 → 鎖定母視覺光影錨點 → 三版位獨立構圖與留白驗收。",
+    framework: "視覺動線階層（Visual Hierarchy）× 版位原生負空間學 × 概念與印刷完稿分治",
+    leverage: "人腦主導「視覺策略比稿與商標嚴謹度」 ⇄ AI 轉譯「光影構圖錨點與多版位原生分鏡」",
+    why: "【破局命題】商業提案視覺不是單張藝術插畫，而是要在 1.5 秒內完成「吸睛停駐 → 品牌辨識 → 標題閱讀 → 視線落向 CTA」的轉換工程。\n・慣性盲點：把一張正方形圖片硬拉變形套所有版位，或任由 AI 在商品上拼出扭曲錯字商標。\n・第一性原理：不同媒體版位（4:5 社群垂直滑動 vs 16:9 官網首屏）必須擁有各自獨立的負空間留白（Safe Zone）結構。",
+    what: "【決策資產】產出「三案視覺方向比稿表 ＋ 主視覺固定錨點 ＋ 三大跨版位原生規格包」，強制預留官方 Logo 後製座標並區分概念圖與 CMYK 印刷檔。",
+    how: "【人機閉環】盤點真實識別資產 → 三案光影比稿 → 鎖定母視覺錨點 → 逐版位獨立構圖與留白對比度驗收。",
     mermaid: `flowchart LR
-      A["1. 餐點／商品外觀與色票盤點"] --> B["2. 三案商攝概念比稿"]
-      B --> G{"鎖定光影與器皿錨點"}
-      G --> C["3. 線上線下三版位獨立構圖"]
-      C --> D["4. 預留壓字區與後製置入真實Logo"]
+      A["1. 識別資產盤點 (色票・商品・商標權)"] --> B["2. 三案視覺策略比稿 (概念・光影・受眾理由)"]
+      B --> G{"鎖定母視覺固定錨點"}
+      G --> C["3. 跨版位原生構圖 (4:5・16:9留白・實體)"]
+      C --> D["4. 預留商標後製座標 (區分概念圖與印刷檔)"]
+      D -.->|"留白不足壓不了字：重調構圖"| C
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3556,16 +3628,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "04-1": {
-    framework: "包裝與門市陳列材質物理學（H28 PBR）× 無字乾淨貼標面合成工程",
-    leverage: "人腦指定「外帶杯／禮盒紙材與門市陳列載體」 ⇄ AI 渲染「真實紙紋光影與平整空白貼標區」",
-    why: "【破局命題】餐飲外帶杯袖、伴手禮抽屜盒、冷凍調理包外袋與店門口木質 A 字立牌，在打樣前若能產出逼真材質 Mockup，能大幅加速內部決策與企業大宗採購提案成交。\n・慣性盲點：AI 直接生成的包裝正面常佈滿亂碼假字與扭曲反光，設計師根本無法把真實商標與營養標示貼上去。\n・第一性原理：將「物理材質光影渲染」與「平面向量貼標」徹底解耦——強制生成平整無字標籤面與自然接觸陰影（AO），30 秒即可無損合成官方主視覺。",
-    what: "【決策資產】交付「H28 紙材容器設定表 ＋ 外帶包裝／禮盒開箱／門市立牌／提袋四場景 Mockup 提示詞包」。",
-    how: "【人機閉環】定義紙材磅數／陶瓷／磨砂瓶肌理 → 鎖定 0°/30°/90° 無字乾淨貼標區 → 商業實景展開 → 接觸陰影與尺度檢核。",
+    framework: "物理材質光學（PBR Materiality）× 生圖與貼標解耦工程（Clean-Zone Compositing）",
+    leverage: "人腦選定「真實包裝工藝與空間尺度」 ⇄ AI 渲染「微觀材質光影與無字乾淨貼標平面」",
+    why: "【破局命題】讓採購與消費者瞬間買單的關鍵，是將抽象設計「以真實紙材肌理與門市尺度具象化」；假塑膠感 AI 圖只會拉低品牌價值。\n・慣性盲點：要求 AI 直接把中文商標印在包裝盒上，導致外星亂碼與扭曲反光，設計師根本無法貼標。\n・第一性原理：將「物理材質光影渲染」與「官方向量商標合成」解耦，由 AI 產出平整無字標籤區再後製貼合。",
+    what: "【決策資產】交付「H28 物理材質設定表 ＋ 四大商業載體 Mockup 母片提示詞 ＋ 後製透視貼合指南」。",
+    how: "【人機閉環】材質工藝定調 → 鎖定無字貼圖平面 → 包裝／門市／週邊展開 → 接觸陰影（AO）與向量貼合 QA。",
     mermaid: `flowchart LR
-      A["1. 外帶杯・禮盒・立牌材質設定"] --> B["2. 鎖定無字乾淨貼標平面"]
-      B --> C["3. 門市吧台・開箱・街角實景渲染"]
-      C --> G{"接觸陰影與器物比例QA"}
-      G -->|"物理光影自然"| D["4. 後製貼合官方Logo與標示"]
+      A["1. 物理材質定調 (棉紙・陶瓷・磨砂玻璃)"] --> B["2. 鎖定無字乾淨貼標區 (排除 AI 亂碼字)"]
+      B --> C["3. 四大載體 Mockup 展開 (包裝・立牌・週邊)"]
+      C --> G{"接觸陰影與透視 QA"}
+      G -->|"光影透視合格"| D["4. 後製無損貼合官方 Logo"]
+      G -.->|"塑膠感或貼標遮擋：重調材質"| A
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3574,17 +3647,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "04-2": {
-    framework: "食慾微動態靜幀（Food Cinemagraph）× 80/20 動靜分離 × 輕量秒開壓縮學",
-    leverage: "人腦鎖定「不可變形的餐飲商品主體」 ⇄ AI 驅動「20% 蒸氣・茶湯波紋・光影無縫循環」",
-    why: "【破局命題】在 LINE 熟客領券推播、EDM 會員電子報與電商商品頁中，「熱咖啡飄出蒸氣、冰茶滑落水珠、舒肥肉汁微光」的 3 秒微動態 GIF，比靜態圖更能瞬間勾起食慾與點擊。\n・慣性盲點：全畫面亂動導致碗盤與包裝扭曲變形、循環接點突兀跳格，且檔案肥大超過 10MB 造成手機載入失敗。\n・第一性原理：鎖死固定機位與 80% 器皿包裝靜態遮罩，僅釋放 20% 自然物理微動態，搭配頂層靜態向量字卡與 ≤1.2MB 輕量壓縮。",
-    what: "【決策資產】交付「通路體積預算表 ＋ 80/20 動靜分離遮罩表 ＋ 2–4 秒無縫循環分鏡與 Motion Prompt 包」。",
-    how: "【人機閉環】選定 LINE／EDM／電商版位與 MB 上限 → 劃分靜態商品保護區與微動態筆刷區 → 首尾疊化無縫閉環 → 頂層疊標與 12–15 FPS 壓縮驗收。",
+    framework: "80/20 動靜分離遮罩（Cinemagraph）× 無縫循環閉環 × 載入體積預算學",
+    leverage: "人腦鎖定「商品幾何保護區與容量上限」 ⇄ AI 編導「局部蒸氣光影微動與壓縮規格」",
+    why: "【破局命題】在 EDM 與 LINE 圖文訊息中，微動態比靜態圖更能抓住視線，但失控的全畫面晃動與肥胖檔案反而拖垮轉換。\n・慣性盲點：產出 20MB 巨型 GIF 導致手機破圖、鏡頭亂晃把咖啡杯扭曲成果凍狀，或首尾跳格刺眼。\n・第一性原理：鎖死 80% 商品與包裝結構不動，僅釋放 20% 蒸氣、茶湯波紋或光影搖曳，並壓縮於 1.2MB 內秒開。",
+    what: "【決策資產】交付「觸點體積規格表 ＋ 80/20 動靜分離表 ＋ 2–4 秒無縫循環 Motion Prompt 包 ＋ 頂層疊標壓縮清單」。",
+    how: "【人機閉環】設定通路 MB 上限 → 劃分靜態遮罩與動態區 → 首尾同幀／疊化循環生片 → 頂層疊加銳利 Logo 與壓縮驗收。",
     mermaid: `flowchart LR
-      A["1. LINE・EDM・電商體積預算(≤1.2MB)"] --> B["2. 80%商品靜止鎖定×20%蒸氣光影微動"]
-      B --> C["3. 2~4秒首尾無縫閉環(Seamless Loop)"]
-      C --> D["4. 頂層疊加銳利Logo與15FPS輕量壓縮"]
-      D --> G{"零果凍變形與秒開驗收"}
-      G -.->|"杯身變形或跳幀：縮小動態遮罩"| B
+      A["1. 通路體積預算 (EDM・LINE ≤1.2MB)"] --> B["2. 80/20 動靜分離遮罩 (鎖死商品×釋放蒸氣)"]
+      B --> C["3. 首尾無縫閉環設計 (2~4秒固定機位)"]
+      C --> D["4. 頂層疊加靜態 Logo 與輕量壓縮"]
+      D --> G{"零變形與無頻閃 QA"}
+      G -.->|"商品扭曲或檔案超標：重調遮罩FPS"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3593,17 +3666,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "05": {
-    framework: "探店短影音留存學 × 品牌聲音設定檔（YAML）× 門市公播與廣告配樂合規",
-    leverage: "人腦把關「門市實拍料理證據、菜名讀音與公播版權」 ⇄ AI 精算「前3秒鉤子、配秒旁白與防互搶配樂」",
-    why: "【破局命題】短影音已是餐飲探店導流與零售爆品帶貨的第一入口，而門市空間音樂與旁白聲線則決定了顧客對品牌價位帶的直覺認知。\n・慣性盲點：前 3 秒還在拍店招空景就被滑走、旁白把「焙（ㄅㄟˋ）茶／丼（ㄉㄨㄥˋ）飯」唸錯、配樂蓋過口播，或門市與廣告誤用無商用公播授權音樂遭索賠。\n・第一性原理：以「前 3 秒備料特寫＋痛點提問」鎖住滑動拇指，用 `brand-audio-profile.yaml` 管好語速與餐飲專名讀音，並確保旁白與商用配樂頻譜互不搶戲。",
-    what: "【決策資產】整合交付「探店／開箱短影音分鏡表 ＋ 品牌聲音設定檔 ＋ 15/30/60s 標記旁白稿 ＋ 廣告與門市循環商用配樂包」。",
-    how: "【人機閉環】選定離峰／禮盒／覆熱痛點題型 → 設計前 3 秒視覺聽覺雙軌 Hook → 產出帶重音停頓旁白與防互搶配樂 → 單聲道手機外放與商用公播權驗收。",
+    framework: "前 3 秒留存鉤子 × 頻譜空間讓位學（Anti-Masking）× 門市商用聲學合規",
+    leverage: "人腦把關「真實可拍 B-roll、讀音與商用版權」 ⇄ AI 精算「對時分鏡、YAML 聲音檔與生曲規格」",
+    why: "【破局命題】短影音與門市聽覺是餐飲零售將「路過流量」變「進店熟客」的臨門一腳；但台詞超載與配樂蓋人聲會瞬間毀掉完播率。\n・慣性盲點：拿書面長文硬塞 30 秒、破音字誤讀（如焙茶唸成賠茶）、免費帳號音樂直接投廣告觸法。\n・第一性原理：對齊「每秒 3.9 字自然語速 × 1–3kHz 人聲頻段避讓（Ducking）× 4–6 秒真實食材特寫切換」。",
+    what: "【決策資產】交付「`brand-audio-profile.yaml` 聲音設定檔 ＋ 15/30/60s 標記旁白 ＋ 秒級短影音分鏡表 ＋ 企業商用配樂規格包」。",
+    how: "【人機閉環】痛點選題與雙軌 Hook → 秒級分鏡配字 → 旁白重音停頓標記 → 配樂頻段讓位混音 → 單聲道外放與授權實測。",
     mermaid: `flowchart LR
-      A["1. 探店・開箱痛點選題與前3秒Hook"] --> B["2. 秒級配時分鏡與實拍B-roll證據"]
-      B --> C["3. 品牌聲音YAML與菜名破音字標記稿"]
-      C --> D["4. 人聲讓位Ducking與門市／廣告商用配樂"]
-      D --> G{"手機單聲道清晰度與公播授權驗收"}
-      G -.->|"前3秒拖沓或配樂搶人聲：回調分鏡混音"| B
+      A["1. 探店選題與雙軌 Hook (0-3秒畫面＋首句)"] --> B["2. 秒級分鏡與真實證據 (每秒4字×B-roll)"]
+      B --> C["3. 品牌聲音 YAML 與讀音標記"]
+      C --> D["4. 商用配樂生成與 Ducking 混音"]
+      D --> G{"手機單聲道實測與授權驗收"}
+      G -.->|"搶人聲或秒數超標：回調字數與頻段"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3613,16 +3686,16 @@ const UNIT_WWH_MERMAID_MAP = {
   },
   "05-0": {
     framework: "品牌聽覺識別（Sonic Branding）× 頻譜空間讓位學（Anti-Masking）× 誠實音訊品管",
-    leverage: "人腦把關「聲音肖像權、菜單破音字與試讀呼吸感」 ⇄ AI 編排「YAML 聲音規格、多時長標記稿與製播卡」",
-    why: "【破局命題】全媒體時代「眼睛看美食畫面決定停不停，耳朵聽聲音決定信不信」；混亂吵雜的聽覺細節會瞬間拉低餐飲零售品牌的精緻度。\n・慣性盲點：拿 250 字書面介紹硬塞進 30 秒唸成趕火車、菜單破音字唸錯（如：半山焙茶唸成賠茶）、配樂搶走 1–3kHz 人聲頻段，或虛報未實測的 LUFS 響度數據。\n・第一性原理：聽覺是不可逆的線性時間藝術——語速字數上限（每秒約 3.8–4.2 字）、換氣停頓、食材專名讀音與配樂閃避分貝（Ducking），必須在錄製前以結構化規格鎖定。",
-    what: "【決策資產】交付「`brand-audio-profile.yaml` 聲音設定檔 ＋ 15/30/60s 標記旁白稿 ＋ 跨平台製播卡與整合驗收表」。",
-    how: "【人機閉環】確認廣告／門市用途與聲音授權 → 建立 YAML 聲音與讀音字典 → 開口朗讀計時校準 → 外部 TTS／錄音混音與手機單聲道實測驗收。",
+    leverage: "人腦把關「聲音肖像權、破音字與試讀呼吸感」 ⇄ AI 編排「YAML 聲音規格、多時長標記稿與製播卡」",
+    why: "【破局命題】眼睛看畫面決定停不停，耳朵聽聲音決定信不信；混亂的聽覺細節會瓦解品牌專業質感。\n・慣性盲點：破音字唸錯、配樂搶走 1–3kHz 人聲頻段，或未經實測虛報 LUFS 響度數據。\n・第一性原理：在錄製前先以 `brand-audio-profile.yaml` 鎖定語速、破音字讀音字典與旁白自動閃避（Ducking -8～-12dB）。",
+    what: "【決策資產】交付「`brand-audio-profile.yaml` ＋ 15/30/60s 重音停頓標記旁白稿 ＋ 跨平台製播卡與整合驗收表」。",
+    how: "【人機閉環】確認聲音權利 → YAML 聲音建模 → 估時標記與真人開口試讀 → 外部製播混音与手機單聲道實測。",
     mermaid: `flowchart LR
-      A["1. 用途與商用聲音權利立約"] --> B["2. 結構化聲音設定檔 (brand-audio-profile.yaml)"]
-      B --> C["3. 多時長標記旁白與菜單讀音字典"]
+      A["1. 用途與聲音權利立約 (brand-contract)"] --> B["2. 結構化聲音設定檔 (brand-audio-profile)"]
+      B --> C["3. 多時長標記旁白與讀音 (估時×重音×停頓)"]
       C --> D["4. 防互搶混音與製播卡 (中頻讓位×Ducking)"]
       D --> G{"真實音檔單聲道實測驗收"}
-      G -.->|"破音字誤讀或配樂壓人聲：回調標記與混音"| C
+      G -.->|"誤讀或配樂壓人聲：回調標記"| C
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3633,15 +3706,15 @@ const UNIT_WWH_MERMAID_MAP = {
   "05-1": {
     framework: "前 3 秒注意力留存經濟 × 四段式微敘事弧線 × 口語時間物理學",
     leverage: "人腦盤點「現場拍得到的真實證據鏡頭」 ⇄ AI 精算「雙軌黃金 Hook 與秒級對時分鏡表」",
-    why: "【破局命題】短影音演算法的底層邏輯是「留存率篩選器」——前 3 秒攔不住滑動的大拇指，後面 27 秒拍得像電影也是零曝光成本沉沒。\n・慣性盲點：開頭放 5 秒品牌 Logo 動畫或定格講話頭自報家門、全片背誦 250 字產品規格沒有畫面變奏、片尾同時要人按讚留言分享加私訊導致轉換失焦。\n・第一性原理：高完播與高轉換短影音靠的是「0–3 秒動態畫面＋反常識首句雙軌鉤子」抓停駐、「中段真實可拍 B-roll 證據」建信任、「片尾唯一低門檻 CTA」促行動。",
-    what: "【決策資產】產出可直接進場開拍的「四大選題評比表 ＋ 3 組前 3 秒雙軌 Hook ＋ 秒級分鏡計時腳本表（Storyboard & Timing）」。\n・口語字數物理鐵律：嚴格鎖定臺灣自然口語每秒 3.8–4.2 字上限（30 秒約 105–120 字），強制留出讓觀眾眼睛看懂畫面證據的呼吸空間。\n・視覺節奏防疲勞設計：強制每 4–6 秒安排景別切換或特寫動作 B-roll，確保視覺資訊密度與聽覺敘事同步推進。",
-    how: "【人機閉環】受眾痛點選題 → 雙軌 Hook 對照設計 → 四段式配秒分鏡 → 發布後 3 秒留存率 A/B 實測。\n・人腦拍板：確認門市／工廠現場「真正能拍到」的職人動作、檢驗紀錄或情境反差，剔除拍不出來的空想畫面。\n・AI 規模推演：依 0-3s（鉤子）→ 3-10s（痛點具象）→ 10-23s（轉折與證據）→ 23-30s（單一 CTA）精算每鏡台詞與螢幕字卡。\n・驗證閉環：固定 3–30 秒正片內容，僅替換 2 組不同前 3 秒雙軌 Hook，依後台 48 小時「3 秒留存率」與「完播率」汰弱留強。",
+    why: "【破局命題】短影音前 3 秒攔不住大拇指，後面拍得再好也是零曝光成本沉沒。\n・慣性盲點：開頭放 5 秒 Logo 動畫、全片背誦規格無畫面切換、片尾同時要人按讚分享加私訊導致轉換失焦。\n・第一性原理：0–3 秒靠「動態特寫＋18字內反問」抓停駐，中段靠真實 B-roll 建信任，片尾只給唯一低門檻 CTA。",
+    what: "【決策資產】產出「選題評比表 ＋ 3 組前 3 秒雙軌 Hook ＋ 秒級分鏡計時腳本表（Storyboard & Timing）」。",
+    how: "【人機閉環】痛點選題 → 雙軌 Hook 對照設計 → 四段式配秒分鏡 → 上線 48 小時 3 秒留存率 A/B 實測。",
     mermaid: `flowchart LR
-      A["1. 痛點與反常識選題 (評估共鳴與可拍性)"] --> B["2. 前 3 秒雙軌 Hook (動態特寫＋18字內首句)"]
-      B --> C["3. 四段式配秒分鏡表 (每秒4字×5秒換景×B-roll)"]
+      A["1. 痛點與反常識選題 (評估共鳴與可拍性)"] --> B["2. 前 3 秒雙軌 Hook (動態特寫＋18字首句)"]
+      B --> C["3. 四段式配秒分鏡表 (每秒4字×B-roll)"]
       C --> G{"開口計時與單一CTA檢核"}
-      G -->|"節奏與證據過關"| D["4. 雙版本 Hook 上線實測留存率"]
-      D -.->|"前3秒滑走率高：保留正片僅換Hook"| B
+      G -->|"節奏證據過關"| D["4. 雙版本 Hook 實測留存率"]
+      D -.->|"前3秒滑走率高：僅替換Hook"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3650,17 +3723,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "05-2": {
-    framework: "企業聲學識別（Sonic Identity）× 心理聲學頻譜讓位 × 商用版權品管",
-    leverage: "人腦界定「品牌聽覺性格與商用授權條款」 ⇄ AI 編譯「BPM 樂器規格、分段標籤與負面排除詞」",
-    why: "【破局命題】隨手套用熱門罐頭配樂不僅讓品牌毫無記憶點，更容易在廣告投放時觸發版權下架或蓋過旁白核心資訊。\n・慣性盲點：下達「做一首像某歌手的嗨歌」等侵權指令、忽略 1kHz–3kHz 人聲中頻避讓導致聽眾聽不清台詞，或未確認訂閱方案是否具備企業商用權。\n・第一性原理：企業商用配樂是「受控的聲學工程」——必須以明確的 BPM、調性、主奏樂器編制與負面排除詞鎖定聽感，並強制為口播人聲留出頻譜空間。",
-    what: "【決策資產】交付「企業聲學定位卡 ＋ 編曲參數規格表（output-template）＋ 多版本結構化生曲 Prompt ＋ 音訊品管檢核表（production-qa）」。\n・雙軌實用版本：同步產出「預留人聲中頻之純音樂襯底版（Instrumental）」與「3 秒片尾聲音識別版（Sonic Logo）」。\n・商用合規護欄：逐項綁定無金屬失真偽影、無削波破音與商用授權存證規範。",
-    how: "【人機閉環】場景與授權定錨 → 聲學參數建模 → 結構標籤生曲 → 混音避讓與音質 QA。\n・人腦拍板：確認配樂使用版位（付費廣告／門市公播／短影音）及生成工具之商用授權層級。\n・AI 規模推演：輸出含 `[Intro] [Verse] [Outro]` 段落標籤、樂器編制與 Negative Prompts 之雙語生曲指令。\n・驗證閉環：實測高頻無 AI 金屬刮擦偽影、循環接縫平滑，且搭配旁白時清晰不搶戲。",
+    framework: "心理聲學情緒導引（Psychoacoustics）× 頻譜分層編曲 × 企業商用版權合規",
+    leverage: "人腦把關「品牌聽覺格調與商用授權層級」 ⇄ AI 編譯「聲學規格參數、負面排除詞與段落標籤」",
+    why: "【破局命題】配樂在 2 秒內決定門市與影片的價格帶格調；失控的 AI 配樂會暴露金屬雜訊並引發商用侵權下架。\n・慣性盲點：指名模仿知名歌手侵權，或中頻旋律太滿把旁白人聲徹底淹沒。\n・第一性原理：精確控制 BPM、主奏樂器冷暖編制與 1–3kHz 頻譜留白，並掛載 Negative Prompts 濾除刺耳合成器。",
+    what: "【決策資產】交付「企業聲學規格表（output-template）＋ 多版本結構化生曲 Prompt ＋ Production QA 簽核單」。",
+    how: "【人機閉環】商用場景與授權確認 → 聲學參數建模 → 頻段避讓生曲 → 高頻偽影與循環接縫 QA。",
     mermaid: `flowchart LR
-      A["1. 商業場景與授權界定 (廣告・門市・Sonic Logo)"] --> B["2. 聲學規格建模 (BPM×調性×樂器×負面詞)"]
-      B --> C["3. 分段結構與中頻讓位 (預留1-3kHz人聲空間)"]
-      C --> D["4. 雙版本生曲指令輸出 (襯底BGM×片尾識別)"]
-      D --> G{"音質偽影與商用版權QA"}
-      G -.->|"高頻金屬音或蓋過人聲：調整編制與排除詞"| B
+      A["1. 商用場景與版權確認 (廣告・門市・Jingle)"] --> B["2. 企業聲學參數建模 (BPM・調性・排除詞)"]
+      B --> C["3. 頻譜讓位與結構編排 (預留1-3kHz人聲區)"]
+      C --> D["4. 多版本結構化生曲 (襯底樂・無縫循環)"]
+      D --> G{"Production QA 音質與授權"}
+      G -.->|"金屬偽影或搶人聲：重調編制"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3669,36 +3742,36 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "06": {
-    framework: "節慶黃金三角組品（Hero SKU）× 毛利保本紅線 × 垂涎商攝與體面賀卡閉環",
-    leverage: "人腦拍板「成本毛利底線、產能上限與送禮分寸」 ⇄ AI 串聯「06-A 促銷組品 → 06-B 垂涎商攝 → 06-C 隨盒賀卡」",
-    why: "【破局命題】節慶檔期是餐飲與伴手禮零售全年營收爆發點，但缺乏組品邏輯與視覺禮數的設計，最容易演變成「打折流血戰、被運費吃光毛利、圖片不誘人」的白忙一場。\n・慣性盲點：全館無差別砍價傷透熟客心、沒算包材冷鏈運費導致賣越多虧越多，或禮盒打開只有塞一張俗氣促銷單。\n・第一性原理：以 `06-A` 先鎖定「引流×主打Hero×湊單加購」毛利結構與共用契約，再交由 `06-B` 渲染高食慾無字商攝主圖，最後用 `06-C` 附上正面體面祝福、背面賞味指南的隨盒賀卡促成回流。",
-    what: "【決策資產】一次交付「主打商品與毛利試算表 ＋ 共用活動交接契約 ＋ 多版位美食商攝 Prompt ＋ 正反面節日賀卡設計包」。",
-    how: "【人機閉環】黃金三角組品與毛利試算 → 早鳥波段與截單設定 → 135° 側逆光垂涎商攝 → 分眾隨盒賀卡與節後回購券閉環。",
+    framework: "黃金三角組品定價學（Hero SKU Matrix）× 垂涎商攝光學 × 伴手禮體面禮數閉環",
+    leverage: "人腦核定「食材包材運費毛利紅線與產能上限」 ⇄ AI 串聯「檔期促銷機制、無字商攝與分眾隨盒賀卡」",
+    why: "【破局命題】餐飲零售節慶檔期佔全年關鍵營收，但最常見的悲劇是「盲目打折免運賠掉毛利、圖片失真被退貨、隨盒小卡太俗氣害企業客戶不敢送禮」。\n・慣性盲點：單品孤軍奮戰拉不高客單價（AOV），或沒算進精裝禮盒與 $160–$190 冷鏈宅配補貼成本就喊全館深折。\n・第一性原理：以 `food-retail-contract.md` 貫穿三核——先用 06-A 鎖定高毛利 Hero SKU 與湊免運加購階梯，再交由 06-B 拍出忠於實品的垂涎商攝，最後以 06-C 體面賀卡促成節後回購。",
+    what: "【決策資產】一次交付「黃金三角商品與毛利試算表 ＋ 共用活動交接契約 ＋ 多版位無字商攝 Prompt 包 ＋ 隨盒雙面祝賀小卡設計包」。",
+    how: "【人機閉環】組品與毛利保本試算 → 簽發食安與截單日契約 → 側逆光高食慾無字商攝 → 正面祝福×背面賞味叮嚀賀卡完稿。",
     mermaid: `flowchart LR
-      A["1. 節慶組品與毛利試算 (06-A 引流×Hero×湊單)"] --> G{"毛利紅線與產能閘門"}
-      G -->|"實質毛利達標"| B["2. 垂涎商品攝影生成 (06-B 側逆光×無字貼標)"]
-      B --> C["3. 分眾隨盒與電子賀卡 (06-C 正面禮數×背面賞味)"]
-      C --> D["4. 早鳥收單與節後回購核銷"]
-      G -.->|"被運費或深折吃光毛利：重調湊單門檻"| A
+      A["1. 黃金三角組品與定價 (引流×Hero×湊免運)"] --> G{"毛利紅線與產能截單閘門"}
+      G -->|"實質毛利達標"| B["2. 共用交接契約鎖定 (food-retail-contract)"]
+      B --> C["3. 垂涎無字商攝生成 (06-B 實品忠實光影)"]
+      C --> D["4. 分眾隨盒與電子賀卡 (06-C 體面祝福×回購)"]
+      G -.->|"運費包材吃光毛利：重調湊單門檻"| A
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class B,C,D step;
-      class A highlight;
+      class A,C,D step;
+      class B highlight;
       class G gate;`
   },
   "06-promo": {
-    framework: "零售價格錨點心理學 × 黃金三角組品（Traffic・Hero・Add-on）× 貢獻毛利護欄",
-    leverage: "人腦核定「真實食材包材成本與每日產能上限」 ⇄ AI 推演「早鳥階梯機制、湊免運組合與四波段排程」",
-    why: "【破局命題】不看毛利結構的節慶促銷只是虛榮營收泡沫；真正厲害的檔期策劃是「不破牌價也能讓顧客覺得超值、主動湊高客單價」。\n・慣性盲點：單品打折打到見骨、低客單價卻硬做免運被物流費倒扣，或沒設最後收單日導致節前爆單延誤客訴。\n・第一性原理：用「引流款」帶進新客流量、靠「Hero SKU 禮盒／套餐」創造核心利潤、用「高毛利小單價加購品」幫顧客優雅跨過免運門檻。",
-    what: "【決策資產】交付 `tony-food-retail-festival-promo-planner` 黃金三角組品表、防破價毛利紅線試算表、四波段預購行事曆與 `food-retail-contract.md`。",
-    how: "【人機閉環】鎖定節慶送禮／自用場景 → 配置三層商品價格帶 → 扣除包材運費試算貢獻毛利 → 制定早鳥至截單波段並交接下游視覺。",
+    framework: "零售價格階梯心理學（Price Ladder）× 實質貢獻毛利護欄 × 四波段預購配速",
+    leverage: "人腦拍板「真實成本結構、庫存上限與最後出貨日」 ⇄ AI 推演「引流×主打×加購組合與不破價促銷話術」",
+    why: "【破局命題】節慶促銷的目的不是「用低價把產能塞爆卻沒賺錢」，而是藉由組合設計同時拉高客單價（AOV）與新客試用率。\n・慣性盲點：全館無差別打 7 折破壞平日牌價尊嚴，或忽略低溫運費與禮盒包材成本導致實質毛利轉負。\n・第一性原理：用「早鳥滿盒贈禮／試飲折抵／高毛利湊單小品」取代直接砍價，並嚴格設定繁盛期物流截單日（Cut-off Date）。",
+    what: "【決策資產】交付「黃金三角商品組合表 ＋ 防破價毛利保本試算表 ＋ 四波段預購行事曆 ＋ `food-retail-contract.md`」。",
+    how: "【人機閉環】鎖定節慶客群動機 → 配置引流／主打／湊單品 → 扣除包材運費試算毛利 → 簽發交接契約予商攝與賀卡。",
     mermaid: `flowchart LR
-      A["1. 節慶場景定錨 (企業送禮 vs 家庭囤貨)"] --> B["2. 黃金三角組品 (引流×主打Hero×湊免運加購)"]
+      A["1. 節慶場景定錨 (企業送禮 vs 家庭囤貨)"] --> B["2. 黃金三角組品 (引流×主打Hero×湊單)"]
       B --> G{"扣除包材運費毛利檢核"}
-      G -->|"守住毛利紅線"| C["3. 四波段預購與截單排程"]
-      C --> D["4. 簽發 food-retail-contract 交接商攝與賀卡"]
-      G -.->|"淨毛利過低：改贈高感知低成本禮或調門檻"| B
+      G -->|"守住毛利紅線"| C["3. 四波段早鳥與截單排程"]
+      C --> D["4. 簽發共用交接契約 (交接商攝與賀卡)"]
+      G -.->|"毛利過低：改贈高感知低成本禮"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3707,17 +3780,17 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "06-photo": {
-    framework: "餐飲食慾光學（135° 側逆光×微距質地）× 實品份量忠實度 × 無字貼標解耦",
-    leverage: "人腦核定「真實出餐份量與器皿規格」 ⇄ AI 渲染「蒸氣・水珠・油亮切面與多版位安全留白」",
-    why: "【破局命題】在外送平台、IG 與門市菜單上，一張高食慾感的商品照能在 0.5 秒內決定點單率；但過度失真的 AI 食物圖卻會直接引爆客訴。\n・慣性盲點：用平光把熱食拍得像冷掉的塑膠模型、讓 AI 在包裝袋上印出外星亂碼中文字，或把調理包畫得像五星級大菜卻沒標註「調理參考」。\n・第一性原理：善用「135° 側逆光勾勒立體邊緣與熱氣水珠」提升真實垂涎感，同時保持主菜份量 100% 忠於實品，並預留平整空白貼標區交由後製壓上官方商標與食安標示。",
-    what: "【決策資產】交付 `create-product-photography v1.1.0` 完整商攝企劃表、三視角（0°/45°/90°）中英對照生圖 Prompt 與後製壓字留白規範。",
-    how: "【人機閉環】對齊 `food-retail-contract.md` 實品規格 → 選定光位與餐桌道具 → 輸出 1:1／4:5／16:9 獨立構圖指令 → 實品相符度與後製貼標驗收。",
+    framework: "餐飲垂涎光學（135° 側逆光高光）× 實品份量忠實原則 × 圖文分離貼標",
+    leverage: "人腦核對「真實出餐份量、器皿與調理參考標示」 ⇄ AI 編譯「蒸氣冰珠微距光位與三版位商攝 Prompt」",
+    why: "【破局命題】美食與伴手禮照片決定第一眼食慾，但過度美化失真會直接變成 Google 一星負評與廣告不實罰單。\n・慣性盲點：用正面死白平光把食物拍得像塑膠模型，或把調理包肉塊畫大三倍卻未標註「調理參考」。\n・第一性原理：運用 135° 側逆光勾勒熱氣、肉汁與冷凝水珠立體感，維持 100% 真實內容物比例，並保留乾淨無字包裝貼標面。",
+    what: "【決策資產】交付「餐飲零售商攝光位企劃表 ＋ 1:1／4:5／16:9 中英生圖 Prompt 包 ＋ 食安標示後製座標指南」。",
+    how: "【人機閉環】承接 06-A 主打 SKU → 設定側逆光與進食視角 → 產出無字高食慾商攝底圖 → 後製疊加商標與調理參考字樣。",
     mermaid: `flowchart LR
-      A["1. 實品份量與器皿對齊 (food-retail-contract)"] --> B["2. 垂涎光位與視角設定 (側逆光蒸氣・水珠・45°視角)"]
-      B --> C["3. 多版位留白與無字貼標 (1:1外送・4:5社群・16:9橫幅)"]
-      C --> G{"實品忠實度與食安標示QA"}
-      G -->|"色澤自然且份量真實"| D["4. 後製疊加官方Logo與調理參考"]
-      G -.->|"塑膠假感或份量誇大：修正光影與比例"| B
+      A["1. 承接主打商品契約 (真實份量與器皿規格)"] --> B["2. 垂涎光學與視角設定 (側逆光蒸氣・45度視角)"]
+      B --> C["3. 三版位無字商攝生成 (1:1外送・4:5・16:9)"]
+      C --> G{"實品忠實與食安標示QA"}
+      G -->|"色澤份量真實"| D["4. 後製壓上商標與調理參考"]
+      G -.->|"塑膠假感或份量誇大：重調光位"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
@@ -3726,44 +3799,251 @@ const UNIT_WWH_MERMAID_MAP = {
       class G gate;`
   },
   "06-card": {
-    framework: "伴手禮贈禮儀式學（Gift Etiquette）× 正面心意／背面賞味雙層結構 × 圖文分離印刷工程",
-    leverage: "人腦核定「送禮對象關係分寸與沖泡覆熱指引」 ⇄ AI 產出「三軌分眾賀詞與 50% 留白無字節慶底圖」",
-    why: "【破局命題】在餐飲與伴手禮零售中，一張隨盒祝賀小卡或 LINE 節慶賀卡，是決定「收禮者會不會成為下一位新客人」的高槓桿觸點。\n・慣性盲點：把隨盒賀卡印成滿版紅字打折傳單（讓送禮者覺得失禮不敢放），或讓 AI 直接在圖上生成歪斜殘缺的中文賀詞。\n・第一性原理：正面替送禮者把「體面與溫度」做足，背面為收禮者貼心奉上「沖泡水溫／覆熱秒數美味指南與產地溯源」，並嚴格採「AI 無字節慶工藝底圖 ＋ 後製排版繁中書法／襯線字」。",
-    what: "【決策資產】交付 `design-festival-greeting-cards v1.0.0` 分眾祝賀文案矩陣（商務／親友／VIP熟客）、正反面雙層結構表、A6 實體卡與 LINE 電子賀卡無字底圖 Prompt 包及印刷出血驗收表。",
-    how: "【人機閉環】鎖定節慶與收禮關係 → 撰寫分眾賀詞與背面賞味叮嚀 → 生成預留 50% 壓字負空間之節慶底圖 → 後製疊字、企業客製署名與 3mm 出血檢核。",
+    framework: "送禮體面禮數學（Gift Etiquette）× 正反雙面機能分流 × 無字留白印刷工程",
+    leverage: "人腦把關「收禮輩分禮數與企業客製署名需求」 ⇄ AI 撰寫「三軌分眾賀詞、賞味叮嚀與無字節慶底圖」",
+    why: "【破局命題】伴手禮盒裡的那張小卡，代表的是「送禮人的臉面」與「收禮人第一次品嚐的體驗指南」。\n・慣性盲點：把隨盒賀卡印滿大紅特價促銷字害客戶不敢送出手，或讓 AI 直接在圖上寫出缺筆畫亂碼中文字。\n・第一性原理：正面 80% 傳遞分眾得體祝福、背面 20% 貼心提供沖泡水溫／覆熱秒數與低壓力回訪禮，底圖預留 50% 乾淨負空間後製排版。",
+    what: "【決策資產】交付「B2B／親友／熟客三軌祝賀文案 ＋ 背面賞味叮嚀卡 ＋ A6 印刷含出血與 LINE 電子賀卡無字 Prompt 包」。",
+    how: "【人機閉環】確認節慶與收禮關係 → 撰寫正反面文案 → 產出 50% 留白無字節慶底圖 → 後製書法／襯線排版與 3mm 出血驗收。",
     mermaid: `flowchart LR
-      A["1. 節慶與收禮關係分眾 (企業VIP・長輩・熟客)"] --> B["2. 正面得體賀詞×背面沖泡覆熱叮嚀"]
-      B --> C["3. AI無字節慶工藝底圖 (預留50%純淨壓字區)"]
-      C --> D["4. 後製繁中排版與企業客製署名"]
-      D --> G{"3mm印刷出血與LINE小字清晰QA"}
-      G -.->|"促銷味太重或留白不足：重調文案與構圖"| B
+      A["1. 收禮對象分眾定位 (企業VIP・長輩・熟客)"] --> B["2. 正面祝福×背面賞味叮嚀 (沖泡覆熱步驟與溯源)"]
+      B --> C["3. 無字留白節慶底圖生成 (預留50%乾淨壓字區)"]
+      C --> D["4. 後製繁中排版與雙規輸出 (A6含3mm出血・LINE卡)"]
+      D --> G{"禮數分寸與印刷對比QA"}
+      G -.->|"硬廣味太重或字不清楚：精修版面"| B
       classDef step fill:#f6f5ef,stroke:#185b51,stroke-width:1.5px,color:#132629,font-weight:bold;
       classDef highlight fill:#dcf394,stroke:#132629,stroke-width:2px,color:#132629,font-weight:bold;
       classDef gate fill:#132629,stroke:#132629,stroke-width:2px,color:#dcf394,font-weight:bold;
-      class A,B,D step;
-      class C highlight;
+      class A,C,D step;
+      class B highlight;
       class G gate;`
   }
 };
 
-// 初始化 Mermaid 設定（支援 defer 非阻塞載入）
+// 初始化 Mermaid 設定（支援 defer 非阻塞載入與高對比防壓縮主題參數）
 let isMermaidConfigured = false;
+let mermaidLayoutDir = (typeof window !== 'undefined' && window.innerWidth < 680) ? 'TB' : 'LR';
+
 function ensureMermaidInitialized() {
   if (!isMermaidConfigured && typeof mermaid !== 'undefined') {
     mermaid.initialize({
       startOnLoad: false,
       theme: 'base',
       securityLevel: 'loose',
+      themeVariables: {
+        fontFamily: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Inter, sans-serif',
+        fontSize: '15px',
+        primaryColor: '#f6f5ef',
+        primaryTextColor: '#132629',
+        primaryBorderColor: '#185b51',
+        lineColor: '#185b51',
+        secondaryColor: '#e6f0ed',
+        tertiaryColor: '#ffffff',
+        edgeLabelBackground: '#ffffff'
+      },
       flowchart: {
         useMaxWidth: true,
         htmlLabels: false,
-        curve: 'basis'
+        curve: 'basis',
+        nodeSpacing: 34,
+        rankSpacing: 42,
+        padding: 16
       }
     });
     isMermaidConfigured = true;
   }
 }
 ensureMermaidInitialized();
+
+function updateMermaidDirButtonsUI() {
+  const label = mermaidLayoutDir === 'LR' ? '↕ 切換直式高清' : '↔ 切換橫向全覽';
+  const btn1 = $('#toggleMermaidDirBtn');
+  const btn2 = $('#zoomToggleDirBtn');
+  if (btn1) btn1.innerHTML = `<span>${label}</span>`;
+  if (btn2) btn2.textContent = label;
+}
+
+// 計算中英混合視覺字寬（英文數字約 0.55 單位，中文字 1 單位），用於智慧雙行斷句避免單行拉太長
+function calcVisualUnits(str) {
+  let total = 0;
+  for (let i = 0; i < str.length; i++) {
+    total += str.charCodeAt(i) <= 0x7f ? 0.55 : 1.0;
+  }
+  return total;
+}
+
+function wrapMermaidLabel(rawText, maxUnits = 11) {
+  const txt = String(rawText || '').trim();
+  if (!txt || /<br\s*\/?>/i.test(txt)) return txt;
+  const units = calcVisualUnits(txt);
+  if (units <= maxUnits) return txt;
+
+  // 1. 優先將括號補充說明換到第二行（例如：「1. 信源三級漏斗 (Tier 1~3 權威分級)」）
+  const parenMatch = txt.match(/^(.+?)\s*([（(].+[)）])$/);
+  if (parenMatch && calcVisualUnits(parenMatch[1]) >= 4) {
+    return `${parenMatch[1].trim()}<br/>${parenMatch[2].trim()}`;
+  }
+
+  // 2. 若含冒號（例如回流條件「無來源或過期：退回補件」），於冒號後換行防止撐開節點間距
+  const colonIdx = txt.search(/[：:]/);
+  if (colonIdx > 2 && colonIdx < txt.length - 2) {
+    return `${txt.slice(0, colonIdx + 1).trim()}<br/>${txt.slice(colonIdx + 1).trim()}`;
+  }
+
+  // 3. 尋找最接近視覺中點的連接詞或符號自然斷行
+  const targetHalf = units / 2;
+  let running = 0;
+  let bestSplit = -1;
+  let bestDiff = 999;
+  for (let i = 1; i < txt.length - 1; i++) {
+    running += txt.charCodeAt(i - 1) <= 0x7f ? 0.55 : 1.0;
+    const ch = txt[i];
+    const isBreakChar = /[與及或×・→、／/\s]/.test(ch);
+    const isAsciiBoundary = (txt.charCodeAt(i - 1) > 0x7f && txt.charCodeAt(i) <= 0x7f) ||
+                            (txt.charCodeAt(i - 1) <= 0x7f && txt.charCodeAt(i) > 0x7f);
+    if (isBreakChar || isAsciiBoundary) {
+      const diff = Math.abs(running - targetHalf);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestSplit = isBreakChar && /[與及或]/.test(ch) ? i + 1 : i;
+      }
+    }
+  }
+
+  if (bestSplit > 1 && bestSplit < txt.length - 1 && bestDiff <= 4.5) {
+    return `${txt.slice(0, bestSplit).trim()}<br/>${txt.slice(bestSplit).trim()}`;
+  }
+
+  // 4. 保底依視覺中點斷行（避免切斷連續英文單字）
+  running = 0;
+  for (let i = 1; i < txt.length - 1; i++) {
+    running += txt.charCodeAt(i - 1) <= 0x7f ? 0.55 : 1.0;
+    if (running >= targetHalf) {
+      while (i < txt.length - 1 && /[A-Za-z0-9_.-]/.test(txt[i - 1]) && /[A-Za-z0-9_.-]/.test(txt[i])) {
+        i++;
+      }
+      if (i < txt.length - 1) {
+        return `${txt.slice(0, i).trim()}<br/>${txt.slice(i).trim()}`;
+      }
+      break;
+    }
+  }
+  return txt;
+}
+
+// 智慧優化 Mermaid 語法：轉為雙行緊湊卡片、將超巨型菱形改為等比例六角閘門，並支援 LR / TB 切換
+function optimizeMermaidSyntaxForClarity(rawCode, dir = 'LR') {
+  let code = String(rawCode || '').trim();
+  if (!code) return '';
+
+  // 覆寫流向（LR 橫向全覽 或 TB 直式高清）
+  code = code.replace(/^(flowchart|graph)\s+(LR|RL|TB|TD|BT)/im, `flowchart ${dir}`);
+
+  // 1. 將單層菱形決策節點 id{"..."} 升級為等高不壓縮的六角決策閘門 id{{"◆ ..."}}
+  code = code.replace(/([A-Za-z0-9_]+)(\{+)\s*"([^"]+)"\s*(\}+)/g, (full, id, openBraces, label, closeBraces) => {
+    const cleanLabel = label.replace(/^◆\s*/, '');
+    const wrapped = wrapMermaidLabel(cleanLabel, 8.5);
+    if (openBraces.length === 1 && closeBraces.length === 1) {
+      return `${id}{{"◆ ${wrapped}"}}`;
+    }
+    return `${id}{{${JSON.stringify('◆ ' + wrapped)}}}`;
+  });
+
+  // 2. 將矩形步驟節點 id["..."] 自動排成雙行平衡卡片，大幅縮減橫向總寬度
+  code = code.replace(/([A-Za-z0-9_]+)\[\s*"([^"]+)"\s*\]/g, (full, id, label) => {
+    const wrapped = wrapMermaidLabel(label, 11);
+    return `${id}["${wrapped}"]`;
+  });
+
+  // 3. 將過長的連線標籤 |"..."| 雙行斷句，防止回流虛線把中間節點撐出大空白
+  code = code.replace(/\|\s*"([^"]+)"\s*\|/g, (full, label) => {
+    const wrapped = wrapMermaidLabel(label, 10);
+    return `|"${wrapped}"|`;
+  });
+
+  return code;
+}
+
+// 後製美化渲染完成的 SVG：加入現代圓角、白底清晰連線標籤、加粗箭頭並精準裁切留白邊界
+function enhanceMermaidSvg(svgEl, dir = 'LR') {
+  if (!svgEl) return;
+
+  // 節點圓角與邊框銳利化
+  svgEl.querySelectorAll('.node rect').forEach(r => {
+    r.setAttribute('rx', '10');
+    r.setAttribute('ry', '10');
+  });
+
+  // 消除預設紫色連線底塊，改為高對比白底細框膠囊
+  svgEl.querySelectorAll('.edgeLabel rect').forEach(r => {
+    r.setAttribute('fill', '#ffffff');
+    r.setAttribute('stroke', '#9bb0a8');
+    r.setAttribute('stroke-width', '1.2');
+    r.setAttribute('rx', '6');
+    r.setAttribute('ry', '6');
+    r.style.fill = '#ffffff';
+    r.style.opacity = '0.96';
+  });
+
+  svgEl.querySelectorAll('.edgeLabel text, .edgeLabel tspan').forEach(t => {
+    t.setAttribute('fill', '#132629');
+    t.style.fill = '#132629';
+    t.style.fontWeight = '700';
+  });
+
+  // 加強連線與虛線回流辨識度
+  svgEl.querySelectorAll('.edgePaths path').forEach(p => {
+    p.style.stroke = '#185b51';
+    p.style.strokeWidth = '2.2px';
+  });
+
+  svgEl.querySelectorAll('marker path').forEach(mp => {
+    mp.setAttribute('fill', '#185b51');
+    mp.setAttribute('stroke', '#185b51');
+  });
+
+  // 調整多行中文字距行高並內嵌字型屬性，確保匯出 PNG 時粗體不遺失
+  svgEl.querySelectorAll('text').forEach(txtEl => {
+    txtEl.setAttribute('font-family', '"Noto Sans TC", "Microsoft JhengHei", Inter, sans-serif');
+    txtEl.style.fontWeight = '700';
+    const tspans = txtEl.querySelectorAll('tspan');
+    tspans.forEach((ts, idx) => {
+      if (idx > 0 && ts.getAttribute('dy') === '1em') {
+        ts.setAttribute('dy', '1.22em');
+      }
+    });
+  });
+
+  // 重新量測真實 BBox，賦予乾淨對稱留白並設定最佳顯示比例
+  try {
+    const bbox = svgEl.getBBox();
+    if (bbox && bbox.width > 10 && bbox.height > 10) {
+      const padX = 18;
+      const padY = 16;
+      const vx = Math.floor(bbox.x - padX);
+      const vy = Math.floor(bbox.y - padY);
+      const vw = Math.ceil(bbox.width + padX * 2);
+      const vh = Math.ceil(bbox.height + padY * 2);
+      svgEl.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`);
+      svgEl.setAttribute('data-vb-width', String(vw));
+      svgEl.setAttribute('data-vb-height', String(vh));
+      svgEl.removeAttribute('height');
+
+      if (dir === 'TB') {
+        svgEl.style.width = '100%';
+        svgEl.style.maxWidth = `${Math.min(Math.max(vw * 1.08, 460), 680)}px`;
+        svgEl.style.minWidth = '0';
+      } else {
+        svgEl.style.width = '100%';
+        svgEl.style.maxWidth = `${Math.max(vw, 760)}px`;
+        svgEl.style.minWidth = `${Math.min(vw, 660)}px`;
+      }
+      svgEl.style.height = 'auto';
+    }
+  } catch (e) {
+    svgEl.style.maxWidth = '100%';
+    svgEl.style.height = 'auto';
+  }
+}
 
 // 將結構化顧問思維文字（含【破局命題】與「・維度：解析」）格式化為高層次視覺排版，同時完全相容後台純文字編輯
 function formatWwhRichHtml(rawText) {
@@ -3811,6 +4091,7 @@ const SLUG_TO_WWH_KEY = {
   "tony-news-issue-visual-director": "01-2",
   "tony-multi-brand-rag-coach": "02-0",
   "tony-ai-brand-knowledge-architect": "02-1",
+  "future-store-creator": "02-2",
   "tony-brand-content-factory": "03-0",
   "design-virtual-brand-spokespeople": "03-1",
   "design-brand-mascots": "03-2",
@@ -3914,13 +4195,14 @@ async function renderWwhAndMermaid(unitObj, subSkillIdx = null) {
   if (typeof mermaid !== 'undefined' && mermaid.render) {
     try {
       ensureMermaidInitialized();
+      updateMermaidDirButtonsUI();
       const renderId = 'mermaidSvg_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-      const { svg } = await mermaid.render(renderId, guideData.mermaid);
+      const optimizedMermaid = optimizeMermaidSyntaxForClarity(guideData.mermaid, mermaidLayoutDir);
+      const { svg } = await mermaid.render(renderId, optimizedMermaid);
       mermaidBox.innerHTML = svg;
       const svgEl = mermaidBox.querySelector('svg');
       if (svgEl) {
-        svgEl.style.maxWidth = '100%';
-        svgEl.style.height = 'auto';
+        enhanceMermaidSvg(svgEl, mermaidLayoutDir);
       }
     } catch (err) {
       mermaidBox.innerHTML = `<div class="text-xs text-muted p-3">流程圖載入完成：發現問題 → 定義證據 → 結構化製作 → 來源檢核</div>`;
@@ -3930,18 +4212,53 @@ async function renderWwhAndMermaid(unitObj, subSkillIdx = null) {
   }
 }
 
-// ==================== Mermaid 流程圖：放大檢視與高解析 PNG / SVG 下載功能 ====================
+// ==================== Mermaid 流程圖：橫直切換、無損向量放大檢視與高清 PNG / SVG 下載 ====================
 let currentMermaidZoom = 1.25;
+let baseModalSvgWidth = 980;
 
 function applyMermaidModalZoom() {
-  const contentEl = $('#mermaidZoomContent');
+  const svgInModal = document.querySelector('#mermaidZoomContent svg');
   const labelEl = $('#zoomScaleLabel');
-  if (contentEl) {
-    contentEl.style.transform = `scale(${currentMermaidZoom})`;
+  if (svgInModal) {
+    const targetPx = Math.round(baseModalSvgWidth * currentMermaidZoom);
+    svgInModal.setAttribute('width', String(targetPx));
+    svgInModal.style.width = `${targetPx}px`;
+    svgInModal.style.maxWidth = 'none';
+    svgInModal.style.height = 'auto';
   }
   if (labelEl) {
     labelEl.textContent = `${Math.round(currentMermaidZoom * 100)}%`;
   }
+}
+
+function syncSvgToZoomModal() {
+  const srcSvg = document.querySelector('#mermaidDiagramBox svg');
+  const zoomContent = $('#mermaidZoomContent');
+  if (!srcSvg || !zoomContent) return false;
+
+  const vw = Number(srcSvg.getAttribute('data-vb-width')) || 920;
+  baseModalSvgWidth = mermaidLayoutDir === 'TB' ? Math.max(560, Math.min(vw * 1.25, 760)) : Math.max(880, Math.min(vw * 1.15, 1180));
+
+  const cloneSvg = srcSvg.cloneNode(true);
+  cloneSvg.removeAttribute('style');
+  zoomContent.innerHTML = '';
+  zoomContent.appendChild(cloneSvg);
+  applyMermaidModalZoom();
+  return true;
+}
+
+async function toggleMermaidDirection() {
+  mermaidLayoutDir = mermaidLayoutDir === 'LR' ? 'TB' : 'LR';
+  updateMermaidDirButtonsUI();
+  const u = UNITS.find(x => x.id === active) || UNITS[0];
+  const hasExtra = u && Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
+  await renderWwhAndMermaid(u, hasExtra ? activeSubSkillIdx : null);
+  const zoomDialog = $('#mermaidZoomDialog');
+  if (zoomDialog && zoomDialog.open) {
+    currentMermaidZoom = 1.15;
+    syncSvgToZoomModal();
+  }
+  toast(mermaidLayoutDir === 'TB' ? '↕ 已切換為「直式高清流程圖」（適合手機與報告插圖）' : '↔ 已切換為「橫向全覽流程圖」（適合寬螢幕與簡報）');
 }
 
 function openMermaidZoomModal() {
@@ -3963,18 +4280,10 @@ function openMermaidZoomModal() {
   const titleText = subObj ? `單元 ${u.id}｜${subObj.name} 視覺化流程圖` : `單元 ${u ? u.id : ''}｜${u ? u.name : ''} 視覺化流程圖`;
 
   if (titleEl) titleEl.textContent = titleText;
-  const cloneSvg = srcSvg.cloneNode(true);
-  cloneSvg.removeAttribute('style');
-  cloneSvg.setAttribute('width', '960');
-  cloneSvg.style.maxWidth = 'none';
-  cloneSvg.style.height = 'auto';
-
-  zoomContent.innerHTML = '';
-  zoomContent.appendChild(cloneSvg);
-
-  currentMermaidZoom = 1.25;
-  applyMermaidModalZoom();
+  updateMermaidDirButtonsUI();
+  currentMermaidZoom = 1.2;
   zoomDialog.showModal();
+  syncSvgToZoomModal();
 }
 
 function downloadMermaidAsSvg() {
@@ -3987,11 +4296,18 @@ function downloadMermaidAsSvg() {
   if (!clone.getAttribute('xmlns')) {
     clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
   }
+  clone.removeAttribute('style');
+  const vw = Number(srcSvg.getAttribute('data-vb-width')) || 960;
+  const vh = Number(srcSvg.getAttribute('data-vb-height')) || 360;
+  clone.setAttribute('width', String(vw * 2));
+  clone.setAttribute('height', String(vh * 2));
   const svgData = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(clone);
   const u = UNITS.find(x => x.id === active) || UNITS[0];
-  const fileName = `TONY_Studio_Unit${u ? u.id : '01'}_作業邏輯流程圖.svg`;
-  download(fileName, svgData, 'image/svg+xml;charset=utf-8');
-  toast('已下載 SVG 向量流程圖');
+  const hasExtra = u && Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
+  const subObj = hasExtra ? u.extraSkills[activeSubSkillIdx] : null;
+  const unitLabel = subObj ? `${u.id}_${subObj.slug}` : `${u ? u.id : '01'}_${u ? u.slug : 'workflow'}`;
+  download(`TONY_Studio_Unit${unitLabel}_流程圖.svg`, svgData, 'image/svg+xml;charset=utf-8');
+  toast('已下載高解析 SVG 向量流程圖');
 }
 
 function downloadMermaidAsPng() {
@@ -4007,6 +4323,7 @@ function downloadMermaidAsPng() {
 
   try {
     const clone = srcSvg.cloneNode(true);
+    clone.removeAttribute('style');
     if (!clone.getAttribute('xmlns')) {
       clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     }
@@ -4014,9 +4331,8 @@ function downloadMermaidAsPng() {
       clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
     }
 
-    const bbox = srcSvg.getBoundingClientRect();
-    let viewBoxWidth = bbox.width || 900;
-    let viewBoxHeight = bbox.height || 240;
+    let viewBoxWidth = Number(srcSvg.getAttribute('data-vb-width')) || 920;
+    let viewBoxHeight = Number(srcSvg.getAttribute('data-vb-height')) || 280;
     const vbAttr = srcSvg.getAttribute('viewBox');
     if (vbAttr) {
       const parts = vbAttr.trim().split(/[\s,]+/).map(Number);
@@ -4026,14 +4342,23 @@ function downloadMermaidAsPng() {
       }
     }
 
-    const scale = 3; // 3 倍超採樣高解析輸出
-    const pad = 36;
-    const headerHeight = 48;
-    const canvasWidth = Math.round((viewBoxWidth + pad * 2) * scale);
-    const canvasHeight = Math.round((viewBoxHeight + pad * 2 + headerHeight) * scale);
+    // 針對橫向與直式版面自動決定簡報級超高清目標畫布尺寸，杜絕細長條壓縮感
+    const targetDiagramWidth = mermaidLayoutDir === 'TB'
+      ? Math.max(1320, Math.min(viewBoxWidth * 3.0, 1680))
+      : Math.max(2160, Math.min(viewBoxWidth * 2.8, 2680));
+    const renderScale = targetDiagramWidth / viewBoxWidth;
+    const targetDiagramHeight = Math.round(viewBoxHeight * renderScale);
 
-    clone.setAttribute('width', viewBoxWidth);
-    clone.setAttribute('height', viewBoxHeight);
+    const padX = Math.round(targetDiagramWidth * 0.045);
+    const padY = Math.round(Math.max(56, targetDiagramWidth * 0.032));
+    const headerHeight = Math.round(Math.max(88, targetDiagramWidth * 0.044));
+    const footerHeight = Math.round(Math.max(64, targetDiagramWidth * 0.03));
+
+    const canvasWidth = Math.round(targetDiagramWidth + padX * 2);
+    const canvasHeight = Math.round(headerHeight + padY * 2 + targetDiagramHeight + footerHeight);
+
+    clone.setAttribute('width', String(Math.round(targetDiagramWidth)));
+    clone.setAttribute('height', String(targetDiagramHeight));
 
     const svgStr = new XMLSerializer().serializeToString(clone);
     const svgBase64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
@@ -4046,25 +4371,60 @@ function downloadMermaidAsPng() {
         canvas.height = canvasHeight;
         const ctx = canvas.getContext('2d');
 
-        // 繪製白底背景與頂部深墨色標題列
-        ctx.fillStyle = '#ffffff';
+        // 1. 純淨米白底板與中央白色圖表卡
+        ctx.fillStyle = '#f6f5ef';
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
+        const cardX = Math.round(padX * 0.55);
+        const cardY = headerHeight + Math.round(padY * 0.45);
+        const cardW = canvasWidth - cardX * 2;
+        const cardH = targetDiagramHeight + Math.round(padY * 1.1);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cardX, cardY, cardW, cardH);
+        ctx.strokeStyle = '#d5ddd3';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(cardX, cardY, cardW, cardH);
+
+        // 2. 頂部高對比深墨色顧問標題橫幅（字級隨畫布等比例放大，清晰易讀）
         ctx.fillStyle = '#132629';
-        ctx.fillRect(0, 0, canvasWidth, headerHeight * scale);
+        ctx.fillRect(0, 0, canvasWidth, headerHeight);
 
+        const titleFontPx = Math.round(headerHeight * 0.34);
+        const subFontPx = Math.round(headerHeight * 0.22);
         ctx.fillStyle = '#dcf394';
-        ctx.font = `bold ${14 * scale}px "Noto Sans TC", Inter, sans-serif`;
-        const titleBanner = `TONY STUDIO｜單元 ${u ? u.id : ''} ${subObj ? subObj.name : (u ? u.name : '')} — 作業邏輯全覽圖`;
-        ctx.fillText(titleBanner, pad * scale, 30 * scale);
+        ctx.font = `900 ${titleFontPx}px "Noto Sans TC", "Microsoft JhengHei", Inter, sans-serif`;
+        ctx.textBaseline = 'middle';
+        const rawTitle = `TONY STUDIO｜單元 ${u ? u.id : ''} ${subObj ? subObj.name : (u ? u.name : '')} — 作業邏輯全覽圖`;
+        const shortTitle = rawTitle.length > 48 ? rawTitle.slice(0, 47) + '…' : rawTitle;
+        ctx.fillText(shortTitle, cardX, Math.round(headerHeight * 0.52));
 
-        ctx.drawImage(img, pad * scale, (headerHeight + pad * 0.6) * scale, viewBoxWidth * scale, viewBoxHeight * scale);
+        ctx.fillStyle = '#a8bdb6';
+        ctx.font = `700 ${subFontPx}px Inter, "Noto Sans TC", sans-serif`;
+        ctx.textAlign = 'right';
+        ctx.fillText('Human Insight, AI Amplified.', canvasWidth - cardX, Math.round(headerHeight * 0.52));
+        ctx.textAlign = 'left';
+
+        // 3. 繪製超採樣高清向量流程圖
+        ctx.drawImage(img, padX, headerHeight + padY, Math.round(targetDiagramWidth), targetDiagramHeight);
+
+        // 4. 底部視覺圖例說明列
+        const footerY = canvasHeight - footerHeight;
+        ctx.fillStyle = '#e8ede2';
+        ctx.fillRect(0, footerY, canvasWidth, footerHeight);
+        ctx.fillStyle = '#132629';
+        const legendFontPx = Math.round(footerHeight * 0.34);
+        ctx.font = `700 ${legendFontPx}px "Noto Sans TC", "Microsoft JhengHei", sans-serif`;
+        ctx.fillText(
+          '圖例說明： □ 淺米底框＝標準執行步驟　　■ 亮萊姆綠＝核心價值樞紐　　◆ 深墨六角＝人腦決策與合規閘門　　⇢ 虛線＝未達標回流校準',
+          cardX,
+          Math.round(footerY + footerHeight * 0.52)
+        );
 
         const pngDataUrl = canvas.toDataURL('image/png');
-        triggerBase64Download(pngDataUrl, `TONY_Studio_Unit${unitLabel}_流程圖.png`, 'image/png');
-        toast('🖼️ 已下載高解析 PNG 流程圖');
+        const dirSuffix = mermaidLayoutDir === 'TB' ? '直式高清' : '橫向高清';
+        triggerBase64Download(pngDataUrl, `TONY_Studio_Unit${unitLabel}_流程圖_${dirSuffix}.png`, 'image/png');
+        toast(`🖼️ 已下載簡報級高解析 PNG 流程圖（${dirSuffix}）`);
       } catch (canvasErr) {
-        // 若瀏覽器因 foreignObject 安全限制阻擋 Canvas 匯出，自動改為下載無損 SVG 圖檔
         downloadMermaidAsSvg();
       }
     };
@@ -5006,82 +5366,105 @@ rights_and_qa_status:
     ]);
   }
 
-  // 封裝「單元 06：2026-11-17 TONY 餐飲零售產業增強更新包」8 組完整 ZIP（含 create-product-photography 與各包 food-retail.md / food-retail-contract.md）
-  const u06 = UNITS.find(u => u.id === '06');
-  const sharedFoodRetailContractMd = `# TONY 餐飲零售共用活動交接契約（food-retail-contract.md）\n\n- **更新日期**：2026-11-17｜原創設計：TONY 楊文澤老師（TONY Studio）\n- **核心用途**：供全通路議題策劃、品牌知識架構、多品牌 RAG、故事內容工廠、商品攝影產生器、提案視覺導演、短影音選題敘事與品牌聲音導演共用同一份經查核的餐飲零售商品與檔期事實。\n\n## 一、必填交接欄位（Handoff Fields）\n1. ` + "`campaign_id`" + ` & ` + "`brand_name`" + `：檔期代號與門市／零售品牌名稱（示範案例須明示虛構）。\n2. ` + "`hero_sku_spec`" + `：主推餐點／飲品／伴手禮規格、容量重量、官方售價與優惠起訖日期。\n3. ` + "`origin_and_allergens`" + `：法定原產地標示（如豬／牛肉原產地、台灣茶產區）、過敏原提示與保存溫層（常溫／冷藏／-18°C 冷凍）。\n4. ` + "`verified_proof`" + `：可核實之第一手證據（如 SGS 檢驗編號、HACCP 認證、當日現烘／現煮工序）。\n5. ` + "`food_safety_redlines`" + `：嚴格遵守《食品安全衛生管理法》第 28 條，一般食品絕對禁用醫療效能或誇大字眼（如：治失眠、降三高、排毒消水腫、保證減肥）。\n`;
-
-  const sharedFoodRetailGuideMd = `# 餐飲零售產業實戰操作指引（food-retail.md）\n\n1. **時段與場景驅動**：餐飲看時段（早餐通勤、午間效率、午後離峰、宵夜聚餐），零售看節點（年節伴手禮、辦公室團購、居家常備補貨）。\n2. **實品忠實原則**：視覺生成與短影音拍攝之食材份量、肉片厚度與禮盒內容物須與實際交付一致；調理包盛盤圖須加註「調理參考」。\n3. **圖文分離與標示清晰**：AI 僅負責產出無字垂涎美食底圖或乾淨包裝平面，品牌官方商標、價格、原產地與營養標示一律由後製精準疊加。\n`;
-
-  if (u06 && Array.isArray(u06.extraSkills)) {
-    u06.extraSkills.forEach(sub => {
-      const baseFolder = sub.slug.replace(/-v\d+\.\d+\.\d+$/, '');
-      const entries = [
-        { name: `${baseFolder}/SKILL.md`, content: sub.manual || `# ${sub.name}` },
-        { name: `${baseFolder}/agents/openai.yaml`, content: `name: ${baseFolder}\nversion: ${sub.versionTag || '1.1.0'}\ndescription: ${sub.name}\nauthor: TONY 楊文澤老師 (TONY Studio)\ninstructions_file: ../SKILL.md\n` },
-        { name: `${baseFolder}/assets/icon.svg`, content: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#132629"/><circle cx="60" cy="60" r="36" fill="#185B51" stroke="#DCF394" stroke-width="4"/><path d="M44 62L56 74L78 48" stroke="#DCF394" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
-        { name: `${baseFolder}/references/food-retail-contract.md`, content: sharedFoodRetailContractMd },
-        { name: `${baseFolder}/references/food-retail.md`, content: sharedFoodRetailGuideMd }
-      ];
-      if (baseFolder === 'tony-food-retail-festival-promo-planner') {
-        entries.push(
-          {
-            name: `${baseFolder}/references/hero-product-architecture.md`,
-            content: '# 餐飲零售主打商品黃金三角組品指南（hero-product-architecture.md）\n\n1. **引流破冰款（Traffic Builder｜佔比約 15-20%）**：低決策門檻之試飲包、單人嚐鮮組或門市自取體驗價，任務是獲取新名單與試吃信任。\n2. **核心利潤主打款（Hero SKU｜佔比約 60%）**：具高禮數體面感或家庭剛需之主力禮盒／常備箱，集中 70% 行銷與商攝資源打透。\n3. **高毛利湊單加購款（AOV Booster｜佔比約 20-25%）**：定價 NT$150–$299 之常溫醬料、濾掛小包、茶食點心或品牌器皿，幫助顧客輕鬆跨過免運門檻並拉升整體毛利率。\n'
-          },
-          {
-            name: `${baseFolder}/references/promo-mechanics-and-margin.md`,
-            content: '# 防破價促銷機制與毛利紅線試算規範（promo-mechanics-and-margin.md）\n\n## 一、實質貢獻毛利試算公式\n`實質貢獻毛利 ＝ 促銷實收淨額 − 食材原物料成本 − 禮盒包材與提袋小卡成本 − 運費補貼（常溫/冷凍） − 贈品邊際成本 − 金流與平台抽成`\n\n## 二、四大不傷牌價促銷設計\n- **早鳥價值升等**：早鳥期間預訂享免費升級禮盒腰封、加贈門市兌換券或新品試吃包，維持禮盒原牌價。\n- **企業大宗階梯滿贈**：如「滿 10 盒贈 1 盒同款（等效 90.9 折）」，優於直接標示低折數。\n- **試飲／試吃費折抵大單**：B2B 採購申請試飲盒之費用，於正式下單滿額時 100% 折抵。\n- **節後回流鎖客券**：隨盒賀卡附上節後離峰月份可用之回購折抵金，將送禮流量轉化為自有會員。\n'
-          }
-        );
+  // 封裝單元 02-C M01 未來商店創造師 v1.3（future-store-creator）完整 7 個檔案（含真實 JPEG 空店面基準底圖）
+  const sub02C = u02 && u02.extraSkills ? u02.extraSkills.find(s => s.slug === 'future-store-creator') : null;
+  if (sub02C) {
+    let storefrontJpegBytes = new Uint8Array([0xff, 0xd8, 0xff, 0xd9]);
+    try {
+      const cvs = document.createElement('canvas');
+      cvs.width = 960;
+      cvs.height = 640;
+      const c = cvs.getContext('2d');
+      if (c) {
+        c.fillStyle = '#e9e7df';
+        c.fillRect(0, 0, 960, 640);
+        c.fillStyle = '#d4d0c5';
+        c.fillRect(0, 500, 960, 140);
+        c.fillStyle = '#f7f6f1';
+        c.fillRect(110, 60, 740, 440);
+        c.strokeStyle = '#8b948e';
+        c.lineWidth = 4;
+        c.strokeRect(110, 60, 740, 440);
+        c.fillStyle = '#e0ddd4';
+        c.fillRect(140, 90, 680, 90);
+        c.strokeStyle = '#a4aca6';
+        c.lineWidth = 2;
+        c.strokeRect(140, 90, 680, 90);
+        c.fillStyle = '#cad6d3';
+        c.fillRect(160, 210, 430, 290);
+        c.strokeRect(160, 210, 430, 290);
+        c.fillStyle = '#dce3e0';
+        c.fillRect(620, 210, 180, 290);
+        c.strokeRect(620, 210, 180, 290);
+        const jpegUrl = cvs.toDataURL('image/jpeg', 0.85);
+        const rawBin = atob(jpegUrl.split(',')[1]);
+        storefrontJpegBytes = new Uint8Array(rawBin.length);
+        for (let i = 0; i < rawBin.length; i++) storefrontJpegBytes[i] = rawBin.charCodeAt(i);
       }
-      if (baseFolder === 'design-festival-greeting-cards') {
-        entries.push({
-          name: `${baseFolder}/references/festival-card-guide.md`,
-          content: '# 餐飲零售節日賀卡與隨盒祝賀小卡設計指南（festival-card-guide.md）\n\n## 一、三大收禮關係分眾祝賀語則\n1. **致企業 B2B 客戶（重體面與並肩情誼）**：避免促銷術語，以節氣風物連結合作感謝，預留企業抬頭與親筆簽名區。\n2. **致長輩與親友（重溫暖與無負擔健康）**：強調天然食材溯源、低咖啡因或免茶具便利性，傳遞日常關懷。\n3. **致 VIP 熟客（重專屬感與回訪禮遇）**：感謝長期支持，於背面附上專屬回店兌換或季節限定體驗禮。\n\n## 二、實體隨盒小卡與 LINE 電子賀卡雙軌規格\n- **實體隨盒小卡（A6：148 × 105 mm）**：完稿須含上下左右各 3mm 出血（即 154 × 111 mm）、300 dpi CMYK；正面預留 50% 乾淨留白壓字區，背面印製沖泡水溫／覆熱秒數美味指南。\n- **LINE 電子賀卡（1:1 1040×1040 px 或 9:16 1080×1920 px）**：字級須適配手機直覽，支援填入收件人尊稱。\n'
-        });
-      }
-      registerZip(sub.slug, entries);
-    });
-    // 確保 create-product-photography 手冊也註冊於 SKILL_PRACTICAL_HANDBOOK_MAP
-    SKILL_PRACTICAL_HANDBOOK_MAP["create-product-photography"] = {
-      badges: ["對應領航員：W6 餐飲零售節慶坊", "對應指導員：06-B 商品攝影產生器 v1.1.0", "2026-11-17 更新版"],
-      positioning: "專為餐飲美食、手搖咖啡飲品、伴手禮盒與生鮮調理包打造的商業攝影企劃與生圖提示詞產生器，精準控制「135° 側逆光蒸氣與水珠」、「45° 餐桌主觀食慾視角」與「無字乾淨貼標平面」。",
-      structureTitle: "二、餐飲零售商品攝影四階段結構",
-      tableHeaders: ["攝影階段", "光學與構圖重點", "食安與實品忠實規範"],
-      tableRows: [
-        ["契約與實品盤點 (Contract)", "依 `food-retail-contract.md` 鎖定主菜規格、容器材質與配料", "嚴禁誇大肉塊或配料份量造成「圖文不符」消費爭議"],
-        ["食慾光位設定 (Food Lighting)", "熱食採側逆光勾勒蒸氣與肉汁油亮感；冰飲採穿透光與冷凝水珠", "拒絕死白平光與塑膠假食物感（No plastic food look）"],
-        ["三視角版位構圖 (Angles)", "0° 平視看高度層次、45° 餐桌進食視角、90° 俯拍看禮盒全貌", "1:1 外送主圖、4:5 社群海報、16:9 橫幅各自預留壓字安全留白"],
-        ["無字貼標與標示後製 (Handoff)", "包裝正面與杯袖強制預留無字平整貼標區（Clean Blank Label）", "由後製置入官方 Logo、價格、原產地及「調理參考」字樣"]
-      ],
-      sopSteps: [
-        "填寫主推餐飲菜品或零售禮盒的真實外觀、容器材質與目標版位（外送平台 1:1、IG 4:5 或門市立牌）。",
-        "檢視 AI 依 `food-retail.md` 產出的光位焦段設定與中英對照商品攝影 Prompt。",
-        "於生圖工具產出乾淨無字垂涎美食底圖後，在設計軟體疊加精準官方 Logo、售價與法定食安標示。"
-      ],
-      starterTask: "請使用本 Skill（create-product-photography v1.1.0），針對「森日咖啡」的「午後瑞士水低咖啡因手沖＋半山焙茶拿鐵＋10入牛皮紙濾掛禮盒」，依 `food-retail.md` 與 `food-retail-contract.md` 產出：1. 商攝光位與鏡頭設定表、2. 三種版位（1:1 外送菜單主圖、4:5 午後窗邊餐桌情境、16:9 官網留白橫幅）中英對照生圖提示詞，以及 3. 無字貼標與食安標示後製檢核表：[貼上商品細節]。",
-      refineTask: "請保留目前的暖陽側逆光設定，針對「半山焙茶拿鐵與濾掛禮盒同框（4:5 垂直構圖）」微調生圖提示詞：強化綿密奶泡頂端撒上微細深綠焙茶粉的微距質地，並確保牛皮紙盒正面中央保留平整無字凹槽區供後製貼入官方商標。",
-      pitfallWrong: "「直接叫 AI 畫一碗肉片滿出來像山一樣高、上面還印著歪七扭八中文店名的調理包照片，連『調理參考』都沒標就直接上架外送平台！」（違反實品忠實度、文字亂碼且易遭檢舉廣告不實）",
-      pitfallRight: "「以 85mm 微距 45° 餐桌視角搭配 135° 側逆光，真實呈現舒肥雞胸粉嫩切面肉汁光澤與炊飯微熱氣；包裝袋保留乾淨無字貼標區，後製精準壓上官方 Logo、國產雞肉產地與『調理參考』小字。」",
-      checklist: [
-        "菜品／商品份量比例與門市實品一致，調理包盛盤照已規劃「調理參考」標註位置。",
-        "已依食物冷熱屬性設定側逆光蒸氣、冷凝水珠或紙材肌理關鍵字，無塑膠假感。",
-        "所有包裝與杯袖均預留無字乾淨貼標區，杜絕 AI 繁中亂碼字。"
-      ]
-    };
-  }
+    } catch (e) {}
 
-  // 同步更新 DEFAULT_UNITS_BACKUP，確保雲端合併時完整包含單元 06
-  const idx06 = DEFAULT_UNITS_BACKUP.findIndex(u => u.id === '06');
-  if (u06) {
-    if (idx06 === -1) DEFAULT_UNITS_BACKUP.push(JSON.parse(JSON.stringify(u06)));
-    else DEFAULT_UNITS_BACKUP[idx06] = JSON.parse(JSON.stringify(u06));
+    registerZip('future-store-creator', [
+      { name: 'future-store-creator/SKILL.md', content: sub02C.manual },
+      { name: 'future-store-creator/README.md', content: '# M01 未來商店創造師 v1.3（future-store-creator）\n\n- **原創設計**：TONY 楊文澤老師（TONY Studio）\n- **核心用途**：協助品牌主、連鎖餐飲與零售團隊將一樓空店面或櫃位（可使用 `assets/default-empty-storefront.jpeg`），轉化為具備五感動線、坪效分區、日夜空間視覺渲染與開幕三波段行銷計畫的完整展店提案。\n' },
+      { name: 'future-store-creator/assets/output-template.md', content: '# 未來商店空間與動線標準輸出模板（output-template.md）\n\n## 一、店面基本設定卡\n- **品牌與概念店名稱**：\n- **店型與坪數配置**：（外帶快取區 % ／ 零售展架區 % ／ 內用體驗區 % ／ 後場備料區 %）\n- **立面材質與品牌色票錨點**：\n\n## 二、顧客四段五感動線表\n| 動線節點 | 顧客行為目標 | 視覺／嗅覺／聽覺設計 | 商業連帶轉換設計 |\n|---|---|---|---|\n| 1. 遠距門頭 (10m) | 3 秒辨識業態與風格 | 乾淨無字留白燈箱（後製貼官方店招） | — |\n| 2. 門口破冰區 (1m) | 駐足聞香／奉茶試飲 | 透明手沖吧台或快速外帶窗 | 掃碼領取開幕體驗券 |\n| 3. 點單與零售牆 | 拉升客單價 (AOV) | 常溫禮盒與加購小品黃金視線陳列 | 結帳順手加購湊免運／滿額禮 |\n| 4. 取餐與內用席 | 分流不壅塞與拍照打卡 | 溫暖重點照明與品牌記憶符號角落 | 桌牌引導加入 LINE 熟客會員 |\n\n## 三、圖生圖空間改造 Prompt 包（保留原建築梁柱結構）\n- **Shot A｜日間自然光門頭立面（Daytime Storefront）**：\n- **Shot B｜夜間溫暖發光氛圍（Nighttime Illuminated Facade）**：\n- **Shot C｜室內吧台與零售展架視角（Interior Experience & Retail Shelf）**：\n' },
+      { name: 'future-store-creator/assets/default-empty-storefront.jpeg', bytes: storefrontJpegBytes },
+      { name: 'future-store-creator/references/marketing-plan.md', content: '# 新店開幕三波段集客行銷計畫規範（marketing-plan.md）\n\n1. **第一波｜T-14 天施工圍籬蓄水期（Pre-Opening Teaser）**：\n   - 將無聊的施工帆布變成大型街頭互動廣告，印上品牌懸疑痛點提問與大型 QR Code，引導周邊上班族／住戶提前加入 LINE 官方帳號領取「開幕首週買一送一／試飲券」。\n2. **第二波｜T-3 天熟客與鄰里封測期（Soft Opening & Seed Reviews）**：\n   - 限量邀請周邊合作店家、VIP 熟客與在地創作者試營運體驗，實測尖峰出餐動線流暢度並累積真實首波口碑照片。\n3. **第三波｜開幕首月回流鎖客期（Grand Opening & Retention）**：\n   - 開幕不靠無底線打折排隊黨，改發「第二次回訪升等券」與「午後／離峰時段專屬禮遇」，把一次性嚐鮮客養成高頻回購熟客。\n' },
+      { name: 'future-store-creator/references/document-delivery.md', content: '# 展店提案簡報七章節交付與工程邊界規範（document-delivery.md）\n\n1. 展店商業目標與商圈客群定位\n2. 品牌識別色票與空間材質系統\n3. 坪效配比與四段五感動線平面邏輯\n4. 日／夜／室內未來店面概念視覺提案（後製置入真實官方店招）\n5. 開幕前中後三波段行銷行事曆与 KPI\n6. 預估宣傳與開幕活動預算配置（標示工作假設）\n7. **工程與法規免責聲明**：本文件內之空間視覺為 AI 輔助概念示意圖，正式裝修工程須委由合格建築師／室內設計團隊依當地建築法、消防安全、無障礙設施及餐飲油煙水電規範繪製正式施工圖說。\n' },
+      { name: 'future-store-creator/references/classroom.md', content: '# M01 未來商店創造師｜課堂 20 分鐘演練與評量表（classroom.md）\n\n- **實作任務**：下載 `default-empty-storefront.jpeg`，選擇你的餐飲或零售品牌，產出「日間改造門面＋開幕三波段行銷表」。\n- **評量四維度**：1. 建築結構合理性（未憑空拆柱違建）、2. 店招圖文分離（無 AI 亂碼字）、3. 外帶／零售／內用動線商業邏輯、4. 開幕預熱至回購閉環完整度。\n' }
+    ]);
+
+    const idx02 = DEFAULT_UNITS_BACKUP.findIndex(u => u.id === '02');
+    if (idx02 !== -1 && u02) {
+      DEFAULT_UNITS_BACKUP[idx02] = JSON.parse(JSON.stringify(u02));
+    }
   }
 })();
 
-// ==================== 基礎工具函式（安全轉義、通知、對話框、剪貼簿、檔案下載） ====================
-function esc(s) {
-  return String(s == null ? '' : s)
+// 封裝單元 06 餐飲零售節慶檔期三核模組（06-A 節慶促銷、06-B 商品攝影、06-C 節日賀卡）標準 ZIP 套件
+(function buildUnit06FoodRetailZips() {
+  const u06 = UNITS.find(u => u.id === '06');
+  if (!u06 || !Array.isArray(u06.extraSkills)) return;
+
+  const sharedContractMd = `# 餐飲零售共用活動交接契約（food-retail-contract.md）
+
+- **原創設計**：TONY 楊文澤老師（TONY Studio）
+- **核心用途**：統一鎖定主推商品 SKU 名稱、官方售價、早鳥／滿額優惠條件、食材原產地、過敏原聲明、保存溫層與最後出貨截單日，供企劃、商攝與賀卡設計跨模組一致調用。
+- **食安合規紅線**：嚴格遵守《食品安全衛生管理法》，嚴禁宣稱醫療效能（如治失眠、降三高、減脂排毒）；調理包盛盤圖須加註「調理參考」。
+`;
+
+  u06.extraSkills.forEach(sub => {
+    const entries = [
+      { name: `${sub.slug}/SKILL.md`, content: sub.manual || `# ${sub.name}` },
+      { name: `${sub.slug}/agents/openai.yaml`, content: `name: ${sub.slug}\ndescription: ${sub.name}\nversion: ${sub.versionTag || '1.0.0'}\nauthor: TONY 楊文澤老師 (TONY Studio)\ninstructions_file: ../SKILL.md\n` },
+      { name: `${sub.slug}/assets/icon.svg`, content: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#132629"/><circle cx="60" cy="60" r="34" fill="#185B51" stroke="#DCF394" stroke-width="4"/></svg>' },
+      { name: `${sub.slug}/references/food-retail-contract.md`, content: sharedContractMd },
+      { name: `${sub.slug}/references/food-retail.md`, content: `# ${sub.name}｜餐飲零售實戰操作指引\n\n## 核心步驟（SOP）\n${(sub.steps || []).map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n## 預計交付成果\n${sub.deliver || ''}\n` }
+    ];
+    if (sub.slug === 'tony-food-retail-festival-promo-planner') {
+      entries.push(
+        { name: `${sub.slug}/references/hero-product-architecture.md`, content: '# 黃金三角商品組合規範（引流體驗款 × 主打利潤 Hero SKU × 高毛利湊免運加購款）\n' },
+        { name: `${sub.slug}/references/promo-mechanics-and-margin.md`, content: '# 防破價促銷設計與實質毛利保本試算公式\n實收淨額 −（食材成本 ＋ 精裝包材 ＋ 冷鏈／宅配運費補貼 ＋ 贈品成本 ＋ 平台抽成）＝ 實質貢獻毛利。\n' }
+      );
+    } else if (sub.slug === 'design-festival-greeting-cards') {
+      entries.push(
+        { name: `${sub.slug}/references/festival-card-guide.md`, content: '# 伴手禮隨盒祝賀小卡規範\n正面 80% 傳遞分眾得體祝福（企業VIP／親友長輩／品牌熟客），背面 20% 提供沖泡水溫／覆熱秒數美味指南與產地溯源。\n' }
+      );
+    }
+    const zipBytes = createStoreZipBytes(entries);
+    let bin = '';
+    for (let i = 0; i < zipBytes.length; i++) bin += String.fromCharCode(zipBytes[i]);
+    SKILL_ASSETS[`${sub.slug}.zip`] = 'data:application/zip;base64,' + btoa(bin);
+    DEFAULT_SKILL_ASSETS_BACKUP[`${sub.slug}.zip`] = SKILL_ASSETS[`${sub.slug}.zip`];
+  });
+
+  const idx06 = DEFAULT_UNITS_BACKUP.findIndex(u => u.id === '06');
+  if (idx06 !== -1) DEFAULT_UNITS_BACKUP[idx06] = JSON.parse(JSON.stringify(u06));
+  else DEFAULT_UNITS_BACKUP.push(JSON.parse(JSON.stringify(u06)));
+})();
+
+// ==================== 核心工具、狀態儲存與畫面渲染引擎 ====================
+function esc(str) {
+  return String(str == null ? '' : str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -5089,15 +5472,14 @@ function esc(s) {
     .replace(/'/g, '&#39;');
 }
 
-let toastTimer = null;
 function toast(msg) {
   const el = $('#toast');
   if (!el) return;
   el.textContent = msg;
   el.classList.remove('hidden');
   el.classList.add('flex');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
     el.classList.add('hidden');
     el.classList.remove('flex');
   }, 2800);
@@ -5109,47 +5491,47 @@ function askConfirm(title, message, onOk) {
     if (typeof onOk === 'function') onOk();
     return;
   }
-  $('#confirmTitle').textContent = title || '確認執行此操作？';
-  $('#confirmMessage').textContent = message || '';
+  if ($('#confirmTitle')) $('#confirmTitle').textContent = title || '確認執行此操作？';
+  if ($('#confirmMessage')) $('#confirmMessage').textContent = message || '';
   confirmCallback = onOk;
   dlg.showModal();
 }
 
-function copyTextToClipboard(text, successMsg = '已複製到剪貼簿 ✓') {
-  const str = String(text || '');
-  const fallbackCopy = () => {
+async function copyTextToClipboard(text, okMsg = '已複製到剪貼簿 ✓') {
+  const content = String(text || '');
+  try {
     const ta = document.createElement('textarea');
-    ta.value = str;
+    ta.value = content;
     ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
     ta.style.top = '-9999px';
-    ta.style.opacity = '0';
     document.body.appendChild(ta);
-    ta.focus();
     ta.select();
-    try {
-      document.execCommand('copy');
-      toast(successMsg);
-    } catch (e) {
-      toast('複製受限，請手動全選複製');
-    }
+    const ok = document.execCommand('copy');
     document.body.removeChild(ta);
-  };
-
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(str).then(() => toast(successMsg)).catch(() => fallbackCopy());
-  } else {
-    fallbackCopy();
-  }
+    if (ok) {
+      toast(okMsg);
+      return true;
+    }
+  } catch (e) {}
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(content);
+      toast(okMsg);
+      return true;
+    }
+  } catch (err) {}
+  toast('⚠️ 瀏覽器限制自動複製，請手動全選複製');
+  return false;
 }
 
-function download(name, content, type = 'text/plain;charset=utf-8') {
-  const blob = content instanceof Blob ? content : new Blob([content], { type });
+function download(filename, contentOrBlob, mime = 'text/plain;charset=utf-8') {
+  const blob = contentOrBlob instanceof Blob ? contentOrBlob : new Blob([contentOrBlob], { type: mime });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = name || 'download.txt';
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   setTimeout(() => {
@@ -5158,88 +5540,48 @@ function download(name, content, type = 'text/plain;charset=utf-8') {
   }, 60000);
 }
 
-// 取得筆記儲存鍵值（同時向下相容既有會員雲端 `${brand}-${unitId}` 與新版格式）
-function migrateLegacyWorkspaceKeys(targetState) {
-  if (!targetState || typeof targetState !== 'object') return;
-  if (targetState.notes && typeof targetState.notes === 'object') {
-    Object.keys(targetState.notes).forEach(k => {
-      if (k.includes('__')) {
-        const normalized = k.replace('__sub', '-s').replace('__', '-');
-        if (!targetState.notes[normalized]) {
-          targetState.notes[normalized] = targetState.notes[k];
-        }
-      }
-    });
-  }
-  if (targetState.done && typeof targetState.done === 'object') {
-    Object.keys(targetState.done).forEach(k => {
-      if (k.includes('__')) {
-        const normalized = k.replace('__', '-');
-        if (targetState.done[normalized] === undefined) {
-          targetState.done[normalized] = targetState.done[k];
-        }
-      }
-    });
-  }
+function valid(d) {
+  return Boolean(d && typeof d === 'object' && typeof d.notes === 'object' && typeof d.done === 'object');
 }
 
-function key(unitId, subIdx = 0) {
-  if (!subIdx || subIdx === 0) return `${state.brand}-${unitId}`;
-  return `${state.brand}-${unitId}-s${subIdx}`;
+function key(unitId = active, subIdx = activeSubSkillIdx) {
+  return `${state.brand}__${unitId}__${Number(subIdx) || 0}`;
 }
 
-function doneKey(unitId) {
+function doneKey(unitId = active) {
   return `${state.brand}-${unitId}`;
 }
 
-function valid(obj) {
-  return obj && typeof obj === 'object' && typeof obj.notes === 'object' && typeof obj.done === 'object';
-}
-
-function loadLocalState() {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return;
-    const parsed = JSON.parse(raw);
-    if (valid(parsed)) {
-      migrateLegacyWorkspaceKeys(parsed);
-      state = {
-        version: 1,
-        brand: parsed.brand || 'coffee',
-        names: Object.assign({ coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '' }, parsed.names || {}),
-        notes: parsed.notes || {},
-        done: parsed.done || {}
-      };
-    }
-  } catch (e) {
-    console.warn('Local state parse skipped:', e);
+function migrateLegacyWorkspaceKeys(data) {
+  if (!data || typeof data !== 'object') return;
+  if (!data.names || typeof data.names !== 'object') {
+    data.names = { coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '' };
+  } else if (data.names.bistro === undefined) {
+    data.names.bistro = '禾味日常';
+  }
+  if (data.notes && typeof data.notes === 'object') {
+    Object.keys(data.notes).forEach(k => {
+      const m = k.match(/^([a-z]+)-(\d{2})$/);
+      if (m) {
+        const modernKey = `${m[1]}__${m[2]}__0`;
+        if (!data.notes[modernKey]) {
+          data.notes[modernKey] = Array.isArray(data.notes[k]) ? [...data.notes[k]] : ['', '', ''];
+        }
+      }
+    });
+  }
+  if (data.done && typeof data.done === 'object') {
+    Object.keys(data.done).forEach(k => {
+      const m = k.match(/^([a-z]+)__(\d{2})/);
+      if (m && data.done[k]) {
+        data.done[`${m[1]}-${m[2]}`] = true;
+      }
+    });
   }
 }
 
-window.syncCloudFn = window.syncCloudFn || null;
-function save(triggerCloud = true) {
-  lastLocalEditTime = Date.now();
-  try {
-    localStorage.setItem(KEY, JSON.stringify(state));
-  } catch (e) {
-    console.warn('Local save error:', e);
-  }
-  const statusEl = $('#saveStatus');
-  if (statusEl) {
-    statusEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-teal"></span><span>已自動保存（${new Date().toLocaleTimeString('zh-TW', { hour12: false })}）</span>`;
-  }
-  if (triggerCloud && typeof window.syncCloudFn === 'function') {
-    clearTimeout(timer);
-    timer = setTimeout(() => window.syncCloudFn(), 450);
-  }
-}
-
-// 統計全站總單元數與總 Skill 包數量
 function getTotalSkillsCount() {
-  return UNITS.reduce((acc, u) => {
-    const subCount = (Array.isArray(u.extraSkills) && u.extraSkills.length > 0) ? u.extraSkills.length : 1;
-    return acc + subCount;
-  }, 0);
+  return UNITS.reduce((sum, u) => sum + ((Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1), 0);
 }
 
 function getCompletedUnitsCountForCurrentBrand() {
@@ -5248,99 +5590,160 @@ function getCompletedUnitsCountForCurrentBrand() {
 
 function getUniqueCompletedUnitsCount(doneMap) {
   if (!doneMap || typeof doneMap !== 'object') return 0;
-  const completedSet = new Set();
-  Object.keys(doneMap).forEach(k => {
-    if (!doneMap[k]) return;
-    const parts = k.includes('__') ? k.split('__') : k.split('-');
-    const uid = parts.length > 1 ? parts[1] : parts[0];
-    if (UNITS.some(u => u.id === uid)) completedSet.add(uid);
+  const set = new Set();
+  Object.entries(doneMap).forEach(([k, val]) => {
+    if (!val) return;
+    const m = k.match(/(?:^|[-_])(\d{2})(?:$|[-_])/);
+    if (m) set.add(m[1]);
   });
-  return completedSet.size;
+  return set.size;
 }
 
-// 取得目前工作台選中單元與子 Skill 的完整中繼資料
-function getActiveUnitMeta(unitObj = null, subIdxOverride = null) {
+function loadLocalState() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (valid(parsed)) {
+        migrateLegacyWorkspaceKeys(parsed);
+        state = {
+          version: 1,
+          brand: ['coffee', 'tea', 'bistro', 'custom'].includes(parsed.brand) ? parsed.brand : 'coffee',
+          names: Object.assign({ coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '' }, parsed.names || {}),
+          notes: parsed.notes || {},
+          done: parsed.done || {}
+        };
+      }
+    }
+  } catch (e) {}
+}
+
+let cloudSyncDebounce = null;
+function save(triggerCloud = true) {
+  lastLocalEditTime = Date.now();
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+  } catch (e) {}
+  const statusEl = $('#saveStatus');
+  if (statusEl) {
+    statusEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-teal"></span><span>已即時自動保存（${new Date().toLocaleTimeString('zh-TW', { hour12: false })}）</span>`;
+  }
+  if (triggerCloud && typeof window.syncCloudFn === 'function') {
+    clearTimeout(cloudSyncDebounce);
+    cloudSyncDebounce = setTimeout(() => {
+      window.syncCloudFn();
+    }, 650);
+  }
+}
+
+function updateProgressIndicators() {
+  const totalU = UNITS.length || 6;
+  const totalS = getTotalSkillsCount();
+  const doneCount = getCompletedUnitsCountForCurrentBrand();
+  const pct = Math.round((doneCount / totalU) * 100);
+  const brandDefaultLabels = { coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '自訂品牌' };
+  const brandLabel = (state.names[state.brand] || '').trim() || brandDefaultLabels[state.brand] || '我的品牌';
+
+  if ($('#navBrandBadge')) $('#navBrandBadge').textContent = brandLabel;
+  if ($('#navProgressBadge')) $('#navProgressBadge').textContent = `${doneCount} / ${totalU} 完成`;
+  if ($('#heroStatUnitsCount')) $('#heroStatUnitsCount').textContent = String(totalU).padStart(2, '0');
+  if ($('#heroStatSkillsCount')) $('#heroStatSkillsCount').textContent = String(totalS).padStart(2, '0');
+  if ($('#count')) $('#count').textContent = `本案例 ${doneCount} / ${totalU} 單元已完成`;
+  if ($('#percentText')) $('#percentText').textContent = `${pct}%`;
+  if ($('#bar')) $('#bar').style.width = `${pct}%`;
+  if ($('#curriculumProgressBar')) {
+    $('#curriculumProgressBar').setAttribute('aria-valuemax', String(totalU));
+    $('#curriculumProgressBar').setAttribute('aria-valuenow', String(doneCount));
+  }
+  const filterSelect = $('#filter');
+  if (filterSelect && filterSelect.options && filterSelect.options[0]) {
+    filterSelect.options[0].textContent = `全部單元 (${totalU})`;
+  }
+}
+
+function getActiveUnitMeta(unitObj = null, forceSubIdx = null) {
   const u = unitObj || UNITS.find(x => x.id === active) || UNITS[0];
-  const hasExtra = !!(u && Array.isArray(u.extraSkills) && u.extraSkills.length > 0);
-  const idx = subIdxOverride !== null ? subIdxOverride : (hasExtra ? Math.min(activeSubSkillIdx, u.extraSkills.length - 1) : 0);
-  const sub = hasExtra ? (u.extraSkills[idx] || u.extraSkills[0]) : null;
+  const hasExtra = Boolean(u && Array.isArray(u.extraSkills) && u.extraSkills.length > 0);
+  const rawIdx = forceSubIdx !== null ? forceSubIdx : activeSubSkillIdx;
+  const subIdx = hasExtra ? Math.min(Math.max(0, Number(rawIdx) || 0), u.extraSkills.length - 1) : 0;
+  const subObj = hasExtra ? u.extraSkills[subIdx] : null;
 
   return {
     u,
     hasExtra,
-    subIdx: hasExtra ? idx : 0,
-    sub,
-    slug: (sub && sub.slug) || u.slug,
-    name: (sub && sub.name) || u.name,
-    roleBadge: (sub && sub.roleBadge) || `SKILL ${u.id}`,
-    deliver: (sub && sub.deliver) || u.deliver,
-    steps: (sub && Array.isArray(sub.steps) && sub.steps.length) ? sub.steps : (u.steps || []),
-    fields: (sub && Array.isArray(sub.fields) && sub.fields.length) ? sub.fields : (u.fields || []),
-    samples: (sub && sub.samples) || u.samples || {},
-    quiz: (sub && sub.quiz) || u.quiz || '',
-    answer: (sub && sub.answer) || u.answer || '',
-    manual: (sub && sub.manual) || u.manual || ''
+    subIdx,
+    subObj,
+    slug: (subObj && subObj.slug) || u.slug,
+    name: (subObj && subObj.name) || u.name,
+    roleBadge: (subObj && subObj.roleBadge) || `UNIT ${u.id} · ${u.tag}`,
+    deliver: (subObj && subObj.deliver) || u.deliver || '',
+    steps: (subObj && Array.isArray(subObj.steps) && subObj.steps.length) ? subObj.steps : (u.steps || []),
+    fields: (subObj && Array.isArray(subObj.fields) && subObj.fields.length) ? subObj.fields : (u.fields || []),
+    quiz: (subObj && subObj.quiz) || u.quiz || '',
+    answer: (subObj && subObj.answer) || u.answer || '',
+    samples: (subObj && subObj.samples) || u.samples || {},
+    manual: (subObj && subObj.manual) || u.manual || ''
   };
 }
 
-// 將 SKILL.md 格式化為易讀 HTML（不含未轉義跳脫字元）
-function formatManualHtml(md) {
-  const clean = String(md || '').replace(/^---[\s\S]*?---\s*/, '');
-  const lines = clean.split('\n');
-  let html = '';
-  let inList = false;
+function prompt() {
+  const meta = getActiveUnitMeta();
+  const u = meta.u;
+  const brandDefaults = {
+    coffee: '森日咖啡（虛構示範：精品咖啡烘焙與友善插座門市）',
+    tea: '海岸茶室（虛構示範：台灣高山茶禮與冷泡茶選品店）',
+    bistro: '禾味日常（虛構示範：鮮食便當與居家冷凍調理包新零售）',
+    custom: '我的餐飲／零售自訂品牌'
+  };
+  const brandTitle = (state.names[state.brand] || '').trim() || brandDefaults[state.brand] || '我的品牌';
+  const notesArr = state.notes[key(u.id, meta.subIdx)] || ['', '', ''];
+  const qaLines = meta.fields.map((f, idx) => {
+    const val = (notesArr[idx] || '').trim() || '（尚未填寫，請依產業常規標示【工作假設】並引導我補充）';
+    return `${idx + 1}. ${f}\n   ➤ 品牌現況與筆記：${val}`;
+  }).join('\n\n');
 
-  lines.forEach(rawLine => {
-    const line = rawLine.trim();
-    if (!line) {
-      if (inList) { html += '</ul>'; inList = false; }
-      return;
-    }
-    if (line.startsWith('# ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h4 class="text-base sm:text-lg font-extrabold text-ink pt-2">${esc(line.slice(2))}</h4>`;
-    } else if (line.startsWith('## ')) {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<h5 class="text-sm font-extrabold text-teal pt-3 pb-1 border-b border-line/70">${esc(line.slice(3))}</h5>`;
-    } else if (/^(\d+\.|[-*•])\s+/.test(line)) {
-      if (!inList) { html += '<ul class="space-y-1.5 pl-4 list-disc text-xs sm:text-sm text-ink/90">'; inList = true; }
-      html += `<li>${esc(line.replace(/^(\d+\.|[-*•])\s+/, ''))}</li>`;
-    } else {
-      if (inList) { html += '</ul>'; inList = false; }
-      html += `<p class="text-xs sm:text-sm text-muted leading-relaxed">${esc(line)}</p>`;
-    }
-  });
-  if (inList) html += '</ul>';
-  return html;
+  return [
+    `# 啟動 Skill：${meta.slug}（${meta.name}）`,
+    `- 所屬單元：單元 ${u.id}｜${u.title}`,
+    `- 協作模式：${MODE_LABELS[currentMode] || MODE_LABELS.B}`,
+    `- 實作餐飲／零售品牌：${brandTitle}`,
+    `- 預計帶走交付成果：${meta.deliver}`,
+    ``,
+    `## 我的品牌觀察與實作輸入`,
+    qaLines,
+    ``,
+    `## 執行契約與食安合規紅線（請嚴格遵守）`,
+    `1. 請使用臺灣繁體中文，嚴格區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。`,
+    `2. 遵守《食品安全衛生管理法》與公平交易原則：不捏造數據、見證、產地檢驗或保證商業爆款成效；餐飲食品絕不宣稱醫療療效。`,
+    `3. 若採用「模式 B 逐步實作」，請先針對我目前已填寫的筆記給出具體顧問回饋，接著每回合只推進一個關鍵決策並提供選項，等待我回覆後再往下走。`
+  ].join('\n');
 }
 
-// ==================== 前台渲染函式群（五力藍圖、課程卡片、分頁列、實作工作台） ====================
-function updateProgressIndicators() {
-  const totalUnits = UNITS.length;
-  const totalSkills = getTotalSkillsCount();
-  const doneCount = getCompletedUnitsCountForCurrentBrand();
-  const pct = totalUnits > 0 ? Math.round((doneCount / totalUnits) * 100) : 0;
-  const defaultBrandMap = { coffee: '森日咖啡', tea: '海岸茶室', bistro: '禾味日常', custom: '我的餐飲零售品牌' };
-  const currentBrandTitle = (state.names[state.brand] || '').trim() || defaultBrandMap[state.brand] || '我的品牌';
+function updatePromptPreview() {
+  const pre = $('#promptPreview');
+  if (pre) pre.textContent = prompt();
+}
 
-  if ($('#heroStatUnitsCount')) $('#heroStatUnitsCount').textContent = String(totalUnits).padStart(2, '0');
-  if ($('#heroStatSkillsCount')) $('#heroStatSkillsCount').textContent = String(totalSkills).padStart(2, '0');
-  if ($('#cmsSkillCountBadge')) $('#cmsSkillCountBadge').textContent = `${totalUnits} 大單元 · ${totalSkills} 組 Skill`;
-
-  if ($('#navBrandBadge')) $('#navBrandBadge').textContent = currentBrandTitle;
-  if ($('#navProgressBadge')) $('#navProgressBadge').textContent = `${doneCount} / ${totalUnits} 完成`;
-  if ($('#count')) $('#count').textContent = `本案例 ${doneCount} / ${totalUnits} 單元已完成`;
-  if ($('#percentText')) $('#percentText').textContent = `${pct}%`;
-  if ($('#bar')) $('#bar').style.width = `${pct}%`;
-  if ($('#curriculumProgressBar')) {
-    $('#curriculumProgressBar').setAttribute('aria-valuemax', String(totalUnits));
-    $('#curriculumProgressBar').setAttribute('aria-valuenow', String(doneCount));
-  }
-
-  const filterEl = $('#filter');
-  if (filterEl && filterEl.options[0]) {
-    filterEl.options[0].textContent = `全部單元 (${totalUnits})`;
-  }
+function formatManualHtml(rawMd) {
+  const cleaned = String(rawMd || '').replace(/^---[\s\S]*?---\s*/, '');
+  const lines = cleaned.split('\n');
+  let html = '';
+  lines.forEach(line => {
+    const t = line.trim();
+    if (!t) return;
+    if (t.startsWith('# ')) {
+      html += `<h3 class="text-base sm:text-lg font-black text-ink pb-2 border-b border-line">${esc(t.slice(2))}</h3>`;
+    } else if (t.startsWith('## ')) {
+      html += `<h4 class="text-sm sm:text-base font-extrabold text-teal pt-2">${esc(t.slice(3))}</h4>`;
+    } else if (t.startsWith('### ')) {
+      html += `<h5 class="text-xs sm:text-sm font-bold text-ink pt-1">${esc(t.slice(4))}</h5>`;
+    } else if (/^\d+\.\s+/.test(t) || /^[-•]\s+/.test(t)) {
+      html += `<div class="pl-3 border-l-2 border-teal/25 text-xs sm:text-sm text-ink/90 leading-relaxed">${esc(t)}</div>`;
+    } else {
+      html += `<p class="text-xs sm:text-sm text-muted leading-relaxed">${esc(t)}</p>`;
+    }
+  });
+  return html || `<p class="text-xs text-muted">尚無手冊內容</p>`;
 }
 
 function renderHeroMap() {
@@ -5348,111 +5751,117 @@ function renderHeroMap() {
   if (!box) return;
   box.innerHTML = UNITS.map(u => {
     const isDone = !!state.done[doneKey(u.id)];
-    const skillCount = (Array.isArray(u.extraSkills) && u.extraSkills.length > 0) ? u.extraSkills.length : 1;
+    const isCurrent = u.id === active;
+    const skillCount = (Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1;
     return `
-      <button type="button" data-jump-unit="${esc(u.id)}" class="w-full py-2.5 px-2.5 flex items-center justify-between gap-3 text-left hover:bg-white/10 rounded-xl transition-all group">
+      <button type="button" data-jump-unit="${esc(u.id)}" class="w-full py-2.5 px-2.5 -mx-2.5 rounded-xl flex items-center justify-between gap-3 text-left transition-all ${
+        isCurrent ? 'bg-white/15 ring-1 ring-lime/40' : 'hover:bg-white/10'
+      }">
         <div class="flex items-center gap-3 min-w-0">
-          <span class="w-7 h-7 rounded-lg ${isDone ? 'bg-lime text-ink' : 'bg-white/15 text-lime'} font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
+          <span class="w-7 h-7 rounded-lg ${isDone ? 'bg-lime text-ink' : 'bg-teal text-lime border border-lime/30'} font-mono text-xs font-black flex items-center justify-center shrink-0">
             ${isDone ? '✓' : esc(u.id)}
           </span>
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <strong class="text-xs sm:text-sm font-bold text-white truncate group-hover:text-lime transition-colors">${esc(u.shortLabel || u.title)}</strong>
-              <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-lime/90 font-semibold shrink-0">${skillCount} 組</span>
+              <strong class="text-xs sm:text-sm font-extrabold text-white truncate">${esc(u.shortLabel || u.name)}</strong>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-lime font-mono shrink-0">${skillCount} Skill</span>
             </div>
-            <span class="text-[11px] text-white/70 block truncate">${esc(u.promise || u.desc)}</span>
+            <span class="text-[11px] text-white/70 block truncate">${esc(u.promise || u.title)}</span>
           </div>
         </div>
-        <span class="text-xs text-lime opacity-80 group-hover:translate-x-1 transition-transform shrink-0">→</span>
+        <span class="text-xs font-bold text-lime shrink-0">→</span>
       </button>
     `;
   }).join('');
   updateProgressIndicators();
 }
 
+function renderUnitTabs() {
+  const tabsEl = $('#unitTabs');
+  if (!tabsEl) return;
+  tabsEl.innerHTML = UNITS.map(u => {
+    const isSel = u.id === active;
+    const isDone = !!state.done[doneKey(u.id)];
+    const skillCount = (Array.isArray(u.extraSkills) && u.extraSkills.length) ? u.extraSkills.length : 1;
+    return `
+      <button type="button" data-tab-unit="${esc(u.id)}" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all flex items-center gap-2 shrink-0 border ${
+        isSel
+          ? 'bg-ink text-lime border-ink shadow-md'
+          : 'bg-white text-ink border-line hover:border-teal hover:bg-lime/25'
+      }">
+        <span class="font-mono ${isSel ? 'text-lime' : 'text-teal'}">${esc(u.id)}</span>
+        <span>${esc(u.shortLabel || u.name)}</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded-full ${isSel ? 'bg-white/15 text-white' : 'bg-paper text-muted'}">${skillCount}</span>
+        ${isDone ? '<span class="text-xs text-emerald-500">✓</span>' : ''}
+      </button>
+    `;
+  }).join('');
+}
+
 function renderCards() {
   const container = $('#cards');
   if (!container) return;
-  const q = ($('#search') ? $('#search').value : '').trim().toLowerCase();
-  const f = $('#filter') ? $('#filter').value : 'all';
+  updateProgressIndicators();
 
-  const filtered = UNITS.filter(u => {
+  const q = (($('#search') && $('#search').value) || '').trim().toLowerCase();
+  const filterMode = ($('#filter') && $('#filter').value) || 'all';
+
+  const filteredUnits = UNITS.filter(u => {
     const isDone = !!state.done[doneKey(u.id)];
-    if (f === 'done' && !isDone) return false;
-    if (f === 'todo' && isDone) return false;
+    if (filterMode === 'done' && !isDone) return false;
+    if (filterMode === 'todo' && isDone) return false;
     if (!q) return true;
-    const extraBlob = (u.extraSkills || []).map(es => `${es.name} ${es.slug} ${es.roleBadge || ''} ${es.deliver || ''}`).join(' ');
-    const hay = `${u.id} ${u.title} ${u.name} ${u.slug} ${u.tag} ${u.desc} ${u.deliver} ${extraBlob}`.toLowerCase();
+    const subText = Array.isArray(u.extraSkills)
+      ? u.extraSkills.map(s => `${s.roleBadge || ''} ${s.name || ''} ${s.slug || ''} ${s.deliver || ''}`).join(' ')
+      : '';
+    const hay = `${u.id} ${u.title} ${u.name} ${u.tag} ${u.shortLabel || ''} ${u.desc} ${u.deliver} ${subText}`.toLowerCase();
     return hay.includes(q);
   });
 
-  if (!filtered.length) {
+  if (!filteredUnits.length) {
     container.innerHTML = `
-      <div class="lg:col-span-2 bg-white rounded-2xl p-10 border border-line text-center space-y-2">
-        <p class="text-base font-bold text-ink">找不到符合篩選條件的課程單元</p>
-        <p class="text-xs text-muted">請嘗試清除搜尋關鍵字或切換完成狀態篩選。</p>
+      <div class="lg:col-span-2 bg-white rounded-3xl p-10 text-center border border-line space-y-3">
+        <p class="text-base font-extrabold text-ink">找不到符合篩選條件的課程單元或 Skill</p>
+        <p class="text-xs text-muted">請嘗試其他關鍵字，或點擊「重設」檢視全部 ${UNITS.length} 大單元。</p>
       </div>
     `;
     return;
   }
 
-  container.innerHTML = filtered.map(u => {
+  container.innerHTML = filteredUnits.map(u => {
     const isDone = !!state.done[doneKey(u.id)];
     const hasExtra = Array.isArray(u.extraSkills) && u.extraSkills.length > 0;
+    const items = hasExtra
+      ? u.extraSkills.map((es, idx) => ({ idx, badge: (es.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + idx)}`).split('｜')[0], name: es.name, slug: es.slug }))
+      : [{ idx: 0, badge: `SKILL ${u.id}`, name: u.name, slug: u.slug }];
 
-    const skillsBlockHtml = hasExtra
-      ? `
-        <div class="mt-5 pt-4 border-t border-line space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-teal uppercase tracking-wider">內含 ${u.extraSkills.length} 組協作 Skill</span>
-            <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="0" class="text-[11px] font-extrabold text-ink hover:text-teal transition-colors">
-              進入本單元工作台 →
-            </button>
-          </div>
-          <div class="divide-y divide-line/70 rounded-2xl border border-line bg-paper/70 overflow-hidden">
-            ${u.extraSkills.map((es, idx) => {
-              const shortBadge = (es.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + idx)}`).split('｜')[0];
-              return `
-                <div class="px-3.5 py-2.5 flex items-center justify-between gap-3 hover:bg-white transition-colors">
-                  <div class="min-w-0 flex items-center gap-2.5">
-                    <span class="px-2 py-0.5 rounded-md bg-teal/10 text-teal font-mono text-[10px] font-extrabold shrink-0">${esc(shortBadge.replace('SKILL ', ''))}</span>
-                    <div class="min-w-0">
-                      <strong class="text-xs sm:text-[13px] font-bold text-ink block truncate" title="${esc(es.name)}">${esc(es.name)}</strong>
-                      <code class="text-[10px] text-muted font-mono block truncate">${esc(es.slug)}</code>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-1.5 shrink-0">
-                    <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2.5 py-1 rounded-lg bg-white border border-line hover:border-teal text-ink text-[11px] font-bold transition-colors">
-                      手冊
-                    </button>
-                    <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-[11px] font-bold transition-colors">
-                      ZIP ↓
-                    </button>
-                    <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="${idx}" class="px-2.5 py-1 rounded-lg bg-lime text-ink hover:bg-lime-dark text-[11px] font-extrabold transition-colors">
-                      實作
-                    </button>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
+    const skillsBlockHtml = `
+      <div class="mt-5 pt-4 border-t border-line space-y-2">
+        <div class="flex items-center justify-between text-[11px] font-bold text-muted mb-1">
+          <span>本單元專業模組（共 ${items.length} 組獨立 Skill 包）</span>
+          <span>手冊 / 下載 / 實作</span>
         </div>
-      `
-      : `
-        <div class="mt-5 pt-4 border-t border-line flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <button type="button" data-open-manual="${esc(u.id)}" class="px-3.5 py-2 rounded-xl bg-paper border border-line hover:border-teal text-xs font-bold text-ink transition-colors">
-              📖 使用手冊
-            </button>
-            <button type="button" data-download-zip="${esc(u.slug)}" data-unit-id="${esc(u.id)}" class="px-3.5 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-bold transition-colors">
-              下載 ZIP ↓
-            </button>
+        ${items.map(it => `
+          <div class="p-2.5 rounded-xl bg-paper/90 border border-line/80 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 hover:border-teal/40 transition-colors">
+            <div class="min-w-0 flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-md bg-teal/10 text-teal font-mono text-[10px] font-extrabold shrink-0">${esc(it.badge.replace('SKILL ', ''))}</span>
+              <strong class="text-xs font-extrabold text-ink truncate" title="${esc(it.name)}">${esc(it.name)}</strong>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0 ml-auto">
+              <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${it.idx}" class="px-2.5 py-1 rounded-lg bg-white border border-line hover:bg-lime/40 text-[11px] font-bold text-ink transition-colors">
+                手冊
+              </button>
+              <button type="button" data-download-zip="${esc(it.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal text-white hover:bg-teal-dark text-[11px] font-bold transition-colors shadow-sm">
+                ZIP ↓
+              </button>
+              <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="${it.idx}" class="px-2.5 py-1 rounded-lg bg-ink text-lime hover:bg-teal hover:text-white text-[11px] font-extrabold transition-colors">
+                實作 →
+              </button>
+            </div>
           </div>
-          <button type="button" data-work-unit="${esc(u.id)}" data-work-sub="0" class="px-4 py-2 rounded-xl bg-lime text-ink hover:bg-lime-dark text-xs font-extrabold transition-colors">
-            進入實作 →
-          </button>
-        </div>
-      `;
+        `).join('')}
+      </div>
+    `;
 
     return `
       <article class="bg-white rounded-3xl p-6 sm:p-7 border ${isDone ? 'border-teal ring-1 ring-teal/20' : 'border-line'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-full">
@@ -5467,8 +5876,8 @@ function renderCards() {
             </span>
           </div>
           <h3 class="text-lg sm:text-xl font-black text-ink leading-snug">${esc(u.title)}</h3>
-          <p class="text-xs sm:text-sm text-muted mt-2 leading-relaxed">${esc(u.desc)}</p>
-          <div class="mt-3.5 px-3.5 py-2.5 rounded-xl bg-paper/80 border border-line/70 text-xs text-ink leading-relaxed">
+          <p class="text-xs sm:text-sm text-muted mt-2 leading-relaxed line-clamp-2" title="${esc(u.desc)}">${esc(u.desc)}</p>
+          <div class="mt-3.5 px-3.5 py-2.5 rounded-xl bg-paper/80 border border-line/70 text-xs text-ink leading-relaxed line-clamp-2" title="${esc(u.deliver)}">
             <strong class="text-teal font-extrabold">核心交付：</strong>${esc(u.deliver)}
           </div>
         </div>
@@ -5478,134 +5887,89 @@ function renderCards() {
   }).join('');
 }
 
-function renderUnitTabs() {
-  const tabsEl = $('#unitTabs');
-  const selEl = $('#unit');
-  if (selEl) {
-    selEl.innerHTML = UNITS.map(u => `<option value="${esc(u.id)}" ${u.id === active ? 'selected' : ''}>${esc(u.id)} / ${esc(u.title)}</option>`).join('');
-  }
-  if (!tabsEl) return;
-  tabsEl.innerHTML = UNITS.map(u => {
-    const isAct = u.id === active;
-    const isDone = !!state.done[doneKey(u.id)];
-    const skillCount = (Array.isArray(u.extraSkills) && u.extraSkills.length > 0) ? u.extraSkills.length : 1;
-    return `
-      <button type="button" data-tab-unit="${esc(u.id)}" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all flex items-center gap-2 border ${
-        isAct
-          ? 'bg-teal text-white border-teal shadow-sm'
-          : 'bg-white text-ink border-line hover:bg-lime/40'
-      }">
-        <span>${isDone ? '✓' : esc(u.id)}</span>
-        <span>${esc(u.shortLabel || u.name)}</span>
-        <span class="text-[10px] px-1.5 py-0.5 rounded-full ${isAct ? 'bg-white/20 text-white' : 'bg-paper text-muted'}">${skillCount}</span>
-      </button>
-    `;
-  }).join('');
-}
-
-function prompt() {
-  const meta = getActiveUnitMeta();
-  const defaultPromptBrandMap = {
-    coffee: '森日咖啡（精品咖啡烘焙門市｜餐飲虛構示範）',
-    tea: '海岸茶室（台灣茶禮與選品門市｜零售虛構示範）',
-    bistro: '禾味日常（鮮食便當門市＆冷凍調理包｜餐飲＋新零售虛構示範）',
-    custom: '我的餐飲／零售品牌專案'
-  };
-  const brandTitle = (state.names[state.brand] || '').trim() || defaultPromptBrandMap[state.brand] || '我的餐飲／零售品牌專案';
-  const isFictional = state.brand !== 'custom';
-  const noteArr = state.notes[key(meta.u.id, meta.subIdx)] || [];
-
-  const fieldLines = meta.fields.map((fLabel, idx) => {
-    const val = (noteArr[idx] || '').trim();
-    return `${idx + 1}. ${fLabel}\n${val ? val : '（尚未填寫，請在逐步引導中協助我釐清或標示工作假設）'}`;
-  }).join('\n\n');
-
-  return [
-    `請啟用 Skill：【${meta.slug}】（${meta.name}）`,
-    `產業實戰情境：餐飲連鎖 × 門市零售 × 食品伴手禮（嚴守食安法標示規範，不捏造療效或未驗證數據）`,
-    `指定執行模型：gemini-4-hydrogen`,
-    `協作模式：${MODE_LABELS[currentMode] || MODE_LABELS.B}`,
-    `目標品牌／專案：${brandTitle}${isFictional ? '（此為課堂虛構示範案例）' : ''}`,
-    `本單元目標產出：${meta.deliver}`,
-    ``,
-    `【我目前已整理的門市／商品現況與思考筆記】`,
-    fieldLines,
-    ``,
-    `【共同工作契約提醒】`,
-    `- 請使用臺灣繁體中文回覆，嚴格區分【使用者提供】【已查證】【工作假設】【建議】【待確認】。`,
-    `- 涉及餐飲食品與零售商品時，嚴禁宣稱醫療效能（如治失眠、降三高、減肥排毒），產地、檢驗與優惠效期須有明確依據，不保證爆款銷量。`
-  ].join('\n');
-}
-
-function updatePromptPreview() {
-  const pre = $('#promptPreview');
-  if (pre) pre.textContent = prompt();
-}
-
 function renderWork() {
-  if (!UNITS.some(x => x.id === active) && UNITS.length > 0) {
-    active = UNITS[0].id;
-    activeSubSkillIdx = 0;
-  }
-  const meta = getActiveUnitMeta();
-  const u = meta.u;
+  const u = UNITS.find(x => x.id === active) || UNITS[0];
   if (!u) return;
+  active = u.id;
+  const meta = getActiveUnitMeta(u, activeSubSkillIdx);
+  activeSubSkillIdx = meta.subIdx;
 
-  renderUnitTabs();
-  renderHeroMap();
-
+  // 左側控制欄同步
   if ($('#brand')) $('#brand').value = state.brand;
   if ($('#brandName')) $('#brandName').value = state.names[state.brand] || '';
   if ($('#modeSelect')) $('#modeSelect').value = currentMode;
-  if ($('#caseNote')) $('#caseNote').textContent = u.example || u.desc || '';
+  if ($('#unit')) {
+    $('#unit').innerHTML = UNITS.map(x => `<option value="${esc(x.id)}">${esc(x.id)} - ${esc(x.title)}</option>`).join('');
+    $('#unit').value = u.id;
+  }
 
-  if ($('#workTag')) $('#workTag').textContent = meta.sub ? (meta.sub.roleBadge || u.tag) : (u.tag || 'WORKFLOW');
+  const brandNotesHint = {
+    coffee: u.example || '虛構示範「森日咖啡」：聚焦平日午後離峰導流、低咖啡因配方實證與安靜插座空間，嚴禁宣稱醫療助眠療效。',
+    tea: '虛構示範「海岸茶室」：聚焦台灣產地溯源茶禮、免茶具冷泡體驗與 B2B 企業採購試飲轉換，守住牌價體面。',
+    bistro: '虛構示範「禾味日常」：打通午間鮮食便當外帶與下班居家冷凍常備包囤貨，實品盛盤圖須標註「調理參考」。',
+    custom: '自訂品牌實作：請填入您門市或零售商品的真實觀察事實與既有檢驗／規格證據，未知處請留空交由 AI 引導。'
+  };
+  if ($('#caseNote')) $('#caseNote').textContent = brandNotesHint[state.brand] || u.example || '';
+
+  // 標題與交付成果同步
+  if ($('#workTag')) $('#workTag').textContent = meta.roleBadge;
   if ($('#workTitle')) $('#workTitle').textContent = `${u.id} / ${meta.name}`;
-  if ($('#taskOutput')) $('#taskOutput').textContent = `核心交付成果：${meta.deliver}`;
-  // 子 Skill 切換器渲染（對齊工整的膠囊卡片網格）
+  if ($('#taskOutput')) $('#taskOutput').textContent = `預計帶走交付成果：${meta.deliver}`;
+
+  // 子 Skill 切換器渲染（俐落膠囊分頁列 ＋ 當前選中模組工具條）
   const switcherBox = $('#subSkillSwitcherBox');
   const switcherBtns = $('#subSkillButtons');
   if (switcherBox && switcherBtns) {
     if (meta.hasExtra) {
       switcherBox.classList.remove('hidden');
-      const colsCls = u.extraSkills.length === 2
-        ? 'grid-cols-1 sm:grid-cols-2'
-        : u.extraSkills.length === 4
-        ? 'grid-cols-1 sm:grid-cols-2'
-        : 'grid-cols-1 md:grid-cols-3';
-      switcherBtns.className = `grid ${colsCls} gap-2.5`;
-      switcherBtns.innerHTML = u.extraSkills.map((es, idx) => {
-        const isSel = idx === meta.subIdx;
-        return `
-          <div class="p-3.5 rounded-xl border transition-all flex flex-col justify-between gap-2.5 ${
-            isSel ? 'bg-white border-teal ring-2 ring-teal/20 shadow-sm' : 'bg-white/70 border-line hover:bg-white'
-          }">
-            <button type="button" data-switch-sub="${idx}" class="text-left w-full">
-              <div class="flex items-center justify-between gap-2 mb-1">
-                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-extrabold ${
-                  isSel ? 'bg-teal text-white' : 'bg-paper text-teal'
-                }">${esc(es.roleBadge || `SKILL ${u.id}-${idx + 1}`)}</span>
-                ${isSel ? '<span class="text-[10px] font-extrabold text-teal">● 使用中</span>' : ''}
-              </div>
-              <strong class="text-xs sm:text-sm font-extrabold text-ink block leading-snug">${esc(es.name)}</strong>
-              <code class="text-[10px] text-muted font-mono block truncate mt-0.5">${esc(es.slug)}</code>
-            </button>
-            <div class="flex items-center justify-between gap-2 pt-2 border-t border-line/60">
-              <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${idx}" class="px-2.5 py-1 rounded-lg bg-paper hover:bg-lime/50 text-ink text-[11px] font-bold transition-colors">
-                📖 實戰手冊
+      const activeSub = u.extraSkills[meta.subIdx] || u.extraSkills[0];
+      switcherBtns.className = 'space-y-3';
+      switcherBtns.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          ${u.extraSkills.map((es, idx) => {
+            const isSel = idx === meta.subIdx;
+            const shortBadge = (es.roleBadge || `SKILL ${u.id}-${String.fromCharCode(65 + idx)}`).split('｜')[0];
+            return `
+              <button type="button" data-switch-sub="${idx}" class="px-3.5 py-2.5 rounded-xl border text-left transition-all flex items-center justify-between gap-2 ${
+                isSel
+                  ? 'bg-teal text-white border-teal shadow-sm'
+                  : 'bg-white text-ink border-line hover:border-teal/50 hover:bg-lime/20'
+              }">
+                <div class="min-w-0 flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold shrink-0 ${
+                    isSel ? 'bg-lime text-ink' : 'bg-teal/10 text-teal'
+                  }">${esc(shortBadge.replace('SKILL ', ''))}</span>
+                  <span class="text-xs sm:text-[13px] font-extrabold truncate">${esc(es.name)}</span>
+                </div>
+                <span class="text-[10px] font-bold shrink-0 ${isSel ? 'text-lime' : 'text-muted'}">${isSel ? '使用中' : '切換'}</span>
               </button>
-              <button type="button" data-download-zip="${esc(es.slug)}" data-unit-id="${esc(u.id)}" class="px-2.5 py-1 rounded-lg bg-teal/10 hover:bg-teal hover:text-white text-teal text-[11px] font-bold transition-colors">
-                📦 下載 ZIP
-              </button>
-            </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="px-3.5 py-2.5 rounded-xl bg-white border border-line flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-teal shrink-0"></span>
+            <span class="text-muted shrink-0">目前模組套件：</span>
+            <code class="font-mono font-bold text-ink truncate">${esc(activeSub.slug)}.zip</code>
           </div>
-        `;
-      }).join('');
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" data-open-manual="${esc(u.id)}" data-sub-idx="${meta.subIdx}" class="px-3 py-1.5 rounded-lg bg-paper border border-line hover:bg-lime/50 text-ink font-bold transition-colors">
+              📖 完整實戰手冊
+            </button>
+            <button type="button" data-download-zip="${esc(activeSub.slug)}" data-unit-id="${esc(u.id)}" class="px-3 py-1.5 rounded-lg bg-teal text-white hover:bg-teal-dark font-bold transition-colors shadow-sm">
+              📦 下載此 Skill ZIP
+            </button>
+          </div>
+        </div>
+      `;
     } else {
       switcherBox.classList.add('hidden');
       switcherBtns.innerHTML = '';
     }
   }
+
+  renderUnitTabs();
+  updateProgressIndicators();
 
   // SOP 步驟清單
   const stepsEl = $('#workSteps');
@@ -6129,20 +6493,22 @@ function bindGlobalWorkspaceEvents() {
     };
   }
 
-  // Mermaid 放大與下載按鈕
+  // Mermaid 橫直切換、放大與下載按鈕
+  if ($('#toggleMermaidDirBtn')) $('#toggleMermaidDirBtn').onclick = toggleMermaidDirection;
+  if ($('#zoomToggleDirBtn')) $('#zoomToggleDirBtn').onclick = toggleMermaidDirection;
   if ($('#zoomMermaidBtn')) $('#zoomMermaidBtn').onclick = openMermaidZoomModal;
   if ($('#mermaidDiagramBox')) $('#mermaidDiagramBox').onclick = openMermaidZoomModal;
   if ($('#downloadMermaidPngBtn')) $('#downloadMermaidPngBtn').onclick = downloadMermaidAsPng;
   if ($('#downloadMermaidSvgBtn')) $('#downloadMermaidSvgBtn').onclick = downloadMermaidAsSvg;
   if ($('#closeMermaidZoomBtn')) $('#closeMermaidZoomBtn').onclick = () => $('#mermaidZoomDialog').close();
   if ($('#zoomInMermaidModalBtn')) {
-    $('#zoomInMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.min(3, currentMermaidZoom + 0.25); applyMermaidModalZoom(); };
+    $('#zoomInMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.min(3, +(currentMermaidZoom + 0.25).toFixed(2)); applyMermaidModalZoom(); };
   }
   if ($('#zoomOutMermaidModalBtn')) {
-    $('#zoomOutMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.max(0.5, currentMermaidZoom - 0.25); applyMermaidModalZoom(); };
+    $('#zoomOutMermaidModalBtn').onclick = () => { currentMermaidZoom = Math.max(0.6, +(currentMermaidZoom - 0.25).toFixed(2)); applyMermaidModalZoom(); };
   }
   if ($('#zoomResetMermaidModalBtn')) {
-    $('#zoomResetMermaidModalBtn').onclick = () => { currentMermaidZoom = 1.25; applyMermaidModalZoom(); };
+    $('#zoomResetMermaidModalBtn').onclick = () => { currentMermaidZoom = 1.0; applyMermaidModalZoom(); };
   }
   if ($('#downloadMermaidModalPngBtn')) $('#downloadMermaidModalPngBtn').onclick = downloadMermaidAsPng;
   if ($('#downloadMermaidModalSvgBtn')) $('#downloadMermaidModalSvgBtn').onclick = downloadMermaidAsSvg;
@@ -6876,15 +7242,19 @@ service cloud.firestore {
         const isCreatorRow = (m.email || '').toLowerCase() === SYSTEM_CREATOR_EMAIL || !!m.isSystemCreator;
         const isAdminRole = m.role === 'admin' || isCreatorRow;
         return `
-          <tr class="hover:bg-paper/60 transition-colors">
+          <tr class="hover:bg-paper/60 transition-colors bg-white">
             <td class="py-3.5 px-4">
-              <strong class="font-extrabold text-ink block">${esc(m.realName || '未填寫姓名')}</strong>
+              <strong class="font-extrabold text-ink block">${esc(m.realName || '未填寫')}</strong>
               <span class="text-xs text-muted block">${esc(m.company || '未填寫企業')}</span>
             </td>
             <td class="py-3.5 px-4 font-mono text-xs text-ink">${esc(m.email || '')}</td>
             <td class="py-3.5 px-4">
               <span class="px-2.5 py-1 rounded-full text-xs font-bold ${
-                isCreatorRow ? 'bg-ink text-lime' : (m.identity || '').includes('學員') ? 'bg-teal/15 text-teal' : 'bg-paper border border-line text-muted'
+                isCreatorRow
+                  ? 'bg-ink text-lime'
+                  : (m.identity || '').includes('學員')
+                  ? 'bg-teal/15 text-teal'
+                  : 'bg-paper border border-line text-muted'
               }">
                 ${esc(isCreatorRow ? '系統創作者' : (m.identity || '一般訪客'))}
               </span>
@@ -6897,7 +7267,7 @@ service cloud.firestore {
             </td>
             <td class="py-3.5 px-4">
               ${isCreatorRow
-                ? `<span class="px-2.5 py-1 rounded-lg bg-ink text-lime text-xs font-black">👑 最高管理員 (Creator)</span>`
+                ? `<span class="px-2.5 py-1 rounded-lg bg-ink text-lime text-xs font-black">👑 最高管理員</span>`
                 : isAdminRole
                 ? `<span class="px-2.5 py-1 rounded-lg bg-teal text-white text-xs font-bold">Admin 管理員</span>`
                 : `<span class="px-2.5 py-1 rounded-lg bg-paper border border-line text-muted text-xs font-semibold">User 一般會員</span>`
@@ -7277,6 +7647,7 @@ service cloud.firestore {
 
         const merged = [];
         const mandatoryNewSlugs = new Set([
+          'future-store-creator',
           'design-line-stickers',
           'tony-food-retail-festival-promo-planner',
           'create-product-photography',
@@ -7296,7 +7667,7 @@ service cloud.firestore {
           if (deletedIds.has(defU.id)) return;
           if (cloudDocsMap[defU.id]) {
             const cu = cloudDocsMap[defU.id];
-            if (defU.id === '03' || defU.id === '06') {
+            if (defU.id === '02' || defU.id === '03' || defU.id === '06') {
               cu.slug = defU.slug;
               cu.name = defU.name;
               cu.title = defU.title;
@@ -7720,5 +8091,8 @@ service cloud.firestore {
     document.getElementById('closeRulesDialogBtn').onclick = () => firestoreRulesDialog.close();
     document.getElementById('copyRulesTextBtn').onclick = () => copyTextToClipboard(LATEST_FIRESTORE_RULES, '🔐 已複製最新 Firestore 安全規則！');
   </script>
+  <!-- TONY Studio Omnichannel AI Academy · Clean Build -->
+  <!-- Build v2.7 Verified -->
+  <!-- End of Document -->
 </body>
 </html>

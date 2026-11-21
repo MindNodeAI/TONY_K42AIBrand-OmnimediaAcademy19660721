@@ -57,6 +57,22 @@
       display: block;
       transition: width 0.2s ease;
     }
+    .chat-resize-nw {
+      cursor: nwse-resize;
+      touch-action: none;
+    }
+    .chat-font-sm { font-size: 12.5px; line-height: 1.65; }
+    .chat-font-md { font-size: 14px; line-height: 1.72; }
+    .chat-font-lg { font-size: 16px; line-height: 1.78; }
+    .chat-rich-body > *:first-child { margin-top: 0 !important; }
+    .chat-rich-body > *:last-child { margin-bottom: 0 !important; }
+    @keyframes chatDotBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40% { transform: translateY(-4px); opacity: 1; }
+    }
+    .chat-dot-1 { animation: chatDotBounce 1.2s infinite ease-in-out 0s; }
+    .chat-dot-2 { animation: chatDotBounce 1.2s infinite ease-in-out 0.2s; }
+    .chat-dot-3 { animation: chatDotBounce 1.2s infinite ease-in-out 0.4s; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -261,8 +277,8 @@
             ⚙️ 後台管理
           </button>
 
-          <button id="openApiModalBtn" type="button" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-full bg-white hover:bg-teal hover:text-white border border-teal/30 text-teal text-xs font-extrabold transition-all">
-            ⚡ API
+          <button id="openApiModalBtn" type="button" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-full bg-white hover:bg-teal hover:text-white border border-teal/30 text-teal text-xs font-extrabold transition-all" title="設定 gemini-4-hydrogen API 金鑰">
+            ⚡ gemini-4-hydrogen
           </button>
 
           <div class="flex items-center gap-1.5 pl-1.5 border-l border-line">
@@ -279,7 +295,7 @@
         <a href="#curriculum" class="px-3 py-1 rounded-full bg-white border border-line">03 Skill 庫</a>
         <a href="#practice" class="px-3 py-1 rounded-full bg-white border border-line">04 實作工作台</a>
         <a href="#copyrightSection" class="px-3 py-1 rounded-full bg-white border border-line">05 版權與備份</a>
-        <button id="mobileApiBtn" type="button" class="px-3 py-1 rounded-full bg-white border border-teal/40 text-teal">⚡ API 設定</button>
+        <button id="mobileApiBtn" type="button" class="px-3 py-1 rounded-full bg-white border border-teal/40 text-teal">⚡ gemini-4-hydrogen</button>
       </div>
     </header>
 
@@ -578,7 +594,7 @@
                 </div>
                 <div class="flex flex-wrap gap-2">
                   <button id="copyPromptBtn" type="button" class="px-3.5 py-2 rounded-xl border border-line bg-paper hover:bg-lime text-xs font-extrabold text-ink">📋 複製實戰指令</button>
-                  <button id="runAiBtn" type="button" class="px-4 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-extrabold shadow-sm">⚡ 啟動 AI 實戰交付生成</button>
+                  <button id="runAiBtn" type="button" class="px-4 py-2 rounded-xl bg-teal text-white hover:bg-teal-dark text-xs font-extrabold shadow-sm">⚡ 用 gemini-4-hydrogen 啟動實戰生成</button>
                 </div>
               </div>
               <textarea id="wsPromptBox" rows="6" class="w-full p-4 bg-paper border border-line rounded-2xl text-xs font-mono text-ink leading-relaxed focus:outline-none focus:ring-2 focus:ring-teal"></textarea>
@@ -665,6 +681,119 @@
         <span class="text-lime font-bold shrink-0">Human Insight, AI Amplified.</span>
       </div>
     </footer>
+
+    <!-- ==================== 右下角 TONY 老師 AI 助理 Chatbot ==================== -->
+    <div id="tonyChatbotRoot" class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+      <!-- 可調大小對話視窗 -->
+      <div
+        id="tonyChatbotPanel"
+        style="width: 430px; height: 580px;"
+        class="hidden mb-3 bg-white rounded-3xl border-2 border-ink shadow-2xl flex flex-col overflow-hidden relative max-w-[calc(100vw-24px)] max-h-[calc(100vh-96px)]"
+      >
+        <!-- 左上角拖曳縮放控制點 (Control Point at Top-Left) -->
+        <div
+          id="tonyChatResizeHandle"
+          title="按住左上方控制點拖曳，可自由調整對話框大小"
+          class="chat-resize-nw absolute top-0 left-0 z-30 w-8 h-8 rounded-br-2xl bg-lime hover:bg-lime-dark text-ink border-r border-b border-ink/30 flex items-center justify-center shadow-sm select-none transition-colors"
+        >
+          <svg class="w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="14 4 4 4 4 14"></polyline>
+            <line x1="4" y1="4" x2="15" y2="15"></line>
+            <line x1="10" y1="18" x2="18" y2="10"></line>
+          </svg>
+        </div>
+
+        <!-- 頂部標題與字體大中小控制列 -->
+        <div class="pl-10 pr-3.5 py-3 bg-ink text-white flex items-center justify-between gap-2 shrink-0 border-b border-white/10">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027"
+              alt="TONY老師"
+              class="w-9 h-9 rounded-xl object-cover border border-lime shrink-0"
+              onerror="this.onerror=null;this.src='https://placehold.co/72x72/185b51/dcf394?text=TONY';"
+            >
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <strong class="text-xs sm:text-sm font-black text-white truncate">TONY 老師 AI 助理</strong>
+                <span id="tonyChatKeyDot" class="w-2 h-2 rounded-full bg-amber-400 shrink-0" title="API Key 狀態"></span>
+              </div>
+              <span id="tonyChatStatusSub" class="text-[10px] text-lime/90 font-bold block truncate">↖ 拖曳左上角可調視窗大小</span>
+            </div>
+          </div>
+
+          <!-- 字體大小切換（小 / 中 / 大，預設中）與操作鈕 -->
+          <div class="flex items-center gap-1.5 shrink-0">
+            <div class="flex items-center bg-white/10 rounded-xl p-0.5 border border-white/15" title="調整對話字體大小">
+              <button type="button" data-chat-font="sm" class="px-2 py-1 rounded-lg text-[11px] font-extrabold text-white/80 hover:text-white transition-all">小</button>
+              <button type="button" data-chat-font="md" class="px-2 py-1 rounded-lg text-[11px] font-extrabold bg-lime text-ink shadow-sm transition-all">中</button>
+              <button type="button" data-chat-font="lg" class="px-2 py-1 rounded-lg text-[11px] font-extrabold text-white/80 hover:text-white transition-all">大</button>
+            </div>
+            <button type="button" id="tonyChatClearBtn" title="清除對話紀錄" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white/85 text-xs font-bold transition-colors">🗑️</button>
+            <button type="button" id="tonyChatMinimizeBtn" title="收合助理視窗" class="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-extrabold transition-colors">✕</button>
+          </div>
+        </div>
+
+        <!-- 未設定 API Key 時的鎖定引導橫幅 -->
+        <div id="tonyChatNoKeyBanner" class="hidden px-4 py-3 bg-amber-50 border-b border-amber-200 text-amber-950 text-xs flex items-center justify-between gap-3 shrink-0">
+          <div class="leading-relaxed">
+            <strong class="font-extrabold block">🔑 尚未設定 API Key</strong>
+            <span>請先輸入您的 Gemini API Key 即可啟用 TONY 老師 AI 顧問對話。</span>
+          </div>
+          <button type="button" id="tonyChatSetKeyBtn" class="px-3 py-2 rounded-xl bg-teal text-white font-extrabold text-xs whitespace-nowrap hover:bg-teal-dark shadow-sm transition-all">
+            輸入 API Key
+          </button>
+        </div>
+
+        <!-- 對話訊息捲動區 -->
+        <div id="tonyChatMessages" class="chat-font-md flex-grow overflow-y-auto p-4 sm:p-5 space-y-4 bg-[#f4f6f2]"></div>
+
+        <!-- 快捷提問膠囊列 -->
+        <div class="px-3.5 py-2.5 bg-white border-t border-line/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+          <span class="text-[10px] font-extrabold text-muted shrink-0 pr-0.5">快捷諮詢：</span>
+          <button type="button" data-quick-ask="請根據我目前的品牌設定，建議我先從哪一個單元的哪一顆 Skill 開始實作？" class="px-2.5 py-1 rounded-full bg-paper hover:bg-lime/60 border border-line text-[11px] font-extrabold text-ink whitespace-nowrap transition-colors">🧭 推薦起手 Skill</button>
+          <button type="button" data-quick-ask="請幫我檢視目前工作台的品牌主打商品文案構想，有哪些《食安法第 28 條》禁用詞紅線要注意？" class="px-2.5 py-1 rounded-full bg-paper hover:bg-lime/60 border border-line text-[11px] font-extrabold text-ink whitespace-nowrap transition-colors">🛡️ 食安合規健檢</button>
+          <button type="button" data-quick-ask="下載單顆 Skill (.zip) 後，該怎麼安裝呼叫或直接上傳輸入「開始」？" class="px-2.5 py-1 rounded-full bg-paper hover:bg-lime/60 border border-line text-[11px] font-extrabold text-ink whitespace-nowrap transition-colors">🚀 如何使用 Skill</button>
+        </div>
+
+        <!-- 底部訊息輸入列 -->
+        <form id="tonyChatForm" class="p-3 bg-white border-t border-line flex items-end gap-2 shrink-0">
+          <textarea
+            id="tonyChatInput"
+            rows="2"
+            placeholder="向 TONY 老師 AI 助理提問（Enter 送出，Shift+Enter 換行）…"
+            class="chat-font-md flex-grow px-3.5 py-2 bg-paper border border-line rounded-2xl text-ink resize-none focus:outline-none focus:ring-2 focus:ring-teal focus:bg-white"
+          ></textarea>
+          <button
+            type="submit"
+            id="tonyChatSendBtn"
+            class="px-4 py-2.5 rounded-2xl bg-teal text-white hover:bg-teal-dark font-extrabold text-xs sm:text-sm shadow-md transition-all shrink-0"
+          >
+            發送 ↗
+          </button>
+        </form>
+      </div>
+
+      <!-- 右下角懸浮開啟按鈕 -->
+      <button
+        type="button"
+        id="tonyChatbotToggleBtn"
+        class="group flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-full bg-ink text-white hover:bg-teal border-2 border-lime shadow-xl transition-all"
+      >
+        <div class="relative shrink-0">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027"
+            alt="TONY AI"
+            class="w-9 h-9 rounded-full object-cover border border-lime"
+            onerror="this.onerror=null;this.src='https://placehold.co/72x72/185b51/dcf394?text=TONY';"
+          >
+          <span id="tonyLauncherDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 border border-ink absolute -bottom-0.5 -right-0.5"></span>
+        </div>
+        <div class="text-left">
+          <span class="text-xs sm:text-sm font-black text-lime group-hover:text-white block leading-tight">TONY 老師 AI 助理</span>
+          <span id="tonyLauncherSub" class="text-[10px] text-white/80 block">點擊開啟顧問對話</span>
+        </div>
+      </button>
+    </div>
   </div>
 
   <!-- ==================== 3. 全站統一彈窗容器 (#modalBackdrop) ==================== -->
@@ -973,24 +1102,23 @@
     <!-- D. Gemini API 設定視窗 -->
     <div id="apiModal" class="hidden bg-white rounded-3xl border border-line max-w-md w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
-        <h4 class="text-lg font-black text-ink">⚡ Gemini AI 引擎設定</h4>
+        <h4 class="text-lg font-black text-ink">⚡ Gemini 4 Hydrogen 引擎設定</h4>
         <button type="button" data-close-modal class="px-2.5 py-1 rounded-lg bg-paper text-xs font-bold">✕</button>
       </div>
-      <p class="text-xs text-muted leading-relaxed">填入您的 Google AI Studio API Key 即可直接在工作台連線模型推演（金鑰僅儲存於您的本機瀏覽器）；留空亦可使用內建結構化顧問範本與複製提示詞功能。</p>
+      <p class="text-xs text-muted leading-relaxed">全站已綁定最新代理工作流模型 <code class="px-1.5 py-0.5 rounded bg-paper border border-line font-mono font-bold text-teal">gemini-4-hydrogen</code>。填入您的 Google AI Studio API Key 即可直接在工作台連線推演（金鑰僅儲存於本機瀏覽器）；留空亦可使用內建結構化顧問範本與複製提示詞功能。</p>
       <div>
         <label class="block text-xs font-extrabold text-muted mb-1">Google Gemini API Key（選填）</label>
         <input id="apiKeyInput" type="password" placeholder="AIzaSy…" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-sm font-mono">
       </div>
       <div>
-        <label class="block text-xs font-extrabold text-muted mb-1">模型選擇</label>
-        <select id="apiModelSelect" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-sm font-bold">
-          <option value="gemini-2.5-flash">gemini-2.5-flash（高速穩定推薦）</option>
-          <option value="gemini-2.5-pro">gemini-2.5-pro（深度顧問策略推演）</option>
+        <label class="block text-xs font-extrabold text-muted mb-1">指定模型 ID（已鎖定最新模型）</label>
+        <select id="apiModelSelect" class="w-full px-3.5 py-2.5 bg-paper border border-line rounded-xl text-sm font-mono font-bold text-teal">
+          <option value="gemini-4-hydrogen">gemini-4-hydrogen（全媒體代理深度推演）</option>
         </select>
       </div>
       <div class="flex justify-end gap-2 pt-2">
         <button type="button" data-close-modal class="px-4 py-2 rounded-xl border border-line text-xs font-bold">取消</button>
-        <button type="button" id="saveApiBtn" class="px-5 py-2 rounded-xl bg-teal text-white text-xs font-extrabold">儲存設定</button>
+        <button type="button" id="saveApiBtn" class="px-5 py-2 rounded-xl bg-teal text-white text-xs font-extrabold">儲存 gemini-4-hydrogen 設定</button>
       </div>
     </div>
 
@@ -1034,8 +1162,8 @@
 
   </div>
 
-  <!-- Toast 通知 -->
-  <div id="toastBox" class="hidden fixed bottom-5 right-5 z-50 px-4 py-3 rounded-2xl bg-ink text-lime text-xs font-extrabold shadow-xl max-w-sm"></div>
+  <!-- Toast 通知（置中底部避免遮擋右下角 Chatbot） -->
+  <div id="toastBox" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-5 py-3 rounded-2xl bg-ink text-lime text-xs font-extrabold shadow-xl max-w-sm text-center border border-lime/30"></div>
 
   <!-- ==================== 4. 核心顧問教材、專業 Mermaid 引擎、ZIP 封裝與工作台邏輯 ==================== -->
   <script>
@@ -1605,10 +1733,13 @@
         if (savedWs && savedWs.brand) wsState = Object.assign(wsState, savedWs);
       } catch (e) {}
 
-      let apiConfig = { key: '', model: 'gemini-2.5-flash' };
+      let apiConfig = { key: '', model: 'gemini-4-hydrogen' };
       try {
         const savedApi = JSON.parse(localStorage.getItem(STORAGE_API_KEY) || 'null');
-        if (savedApi) apiConfig = Object.assign(apiConfig, savedApi);
+        if (savedApi) {
+          apiConfig = Object.assign(apiConfig, savedApi);
+          apiConfig.model = 'gemini-4-hydrogen';
+        }
       } catch (e) {}
 
       const $ = (id) => document.getElementById(id);
@@ -1747,6 +1878,7 @@
           'name: ' + slug,
           'display_name: "' + skill.name.replace(/"/g, "'") + '"',
           'version: "1.0.0"',
+          'recommended_model: "gemini-4-hydrogen"',
           'author: "TONY 楊文澤老師 (TONY STUDIO)"',
           'instructions_file: "../SKILL.md"'
         ].join('\n'));
@@ -2317,182 +2449,206 @@
           $('editSkillSteps').value = (s.steps || []).join('\n');
           $('editSkillPrompt').value = s.prompt || '';
           const v = skillZipVault[s.slug];
-          $('editZipStatusText').textContent = v ? ('✓ 已掛載 ZIP (' + v.sizeLabel + ')，可選新 .zip 覆蓋') : '目前狀態：標準內建封裝（可選取原裝 .zip 上傳）';
+          $('editZipStatusText').textContent = v ? ('目前狀態：已掛載原裝 ZIP（' + v.sizeLabel + '）') : '目前狀態：內建標準 ZIP（可選擇原裝 .zip 上傳覆蓋）';
         }
         form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
-      function blobToDataUrl(blob) {
-        return new Promise((resolve) => {
-          const r = new FileReader();
-          r.onload = () => resolve(r.result);
-          r.readAsDataURL(blob);
-        });
-      }
-
-      $('editSingleSkillZipInput').addEventListener('change', async (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const sizeLabel = (file.size / 1024).toFixed(1) + ' KB';
-        try {
-          const zip = await JSZip.loadAsync(file);
-          const mdKeys = Object.keys(zip.files).filter(k => !zip.files[k].dir && /skill\.md$/i.test(k));
-          if (mdKeys.length) {
-            const mdText = await zip.files[mdKeys[0]].async('string');
-            $('editSkillPrompt').value = mdText.trim();
-          }
-          const dUrl = await blobToDataUrl(file);
-          tempEditorZipObj = { blob: file, dataUrl: dUrl, sizeLabel, fileName: file.name };
-          $('editZipStatusText').textContent = '✓ 已讀取原裝 ZIP：' + file.name + ' (' + sizeLabel + ')，儲存後同步全站與雲端！';
-          toast('📦 已讀取 ' + file.name);
-        } catch (err) {
-          toast('⚠️ 請確認檔案為有效的 .zip 壓縮檔');
-        }
-        e.target.value = '';
-      });
-
-      $('skillEditorForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const origCode = $('editOriginalCode').value.trim();
-        const code = $('editSkillCode').value.trim().toUpperCase();
-        const unit = $('editSkillUnit').value;
-        const tag = $('editSkillTag').value.trim();
-        const name = $('editSkillName').value.trim();
-        const slug = $('editSkillSlug').value.trim() || safeFileName(code).toLowerCase();
-        const deliverables = $('editSkillDeliverables').value.trim();
-        const pain = $('editSkillPain').value.trim();
-        const consultant = $('editSkillConsultant').value.trim();
-        const inputs = $('editSkillInputs').value.trim();
-        const kpi = $('editSkillKpi').value.trim();
-        const steps = $('editSkillSteps').value.split('\n').map(x => x.trim()).filter(Boolean);
-        const prompt = $('editSkillPrompt').value.trim();
-
-        if (!code || !name || !prompt) return toast('⚠️ 請填寫編號、名稱與指令內容');
-
-        if (tempEditorZipObj) {
-          skillZipVault[slug] = tempEditorZipObj;
-          if (typeof window.uploadSkillZipToCloud === 'function') {
-            window.uploadSkillZipToCloud(slug, unit, tempEditorZipObj.dataUrl);
-          }
-        }
-
-        const rec = {
-          code, unit, tag, name, slug,
-          sizeHint: skillZipVault[slug] ? skillZipVault[slug].sizeLabel : '8.0 KB',
-          deliverables: deliverables || kpi,
-          pain: pain || '詳見 SKILL.md 規範',
-          consultant: consultant || '依循 TONY 老師原創工作流執行',
-          inputs, kpi,
-          steps: steps.length ? steps : ['載入設定', '結構推演', '產出交付', '合規驗收'],
-          prompt
-        };
-
-        const idx = skillsDb.findIndex(s => s.code === (origCode || code));
-        if (idx >= 0) skillsDb[idx] = rec; else skillsDb.push(rec);
-        skillsDb.sort((a, b) => a.code.localeCompare(b.code));
-
-        $('skillEditorForm').classList.add('hidden');
-        renderMaintSkillsTable();
-        renderTeachingUnitSection();
-        renderAllWorkspace();
-        toast('💾 已儲存 Skill 並更新 ZIP 套件！');
-      });
-
-      async function handleBatchZipUpload(files) {
-        if (!files || !files.length) return;
-        let count = 0;
-        for (const file of Array.from(files)) {
-          if (file.name.toLowerCase().endsWith('.zip')) {
-            try {
-              const zip = await JSZip.loadAsync(file);
-              const baseSlug = file.name.replace(/\.zip$/i, '').toLowerCase();
-              const matched = skillsDb.find(s => s.slug && baseSlug.includes(s.slug.toLowerCase()));
-              const targetSlug = matched ? matched.slug : baseSlug;
-              const dUrl = await blobToDataUrl(file);
-              const sizeLabel = (file.size / 1024).toFixed(1) + ' KB';
-              skillZipVault[targetSlug] = { blob: file, dataUrl: dUrl, sizeLabel, fileName: file.name };
-              if (matched) matched.sizeHint = sizeLabel;
-              if (typeof window.uploadSkillZipToCloud === 'function') {
-                window.uploadSkillZipToCloud(targetSlug, matched ? matched.unit : '01', dUrl);
-              }
-              count++;
-            } catch (e) {}
-          }
-        }
-        if (count > 0) {
-          if (!$('adminModal').classList.contains('hidden')) renderMaintSkillsTable();
-          renderAllWorkspace();
-          toast('📦 已成功掛載 ' + count + ' 包原裝 Skill ZIP！');
-        }
-      }
-
-      $('quickImportZipInput').addEventListener('change', (e) => { handleBatchZipUpload(e.target.files); e.target.value = ''; });
-      $('inputImportSkillsZip').addEventListener('change', (e) => { handleBatchZipUpload(e.target.files); e.target.value = ''; });
-
-      /* ---------- 事件綁定 ---------- */
+      /* ---------- 後台維護、API 設定與品牌工作台事件綁定 ---------- */
       $('openAdminBtn').addEventListener('click', () => window.openAdminConsole('members'));
       $('openSkillMaintBtn').addEventListener('click', () => window.openAdminConsole('skills'));
       $('adminTabMembersBtn').addEventListener('click', () => window.switchAdminTab('members'));
       $('adminTabSkillsBtn').addEventListener('click', () => window.switchAdminTab('skills'));
       $('maintUnitFilter').addEventListener('change', renderMaintSkillsTable);
       $('maintSearchInput').addEventListener('input', renderMaintSkillsTable);
-      $('btnNewSkill').addEventListener('click', () => startEditSkill(null));
+
+      $('btnNewSkill').addEventListener('click', () => {
+        const uVal = $('maintUnitFilter').value !== 'all' ? $('maintUnitFilter').value : '01';
+        startEditSkill(null, uVal);
+      });
       $('cancelSkillEditBtn').addEventListener('click', () => $('skillEditorForm').classList.add('hidden'));
       $('cancelSkillEditBtn2').addEventListener('click', () => $('skillEditorForm').classList.add('hidden'));
       $('cancelUnitTitleBtn').addEventListener('click', () => $('unitTitleEditForm').classList.add('hidden'));
+
       $('unitTitleEditForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const u = UNITS.find(x => x.id === $('editUnitIdHidden').value);
-        if (u && $('editUnitTitleInput').value.trim()) {
-          u.title = $('editUnitTitleInput').value.trim();
+        const uid = $('editUnitIdHidden').value;
+        const newTitle = $('editUnitTitleInput').value.trim();
+        const uObj = UNITS.find(u => u.id === uid);
+        if (uObj && newTitle) {
+          uObj.title = newTitle;
           $('unitTitleEditForm').classList.add('hidden');
           renderMaintSkillsTable();
           renderTeachingUnitSection();
           renderAllWorkspace();
-          toast('✓ 已更新單元標題');
+          toast('✓ 已更新單元 ' + uid + ' 標題');
         }
       });
 
-      $('btnResetDefaultSkills').addEventListener('click', () => {
-        skillsDb = clone(DEFAULT_SKILLS);
+      $('editSingleSkillZipInput').addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+          const dataUrl = await new Promise((res, rej) => {
+            const r = new FileReader();
+            r.onload = () => res(r.result);
+            r.onerror = rej;
+            r.readAsDataURL(file);
+          });
+          const sizeLabel = (file.size / 1024).toFixed(1) + ' KB';
+          tempEditorZipObj = { blob: file, dataUrl, sizeLabel };
+          $('editZipStatusText').textContent = '✓ 已讀取原裝壓縮包：' + file.name + '（' + sizeLabel + '），點擊下方儲存即生效';
+
+          if (window.JSZip) {
+            const loaded = await JSZip.loadAsync(file);
+            let mdEntry = null;
+            loaded.forEach((relPath, entry) => {
+              if (!entry.dir && relPath.toLowerCase().endsWith('skill.md')) mdEntry = entry;
+            });
+            if (mdEntry) {
+              const mdText = await mdEntry.async('string');
+              $('editSkillPrompt').value = mdText;
+              const slugBase = file.name.replace(/\.zip$/i, '');
+              if (!$('editSkillSlug').value.trim()) $('editSkillSlug').value = slugBase;
+            }
+          }
+          toast('📦 已解析 ' + file.name);
+        } catch (err) {
+          toast('⚠️ 無法讀取該 ZIP 檔案');
+        }
+        e.target.value = '';
+      });
+
+      $('skillEditorForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const origCode = $('editOriginalCode').value.trim();
+        const code = $('editSkillCode').value.trim();
+        const unit = $('editSkillUnit').value;
+        const name = $('editSkillName').value.trim();
+        const slug = $('editSkillSlug').value.trim() || ('tony-skill-' + safeFileName(code).toLowerCase());
+        if (!code || !name) return toast('⚠️ 請填寫編號代碼與 SKILL 名稱');
+
+        const stepsArr = $('editSkillSteps').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const record = {
+          code,
+          unit,
+          tag: $('editSkillTag').value.trim(),
+          name,
+          slug,
+          sizeHint: tempEditorZipObj ? tempEditorZipObj.sizeLabel : 'ZIP',
+          deliverables: $('editSkillDeliverables').value.trim(),
+          pain: $('editSkillPain').value.trim(),
+          consultant: $('editSkillConsultant').value.trim(),
+          inputs: $('editSkillInputs').value.trim(),
+          kpi: $('editSkillKpi').value.trim(),
+          steps: stepsArr.length ? stepsArr : ['盤點來源', '結構推演', '產出交付', '食安檢核'],
+          prompt: $('editSkillPrompt').value
+        };
+
+        const idx = skillsDb.findIndex(s => s.code === (origCode || code));
+        if (idx >= 0) skillsDb[idx] = Object.assign({}, skillsDb[idx], record);
+        else skillsDb.push(record);
+
+        if (tempEditorZipObj) {
+          skillZipVault[slug] = { blob: tempEditorZipObj.blob, dataUrl: tempEditorZipObj.dataUrl, sizeLabel: tempEditorZipObj.sizeLabel, fromCloud: false };
+          if (typeof window.uploadSkillZipToCloud === 'function') {
+            window.uploadSkillZipToCloud(slug, unit, tempEditorZipObj.dataUrl);
+          }
+          tempEditorZipObj = null;
+        }
+
+        $('skillEditorForm').classList.add('hidden');
+        saveWsLocal();
         renderMaintSkillsTable();
         renderTeachingUnitSection();
         renderAllWorkspace();
-        toast('↺ 已還原標準 20 組原創 Skill 架構');
+        toast('💾 已儲存 SKILL ' + code + ' 設定');
       });
 
-      $('wsDownloadSkillZipBtn').addEventListener('click', () => downloadSingleSkillZip(wsState.activeSkill));
-      $('wsOpenManualBtn').addEventListener('click', () => openSkillManual(wsState.activeSkill));
+      async function handleBatchZipImport(fileList) {
+        if (!fileList || !fileList.length) return;
+        let count = 0;
+        for (const file of Array.from(fileList)) {
+          if (file.name.toLowerCase().endsWith('.zip')) {
+            const slug = file.name.replace(/\.zip$/i, '').trim();
+            const dataUrl = await new Promise((res) => {
+              const r = new FileReader();
+              r.onload = () => res(r.result);
+              r.readAsDataURL(file);
+            });
+            const sizeLabel = (file.size / 1024).toFixed(1) + ' KB';
+            skillZipVault[slug] = { blob: file, dataUrl, sizeLabel, fromCloud: false };
+            const matched = skillsDb.find(s => s.slug === slug);
+            if (matched) {
+              matched.sizeHint = sizeLabel;
+              if (typeof window.uploadSkillZipToCloud === 'function') {
+                window.uploadSkillZipToCloud(slug, matched.unit, dataUrl);
+              }
+            }
+            count++;
+          }
+        }
+        renderTeachingUnitSection();
+        renderAllWorkspace();
+        if (!$('adminModal').classList.contains('hidden')) renderMaintSkillsTable();
+        toast('📦 已成功匯入掛載 ' + count + ' 個原裝 Skill ZIP！');
+      }
+
+      $('quickImportZipInput').addEventListener('change', (e) => { handleBatchZipImport(e.target.files); e.target.value = ''; });
+      $('inputImportSkillsZip').addEventListener('change', (e) => { handleBatchZipImport(e.target.files); e.target.value = ''; });
+
+      $('btnResetDefaultSkills').addEventListener('click', () => {
+        skillsDb = clone(DEFAULT_SKILLS);
+        saveWsLocal();
+        renderMaintSkillsTable();
+        renderTeachingUnitSection();
+        renderAllWorkspace();
+        toast('↺ 已還原預設 20 組原創 Skill');
+      });
+
+      function openApi() {
+        $('apiKeyInput').value = apiConfig.key || '';
+        $('apiModelSelect').value = 'gemini-4-hydrogen';
+        openModal('apiModal');
+      }
+      $('openApiModalBtn').addEventListener('click', openApi);
+      $('mobileApiBtn').addEventListener('click', openApi);
+      $('saveApiBtn').addEventListener('click', () => {
+        apiConfig.key = $('apiKeyInput').value.trim();
+        apiConfig.model = 'gemini-4-hydrogen';
+        try { localStorage.setItem(STORAGE_API_KEY, JSON.stringify(apiConfig)); } catch (e) {}
+        syncChatbotApiKeyState();
+        closeModals();
+        toast(apiConfig.key ? '✓ 已儲存 API Key，工作台與右下角 AI 助理已啟用！' : '✓ 已更新 API 設定');
+      });
+
       $('skillSearchInput').addEventListener('input', renderAllWorkspace);
 
-      document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => {
-        const p = PRESETS[b.getAttribute('data-preset')];
-        if (!p) return;
-        wsState.brand = p.brand;
-        wsState.category = p.category;
-        wsState.product = p.product;
-        wsState.audience = p.audience;
-        wsState.brandNote = p.note;
-        if (b.getAttribute('data-preset') === 'achong') {
-          wsState.activeSkill = '06-D';
-          wsState.teachingUnit = '06';
-          renderTeachingUnitSection();
-        }
-        saveWsLocal();
-        renderAllWorkspace();
-        toast('✓ 已切換示範品牌：' + p.brand);
-      }));
+      document.querySelectorAll('[data-preset]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const p = PRESETS[btn.getAttribute('data-preset')];
+          if (!p) return;
+          wsState.brand = p.brand;
+          wsState.category = p.category;
+          wsState.product = p.product;
+          wsState.audience = p.audience;
+          wsState.brandNote = p.note;
+          saveWsLocal();
+          renderAllWorkspace();
+          toast('✨ 已載入示範品牌：' + p.brand);
+        });
+      });
 
       ['wsBrandName', 'wsCategory', 'wsProduct', 'wsAudience'].forEach(id => {
         $(id).addEventListener('input', () => {
-          wsState.brand = $('wsBrandName').value;
-          wsState.category = $('wsCategory').value;
-          wsState.product = $('wsProduct').value;
-          wsState.audience = $('wsAudience').value;
+          wsState.brand = $('wsBrandName').value.trim();
+          wsState.category = $('wsCategory').value.trim();
+          wsState.product = $('wsProduct').value.trim();
+          wsState.audience = $('wsAudience').value.trim();
           wsState.brandNote = '';
+          const curSkill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+          if (curSkill) $('wsPromptBox').value = compilePrompt(curSkill.prompt);
           saveWsLocal();
-          const cur = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
-          if (cur) $('wsPromptBox').value = compilePrompt(cur.prompt);
         });
       });
 
@@ -2501,99 +2657,685 @@
         saveWsLocal();
         renderAllWorkspace();
       });
+      $('wsOpenManualBtn').addEventListener('click', () => openSkillManual(wsState.activeSkill));
+      $('wsDownloadSkillZipBtn').addEventListener('click', () => downloadSingleSkillZip(wsState.activeSkill));
 
       $('wsUnitDoneCheck').addEventListener('change', (e) => {
-        const cur = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
-        if (cur) wsState.doneUnits[cur.unit] = e.target.checked;
+        const curSkill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+        if (!curSkill) return;
+        wsState.doneUnits[curSkill.unit] = e.target.checked;
         saveWsLocal();
         renderTeachingUnitSection();
         renderAllWorkspace();
       });
 
+      $('copyPromptBtn').addEventListener('click', () => copyText($('wsPromptBox').value, '✓ 已複製工作台實戰指令'));
+
       $('wsOutputBox').addEventListener('input', (e) => {
         wsState.outputs[wsState.activeSkill] = e.target.value;
-        $('saveHint').textContent = '✓ 已自動儲存 ' + new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
         checkCompliance(e.target.value);
         saveWsLocal();
       });
 
-      $('copyPromptBtn').addEventListener('click', () => copyText($('wsPromptBox').value, '✓ 已複製專屬實戰指令'));
-
-      /* ---------- Gemini AI 生成 ---------- */
-      function buildStructuredFallback(skill) {
-        return [
-          '【' + wsState.brand + '｜SKILL ' + skill.code + ' ' + skill.name + ' 實戰交付初稿】',
-          '▸ 業態通路：' + wsState.category,
-          '▸ 主打商品：' + wsState.product,
-          '▸ 目標客群：' + wsState.audience,
-          '▸ 核心交付標的：' + (skill.deliverables || skill.kpi),
-          '',
-          '一、策略定位與痛點破局',
-          '• 解決痛點：' + skill.pain,
-          '• 顧問重點：' + skill.consultant,
-          '',
-          '二、標準四階執行產出',
-          (skill.steps || []).map((st, idx) => (idx + 1) + '. 【' + st + '】：針對「' + wsState.brand + '」之「' + wsState.product + '」建立結構化執行規格與受眾溝通鉤子。').join('\n'),
-          '',
-          '三、食安法第 28 條合規雙審',
-          '✓ 全案聚焦真實食材工藝、物理材質與感官體驗，零醫療效能誇大字詞，可安全交付執行。',
-          '（提示：點選頂部「⚡ API」設定個人 Gemini API Key，即可啟動雲端模型深度產出完整客製表格！）'
-        ].join('\n');
-      }
-
       $('runAiBtn').addEventListener('click', async () => {
         const btn = $('runAiBtn');
-        const skill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+        const curSkill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+        const promptText = $('wsPromptBox').value.trim();
+        if (!curSkill) return;
+
         btn.disabled = true;
-        btn.textContent = '⏳ 正在依 ' + skill.slug + ' 規格推演…';
+        btn.textContent = '⏳ gemini-4-hydrogen 推演生成中…';
         try {
-          let aiReply = null;
-          if (apiConfig.key) {
-            const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(apiConfig.model) + ':generateContent?key=' + encodeURIComponent(apiConfig.key);
+          let outText = '';
+          if (apiConfig.key && apiConfig.key.trim()) {
+            const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(apiConfig.model || 'gemini-4-hydrogen') + ':generateContent?key=' + encodeURIComponent(apiConfig.key.trim());
             const resp = await fetch(url, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                systemInstruction: { parts: [{ text: '你是 TONY 楊文澤老師原創 Skill 系統的首席顧問。請使用臺灣繁體中文，嚴格產出該 Skill 指定的核心交付表格與設定檔，並遵守食安法第 28 條。' }] },
-                contents: [{ parts: [{ text: $('wsPromptBox').value }] }]
+                contents: [{ parts: [{ text: promptText }] }]
               })
             });
-            if (resp.ok) {
-              const data = await resp.json();
-              aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-            }
+            const data = await resp.json().catch(() => ({}));
+            if (!resp.ok) throw new Error(data?.error?.message || ('API 錯誤 ' + resp.status));
+            outText = data?.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('') || '';
+          } else {
+            outText = [
+              '【' + (wsState.brand || '品牌') + '｜SKILL ' + curSkill.code + ' ' + curSkill.name + ' 結構化交付初稿】',
+              '▸ 業態定位：' + wsState.category,
+              '▸ 主打商品：' + wsState.product,
+              '▸ 目標受眾：' + wsState.audience,
+              '',
+              '一、核心交付成果架構',
+              '• 交付標的：' + (curSkill.deliverables || '-'),
+              '• 顧問設計重點：' + (curSkill.consultant || '-'),
+              '',
+              '二、四階段標準執行步驟 (SOP)',
+              (curSkill.steps || []).map((st, i) => (i + 1) + '. ' + st).join('\n'),
+              '',
+              '三、《食安法第 28 條》合規檢核備註',
+              '✓ 本企劃初稿嚴守食材風味、產地溯源與消費場景描述，未涉及醫療效能或未查證數據。',
+              '（💡 提示：點擊右上角「⚡ gemini-4-hydrogen」填入 API Key，即可連線模型生成客製化完整表格與同時啟用右下角 TONY 老師 AI 助理！）'
+            ].join('\n');
           }
-          const finalOut = aiReply || buildStructuredFallback(skill);
-          $('wsOutputBox').value = finalOut;
-          wsState.outputs[skill.code] = finalOut;
-          wsState.doneUnits[skill.unit] = true;
+          wsState.outputs[curSkill.code] = outText;
+          wsState.doneUnits[curSkill.unit] = true;
+          $('wsOutputBox').value = outText;
+          $('wsUnitDoneCheck').checked = true;
+          checkCompliance(outText);
           saveWsLocal();
           renderTeachingUnitSection();
           renderAllWorkspace();
-          toast('✨ 已產出 ' + skill.code + ' 實戰交付內容！');
+          toast('⚡ 已完成 SKILL ' + curSkill.code + ' 實戰交付生成！');
         } catch (err) {
-          toast('⚠️ 模型連線異常，已載入顧問結構範本');
+          toast('⚠️ 生成提示：' + (err.message || '連線異常'));
         } finally {
           btn.disabled = false;
-          btn.textContent = '⚡ 啟動 AI 實戰交付生成';
+          btn.textContent = '⚡ 用 gemini-4-hydrogen 啟動實戰生成';
         }
       });
 
-      /* ---------- API、提案總覽 ZIP 與 JSON 備份 ---------- */
-      const openApi = () => {
-        $('apiKeyInput').value = apiConfig.key || '';
-        $('apiModelSelect').value = apiConfig.model || 'gemini-2.5-flash';
-        openModal('apiModal');
-      };
-      $('openApiModalBtn').addEventListener('click', openApi);
-      $('mobileApiBtn').addEventListener('click', openApi);
-      $('saveApiBtn').addEventListener('click', () => {
-        apiConfig.key = $('apiKeyInput').value.trim();
-        apiConfig.model = $('apiModelSelect').value;
-        try { localStorage.setItem(STORAGE_API_KEY, JSON.stringify(apiConfig)); } catch (e) {}
-        closeModals();
-        toast('✓ 已儲存 Gemini API 設定');
+      /* ---------- TONY 老師 AI 助理 Chatbot（左上角拖曳縮放 × 大中小字級 × 顧問級富文本排版） ---------- */
+      const STORAGE_CHAT_UI_KEY = 'tony_clean_chatbot_ui_v1';
+      const TONY_AVATAR_URL = 'https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027';
+      let chatUiPrefs = { fontSize: 'md', width: 430, height: 580 };
+      try {
+        const savedChatUi = JSON.parse(localStorage.getItem(STORAGE_CHAT_UI_KEY) || 'null');
+        if (savedChatUi) {
+          if (['sm', 'md', 'lg'].includes(savedChatUi.fontSize)) chatUiPrefs.fontSize = savedChatUi.fontSize;
+          if (Number(savedChatUi.width) >= 320) chatUiPrefs.width = Number(savedChatUi.width);
+          if (Number(savedChatUi.height) >= 380) chatUiPrefs.height = Number(savedChatUi.height);
+        }
+      } catch (e) {}
+
+      let chatHistory = [];
+      let isChatGenerating = false;
+
+      function saveChatUiPrefs() {
+        try { localStorage.setItem(STORAGE_CHAT_UI_KEY, JSON.stringify(chatUiPrefs)); } catch (e) {}
+      }
+
+      function nowTimeShort() {
+        return new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+      }
+
+      // 行內語法美化（先做 XSS 安全跳脫，再轉譯行內代碼、粗體螢光強調與中括號小標）
+      function formatChatInline(rawStr) {
+        const inlineCodes = [];
+        let safe = String(rawStr || '').replace(/`([^`\n]+)`/g, (_, codeTxt) => {
+          const idx = inlineCodes.length;
+          inlineCodes.push(
+            '<code class="px-1.5 py-0.5 mx-0.5 rounded-md bg-teal/10 border border-teal/25 font-mono text-[0.88em] font-bold text-teal-dark">' +
+            esc(codeTxt) +
+            '</code>'
+          );
+          return '@@INLINECODE_' + idx + '@@';
+        });
+
+        safe = esc(safe);
+        safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-extrabold text-ink bg-lime/45 px-1 rounded">$1</strong>');
+        safe = safe.replace(/【([^】]+)】/g, '<strong class="font-extrabold text-teal-dark">【$1】</strong>');
+        safe = safe.replace(/@@INLINECODE_(\d+)@@/g, (_, i) => inlineCodes[Number(i)] || '');
+        return safe;
+      }
+
+      // 顧問級 Markdown 區塊轉譯器（支援標題、編號步驟、圓點清單、比較表格、警示引言框與可複製代碼塊）
+      function renderChatRichHtml(rawText) {
+        const codeBlocks = [];
+        const fenceRegex = new RegExp(MD_FENCE + '([\\w-]*)\\n?([\\s\\S]*?)' + MD_FENCE, 'g');
+        const textWithoutFences = String(rawText || '').replace(/\r\n/g, '\n').replace(fenceRegex, (_, lang, codeBody) => {
+          const idx = codeBlocks.length;
+          const cleanCode = String(codeBody || '').trim();
+          const langLabel = (lang || 'PROMPT / 範本').toUpperCase();
+          codeBlocks.push(
+            '<div class="my-3 rounded-2xl overflow-hidden border border-ink bg-ink shadow-sm">' +
+              '<div class="px-3.5 py-1.5 bg-white/10 border-b border-white/10 flex items-center justify-between gap-2 text-[0.78em]">' +
+                '<span class="font-mono font-bold text-lime/90">' + esc(langLabel) + '</span>' +
+                '<button type="button" data-copy-snippet="' + encodeURIComponent(cleanCode) + '" class="px-2 py-0.5 rounded-md bg-lime text-ink hover:bg-lime-dark font-extrabold transition-colors">📋 複製此段</button>' +
+              '</div>' +
+              '<pre class="p-3.5 text-[0.86em] font-mono text-lime/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">' + esc(cleanCode) + '</pre>' +
+            '</div>'
+          );
+          return '\n@@CODEBLOCK_' + idx + '@@\n';
+        });
+
+        const lines = textWithoutFences.split('\n');
+        const htmlParts = [];
+        let i = 0;
+
+        while (i < lines.length) {
+          const line = lines[i];
+          const trimmed = line.trim();
+
+          if (!trimmed) {
+            i++;
+            continue;
+          }
+
+          // 1. 獨立代碼區塊佔位符
+          const cbMatch = trimmed.match(/^@@CODEBLOCK_(\d+)@@$/);
+          if (cbMatch) {
+            htmlParts.push(codeBlocks[Number(cbMatch[1])] || '');
+            i++;
+            continue;
+          }
+
+          // 2. 分隔線
+          if (/^[-*_]{3,}$/.test(trimmed)) {
+            htmlParts.push('<hr class="my-3 border-line/80">');
+            i++;
+            continue;
+          }
+
+          // 3. 標題 (# ~ ####)
+          const headingMatch = trimmed.match(/^(#{1,4})\s+(.+)$/);
+          if (headingMatch) {
+            const level = headingMatch[1].length;
+            const titleHtml = formatChatInline(headingMatch[2].trim());
+            if (level <= 2) {
+              htmlParts.push(
+                '<div class="mt-3.5 mb-2 flex items-center gap-2 pb-1.5 border-b border-line/80">' +
+                  '<span class="w-1.5 h-4 rounded-full bg-teal shrink-0"></span>' +
+                  '<h4 class="font-black text-ink text-[1.06em] leading-snug">' + titleHtml + '</h4>' +
+                '</div>'
+              );
+            } else {
+              htmlParts.push(
+                '<h5 class="mt-3 mb-1.5 font-extrabold text-teal-dark text-[0.98em] flex items-center gap-1.5">' +
+                  '<span class="text-teal">▸</span><span>' + titleHtml + '</span>' +
+                '</h5>'
+              );
+            }
+            i++;
+            continue;
+          }
+
+          // 4. Markdown 表格 (| ... |)
+          if (trimmed.startsWith('|') && trimmed.endsWith('|') && i + 1 < lines.length && /^\s*\|[\s\-:|]+\|\s*$/.test(lines[i + 1])) {
+            const headerCells = trimmed.slice(1, -1).split('|').map(c => formatChatInline(c.trim()));
+            i += 2; // 跳過表頭與分隔列
+            const bodyRows = [];
+            while (i < lines.length && lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) {
+              const cells = lines[i].trim().slice(1, -1).split('|').map(c => formatChatInline(c.trim()));
+              bodyRows.push(cells);
+              i++;
+            }
+            htmlParts.push(
+              '<div class="my-3 overflow-x-auto rounded-2xl border border-line bg-white shadow-sm">' +
+                '<table class="w-full text-left border-collapse text-[0.88em]">' +
+                  '<thead class="bg-paper border-b border-line text-teal-dark font-extrabold">' +
+                    '<tr>' + headerCells.map(hc => '<th class="px-3 py-2 whitespace-nowrap">' + hc + '</th>').join('') + '</tr>' +
+                  '</thead>' +
+                  '<tbody class="divide-y divide-line/70">' +
+                    bodyRows.map(r => '<tr class="hover:bg-paper/50">' + r.map(c => '<td class="px-3 py-2 align-top text-ink">' + c + '</td>').join('') + '</tr>').join('') +
+                  '</tbody>' +
+                '</table>' +
+              '</div>'
+            );
+            continue;
+          }
+
+          // 5. 引言與顧問提醒框 (> ...)
+          if (trimmed.startsWith('>')) {
+            const quoteLines = [];
+            while (i < lines.length && lines[i].trim().startsWith('>')) {
+              quoteLines.push(lines[i].trim().replace(/^>\s?/, ''));
+              i++;
+            }
+            const joinedQuote = quoteLines.join('<br>');
+            const isWarn = /食安|第\s*28\s*條|紅線|禁用|警告|⚠️|🚨/.test(joinedQuote);
+            htmlParts.push(
+              '<div class="my-2.5 p-3 rounded-2xl border-l-4 text-[0.94em] leading-relaxed ' +
+                (isWarn ? 'bg-amber-50 border-amber-500 text-amber-950' : 'bg-teal-light/65 border-teal text-ink') + '">' +
+                formatChatInline(quoteLines[0]) +
+                (quoteLines.length > 1 ? '<div class="mt-1 space-y-1">' + quoteLines.slice(1).map(q => '<div>' + formatChatInline(q) + '</div>').join('') + '</div>' : '') +
+              '</div>'
+            );
+            continue;
+          }
+
+          // 6. 無序條列清單 (- / * / •)
+          if (/^[-*•]\s+/.test(trimmed)) {
+            const ulItems = [];
+            while (i < lines.length && /^[-*•]\s+/.test(lines[i].trim())) {
+              ulItems.push(lines[i].trim().replace(/^[-*•]\s+/, ''));
+              i++;
+            }
+            htmlParts.push(
+              '<ul class="my-2 space-y-1.5">' +
+                ulItems.map(item =>
+                  '<li class="flex items-start gap-2.5">' +
+                    '<span class="w-1.5 h-1.5 rounded-full bg-teal shrink-0 mt-[0.6em]"></span>' +
+                    '<div class="flex-1 min-w-0 leading-relaxed text-ink/95">' + formatChatInline(item) + '</div>' +
+                  '</li>'
+                ).join('') +
+              '</ul>'
+            );
+            continue;
+          }
+
+          // 7. 有序步驟清單 (1. / 2. / 1、)
+          if (/^\d+[.)、]\s+/.test(trimmed)) {
+            const olItems = [];
+            while (i < lines.length && /^\d+[.)、]\s+/.test(lines[i].trim())) {
+              const m = lines[i].trim().match(/^(\d+)[.)、]\s+(.+)$/);
+              if (m) olItems.push({ num: m[1], body: m[2] });
+              i++;
+            }
+            htmlParts.push(
+              '<ol class="my-2.5 space-y-2">' +
+                olItems.map(item =>
+                  '<li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-paper/75 border border-line/70">' +
+                    '<span class="w-5 h-5 rounded-full bg-teal text-white text-[0.76em] font-black flex items-center justify-center shrink-0 mt-0.5">' + esc(item.num) + '</span>' +
+                    '<div class="flex-1 min-w-0 leading-relaxed text-ink">' + formatChatInline(item.body) + '</div>' +
+                  '</li>'
+                ).join('') +
+              '</ol>'
+            );
+            continue;
+          }
+
+          // 8. 一般段落（合併連續純文字行，保持舒適段落間距）
+          const paraLines = [];
+          while (
+            i < lines.length &&
+            lines[i].trim() &&
+            !/^@@CODEBLOCK_\d+@@$/.test(lines[i].trim()) &&
+            !/^[-*_]{3,}$/.test(lines[i].trim()) &&
+            !/^#{1,4}\s+/.test(lines[i].trim()) &&
+            !/^>\s?/.test(lines[i].trim()) &&
+            !/^[-*•]\s+/.test(lines[i].trim()) &&
+            !/^\d+[.)、]\s+/.test(lines[i].trim()) &&
+            !(lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|'))
+          ) {
+            paraLines.push(formatChatInline(lines[i].trim()));
+            i++;
+          }
+          if (paraLines.length) {
+            htmlParts.push('<p class="my-2 leading-relaxed text-ink/95">' + paraLines.join('<br>') + '</p>');
+          }
+        }
+
+        return htmlParts.join('');
+      }
+
+      function applyChatbotSize() {
+        const panel = $('tonyChatbotPanel');
+        if (!panel) return;
+        const maxW = Math.max(320, window.innerWidth - 28);
+        const maxH = Math.max(380, window.innerHeight - 104);
+        const w = Math.min(Math.max(320, chatUiPrefs.width), maxW);
+        const h = Math.min(Math.max(380, chatUiPrefs.height), maxH);
+        panel.style.width = w + 'px';
+        panel.style.height = h + 'px';
+      }
+
+      function applyChatbotFontSize(sizeKey) {
+        if (!['sm', 'md', 'lg'].includes(sizeKey)) sizeKey = 'md';
+        chatUiPrefs.fontSize = sizeKey;
+        saveChatUiPrefs();
+
+        const msgBox = $('tonyChatMessages');
+        const inpBox = $('tonyChatInput');
+        ['chat-font-sm', 'chat-font-md', 'chat-font-lg'].forEach(cls => {
+          if (msgBox) msgBox.classList.remove(cls);
+          if (inpBox) inpBox.classList.remove(cls);
+        });
+        if (msgBox) msgBox.classList.add('chat-font-' + sizeKey);
+        if (inpBox) inpBox.classList.add('chat-font-' + sizeKey);
+
+        document.querySelectorAll('[data-chat-font]').forEach(btn => {
+          const active = btn.getAttribute('data-chat-font') === sizeKey;
+          btn.className = 'px-2 py-1 rounded-lg text-[11px] font-extrabold transition-all ' +
+            (active ? 'bg-lime text-ink shadow-sm' : 'text-white/80 hover:text-white');
+        });
+      }
+
+      function syncChatbotApiKeyState() {
+        const hasKey = Boolean(apiConfig.key && apiConfig.key.trim());
+        const banner = $('tonyChatNoKeyBanner');
+        const keyDot = $('tonyChatKeyDot');
+        const launcherDot = $('tonyLauncherDot');
+        const launcherSub = $('tonyLauncherSub');
+        const statusSub = $('tonyChatStatusSub');
+        const input = $('tonyChatInput');
+        const sendBtn = $('tonyChatSendBtn');
+
+        if (banner) banner.classList.toggle('hidden', hasKey);
+        if (keyDot) {
+          keyDot.className = 'w-2 h-2 rounded-full shrink-0 ' + (hasKey ? 'bg-lime' : 'bg-amber-400');
+          keyDot.title = hasKey ? 'API Key 已就緒' : '尚未設定 API Key';
+        }
+        if (launcherDot) {
+          launcherDot.className = 'w-2.5 h-2.5 rounded-full border border-ink absolute -bottom-0.5 -right-0.5 ' + (hasKey ? 'bg-lime' : 'bg-amber-400');
+        }
+        if (launcherSub) {
+          launcherSub.textContent = hasKey ? 'API 已就緒 · 點擊諮詢' : '需設定 API Key 啟用';
+        }
+        if (statusSub) {
+          statusSub.textContent = hasKey ? '⚡ gemini-4-hydrogen · ↖ 左上角可調大小' : '🔒 請先設定 API Key · ↖ 左上角可調大小';
+        }
+        if (input) {
+          input.disabled = !hasKey || isChatGenerating;
+          input.placeholder = hasKey
+            ? '向 TONY 老師 AI 助理提問（Enter 送出，Shift+Enter 換行）…'
+            : '請先點擊上方「輸入 API Key」啟用對話功能…';
+        }
+        if (sendBtn) {
+          sendBtn.disabled = !hasKey || isChatGenerating;
+          sendBtn.classList.toggle('opacity-50', !hasKey || isChatGenerating);
+        }
+      }
+
+      function appendChatBubble(role, text, options) {
+        const opts = options || {};
+        const box = $('tonyChatMessages');
+        if (!box) return null;
+        const isUser = role === 'user';
+        const timeStr = nowTimeShort();
+
+        const row = document.createElement('div');
+        row.className = isUser ? 'flex flex-col items-end' : 'flex items-start gap-2.5';
+
+        if (isUser) {
+          const bubble = document.createElement('div');
+          bubble.className = 'max-w-[84%] rounded-2xl rounded-tr-sm px-4 py-2.5 bg-gradient-to-br from-teal to-teal-dark text-white shadow-sm whitespace-pre-wrap break-words leading-relaxed font-medium';
+          bubble.textContent = text;
+
+          const meta = document.createElement('span');
+          meta.className = 'mt-1 pr-1 text-[10px] font-semibold text-muted/80';
+          meta.textContent = '您 · ' + timeStr;
+
+          row.appendChild(bubble);
+          row.appendChild(meta);
+        } else {
+          const avatar = document.createElement('img');
+          avatar.src = TONY_AVATAR_URL;
+          avatar.alt = 'TONY';
+          avatar.className = 'w-8 h-8 rounded-xl object-cover border border-teal/40 shadow-sm shrink-0 mt-0.5 bg-ink';
+          avatar.onerror = function () { this.onerror = null; this.src = 'https://placehold.co/64x64/185b51/dcf394?text=T'; };
+
+          const cardWrap = document.createElement('div');
+          cardWrap.className = 'flex-1 min-w-0 max-w-[90%]';
+
+          const card = document.createElement('div');
+          card.className = 'rounded-2xl rounded-tl-sm bg-white border border-line/90 shadow-sm overflow-hidden';
+
+          if (opts.isThinking) {
+            card.innerHTML =
+              '<div class="px-4 py-3 flex items-center gap-3">' +
+                '<div class="flex items-center gap-1">' +
+                  '<span class="w-2 h-2 rounded-full bg-teal chat-dot-1"></span>' +
+                  '<span class="w-2 h-2 rounded-full bg-teal chat-dot-2"></span>' +
+                  '<span class="w-2 h-2 rounded-full bg-teal chat-dot-3"></span>' +
+                '</div>' +
+                '<span class="text-[0.9em] font-bold text-muted">TONY 老師正在梳理品牌策略與合規建議…</span>' +
+              '</div>';
+          } else {
+            const header = document.createElement('div');
+            header.className = 'px-3.5 py-2 bg-paper/85 border-b border-line/70 flex items-center justify-between gap-2 text-[11px]';
+            header.innerHTML =
+              '<div class="flex items-center gap-1.5 min-w-0">' +
+                '<span class="px-1.5 py-0.5 rounded bg-ink text-lime font-black text-[10px] shrink-0">顧問回覆</span>' +
+                '<strong class="text-ink font-extrabold truncate">TONY 老師 AI 助理</strong>' +
+                '<span class="text-muted/75 font-mono text-[10px] shrink-0">' + timeStr + '</span>' +
+              '</div>';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.type = 'button';
+            copyBtn.className = 'px-2 py-0.5 rounded-md bg-white hover:bg-lime/50 border border-line text-[10px] text-ink font-extrabold shrink-0 transition-colors';
+            copyBtn.textContent = '複製全文';
+            copyBtn.onclick = () => copyText(text, '✓ 已複製顧問回覆全文');
+            header.appendChild(copyBtn);
+
+            const body = document.createElement('div');
+            body.className = 'chat-rich-body px-4 py-3.5 text-ink break-words';
+            body.innerHTML = renderChatRichHtml(text);
+
+            body.querySelectorAll('[data-copy-snippet]').forEach(btn => {
+              btn.addEventListener('click', () => {
+                copyText(decodeURIComponent(btn.getAttribute('data-copy-snippet') || ''), '✓ 已複製指令段落');
+              });
+            });
+
+            card.appendChild(header);
+            card.appendChild(body);
+          }
+
+          cardWrap.appendChild(card);
+          row.appendChild(avatar);
+          row.appendChild(cardWrap);
+        }
+
+        box.appendChild(row);
+        box.scrollTop = box.scrollHeight;
+        return row;
+      }
+
+      function resetChatbotWelcome() {
+        chatHistory = [];
+        const box = $('tonyChatMessages');
+        if (!box) return;
+        box.innerHTML = '';
+
+        const curSkill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+        const welcomeRow = document.createElement('div');
+        welcomeRow.className = 'flex items-start gap-2.5';
+        welcomeRow.innerHTML =
+          '<img src="' + TONY_AVATAR_URL + '" alt="TONY" class="w-8 h-8 rounded-xl object-cover border border-teal/40 shadow-sm shrink-0 mt-0.5 bg-ink" onerror="this.onerror=null;this.src=\'https://placehold.co/64x64/185b51/dcf394?text=T\';">' +
+          '<div class="flex-1 min-w-0 max-w-[92%] rounded-2xl rounded-tl-sm bg-white border border-line shadow-sm overflow-hidden">' +
+            '<div class="px-4 py-2.5 bg-ink text-white flex items-center justify-between gap-2">' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="px-2 py-0.5 rounded-md bg-lime text-ink text-[10px] font-black">READY</span>' +
+                '<strong class="text-xs font-black">TONY 老師 AI 實戰顧問連線中</strong>' +
+              '</div>' +
+              '<span class="text-[10px] text-lime/90 font-mono">' + nowTimeShort() + '</span>' +
+            '</div>' +
+            '<div class="p-4 space-y-3">' +
+              '<p class="leading-relaxed text-ink">嗨！我是 <strong>TONY 楊文澤老師</strong> 的 AI 品牌顧問助理 👋 已即時連動您的工作台品牌資料，隨時協助您推進全媒體企劃：</p>' +
+              '<div class="p-3 rounded-xl bg-paper border border-line space-y-1 text-[0.88em]">' +
+                '<div class="flex items-center justify-between gap-2"><span class="text-muted font-bold">目前連動品牌</span><strong class="text-teal font-extrabold truncate">' + esc(wsState.brand || '未命名品牌') + '</strong></div>' +
+                '<div class="flex items-center justify-between gap-2"><span class="text-muted font-bold">當前實作模組</span><code class="text-ink font-mono font-bold">SKILL ' + esc(curSkill ? curSkill.code : '01-A') + '</code></div>' +
+              '</div>' +
+              '<div class="space-y-1.5 pt-0.5">' +
+                '<span class="text-[0.82em] font-extrabold text-muted block">👇 點擊下方主題可直接開始諮詢：</span>' +
+                '<button type="button" data-welcome-ask="請針對我目前的品牌與主打商品，規劃一組「引流款 × 主打 Hero 款 × 湊單加購款」黃金三角組合建議。" class="w-full text-left px-3 py-2 rounded-xl bg-teal-light/55 hover:bg-lime/55 border border-teal/20 text-ink font-bold text-[0.9em] transition-colors flex items-center justify-between gap-2"><span>🍱 幫我的主打商品設計「黃金三角組品」</span><span class="text-teal font-black">→</span></button>' +
+                '<button type="button" data-welcome-ask="請幫我為目前的品牌設計 3 個適合拍成 30 秒 IG Reels 探店短影音的「前 3 秒雙軌黃金 Hook（畫面動作＋18字首句）」。" class="w-full text-left px-3 py-2 rounded-xl bg-teal-light/55 hover:bg-lime/55 border border-teal/20 text-ink font-bold text-[0.9em] transition-colors flex items-center justify-between gap-2"><span>🎬 產出 3 組短影音「前 3 秒黃金鉤子」</span><span class="text-teal font-black">→</span></button>' +
+                '<button type="button" data-welcome-ask="請問這套學院的 6 大單元與 20 組單顆 Skill 應該如何排定我們門市的學習與導入先後順序？" class="w-full text-left px-3 py-2 rounded-xl bg-teal-light/55 hover:bg-lime/55 border border-teal/20 text-ink font-bold text-[0.9em] transition-colors flex items-center justify-between gap-2"><span>🗺️ 規劃我們門市的 Skill 導入路線圖</span><span class="text-teal font-black">→</span></button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+
+        welcomeRow.querySelectorAll('[data-welcome-ask]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            sendTonyChatMessage(btn.getAttribute('data-welcome-ask'));
+          });
+        });
+
+        box.appendChild(welcomeRow);
+      }
+
+      function buildTonyAssistantSystemPrompt() {
+        const curSkill = skillsDb.find(s => s.code === wsState.activeSkill) || skillsDb[0];
+        const skillCatalog = skillsDb.map(s => s.code + ' ' + s.name + ' (' + s.slug + ')').join('；');
+        return [
+          '你是「TONY 楊文澤老師 AI 品牌全媒體顧問助理」，代表 TONY STUDIO 協助餐飲連鎖與門市零售學員進行實戰輔導。',
+          '核心理念：Human Insight, AI Amplified.（保留人的商業判斷，用 AI 放大全媒體執行力）。',
+          '請一律使用臺灣繁體中文回覆，語氣溫暖、專業、俐落好讀。',
+          '【回覆排版美學規範（務必遵守，讓版面極度清晰易讀）】',
+          '1. 開頭先用 1～2 句話給出「核心破題結論」，不要冗長客套寒暄。',
+          '2. 善用 `### 小標題` 分段，執行步驟請用 `1. 2. 3.` 編號清單，細節用 `- ` 條列，關鍵詞用 `**粗體**` 標示，每個段落保持精煉不超過 3 行。',
+          '3. 若提供可直接複製的文案範本或提示詞，請放入三反引號代碼區塊內方便學員一鍵複製。',
+          '4. 結尾請用 `> 💡 顧問下一步行動建議：...`（若涉及食品宣傳，請加上 `> 🛡️ 食安法第 28 條提醒：...`）收尾。',
+          '【學員目前工作台即時狀態】',
+          '- 品牌名稱：' + (wsState.brand || '未命名'),
+          '- 業態定位：' + (wsState.category || '餐飲零售'),
+          '- 主打商品：' + (wsState.product || '未設定'),
+          '- 目標客群：' + (wsState.audience || '未設定'),
+          '- 當前選中模組：SKILL ' + (curSkill ? curSkill.code + '｜' + curSkill.name : ''),
+          '【學院六大單元與 20 組 Skill 清單】' + skillCatalog,
+          '【關鍵教學規則】',
+          '- 所有單顆 Skill 支援兩種用法：安裝進系統透過 `/` 或 `@` 呼叫並供 Agent 調用，或直接上傳 `SKILL.md` 使用；統一啟動引導口令皆為輸入 `開始`。',
+          '- 涉及食品與餐飲文案時，嚴禁宣稱醫療效能、治癒、減肥燃脂或未查證之網傳數據。'
+        ].join('\n');
+      }
+
+      async function sendTonyChatMessage(rawText) {
+        const userText = String(rawText || '').trim();
+        if (!userText || isChatGenerating) return;
+
+        if (!apiConfig.key || !apiConfig.key.trim()) {
+          toast('🔑 請先設定您的 Gemini API Key 後即可使用 AI 助理');
+          openApi();
+          return;
+        }
+
+        appendChatBubble('user', userText);
+        chatHistory.push({ role: 'user', parts: [{ text: userText }] });
+        $('tonyChatInput').value = '';
+
+        isChatGenerating = true;
+        syncChatbotApiKeyState();
+        const loadingEl = appendChatBubble('model', '', { isThinking: true });
+
+        try {
+          const targetModel = apiConfig.model || 'gemini-4-hydrogen';
+          const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(targetModel) + ':generateContent?key=' + encodeURIComponent(apiConfig.key.trim());
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              systemInstruction: { parts: [{ text: buildTonyAssistantSystemPrompt() }] },
+              contents: chatHistory.slice(-12)
+            })
+          });
+          const data = await resp.json().catch(() => ({}));
+          if (!resp.ok) {
+            throw new Error(data?.error?.message || ('API 請求失敗 (' + resp.status + ')'));
+          }
+          const reply = data?.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('') || '抱歉，目前未取得有效文字回應，請再試一次。';
+          if (loadingEl && loadingEl.parentNode) loadingEl.parentNode.removeChild(loadingEl);
+          appendChatBubble('model', reply);
+          chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+        } catch (err) {
+          if (loadingEl && loadingEl.parentNode) loadingEl.parentNode.removeChild(loadingEl);
+          chatHistory.pop();
+          appendChatBubble('model', '### ⚠️ 連線發生異常\n- **錯誤原因**：' + (err.message || '無法連線至模型伺服器') + '\n> 💡 檢查建議：請點選頂部 `⚡ gemini-4-hydrogen` 確認您的 API Key 是否正確有效。');
+        } finally {
+          isChatGenerating = false;
+          syncChatbotApiKeyState();
+          if ($('tonyChatInput') && !$('tonyChatInput').disabled) $('tonyChatInput').focus();
+        }
+      }
+
+      // 綁定左上角拖曳縮放事件 (Pointer Events 支援桌機滑鼠與平板觸控)
+      (function bindTopLeftResize() {
+        const handle = $('tonyChatResizeHandle');
+        const panel = $('tonyChatbotPanel');
+        if (!handle || !panel) return;
+
+        let dragging = false;
+        let startX = 0;
+        let startY = 0;
+        let startW = 400;
+        let startH = 540;
+
+        handle.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          dragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          const rect = panel.getBoundingClientRect();
+          startW = rect.width;
+          startH = rect.height;
+          if (handle.setPointerCapture) handle.setPointerCapture(e.pointerId);
+          document.body.style.userSelect = 'none';
+        });
+
+        handle.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          // 控制點在左上方、視窗固定於右下角：往左移 (clientX 變小) 寬度增加；往上移 (clientY 變小) 高度增加
+          const deltaX = startX - e.clientX;
+          const deltaY = startY - e.clientY;
+          const maxW = Math.max(320, window.innerWidth - 28);
+          const maxH = Math.max(380, window.innerHeight - 104);
+          chatUiPrefs.width = Math.round(Math.min(Math.max(320, startW + deltaX), maxW));
+          chatUiPrefs.height = Math.round(Math.min(Math.max(380, startH + deltaY), maxH));
+          panel.style.width = chatUiPrefs.width + 'px';
+          panel.style.height = chatUiPrefs.height + 'px';
+        });
+
+        const endDrag = (e) => {
+          if (!dragging) return;
+          dragging = false;
+          document.body.style.userSelect = '';
+          if (e && handle.releasePointerCapture) {
+            try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+          }
+          saveChatUiPrefs();
+        };
+
+        handle.addEventListener('pointerup', endDrag);
+        handle.addEventListener('pointercancel', endDrag);
+        window.addEventListener('resize', applyChatbotSize);
+      })();
+
+      // 綁定 Chatbot 開關、字級切換與發送事件
+      $('tonyChatbotToggleBtn').addEventListener('click', () => {
+        const panel = $('tonyChatbotPanel');
+        const isHidden = panel.classList.contains('hidden');
+        panel.classList.toggle('hidden', !isHidden);
+        if (isHidden) {
+          applyChatbotSize();
+          applyChatbotFontSize(chatUiPrefs.fontSize);
+          syncChatbotApiKeyState();
+          if (!chatHistory.length && !$('tonyChatMessages').children.length) {
+            resetChatbotWelcome();
+          }
+          if (apiConfig.key && $('tonyChatInput')) $('tonyChatInput').focus();
+        }
       });
+
+      $('tonyChatMinimizeBtn').addEventListener('click', () => {
+        $('tonyChatbotPanel').classList.add('hidden');
+      });
+
+      $('tonyChatSetKeyBtn').addEventListener('click', openApi);
+
+      $('tonyChatClearBtn').addEventListener('click', () => {
+        resetChatbotWelcome();
+        toast('🗑️ 已重置對話紀錄');
+      });
+
+      document.querySelectorAll('[data-chat-font]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyChatbotFontSize(btn.getAttribute('data-chat-font'));
+        });
+      });
+
+      document.querySelectorAll('[data-quick-ask]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sendTonyChatMessage(btn.getAttribute('data-quick-ask'));
+        });
+      });
+
+      $('tonyChatForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendTonyChatMessage($('tonyChatInput').value);
+      });
+
+      $('tonyChatInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+          e.preventDefault();
+          sendTonyChatMessage($('tonyChatInput').value);
+        }
+      });
+
+      // 初始化 Chatbot 狀態
+      applyChatbotSize();
+      applyChatbotFontSize(chatUiPrefs.fontSize);
+      resetChatbotWelcome();
+      syncChatbotApiKeyState();
 
       function buildFullProposalText() {
         const lines = [
